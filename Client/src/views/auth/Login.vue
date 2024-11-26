@@ -1,8 +1,7 @@
 <script setup>
-const ref = {
-  email: '',
-password: ''
-}
+import useAuth from "@/composerbles/useAuth.js";
+
+const {user,login }= useAuth()
 </script>
 
 <template>
@@ -12,24 +11,22 @@ password: ''
         <h3>Healthcare Login</h3>
       </div>
       <div class="card-body">
-        <form @submit.prevent="handleSubmit">
+        <form @submit.prevent="login">
           <div class="form-group mb-3">
-            <label for="email" class="form-label">Email Address</label>
             <input
-              type="email"
+              type="text"
               id="email"
-              v-model="email"
+              v-model="user.identifier"
               class="form-control"
-              placeholder="Enter your email"
+              placeholder="Enter your email or Phone Number"
               required
             />
           </div>
           <div class="form-group mb-3">
-            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               id="password"
-              v-model="password"
+              v-model="user.password"
               class="form-control"
               placeholder="Enter your password"
               required
