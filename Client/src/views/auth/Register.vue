@@ -1,7 +1,14 @@
+<script setup>
+import useAuth from "@/composerbles/useAuth.js";
+
+const {input, register} = useAuth()
+
+</script>
+
 <template>
   <div class="container mt-5">
     <h2 class="text-center text-primary">Register</h2>
-    <form @submit.prevent="registerUser" class="p-4 shadow rounded" style="background-color: #f8f9fa;">
+    <form @submit.prevent="register" class="p-4 shadow rounded" style="background-color: #f8f9fa;">
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="firstName" class="form-label text-primary">First Name</label>
@@ -9,7 +16,7 @@
             type="text"
             id="firstName"
             class="form-control border-primary"
-            v-model="form.firstName"
+            v-model="input.first_name"
             required
           />
         </div>
@@ -19,7 +26,7 @@
             type="text"
             id="lastName"
             class="form-control border-primary"
-            v-model="form.lastName"
+            v-model="input.last_name"
             required
           />
         </div>
@@ -31,8 +38,20 @@
             type="password"
             id="password"
             class="form-control border-primary"
-            v-model="form.password"
+            v-model="input.password"
             required
+          />
+        </div>
+
+
+        <div class="col-md-6">
+          <label for="email" class="form-label text-primary">Email</label>
+          <input
+              type="email"
+              id="password"
+              class="form-control border-primary"
+              v-model="input.email"
+              required
           />
         </div>
         <div class="col-md-6">
@@ -41,7 +60,7 @@
             type="date"
             id="dob"
             class="form-control border-primary"
-            v-model="form.dob"
+            v-model="input.birthday"
             required
           />
         </div>
@@ -53,24 +72,24 @@
             type="tel"
             id="phone"
             class="form-control border-primary"
-            v-model="form.phone"
+            v-model="input.phone"
             required
           />
         </div>
-        <div class="col-md-6">
-          <label for="usertype" class="form-label text-primary">User Type</label>
-          <select
-            id="usertype"
-            class="form-select border-primary"
-            v-model="form.userType"
-            required
-          >
-            <option value="">Select User Type</option>
-            <option value="Admin">Admin</option>
-            <option value="User">User</option>
-            <option value="Guest">Guest</option>
-          </select>
-        </div>
+<!--        <div class="col-md-6">-->
+<!--          <label for="inputtype" class="form-label text-primary">input Type</label>-->
+<!--          <select-->
+<!--            id="inputtype"-->
+<!--            class="form-select border-primary"-->
+<!--            v-model="input.inputType"-->
+<!--            required-->
+<!--          >-->
+<!--            <option value="">Select input Type</option>-->
+<!--            <option value="Admin">Admin</option>-->
+<!--            <option value="input">input</option>-->
+<!--            <option value="Guest">Guest</option>-->
+<!--          </select>-->
+<!--        </div>-->
       </div>
       <div class="row mb-3">
         <div class="col-md-6">
@@ -78,7 +97,7 @@
           <select
             id="gender"
             class="form-select border-primary"
-            v-model="form.gender"
+            v-model="input.gender"
             required
           >
             <option value="">Select Gender</option>
@@ -93,8 +112,19 @@
             type="text"
             id="country"
             class="form-control border-primary"
-            v-model="form.country"
+            v-model="input.country"
             required
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="country" class="form-label text-primary">City</label>
+          <input
+              type="text"
+              id="city"
+              class="form-control border-primary"
+              v-model="input.city"
+              required
           />
         </div>
       </div>
@@ -103,55 +133,20 @@
         <textarea
           id="address"
           class="form-control border-primary"
-          v-model="form.address"
+          v-model="input.address"
           rows="3"
           required
         ></textarea>
       </div>
       <button type="submit" class="btn btn-primary w-100">Register</button>
+      <RouterLink to="login" class="ml-5">Login</RouterLink>
+
     </form>
+
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        firstName: "",
-        lastName: "",
-        password: "",
-        dob: "",
-        phone: "",
-        userType: "",
-        country: "",
-        address: "",
-        gender: "",
-      },
-    };
-  },
-  methods: {
-    registerUser() {
-      console.log("User registered with data:", this.form);
-      alert("Registration successful!");
-      this.resetForm();
-    },
-    resetForm() {
-      this.form = {
-        firstName: "",
-        lastName: "",
-        password: "",
-        dob: "",
-        phone: "",
-        userType: "",
-        country: "",
-        address: "",
-        gender: "",
-      };
-    },
-  },
-};
-</script>
+
 
 <style scoped>
 .container {
