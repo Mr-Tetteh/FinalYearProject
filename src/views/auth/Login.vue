@@ -1,5 +1,8 @@
 <script setup>
-
+const ref = {
+  email: '',
+password: ''
+}
 </script>
 
 <template>
