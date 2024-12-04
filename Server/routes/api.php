@@ -10,5 +10,4 @@ Route::post('login', [User::class, 'login']);
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('logout', [User::class, 'logout']);
     Route::get('user', [User::class, 'user']);
-    Route::post('Chart', [User::class, 'store']);
 });
