@@ -1,153 +1,108 @@
-
-Here's an updated version of your register page styled with Bootstrap, including an abstract animated background to make it visually appealing and aligned with the theme of a health app.
-
-Updated Template
-vue
-Copy code
 <template>
-  <div class="container-fluid position-relative vh-100">
-    <!-- Abstract moving background -->
-    <div class="abstract-bg position-absolute w-100 h-100"></div>
-
-    <!-- Form container -->
-    <div class="d-flex justify-content-center align-items-center h-100">
-      <div class="card shadow-lg p-4" style="width: 100%; max-width: 600px; background-color: #ffffffeb;">
-        <div class="card-header text-center bg-primary text-white rounded">
-          <h3>Health App Registration</h3>
+  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background-color: #eef2f6;">
+    <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
+      <!-- Left Section -->
+      <div class="col-md-5 py-5 px-4 text-white" style="background-color: #6c63ff;">
+        <div class="text-center">
+          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-3" />
+          <h4>CareOnTheGo</h4>
+          <p class="mt-3">
+            Stay Healthy, Stay On Track
+          </p>
         </div>
-        <form @submit.prevent="registerUser" class="mt-4">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="firstName" class="form-label text-primary">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                class="form-control border-primary"
-                v-model="form.firstName"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="lastName" class="form-label text-primary">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                class="form-control border-primary"
-                v-model="form.lastName"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="password" class="form-label text-primary">Password</label>
-              <input
-                type="password"
-                id="password"
-                class="form-control border-primary"
-                v-model="form.password"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="dob" class="form-label text-primary">Date of Birth</label>
-              <input
-                type="date"
-                id="dob"
-                class="form-control border-primary"
-                v-model="form.dob"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="phone" class="form-label text-primary">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                class="form-control border-primary"
-                v-model="form.phone"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="usertype" class="form-label text-primary">User Type</label>
-              <select
-                id="usertype"
-                class="form-select border-primary"
-                v-model="form.userType"
-                required
-              >
-                <option value="">Select User Type</option>
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-                <option value="Guest">Guest</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="gender" class="form-label text-primary">Gender</label>
-              <select
-                id="gender"
-                class="form-select border-primary"
-                v-model="form.gender"
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="country" class="form-label text-primary">Country</label>
-              <input
-                type="text"
-                id="country"
-                class="form-control border-primary"
-                v-model="form.country"
-                required
-              />
-            </div>
-          </div>
-          <div class="mb-3 mt-3">
-            <label for="address" class="form-label text-primary">Address</label>
-            <textarea
-              id="address"
-              class="form-control border-primary"
-              v-model="form.address"
-              rows="3"
+      </div>
+
+      <!-- Right Section -->
+      <div class="col-md-7 py-5 px-4">
+        <h3 class="mb-4 text-center">Create Account</h3>
+        <div class="d-flex justify-content-center gap-3 mb-3">
+          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
+            <i class="bi bi-google me-2"></i> Sign up with Google
+          </button>
+          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
+            <i class="bi bi-facebook me-2"></i> Sign up with Facebook
+          </button>
+        </div>
+        <div class="text-center my-3">- OR -</div>
+        <form @submit.prevent="registerUser">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              class="form-control"
+              v-model="form.firstName"
               required
-            ></textarea>
+            />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Register</button>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              v-model="form.email"
+              required
+            />
+          </div>
+          <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password</label>
+            <input
+              :type="passwordVisible ? 'text' : 'password'"
+              id="password"
+              class="form-control"
+              v-model="form.password"
+              required
+            />
+            <button
+              type="button"
+              class="btn position-absolute end-0 top-0"
+              @click="togglePasswordVisibility"
+              style="background: transparent; border: none;"
+            >
+              <i :class="passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
+        <div class="text-center mt-3">
+          <p>
+            Already have an account?  <router-link to="/login" class="login-link">Login here</router-link>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+import { RouterLink } from "vue-router";
+
 export default {
-  data() {
-    return {
-      form: {
-        firstName: "",
-        lastName: "",
-        password: "",
-        dob: "",
-        phone: "",
-        userType: "",
-        country: "",
-        address: "",
-        gender: "",
-      },
-    };
-  },
-  methods: {
-    registerUser() {
-      console.log("User registered with data:", this.form);
+  setup() {
+    const form = ref({
+      firstName: "",
+      lastName: "",
+      password: "",
+      dob: "",
+      phone: "",
+      userType: "",
+      country: "",
+      address: "",
+      gender: "",
+    });
+
+    const passwordVisible = ref(false);
+
+    const registerUser = () => {
+      console.log("User registered with data:", form.value);
       alert("Registration successful!");
-      this.resetForm();
-    },
-    resetForm() {
-      this.form = {
+      resetForm();
+    };
+
+    const resetForm = () => {
+      form.value = {
         firstName: "",
         lastName: "",
         password: "",
@@ -158,31 +113,34 @@ export default {
         address: "",
         gender: "",
       };
-    },
+    };
+
+    const togglePasswordVisibility = () => {
+      passwordVisible.value = !passwordVisible.value;
+    };
+
+    return {
+      form,
+      passwordVisible,
+      registerUser,
+      resetForm,
+      togglePasswordVisibility,
+    };
   },
 };
 </script>
 
 <style scoped>
-.container {
-  max-width: 600px;
+.container-fluid {
+  font-family: "Arial", sans-serif;
 }
-
-.text-primary {
-  color: #007bff;
+img {
+  max-width: 100px;
 }
-
-.border-primary {
-  border-color: #007bff !important;
+button.btn-outline-primary {
+  border: 1px solid #007bff;
 }
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
+button.btn-outline-primary i {
+  font-size: 1.2rem;
 }
 </style>
