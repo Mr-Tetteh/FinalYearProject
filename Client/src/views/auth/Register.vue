@@ -139,10 +139,7 @@ const {input, register} = useAuth()
         ></textarea>
       </div>
       <button type="submit" class="btn btn-primary w-100">Register</button>
-      <RouterLink to="login" class="ml-5">Login</RouterLink>
-
     </form>
-
   </div>
 </template>
 
