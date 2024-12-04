@@ -59,7 +59,22 @@ const { input, register } = useAuth();
           Already have an Account? <a href="#">Log in</a>
         </p>
       </div>
+<<<<<<< HEAD
     </div>
+=======
+      <div class="mb-3">
+        <label for="address" class="form-label text-primary">Address</label>
+        <textarea
+          id="address"
+          class="form-control border-primary"
+          v-model="input.address"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+>>>>>>> parent of 5b5a477 (auth works well)
   </div>
 </template>
 
