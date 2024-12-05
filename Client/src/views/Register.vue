@@ -1,146 +1,231 @@
+<script setup>
+import useAuth from "@/composerbles/useAuth.js";
+
+const { input, register } = useAuth();
+</script>
+
 <template>
-  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background-color: #eef2f6;">
-    <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
+  <div class="signup-page">
+    <div class="signup-card">
       <!-- Left Section -->
-      <div class="col-md-5 py-5 px-4 text-white" style="background-color: #6c63ff;">
-        <div class="text-center">
-          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-3" />
-          <h4>CareOnTheGo</h4>
-          <p class="mt-3">
-            Stay Healthy, Stay On Track
+      <div class="info-section">
+        <div class="info-content">
+          <img
+            src="/path/to/your/stethoscope-image.svg"
+            alt="Stethoscope"
+            class="info-image"
+          />
+          <p class="info-text">
+            We at MediCare are always fully focused on helping your child.
           </p>
         </div>
       </div>
 
       <!-- Right Section -->
-      <div class="col-md-7 py-5 px-4">
-        <h3 class="mb-4 text-center">Create Account</h3>
-        <div class="d-flex justify-content-center gap-3 mb-3">
-          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-google me-2"></i> Sign up with Google
-          </button>
-          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-facebook me-2"></i> Sign up with Facebook
-          </button>
+      <div class="form-section">
+        <div class="language-select">English (US) +</div>
+        <h2 class="form-title">Create Account</h2>
+        <div class="social-buttons">
+          <button class="social-btn google-btn">Sign up with Google</button>
+          <button class="social-btn facebook-btn">Sign up with Facebook</button>
         </div>
-        <div class="text-center my-3">- OR -</div>
-        <form @submit.prevent="registerUser">
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Full Name</label>
+        <p class="or-divider">- OR -</p>
+        <form @submit.prevent="register" class="form-content">
+          <div class="input-group">
+            <label for="fullName">Full Name</label>
             <input
               type="text"
               id="fullName"
-              class="form-control"
-              v-model="form.firstName"
+              v-model="input.full_name"
               required
             />
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              v-model="form.email"
-              required
-            />
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" v-model="input.email" required />
           </div>
-          <div class="mb-3 position-relative">
-            <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <label for="password">Password</label>
             <input
-              :type="passwordVisible ? 'text' : 'password'"
+              type="password"
               id="password"
-              class="form-control"
-              v-model="form.password"
+              v-model="input.password"
               required
             />
-            <button
-              type="button"
-              class="btn position-absolute end-0 top-0"
-              @click="togglePasswordVisibility"
-              style="background: transparent; border: none;"
-            >
-              <i :class="passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-            </button>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Create Account</button>
+          <button type="submit" class="submit-btn">Create Account</button>
         </form>
-        <div class="text-center mt-3">
-          <p>
-            Already have an account?  <router-link to="/login" class="login-link">Login here</router-link>
-          </p>
-        </div>
+        <p class="login-link">
+          Already have an Account? <a href="#">Log in</a>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
-
-export default {
-  setup() {
-    const form = ref({
-      firstName: "",
-      lastName: "",
-      password: "",
-      dob: "",
-      phone: "",
-      userType: "",
-      country: "",
-      address: "",
-      gender: "",
-    });
-
-    const passwordVisible = ref(false);
-
-    const registerUser = () => {
-      console.log("User registered with data:", form.value);
-      alert("Registration successful!");
-      resetForm();
-    };
-
-    const resetForm = () => {
-      form.value = {
-        firstName: "",
-        lastName: "",
-        password: "",
-        dob: "",
-        phone: "",
-        userType: "",
-        country: "",
-        address: "",
-        gender: "",
-      };
-    };
-
-    const togglePasswordVisibility = () => {
-      passwordVisible.value = !passwordVisible.value;
-    };
-
-    return {
-      form,
-      passwordVisible,
-      registerUser,
-      resetForm,
-      togglePasswordVisibility,
-    };
-  },
-};
-</script>
-
 <style scoped>
-.container-fluid {
-  font-family: "Arial", sans-serif;
+/* Page Container */
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #d9e4f5;
 }
-img {
-  max-width: 100px;
+
+/* Signup Card */
+.signup-card {
+  display: flex;
+  width: 80%;
+  max-width: 900px;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-button.btn-outline-primary {
-  border: 1px solid #007bff;
+
+/* Left Section */
+.info-section {
+  flex: 1;
+  background-color: #e9effb;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
-button.btn-outline-primary i {
+
+.info-image {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.info-text {
   font-size: 1.2rem;
+  color: #4b6584;
+  font-weight: 500;
+}
+
+/* Right Section */
+.form-section {
+  flex: 1.2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.language-select {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.9rem;
+  color: #4b6584;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.social-btn {
+  flex: 1;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn {
+  background-color: #4285f4;
+  color: white;
+}
+
+.google-btn:hover {
+  background-color: #3367d6;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+}
+
+.facebook-btn:hover {
+  background-color: #2d4373;
+}
+
+.or-divider {
+  text-align: center;
+  color: #7f8c8d;
+  margin: 1rem 0;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #dcdde1;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  background-color: #34495e;
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #2c3e50;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+  color: #4b6584;
+}
+
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }
 </style>
