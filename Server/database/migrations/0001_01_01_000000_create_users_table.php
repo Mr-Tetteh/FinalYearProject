@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('address');
-            $table->string('user_type');
+            $table->string('user_type')->default('user');
             $table->timestamps();
         });
 

@@ -2,6 +2,7 @@ import {ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 
+
 export default function useAuth() {
     const user = ref({
         identifier : '',
@@ -19,23 +20,24 @@ export default function useAuth() {
         birthday: "",
         address: "",
         city: "",
-        // user_type:"",
     })
 
     const login = async () => {
         try {
-            const response = await axios.post('https://health.local.stay/api/login', user.value)
-            const token = response.data.authorisation.token
-            localStorage.setItem('AUTH_TOKEN', token)
-            // localStorage.setItem("USER_TYPE", response.data.user.user_type)
-            localStorage.setItem("USER_NAME", response.data.user.first_name)
-            localStorage.setItem("USER_ID", response.data.user.id)
-            await router.push('/')
-        }catch (err) {
-            alert(err)
+            const response = await axios.post('https://health.local.stay/api/login', user.value);
+            console.log('Response:', response.data); // Debug the API response
+            const token = response.data.authorisation.token;
+            localStorage.setItem('AUTH_TOKEN', token);
+            localStorage.setItem('USER_TYPE', response.data.user.user_type);
+            localStorage.setItem('USER_NAME', response.data.user.first_name);
+            localStorage.setItem('USER_ID', response.data.user.id);
+            await router.push('/');
+        } catch (err) {
+            console.error('Login Error:', err); // Debug the error
+            alert('Login failed. Please try again.');
         }
+    };
 
-    }
 
     const register = async () => {
         try {
