@@ -1,246 +1,178 @@
 <script setup>
+import {ref} from "vue";
+import {RouterLink} from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
 
-const { input, register } = useAuth();
+const {input, register} =  useAuth()
+
+const registerUser = () =>{
+  register()
+}
 </script>
 
 <template>
-  <div class="signup-page">
-    <div class="signup-card">
+  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center"
+       style="background-color: #eef2f6;">
+    <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
       <!-- Left Section -->
-      <div class="info-section">
-        <div class="info-content">
-          <img
-            src="/Client/public/sethoscope png.jpg"
-            alt="Stethoscope"
-            class="info-image"
-          />
-          <p class="info-text">
-            We at MediCare are always fully focused on helping your child.
+      <div class="col-md-5 py-5 px-4 text-white" style="background-color: #6c63ff;">
+        <div class="text-center">
+          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-3"/>
+          <h4>CareOnTheGo</h4>
+          <p class="mt-3">
+            Stay Healthy, Stay On Track
           </p>
         </div>
       </div>
 
       <!-- Right Section -->
-      <div class="form-section">
-        <div class="language-select">English (US) +</div>
-        <h2 class="form-title">Create Account</h2>
-        <div class="social-buttons">
-          <button class="social-btn google-btn">Sign up with Google</button>
-          <button class="social-btn facebook-btn">Sign up with Facebook</button>
+      <div class="col-md-7 py-5 px-4">
+        <h3 class="mb-4 text-center">Create Account</h3>
+        <div class="d-flex justify-content-center gap-3 mb-3">
+          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
+            <i class="bi bi-google me-2"></i> Sign up with Google
+          </button>
+          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
+            <i class="bi bi-facebook me-2"></i> Sign up with Facebook
+          </button>
         </div>
-        <p class="or-divider">- OR -</p>
-        <form @submit.prevent="register" class="form-content">
-          <div class="input-group">
-            <label for="fullName">Full Name</label>
+        <div class="text-center my-3">- OR -</div>
+        <form @submit.prevent="registerUser">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">First Name</label>
             <input
-              type="text"
-              id="fullName"
-              v-model="input.full_name"
-              required
+                type="text"
+                id="fullName"
+                class="form-control"
+                v-model="input.first_name"
+
             />
           </div>
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" v-model="input.email" required />
-          </div>
-          <div class="input-group">
-            <label for="password">Password</label>
+
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Last Name</label>
             <input
-              type="password"
-              id="password"
-              v-model="input.password"
-              required
+                type="text"
+                id="fullName"
+                class="form-control"
+                v-model="input.last_name"
+
+            />
+
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Birthday</label>
+              <input
+                  type="date"
+                  id="fullName"
+                  class="form-control"
+                  v-model="input.birthday"
+
+              />
+            </div>
+
+
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Gender</label>
+              <select v-model="input.gender" class="form-control">
+                <option selected disabled>Select Option</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                v-model="input.email"
+
             />
           </div>
-          <button type="submit" class="submit-btn">Create Account</button>
+
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Phone</label>
+            <input
+                type="tel"
+                id="fullName"
+                class="form-control"
+                v-model="input.phone"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Country</label>
+            <input
+                type="text"
+                id="country"
+                class="form-control"
+                v-model="input.country"
+
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="fullName" class="form-label">City</label>
+            <input
+                type="text"
+                id="city"
+                class="form-control"
+                v-model="input.city"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Address</label>
+            <input
+                type="text"
+                id="address"
+                class="form-control"
+                v-model="input.address"
+
+            />
+          </div>
+
+
+          <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password</label>
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                v-model="input.password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
-        <p class="login-link">
-          Already have an Account? <a href="#">Log in</a>
-        </p>
+        <div class="text-center mt-3">
+          <p>
+            Already have an account?
+            <router-link to="/login" class="login-link">Login here</router-link>
+          </p>
+        </div>
       </div>
-<<<<<<< HEAD
     </div>
-=======
-      <div class="mb-3">
-        <label for="address" class="form-label text-primary">Address</label>
-        <textarea
-          id="address"
-          class="form-control border-primary"
-          v-model="input.address"
-          rows="3"
-          required
-        ></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Register</button>
-    </form>
->>>>>>> parent of 5b5a477 (auth works well)
   </div>
 </template>
 
+
 <style scoped>
-/* Page Container */
-.signup-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #d9e4f5;
+.container-fluid {
+  font-family: "Arial", sans-serif;
 }
 
-/* Signup Card */
-.signup-card {
-  display: flex;
-  width: 80%;
-  max-width: 900px;
-  background-color: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+img {
+  max-width: 100px;
 }
 
-/* Left Section */
-.info-section {
-  flex: 1;
-  background-color: #e9effb;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
+button.btn-outline-primary {
+  border: 1px solid #007bff;
 }
 
-.info-image {
-  width: 100px;
-  margin-bottom: 1rem;
-}
-
-.info-text {
+button.btn-outline-primary i {
   font-size: 1.2rem;
-  color: #4b6584;
-  font-weight: 500;
-}
-
-/* Right Section */
-.form-section {
-  flex: 1.2;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.language-select {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 0.9rem;
-  color: #4b6584;
-}
-
-.form-title {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #34495e;
-  margin-bottom: 1rem;
-}
-
-.social-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.social-btn {
-  flex: 1;
-  margin: 0 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.google-btn {
-  background-color: #4285f4;
-  color: white;
-}
-
-.google-btn:hover {
-  background-color: #3367d6;
-}
-
-.facebook-btn {
-  background-color: #3b5998;
-  color: white;
-}
-
-.facebook-btn:hover {
-  background-color: #2d4373;
-}
-
-.or-divider {
-  text-align: center;
-  color: #7f8c8d;
-  margin: 1rem 0;
-}
-
-.form-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group {
-  margin-bottom: 1rem;
-}
-
-.input-group label {
-  display: block;
-  font-size: 0.9rem;
-  color: #34495e;
-  margin-bottom: 0.5rem;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #dcdde1;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.submit-btn {
-  background-color: #34495e;
-  color: white;
-  padding: 0.7rem;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #2c3e50;
-}
-
-.login-link {
-  text-align: center;
-  margin-top: 1rem;
-  color: #4b6584;
-}
-
-.login-link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
 }
 </style>
