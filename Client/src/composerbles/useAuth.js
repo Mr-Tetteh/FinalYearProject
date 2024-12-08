@@ -34,7 +34,7 @@ export default function useAuth() {
             await router.push('/');
         } catch (err) {
             console.error('Login Error:', err); // Debug the error
-            alert('Login failed. Please try again.');
+            alert(err.response.data.message);
         }
     };
 
@@ -44,7 +44,7 @@ export default function useAuth() {
             const response = await axios.post(`https://health.local.stay/api/register`, input.value)
             await router.push('/login')
         } catch (err) {
-            alert(err)
+            alert(err.response.data.message)
         }
 
     }

@@ -17,7 +17,7 @@ class User extends Controller
             ], 402);
         } elseif (\App\Models\User::where('phone', $request->phone)->first()) {
             return response()->json([
-                'message' => 'Sorry, Phone number already exists'
+                'message' => 'Sorry, Phone number already exists with an account.'
             ], 402);
         }
 

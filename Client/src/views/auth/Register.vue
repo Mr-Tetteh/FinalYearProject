@@ -15,139 +15,76 @@ const registerUser = () =>{
        style="background-color: #eef2f6;">
     <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
       <!-- Left Section -->
-      <div class="col-md-5 py-5 px-4 text-white" style="background-color: #6c63ff;">
+      <div class="col-md-5 py-4 px-3 text-white" style="background-color: #6c63ff;">
         <div class="text-center">
-          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-3"/>
+          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-2"/>
           <h4>CareOnTheGo</h4>
-          <p class="mt-3">
+          <p class="mt-2">
             Stay Healthy, Stay On Track
           </p>
         </div>
       </div>
 
       <!-- Right Section -->
-      <div class="col-md-7 py-5 px-4">
-        <h3 class="mb-4 text-center">Create Account</h3>
-        <div class="d-flex justify-content-center gap-3 mb-3">
+      <div class="col-md-7 py-4 px-3">
+        <h3 class="mb-3 text-center">Create Account</h3>
+        <div class="d-flex justify-content-center gap-2 mb-3">
           <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-google me-2"></i> Sign up with Google
+            <i class="bi bi-google me-1"></i> Google
           </button>
           <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-facebook me-2"></i> Sign up with Facebook
+            <i class="bi bi-facebook me-1"></i> Facebook
           </button>
         </div>
-        <div class="text-center my-3">- OR -</div>
-        <form @submit.prevent="registerUser">
-          <div class="mb-3">
-            <label for="fullName" class="form-label">First Name</label>
-            <input
-                type="text"
-                id="fullName"
-                class="form-control"
-                v-model="input.first_name"
-
-            />
+        <div class="text-center my-2">- OR -</div>
+        <form @submit.prevent="registerUser" class="mt-20">
+          <div class="mb-2">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" class="form-control" v-model="input.first_name" />
           </div>
-
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Last Name</label>
-            <input
-                type="text"
-                id="fullName"
-                class="form-control"
-                v-model="input.last_name"
-
-            />
-
-            <div class="mb-3">
-              <label for="fullName" class="form-label">Birthday</label>
-              <input
-                  type="date"
-                  id="fullName"
-                  class="form-control"
-                  v-model="input.birthday"
-
-              />
-            </div>
-
-
-            <div class="mb-3">
-              <label for="fullName" class="form-label">Gender</label>
-              <select v-model="input.gender" class="form-control">
-                <option selected disabled>Select Option</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-
+          <div class="mb-2">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" class="form-control" v-model="input.last_name" />
           </div>
-          <div class="mb-3">
+          <div class="mb-2">
+            <label for="birthday" class="form-label">Birthday</label>
+            <input type="date" id="birthday" class="form-control" v-model="input.birthday" />
+          </div>
+          <div class="mb-2">
+            <label for="gender" class="form-label">Gender</label>
+            <select v-model="input.gender" class="form-control">
+              <option selected disabled>Select Option</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="mb-2">
             <label for="email" class="form-label">Email</label>
-            <input
-                type="email"
-                id="email"
-                class="form-control"
-                v-model="input.email"
-
-            />
+            <input type="email" id="email" class="form-control" v-model="input.email" />
           </div>
-
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Phone</label>
-            <input
-                type="tel"
-                id="fullName"
-                class="form-control"
-                v-model="input.phone"
-            />
+          <div class="mb-2">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" id="phone" class="form-control" v-model="input.phone" />
           </div>
-
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Country</label>
-            <input
-                type="text"
-                id="country"
-                class="form-control"
-                v-model="input.country"
-
-            />
+          <div class="mb-2">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" id="country" class="form-control" v-model="input.country" />
           </div>
-
-          <div class="mb-3">
-            <label for="fullName" class="form-label">City</label>
-            <input
-                type="text"
-                id="city"
-                class="form-control"
-                v-model="input.city"
-            />
+          <div class="mb-2">
+            <label for="city" class="form-label">City</label>
+            <input type="text" id="city" class="form-control" v-model="input.city" />
           </div>
-
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Address</label>
-            <input
-                type="text"
-                id="address"
-                class="form-control"
-                v-model="input.address"
-
-            />
+          <div class="mb-2">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" id="address" class="form-control" v-model="input.address" />
           </div>
-
-
-          <div class="mb-3 position-relative">
+          <div class="mb-2">
             <label for="password" class="form-label">Password</label>
-            <input
-                type="password"
-                id="password"
-                class="form-control"
-                v-model="input.password"
-            />
+            <input type="password" id="password" class="form-control" v-model="input.password" />
           </div>
-
           <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
-        <div class="text-center mt-3">
+        <div class="text-center mt-2">
           <p>
             Already have an account?
             <router-link to="/login" class="login-link">Login here</router-link>
