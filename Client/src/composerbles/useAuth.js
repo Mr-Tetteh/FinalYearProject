@@ -33,7 +33,6 @@ export default function useAuth() {
             localStorage.setItem('USER_ID', response.data.user.id);
             await router.push('/');
         } catch (err) {
-            console.error('Login Error:', err); // Debug the error
             alert(err.response.data.message);
         }
     };
