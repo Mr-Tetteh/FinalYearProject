@@ -16,7 +16,7 @@ const { input, register } = useAuth();
             class="info-image"
           />
           <p class="info-text">
-            We at MediCare are always fully focused on helping your child.
+            We at Swift Care are always fully focused on helping your child.
           </p>
         </div>
       </div>
