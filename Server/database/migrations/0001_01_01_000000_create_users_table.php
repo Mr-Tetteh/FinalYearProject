@@ -15,15 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->integer('phone');
-            $table->string('gender');
             $table->date('birthday');
-            $table->string('country');
+            $table->string('gender');
+            $table->string('role');
+            $table->string('email')->unique();
+            $table->string('hospital');
+            $table->string('staff_id');
+            $table->integer('phone');
             $table->string('city');
-            $table->string('address');
-            $table->string('user_type')->default('user');
+            $table->string('password');
+
             $table->timestamps();
         });
 

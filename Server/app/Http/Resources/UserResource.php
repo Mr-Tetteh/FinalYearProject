@@ -17,12 +17,15 @@ class UserResource extends JsonResource
         return [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'email' => $this->email,
-            'password' => $this->password,
-            'gender' => $this->gender,
-            'phone' => $this->phone,
-            'country' => $this->country,
             'birthday' => $this->birthday,
+            'gender' => $this->gender,
+            'role' => $this->role,
+            'email' => $this->email,
+            'hospital' => $this->hospital,
+            'staff_id' => $this->staff_id,
+            'phone' => $this->phone,
+            'city' => $this->city,
+            'password' => $this->password
         ];
     }
 }
