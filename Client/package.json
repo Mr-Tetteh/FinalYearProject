@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "pinia": "^2.2.6",

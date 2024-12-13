@@ -5,21 +5,22 @@ import router from "@/router/index.js";
 
 export default function useAuth() {
     const user = ref({
-        identifier : '',
+        identifier: '',
         password: ''
     })
 
     const input = ref({
         first_name: "",
         last_name: "",
-        email: "",
-        password: "",
-        gender: "",
-        phone: "",
-        country: "",
         birthday: "",
-        address: "",
+        email: "",
+        phone: "",
+        gender: "",
+        role: "",
+        hospital: "",
+        staff_id: "",
         city: "",
+        password: "my_name_is_jesus",
     })
 
     const login = async () => {
@@ -49,7 +50,7 @@ export default function useAuth() {
     }
 
 
-    return{
+    return {
         user,
         login,
         register,

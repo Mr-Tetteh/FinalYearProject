@@ -18,7 +18,7 @@ const registerUser = () =>{
       <div class="col-md-5 py-4 px-3 text-white" style="background-color: #6c63ff;">
         <div class="text-center">
           <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-2"/>
-          <h4>CareOnTheGo</h4>
+          <h4>Swift Care</h4>
           <p class="mt-2">
             Stay Healthy, Stay On Track
           </p>
@@ -27,16 +27,18 @@ const registerUser = () =>{
 
       <!-- Right Section -->
       <div class="col-md-7 py-4 px-3">
-        <h3 class="mb-3 text-center">Create Account</h3>
-        <div class="d-flex justify-content-center gap-2 mb-3">
+        <h3 class="mb-3 text-center">Register Staff Account</h3>
+<!--        <div class="d-flex justify-content-center gap-2 mb-3">
           <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
             <i class="bi bi-google me-1"></i> Google
           </button>
           <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
             <i class="bi bi-facebook me-1"></i> Facebook
           </button>
-        </div>
+        </div>-->
+<!--
         <div class="text-center my-2">- OR -</div>
+-->
         <form @submit.prevent="registerUser" class="mt-20">
           <div class="mb-2">
             <label for="firstName" class="form-label">First Name</label>
@@ -58,30 +60,48 @@ const registerUser = () =>{
               <option value="Female">Female</option>
             </select>
           </div>
+
+          <div class="mb-2">
+            <label for="role" class="form-label">Role</label>
+            <select v-model="input.role" class="form-control">
+              <option selected disabled>Select Option</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Nurse">Nurse</option>
+              <option value="Pharmacist">Pharmacist</option>
+              <option value="Nurse">Account</option>
+              <option value="Manger">Manager</option>
+            </select>
+          </div>
+
           <div class="mb-2">
             <label for="email" class="form-label">Email</label>
             <input type="email" id="email" class="form-control" v-model="input.email" />
           </div>
           <div class="mb-2">
+            <label for="role" class="form-label">Hospital</label>
+            <select v-model="input.hospital" class="form-control">
+              <option selected disabled>Select Option</option>
+              <option value="Franklin Hospital">Franklin Hospital</option>
+              <option value="Ridge">Ridge</option>
+              <option value="Kath">kath</option>
+              <option value="Constant">Constant</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="phone" class="form-label">Staff ID</label>
+            <input type="text" class="form-control" v-model="input.staff_id" />
+          </div>
+          <div class="mb-2">
             <label for="phone" class="form-label">Phone</label>
             <input type="tel" id="phone" class="form-control" v-model="input.phone" />
           </div>
-          <div class="mb-2">
-            <label for="country" class="form-label">Country</label>
-            <input type="text" id="country" class="form-control" v-model="input.country" />
-          </div>
+
           <div class="mb-2">
             <label for="city" class="form-label">City</label>
             <input type="text" id="city" class="form-control" v-model="input.city" />
           </div>
-          <div class="mb-2">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" id="address" class="form-control" v-model="input.address" />
-          </div>
-          <div class="mb-2">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" class="form-control" v-model="input.password" />
-          </div>
+
+
           <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
         <div class="text-center mt-2">

@@ -24,14 +24,15 @@ class User extends Controller
         $user = \App\Models\User::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'country' => $request->input('country'),
-            'city' => $request->input('city'),
-            'address' => $request->input('address'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'phone' => $request->input('phone'),
-            'gender' => $request->input('gender'),
             'birthday' => $request->input('birthday'),
+            'gender' => $request->input('gender'),
+            'role' => $request->input('role'),
+            'email' => $request->input('email'),
+            'hospital' => $request->input('hospital'),
+            'staff_id' => $request->input('staff_id'),
+            'phone' => $request->input('phone'),
+            'city' => $request->input('city'),
+            'password' => Hash::make($request->input('password'))
         ]);
 
         return new UserResource($user);
