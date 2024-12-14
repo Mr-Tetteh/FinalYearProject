@@ -5,7 +5,7 @@ import NavBar from "@/components/NavBar.vue";
 
 <template>
   <header id="header" class="header sticky-top">
-  <NavBar/>
+    <NavBar/>
   </header>
   <main class="main">
     <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -27,7 +27,9 @@ import NavBar from "@/components/NavBar.vue";
             <div class="why-box" data-aos="zoom-out" data-aos-delay="200">
               <h3>Why Choose Swift Care?</h3>
               <p>
-                Swift Care is your trusted partner in healthcare innovation. From seamless patient record management to secure online payments and detailed analytics, we empower healthcare institutions to focus on what matters most — delivering exceptional care.
+                Swift Care is your trusted partner in healthcare innovation. From seamless patient record management to
+                secure online payments and detailed analytics, we empower healthcare institutions to focus on what
+                matters most — delivering exceptional care.
               </p>
               <div class="text-center">
                 <a href="#about" class="more-btn"><span>Learn More</span> <i class="bi bi-chevron-right"></i></a>
@@ -88,28 +90,33 @@ import NavBar from "@/components/NavBar.vue";
 
             <h3>About Us</h3>
             <p>
-              Our mission is to revolutionize healthcare management by providing hospitals with a reliable and user-friendly platform. Through flexible subscription options—monthly, yearly, or semi-annual—our service simplifies patient and staff management while ensuring secure and efficient operations.
+              Our mission is to revolutionize healthcare management by providing hospitals with a reliable and
+              user-friendly platform. Through flexible subscription options—monthly, yearly, or semi-annual—our service
+              simplifies patient and staff management while ensuring secure and efficient operations.
             </p>
             <ul>
               <li>
                 <i class="fa-solid fa-vial-circle-check"></i>
                 <div>
                   <h5>Comprehensive Patient Management</h5>
-                  <p>Track patient records, medical history, and appointments seamlessly within a centralized system.</p>
+                  <p>Track patient records, medical history, and appointments seamlessly within a centralized
+                    system.</p>
                 </div>
               </li>
               <li>
                 <i class="fa-solid fa-pump-medical"></i>
                 <div>
                   <h5>Empowered Staff Accounts</h5>
-                  <p>Enable doctors, nurses, pharmacists, and accountants to perform their roles effectively with personalized access.</p>
+                  <p>Enable doctors, nurses, pharmacists, and accountants to perform their roles effectively with
+                    personalized access.</p>
                 </div>
               </li>
               <li>
                 <i class="fa-solid fa-heart-circle-xmark"></i>
                 <div>
                   <h5>Convenient Payment Integration</h5>
-                  <p>Provide patients with a hassle-free way to make payments directly on the app, ensuring transparency and efficiency.</p>
+                  <p>Provide patients with a hassle-free way to make payments directly on the app, ensuring transparency
+                    and efficiency.</p>
                 </div>
               </li>
             </ul>
@@ -130,32 +137,52 @@ import NavBar from "@/components/NavBar.vue";
 
           <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
             <div class="stats-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1l0 50.8c27.6 7.1 48 32.2 48 62l0 40c0 8.8-7.2 16-16 16l-16 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l0-24c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 24c8.8 0 16 7.2 16 16s-7.2 16-16 16l-16 0c-8.8 0-16-7.2-16-16l0-40c0-29.8 20.4-54.9 48-62l0-57.1c-6-.6-12.1-.9-18.3-.9l-91.4 0c-6.2 0-12.3 .3-18.3 .9l0 65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7l0-59.1zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg>
-              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter">42</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 448 512">
+                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1l0 50.8c27.6 7.1 48 32.2 48 62l0 40c0 8.8-7.2 16-16 16l-16 0c-8.8 0-16-7.2-16-16s7.2-16 16-16l0-24c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 24c8.8 0 16 7.2 16 16s-7.2 16-16 16l-16 0c-8.8 0-16-7.2-16-16l0-40c0-29.8 20.4-54.9 48-62l0-57.1c-6-.6-12.1-.9-18.3-.9l-91.4 0c-6.2 0-12.3 .3-18.3 .9l0 65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7l0-59.1zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/>
+              </svg>
+              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1"
+                    class="purecounter">42</span>
               <p>Doctors</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
             <div class="stats-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M192 48c0-26.5 21.5-48 48-48L400 0c26.5 0 48 21.5 48 48l0 464-80 0 0-80c0-26.5-21.5-48-48-48s-48 21.5-48 48l0 80-80 0 0-464zM48 96l112 0 0 416L48 512c-26.5 0-48-21.5-48-48L0 320l80 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L0 288l0-64 80 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L0 192l0-48c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 48-80 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l80 0 0 64-80 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l80 0 0 144c0 26.5-21.5 48-48 48l-112 0 0-416 112 0zM312 64c-8.8 0-16 7.2-16 16l0 24-24 0c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l24 0 0 24c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-24 24 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-24 0 0-24c0-8.8-7.2-16-16-16l-16 0z"/></svg>
-              <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter">24</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 640 512">
+                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M192 48c0-26.5 21.5-48 48-48L400 0c26.5 0 48 21.5 48 48l0 464-80 0 0-80c0-26.5-21.5-48-48-48s-48 21.5-48 48l0 80-80 0 0-464zM48 96l112 0 0 416L48 512c-26.5 0-48-21.5-48-48L0 320l80 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L0 288l0-64 80 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L0 192l0-48c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 48-80 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l80 0 0 64-80 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l80 0 0 144c0 26.5-21.5 48-48 48l-112 0 0-416 112 0zM312 64c-8.8 0-16 7.2-16 16l0 24-24 0c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l24 0 0 24c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-24 24 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-24 0 0-24c0-8.8-7.2-16-16-16l-16 0z"/>
+              </svg>
+              <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1"
+                    class="purecounter">24</span>
               <p>Departments</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
             <div class="stats-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z"/></svg>
-              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter">74</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 448 512">
+                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z"/>
+              </svg>
+              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1"
+                    class="purecounter">74</span>
               <p>Research Labs</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
             <div class="stats-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M173.8 5.5c11-7.3 25.4-7.3 36.4 0L228 17.2c6 3.9 13 5.8 20.1 5.4l21.3-1.3c13.2-.8 25.6 6.4 31.5 18.2l9.6 19.1c3.2 6.4 8.4 11.5 14.7 14.7L344.5 83c11.8 5.9 19 18.3 18.2 31.5l-1.3 21.3c-.4 7.1 1.5 14.2 5.4 20.1l11.8 17.8c7.3 11 7.3 25.4 0 36.4L366.8 228c-3.9 6-5.8 13-5.4 20.1l1.3 21.3c.8 13.2-6.4 25.6-18.2 31.5l-19.1 9.6c-6.4 3.2-11.5 8.4-14.7 14.7L301 344.5c-5.9 11.8-18.3 19-31.5 18.2l-21.3-1.3c-7.1-.4-14.2 1.5-20.1 5.4l-17.8 11.8c-11 7.3-25.4 7.3-36.4 0L156 366.8c-6-3.9-13-5.8-20.1-5.4l-21.3 1.3c-13.2 .8-25.6-6.4-31.5-18.2l-9.6-19.1c-3.2-6.4-8.4-11.5-14.7-14.7L39.5 301c-11.8-5.9-19-18.3-18.2-31.5l1.3-21.3c.4-7.1-1.5-14.2-5.4-20.1L5.5 210.2c-7.3-11-7.3-25.4 0-36.4L17.2 156c3.9-6 5.8-13 5.4-20.1l-1.3-21.3c-.8-13.2 6.4-25.6 18.2-31.5l19.1-9.6C65 70.2 70.2 65 73.4 58.6L83 39.5c5.9-11.8 18.3-19 31.5-18.2l21.3 1.3c7.1 .4 14.2-1.5 20.1-5.4L173.8 5.5zM272 192a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM1.3 441.8L44.4 339.3c.2 .1 .3 .2 .4 .4l9.6 19.1c11.7 23.2 36 37.3 62 35.8l21.3-1.3c.2 0 .5 0 .7 .2l17.8 11.8c5.1 3.3 10.5 5.9 16.1 7.7l-37.6 89.3c-2.3 5.5-7.4 9.2-13.3 9.7s-11.6-2.2-14.8-7.2L74.4 455.5l-56.1 8.3c-5.7 .8-11.4-1.5-15-6s-4.3-10.7-2.1-16zm248 60.4L211.7 413c5.6-1.8 11-4.3 16.1-7.7l17.8-11.8c.2-.1 .4-.2 .7-.2l21.3 1.3c26 1.5 50.3-12.6 62-35.8l9.6-19.1c.1-.2 .2-.3 .4-.4l43.2 102.5c2.2 5.3 1.4 11.4-2.1 16s-9.3 6.9-15 6l-56.1-8.3-32.2 49.2c-3.2 5-8.9 7.7-14.8 7.2s-11-4.3-13.3-9.7z"/></svg>
-              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter">85</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" viewBox="0 0 384 512">
+                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M173.8 5.5c11-7.3 25.4-7.3 36.4 0L228 17.2c6 3.9 13 5.8 20.1 5.4l21.3-1.3c13.2-.8 25.6 6.4 31.5 18.2l9.6 19.1c3.2 6.4 8.4 11.5 14.7 14.7L344.5 83c11.8 5.9 19 18.3 18.2 31.5l-1.3 21.3c-.4 7.1 1.5 14.2 5.4 20.1l11.8 17.8c7.3 11 7.3 25.4 0 36.4L366.8 228c-3.9 6-5.8 13-5.4 20.1l1.3 21.3c.8 13.2-6.4 25.6-18.2 31.5l-19.1 9.6c-6.4 3.2-11.5 8.4-14.7 14.7L301 344.5c-5.9 11.8-18.3 19-31.5 18.2l-21.3-1.3c-7.1-.4-14.2 1.5-20.1 5.4l-17.8 11.8c-11 7.3-25.4 7.3-36.4 0L156 366.8c-6-3.9-13-5.8-20.1-5.4l-21.3 1.3c-13.2 .8-25.6-6.4-31.5-18.2l-9.6-19.1c-3.2-6.4-8.4-11.5-14.7-14.7L39.5 301c-11.8-5.9-19-18.3-18.2-31.5l1.3-21.3c.4-7.1-1.5-14.2-5.4-20.1L5.5 210.2c-7.3-11-7.3-25.4 0-36.4L17.2 156c3.9-6 5.8-13 5.4-20.1l-1.3-21.3c-.8-13.2 6.4-25.6 18.2-31.5l19.1-9.6C65 70.2 70.2 65 73.4 58.6L83 39.5c5.9-11.8 18.3-19 31.5-18.2l21.3 1.3c7.1 .4 14.2-1.5 20.1-5.4L173.8 5.5zM272 192a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM1.3 441.8L44.4 339.3c.2 .1 .3 .2 .4 .4l9.6 19.1c11.7 23.2 36 37.3 62 35.8l21.3-1.3c.2 0 .5 0 .7 .2l17.8 11.8c5.1 3.3 10.5 5.9 16.1 7.7l-37.6 89.3c-2.3 5.5-7.4 9.2-13.3 9.7s-11.6-2.2-14.8-7.2L74.4 455.5l-56.1 8.3c-5.7 .8-11.4-1.5-15-6s-4.3-10.7-2.1-16zm248 60.4L211.7 413c5.6-1.8 11-4.3 16.1-7.7l17.8-11.8c.2-.1 .4-.2 .7-.2l21.3 1.3c26 1.5 50.3-12.6 62-35.8l9.6-19.1c.1-.2 .2-.3 .4-.4l43.2 102.5c2.2 5.3 1.4 11.4-2.1 16s-9.3 6.9-15 6l-56.1-8.3-32.2 49.2c-3.2 5-8.9 7.7-14.8 7.2s-11-4.3-13.3-9.7z"/>
+              </svg>
+              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1"
+                    class="purecounter">85</span>
               <p>Awards</p>
             </div>
           </div><!-- End Stats Item -->
@@ -172,7 +199,8 @@ import NavBar from "@/components/NavBar.vue";
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
-        <p>Empowering hospitals to efficiently manage patient and staff details with our comprehensive subscription plans.</p>
+        <p>Empowering hospitals to efficiently manage patient and staff details with our comprehensive subscription
+          plans.</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -181,51 +209,60 @@ import NavBar from "@/components/NavBar.vue";
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
-                <img src="../assets/img/Chargebee-Subscription-Box-Industry-trends-opportunities-and-Market-Size.png" class="img-fluid" alt="">
-                <h3>Hospital Subscription Plans</h3>
-              <p>Flexible monthly, yearly, and 6-month plans for hospitals to access our platform and streamline their operations.</p>
+              <img src="../assets/img/Chargebee-Subscription-Box-Industry-trends-opportunities-and-Market-Size.png"
+                   class="img-fluid" alt="">
+              <h3>Hospital Subscription Plans</h3>
+              <p>Flexible monthly, yearly, and 6-month plans for hospitals to access our platform and streamline their
+                operations.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
-                <img src="../assets/img/account-management.webp" class="img-fluid" alt="">
-                <h3>Staff Account Management</h3>
-              <p>Provide individual accounts for nurses, doctors, pharmacists, and accountants, enabling role-specific functionalities.</p>
+              <img src="../assets/img/account-management.webp" class="img-fluid" alt="">
+              <h3>Staff Account Management</h3>
+              <p>Provide individual accounts for nurses, doctors, pharmacists, and accountants, enabling role-specific
+                functionalities.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
-                <img src="../assets/img/Record_management.jpg" class="img-fluid" alt="">
-               <h3>Patient Record Management</h3>
-              <p>Efficiently manage patient details, including medical history, appointments, and prescriptions, all in one place.</p>
+              <img src="../assets/img/Record_management.jpg" class="img-fluid" alt="">
+              <h3>Patient Record Management</h3>
+              <p>Efficiently manage patient details, including medical history, appointments, and prescriptions, all in
+                one place.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item position-relative">
-                <img src="../assets/img/payment.jpg" class="img-thumbnail" alt="">
+              <img src="../assets/img/payment.jpg" class="img-thumbnail" alt="">
 
-                <h3>Online Payments</h3>
-              <p>Enable patients to make payments directly through the app, with secure and hassle-free transaction processing.</p>
+              <h3>Online Payments</h3>
+              <p>Enable patients to make payments directly through the app, with secure and hassle-free transaction
+                processing.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
             <div class="service-item position-relative">
-                <img src="../assets/img/analyticsRepoert%20.jpeg" class="img-thumbnail" alt="">
+              <img src="../assets/img/analyticsRepoert%20.jpeg" class="img-thumbnail" alt="">
 
-                <h3>Analytics and Reports</h3>
-              <p>Generate detailed reports and analytics for patient visits, payments, and staff activities to drive better decisions.</p>
+              <h3>Analytics and Reports</h3>
+              <p>Generate detailed reports and analytics for patient visits, payments, and staff activities to drive
+                better decisions.</p>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="service-item position-relative">
-                <img src="../assets/img/data-protection-cyber-security-concept-secure-data-management-protect-data_36358-2481.avif" class="img-thumbnail" alt="">
-                <h3>Secure Data Management</h3>
-              <p>Ensure patient and hospital data remain safe with robust security measures and compliance with privacy standards.</p>
+              <img
+                  src="../assets/img/data-protection-cyber-security-concept-secure-data-management-protect-data_36358-2481.avif"
+                  class="img-thumbnail" alt="">
+              <h3>Secure Data Management</h3>
+              <p>Ensure patient and hospital data remain safe with robust security measures and compliance with privacy
+                standards.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -236,17 +273,17 @@ import NavBar from "@/components/NavBar.vue";
     </section><!-- /Services Section -->
 
 
-
-
-
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
       <div class="container">
         <div id="carouselExampleCaptions" class="carousel slide mb-4" style="max-width: 600px; margin: 0 auto;">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
           </div>
 
           <h3 class="text-center p-3">What Our Clients Say</h3>
@@ -254,42 +291,49 @@ import NavBar from "@/components/NavBar.vue";
           <div class="main_car">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="../assets/img/testimonials/testimonials-4.jpg" class="d-block w-100 car_image" alt="Client Testimonial">
+                <img src="../assets/img/testimonials/testimonials-4.jpg" class="d-block w-100 car_image"
+                     alt="Client Testimonial">
                 <div class="carousel-caption d-md-block">
                   <p class="mt-3 testimonial_words text-black">
-                    <em>"Swift Care has transformed our operations. Their solutions are intuitive and make complex tasks seamless!"</em>
+                    <em>"Swift Care has transformed our operations. Their solutions are intuitive and make complex tasks
+                      seamless!"</em>
                     <br> - Dr. Emily Carter
                   </p>
                 </div>
               </div>
 
               <div class="carousel-item">
-                <img src="../assets/img/testimonials/testimonials-2.jpg" class="d-block w-100 car_image" alt="Client Testimonial">
+                <img src="../assets/img/testimonials/testimonials-2.jpg" class="d-block w-100 car_image"
+                     alt="Client Testimonial">
                 <div class="carousel-caption d-md-block">
                   <p class="mt-3 testimonial_words text-black">
-                    <em>"We’ve seen improved efficiency and happier staff thanks to Swift Care. Highly recommend their services!"</em>
+                    <em>"We’ve seen improved efficiency and happier staff thanks to Swift Care. Highly recommend their
+                      services!"</em>
                     <br> - John Smith, Hospital Administrator
                   </p>
                 </div>
               </div>
 
               <div class="carousel-item">
-                <img src="../assets/img/testimonials/testimonials-1.jpg" class="d-block w-100 car_image" alt="Client Testimonial">
+                <img src="../assets/img/testimonials/testimonials-1.jpg" class="d-block w-100 car_image"
+                     alt="Client Testimonial">
                 <div class="carousel-caption d-md-block">
                   <p class="mt-3 testimonial_words text-black">
-                    <em>"Outstanding support and a solution that adapts perfectly to our needs. Swift Care is a game-changer!"</em>
+                    <em>"Outstanding support and a solution that adapts perfectly to our needs. Swift Care is a
+                      game-changer!"</em>
                     <br> - Sarah Johnson, Clinic Manager
                   </p>
                 </div>
               </div>
             </div>
-
             <!-- Updated buttons with padding -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" style="padding: 10px; background-color: rgba(0, 0, 255, 0.5);">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev" style="padding: 10px; background-color: rgba(0, 0, 255, 0.5);">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" style="padding: 10px; background-color: rgba(0, 0, 255, 0.5);">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next" style="padding: 10px; background-color: rgba(0, 0, 255, 0.5);">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
@@ -297,6 +341,45 @@ import NavBar from "@/components/NavBar.vue";
         </div>
       </div>
     </section>
+
+
+    <section id="stats" class="stats section py-5 light-background">
+      <div class="container d-flex justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center gy-4 w-100">
+          <div class="col-lg-6 col-md-8">
+            <div class="stats-item shadow p-4 rounded text-center">
+              <h3 class="mb-4 text-primary">Contact Us</h3>
+              <div class="d-flex flex-column gap-4">
+                <!-- Facebook -->
+                <a href="https://facebook.com" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-primary" viewBox="0 0 512 512">
+                    <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                  </svg>
+                  <span class="text-lg text-dark">Facebook</span>
+                </a>
+
+                <!-- Email -->
+                <a href="https://Gmail.com" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-danger" viewBox="0 0 512 512">
+                    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                  </svg>
+                  <span class="text-lg text-dark">Email Us</span>
+                </a>
+
+                <!-- Phone -->
+                <a href="tel:0559724772" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-success" viewBox="0 0 512 512">
+                    <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                  </svg>
+                  <span class="text-lg text-dark">Call Us</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- Gallery Section -->
     <section id="gallery" class="gallery section">
@@ -312,49 +395,49 @@ import NavBar from "@/components/NavBar.vue";
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid ">
+              <img src="../assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid ">
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-                <img src="../assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
+              <img src="../assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
             </div>
           </div>
 
@@ -372,9 +455,9 @@ import NavBar from "@/components/NavBar.vue";
 <style scoped>
 
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Poppins",  sans-serif;
-  --nav-font: "Raleway",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Poppins", sans-serif;
+  --nav-font: "Raleway", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -389,7 +472,7 @@ import NavBar from "@/components/NavBar.vue";
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #2c4964;  /* The default color of the main navmenu links */
+  --nav-color: #2c4964; /* The default color of the main navmenu links */
   --nav-hover-color: #1977cc; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
@@ -433,14 +516,16 @@ body {
   background-color: var(--background-color);
   font-family: var(--default-font);
 }
-.car_image{
+
+.car_image {
   width: 20% !important;
   height: 40% !important;
   border-radius: 40%;
   padding: 1%;
   margin-bottom: 10%;
 }
-.testimonial_words{
+
+.testimonial_words {
   margin-left: 20% !important;
 }
 
@@ -739,12 +824,12 @@ h6 {
     position: relative;
   }
 
-  .navmenu>ul>li {
+  .navmenu > ul > li {
     white-space: nowrap;
     padding: 15px 14px;
   }
 
-  .navmenu>ul>li:last-child {
+  .navmenu > ul > li:last-child {
     padding-right: 0;
   }
 
@@ -771,7 +856,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .navmenu>ul>li>a:before {
+  .navmenu > ul > li > a:before {
     content: "";
     position: absolute;
     width: 100%;
@@ -785,13 +870,13 @@ h6 {
   }
 
   .navmenu a:hover:before,
-  .navmenu li:hover>a:before,
+  .navmenu li:hover > a:before,
   .navmenu .active:before {
     visibility: visible;
     width: 100%;
   }
 
-  .navmenu li:hover>a,
+  .navmenu li:hover > a,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-hover-color);
@@ -830,11 +915,11 @@ h6 {
 
   .navmenu .dropdown ul a:hover,
   .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
+  .navmenu .dropdown ul li:hover > a {
     color: var(--nav-dropdown-hover-color);
   }
 
-  .navmenu .dropdown:hover>ul {
+  .navmenu .dropdown:hover > ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -846,7 +931,7 @@ h6 {
     visibility: hidden;
   }
 
-  .navmenu .dropdown .dropdown:hover>ul {
+  .navmenu .dropdown .dropdown:hover > ul {
     opacity: 1;
     top: 0;
     left: -100%;
@@ -948,7 +1033,7 @@ h6 {
     background-color: rgba(33, 37, 41, 0.1);
   }
 
-  .navmenu .dropdown>.dropdown-active {
+  .navmenu .dropdown > .dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
   }
@@ -975,7 +1060,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  .mobile-nav-active .navmenu > ul {
     display: block;
   }
 }
@@ -1209,11 +1294,11 @@ h6 {
   font-weight: 600;
 }
 
-.page-title nav ol li+li {
+.page-title nav ol li + li {
   padding-left: 10px;
 }
 
-.page-title nav ol li+li::before {
+.page-title nav ol li + li::before {
   content: "/";
   display: inline-block;
   padding-right: 10px;
@@ -1802,7 +1887,7 @@ section,
   color: var(--contrast-color);
 }
 
-.doctors .team-member .social a+a {
+.doctors .team-member .social a + a {
   margin-left: 8px;
 }
 
@@ -1894,8 +1979,6 @@ section,
 }
 
 
-
-
 /*--------------------------------------------------------------
 # Gallery Section
 --------------------------------------------------------------*/
@@ -1916,7 +1999,7 @@ section,
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
-.contact .info-item+.info-item {
+.contact .info-item + .info-item {
   margin-top: 40px;
 }
 
