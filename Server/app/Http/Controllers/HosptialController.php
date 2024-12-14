@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHosptialRequest;
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
 use App\Models\Hosptial;
+use Illuminate\Http\Request;
 
 class HosptialController extends Controller
 {
@@ -28,7 +29,7 @@ class HosptialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreHosptialRequest $request)
+    public function store(Request $request)
     {
        $hospital = Hosptial::create([
             'hospital_name' => $request->input('hospital_name'),

@@ -18,7 +18,7 @@
         <a href="index.html" class="logo d-flex align-items-center me-auto">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">Medilab</h1>
+          <h1 class="sitename">Swift Care</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -29,7 +29,7 @@
             <li><a href="#contact">Contact</a></li>
 
             <li><RouterLink to="login">Login</RouterLink></li>
-            <li><RouterLink to="Register">Register Hospital</RouterLink></li>
+            <li><RouterLink to="register_hospital">Register Hospital</RouterLink></li>
 
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
