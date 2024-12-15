@@ -343,7 +343,7 @@ import NavBar from "@/components/NavBar.vue";
     </section>
 
 
-    <section id="stats" class="stats section py-5 light-background">
+    <section id="contact" class="stats section py-5 light-background">
       <div class="container d-flex justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center gy-4 w-100">
           <div class="col-lg-6 col-md-8">
