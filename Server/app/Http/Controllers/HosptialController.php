@@ -15,7 +15,8 @@ class HosptialController extends Controller
      */
     public function index()
     {
-        //
+        $hospitals = Hosptial::all();
+      return  HospitalResource::collection($hospitals);
     }
 
     /**

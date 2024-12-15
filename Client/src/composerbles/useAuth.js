@@ -22,7 +22,7 @@ export default function useAuth() {
         city: "",
         password: "my_name_is_jesus",
     })
-
+const hospitals_in_system = ref([])
     const login = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/login', user.value);
@@ -32,11 +32,20 @@ export default function useAuth() {
             localStorage.setItem('USER_TYPE', response.data.user.user_type);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('USER_ID', response.data.user.id);
-            await router.push('/');
+            await router.push('/dashboard');
         } catch (err) {
             alert(err.response.data.message);
         }
     };
+
+    const hospital = async () =>{
+        try {
+            let response  = await  axios.get('https://health.local.stay/api/all_hospitals')
+            hospitals_in_system.value = response.data.data;
+        }catch (err) {
+            alert(err.response.data.message)
+        }
+    }
 
 
     const register = async () => {
@@ -54,7 +63,9 @@ export default function useAuth() {
         user,
         login,
         register,
-        input
+        input,
+        hospital,
+        hospitals_in_system
     }
 
 

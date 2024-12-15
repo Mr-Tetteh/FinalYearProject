@@ -1,13 +1,15 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {RouterLink} from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
 
-const {input, register} =  useAuth()
+const {input, register, hospital, hospitals_in_system} =  useAuth()
 
 const registerUser = () =>{
   register()
 }
+
+onMounted(hospital)
 </script>
 
 <template>
@@ -81,10 +83,12 @@ const registerUser = () =>{
             <label for="role" class="form-label">Hospital</label>
             <select v-model="input.hospital" class="form-control">
               <option selected disabled>Select Option</option>
-              <option value="Franklin Hospital">Franklin Hospital</option>
-              <option value="Ridge">Ridge</option>
-              <option value="Kath">kath</option>
-              <option value="Constant">Constant</option>
+              <option
+                  v-for="hospitals_in_systems in hospitals_in_system"
+                  :key="hospitals_in_systems.id"
+                  :value="hospitals_in_systems.hospital_name">
+                {{hospitals_in_systems.hospital_name}}
+              </option>
             </select>
           </div>
           <div class="mb-2">
