@@ -1,3 +1,13 @@
+<script setup>
+import {ref} from "vue";
+import AdminNavBar from "@/components/AdminNavBar.vue";
+import usePatients from "@/composerbles/usePatients.js";
+
+const {input, register_patient} = usePatients()
+const registerPatient = () => {
+  register_patient()
+};
+</script>
 <template>
   <div class="hospital-dashboard">
     <div class="d-flex">
@@ -18,7 +28,7 @@
                   <input
                       type="text"
                       id="fullName"
-                      v-model="form.fullName"
+                      v-model="input.full_name"
                       class="form-control"
                       placeholder="Enter full name"
                       required
@@ -29,7 +39,7 @@
                   <input
                       type="number"
                       id="age"
-                      v-model="form.age"
+                      v-model="input.age"
                       class="form-control"
                       placeholder="Enter age"
                       required
@@ -39,11 +49,11 @@
                   <label for="gender" class="form-label">Gender</label>
                   <select
                       id="gender"
-                      v-model="form.gender"
+                      v-model="input.gender"
                       class="form-select"
                       required
                   >
-                    <option value="" disabled>Select gender</option>
+                    <option selected disabled>Select gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
@@ -54,7 +64,7 @@
                   <input
                       type="date"
                       id="dob"
-                      v-model="form.dob"
+                      v-model="input.date_of_birth"
                       class="form-control"
                       required
                   />
@@ -71,7 +81,7 @@
                   <input
                       type="tel"
                       id="phone"
-                      v-model="form.phone"
+                      v-model="input.contact"
                       class="form-control"
                       placeholder="Enter phone number"
                       required
@@ -82,7 +92,7 @@
                   <input
                       type="email"
                       id="email"
-                      v-model="form.email"
+                      v-model="input.email"
                       class="form-control"
                       placeholder="Enter email address"
                   />
@@ -91,7 +101,7 @@
                   <label for="address" class="form-label">Home Address</label>
                   <textarea
                       id="address"
-                      v-model="form.address"
+                      v-model="input.address"
                       class="form-control"
                       rows="3"
                       placeholder="Enter home address"
@@ -110,7 +120,7 @@
                   <input
                       type="text"
                       id="medicalCondition"
-                      v-model="form.medicalCondition"
+                      v-model="input.medical_history"
                       class="form-control"
                       placeholder="E.g., Diabetes, Hypertension"
                       required
@@ -121,7 +131,7 @@
                   <input
                       type="text"
                       id="allergies"
-                      v-model="form.allergies"
+                      v-model="input.allergies"
                       class="form-control"
                       placeholder="E.g., Peanuts, Dust"
                   />
@@ -130,7 +140,7 @@
                   <label for="notes" class="form-label">Additional Notes</label>
                   <textarea
                       id="notes"
-                      v-model="form.notes"
+                      v-model="input.additional_notes"
                       class="form-control"
                       rows="3"
                       placeholder="Enter any additional medical notes"
@@ -154,30 +164,6 @@
   </div>
 </template>
 
-<script setup>
-import {ref} from "vue";
-import AdminNavBar from "@/components/AdminNavBar.vue";
-
-const form = ref({
-  fullName: "",
-  age: "",
-  gender: "",
-  dob: "",
-  phone: "",
-  email: "",
-  address: "",
-  medicalCondition: "",
-  allergies: "",
-  notes: "",
-});
-
-const registerPatient = () => {
-  alert(`Patient Registered: ${form.value.fullName}`);
-  console.log(form.value);
-  // Reset the form
-  Object.keys(form.value).forEach((key) => (form.value[key] = ""));
-};
-</script>
 
 <style scoped>
 .patient-registration-form {
