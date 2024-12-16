@@ -52,8 +52,12 @@ const hospitals_in_system = ref([])
 
     const register = async () => {
         try {
-            const response = await axios.post(`https://health.local.stay/api/register`, input.value)
-            await router.push('/login')
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.post(`https://health.local.stay/api/register`, input.value, config)
+            await router.push('/all_patients')
         } catch (err) {
             alert(err.response.data.message)
         }

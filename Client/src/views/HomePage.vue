@@ -342,6 +342,85 @@ import NavBar from "@/components/NavBar.vue";
       </div>
     </section>
 
+    <section id="pricing" class="section py-5 light-background">
+      <div class="container">
+        <h3 class="mb-5 text-center text-primary">Pricing</h3>
+          <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+              <div class="pricing">
+                <div class="row align-items-center">
+                  <div class="col-md-4 px-0">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4 class="card-title">Basic</h4>
+                        <p class="text-center">A standard features you can get for a month</p>
+                      </div>
+                      <h1 class="price">GHC200</h1>
+                      <ul>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
+                      </ul>
+                      <div class="card-footer">
+                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Order Now</RouterLink>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 px-0">
+                    <div class="card card-highlighted">
+                      <div class="card-header text-center">
+                        <h4 class="card-title">Entrepreneur</h4>
+                        <p class="text-center">A standard features you can get for a Year</p>
+                      </div>
+                      <h1 class="price text-white">GHC2000</h1>
+                      <ul>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
+                      </ul>
+                      <div class="card-footer">
+                        <RouterLink class="btn btn-outline-white btn-block" to="/register_hospital">Order Now
+                        </RouterLink>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 px-0">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4 class="card-title">Professional</h4>
+                        <p class="text-center">A higher features you will need for 6 month</p>
+                      </div>
+                      <h1 class="price">GHC1000</h1>
+                      <ul>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem ipsum sit amet</li>
+                        <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
+                      </ul>
+                      <div class="card-footer">
+                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Order Now</RouterLink>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
 
     <section id="contact" class="stats section py-5 light-background">
       <div class="container d-flex justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
@@ -351,25 +430,31 @@ import NavBar from "@/components/NavBar.vue";
               <h3 class="mb-4 text-primary">Contact Us</h3>
               <div class="d-flex flex-column gap-4">
                 <!-- Facebook -->
-                <a href="https://facebook.com" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                <a href="https://facebook.com"
+                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-primary" viewBox="0 0 512 512">
-                    <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                    <path
+                        d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
                   </svg>
                   <span class="text-lg text-dark">Facebook</span>
                 </a>
 
                 <!-- Email -->
-                <a href="https://Gmail.com" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                <a href="https://Gmail.com"
+                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-danger" viewBox="0 0 512 512">
-                    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                    <path
+                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
                   </svg>
                   <span class="text-lg text-dark">Email Us</span>
                 </a>
 
                 <!-- Phone -->
-                <a href="tel:0559724772" class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
+                <a href="tel:0559724772"
+                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-success" viewBox="0 0 512 512">
-                    <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                    <path
+                        d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
                   </svg>
                   <span class="text-lg text-dark">Call Us</span>
                 </a>
