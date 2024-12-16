@@ -2,8 +2,13 @@
 import useSession from "@/composerbles/useSession.js";
 import {onMounted} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
+import useAuth from "@/composerbles/useAuth.js";
 
 const {username, hospital} = useSession()
+const {logout} = useAuth()
+const logout_user = async () =>{
+  await logout()
+}
 
 </script>
 <template>
@@ -14,7 +19,7 @@ const {username, hospital} = useSession()
           <h2 class="text-dark">Dashboard For {{hospital}}</h2>
           <div class="user-info d-flex align-items-center" v-if="username">
             <span class="me-2">Hello, <b>{{ username }}</b></span>
-            <button class="btn btn-outline-primary btn-sm">Logout</button>
+            <button class="btn btn-outline-primary btn-sm" @click="logout_user">Logout</button>
           </div>
         </header>
 

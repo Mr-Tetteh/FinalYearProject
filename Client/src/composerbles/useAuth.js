@@ -40,6 +40,24 @@ const hospitals_in_system = ref([])
         }
     };
 
+    const logout = async () =>{
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.post('https://health.local.stay/api/logout',{}, config)
+            localStorage.removeItem('AUTH_TOKEN');
+            localStorage.removeItem('USER_TYPE');
+            localStorage.removeItem('USER_NAME');
+            localStorage.removeItem('USER_ID');
+            localStorage.removeItem('HOSPITAL');
+            router.push('/login')
+        }catch (err){
+            alert(err.response.data.data)
+        }
+    }
+
     const hospital = async () =>{
         try {
             let response  = await  axios.get('https://health.local.stay/api/all_hospitals')
@@ -71,7 +89,8 @@ const hospitals_in_system = ref([])
         register,
         input,
         hospital,
-        hospitals_in_system
+        hospitals_in_system,
+        logout
     }
 
 
