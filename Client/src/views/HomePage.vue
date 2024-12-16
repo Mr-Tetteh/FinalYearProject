@@ -365,7 +365,7 @@ import NavBar from "@/components/NavBar.vue";
                         <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
                       </ul>
                       <div class="card-footer">
-                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Order Now</RouterLink>
+                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Register Now</RouterLink>
 
                       </div>
                     </div>
@@ -389,7 +389,7 @@ import NavBar from "@/components/NavBar.vue";
                         <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
                       </ul>
                       <div class="card-footer">
-                        <RouterLink class="btn btn-outline-white btn-block" to="/register_hospital">Order Now
+                        <RouterLink class="btn btn-outline-white btn-block" to="/register_hospital">Register Now
                         </RouterLink>
                       </div>
                     </div>
@@ -410,7 +410,7 @@ import NavBar from "@/components/NavBar.vue";
                         <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
                       </ul>
                       <div class="card-footer">
-                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Order Now</RouterLink>
+                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Register Now</RouterLink>
                       </div>
                     </div>
                   </div>
