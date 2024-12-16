@@ -32,6 +32,8 @@ const hospitals_in_system = ref([])
             localStorage.setItem('USER_TYPE', response.data.user.user_type);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('USER_ID', response.data.user.id);
+            localStorage.setItem('HOSPITAL', response.data.user.hospital);
+
             await router.push('/dashboard');
         } catch (err) {
             alert(err.response.data.message);

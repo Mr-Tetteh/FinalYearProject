@@ -42,7 +42,7 @@ const enter = async () => {
         <!-- Login Form -->
         <form @submit.prevent="enter" novalidate>
           <div class="form-group mb-3">
-            <label for="email" class="form-label">Email or Phone Number</label>
+            <label for="email" class="form-label">Staff ID</label>
             <input
               type="text"
               id="email"

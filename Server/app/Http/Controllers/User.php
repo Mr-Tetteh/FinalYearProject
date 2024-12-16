@@ -42,13 +42,12 @@ class User extends Controller
     public function login(Request $request)
     {
         try {
-            $user = \App\Models\User::where('email', $request->identifier)
-                ->orWhere('phone', $request->identifier)
+            $user = \App\Models\User::where('staff_id', $request->identifier)
                 ->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
-                    'message' => 'Sorry Wrong Email or Password'
+                    'message' => 'Sorry Wrong Staff ID or Password'
                 ], 401);
             }
             return response()->json([

@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import {RouterLink} from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
+import AdminNavBar from "@/components/AdminNavBar.vue";
 
 const {input, register, hospital, hospitals_in_system} =  useAuth()
 
@@ -13,6 +14,7 @@ onMounted(hospital)
 </script>
 
 <template>
+  <AdminNavBar/>
   <div class="container-fluid vh-100 d-flex justify-content-center align-items-center"
        style="background-color: #eef2f6;">
     <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
