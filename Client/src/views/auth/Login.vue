@@ -23,63 +23,85 @@ const enter = async () => {
 
 <template>
   <div
-    class="login-page d-flex align-items-center justify-content-center min-vh-100"
-    style="background-color: #001f3f;"
+      class="page login-page d-flex align-items-center justify-content-center min-vh-100"
   >
-    <div class="card shadow-lg" style="width: 400px; border: none;">
-      <div
-        class="card-header text-center"
-        style="background-color: #001f3f; color: white;"
-      >
-        <h3>Healthcare Login</h3>
+    <div class="container-fluid w-100">
+      <div v-if="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
       </div>
-      <div class="card-body">
-        <!-- Error Message -->
-        <div v-if="errorMessage" class="alert alert-danger" role="alert">
-          {{ errorMessage }}
+      <form @submit.prevent="enter" class="w-100">
+        <div class="card mx-auto" style="max-width: 600px;">
+          <div class="card-header">
+            <h4 class="card-title offset-lg-5">Staff Login</h4>
+          </div>
+          <div class="card-content">
+            <div class="card-body">
+              <div class="form form-horizontal">
+                <div class="form-body">
+                  <div class="row">
+                    <!-- Email Input -->
+                    <div class="col-md-12">
+                      <div class="form-group has-icon-left">
+                        <div class="position-relative">
+                          <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Staff ID"
+                              id="staff-id"
+                              v-model="user.identifier"
+                          />
+                          <div class="form-control-icon">
+                            <i class="bi bi-envelope"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="col-md-12">
+                      <div class="form-group has-icon-left">
+                        <div class="position-relative">
+                          <input
+                              type="password"
+                              class="form-control"
+                              placeholder="Password"
+                              v-model="user.password"
+                          />
+                          <div class="form-control-icon">
+                            <i class="bi bi-lock"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 d-flex justify-content-end mt-3">
+                      <button
+                          type="submit"
+                          class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
+                          :disabled="isLoading"
+                          style="background-color: #001f3f; border-color: #001f3f;"
+                      >
+                        <span
+                            v-if="isLoading"
+                            class="spinner-border spinner-border-sm me-2"
+                        ></span>
+                        Login
+                      </button>
+                      <button
+                          type="reset"
+                          class="btn btn-light-secondary me-2 ms-2"
+                      >
+                        Forgot Password
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <!-- Login Form -->
-        <form @submit.prevent="enter" novalidate>
-          <div class="form-group mb-3">
-            <label for="email" class="form-label">Staff ID</label>
-            <input
-              type="text"
-              id="email"
-              v-model="user.identifier"
-              class="form-control"
-              placeholder="Enter your email or phone number"
-              required
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              id="password"
-              v-model="user.password"
-              class="form-control"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
-            :disabled="isLoading"
-            style="background-color: #001f3f; border-color: #001f3f;"
-          >
-            <span v-if="isLoading" class="spinner-border spinner-border-sm me-2"></span>
-            Login
-          </button>
-        </form>
-      </div>
-
-      <div class="card-footer text-center">
-        <small>
-          Don't have an account? <router-link to="/register">Register here</router-link>
-        </small>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -89,7 +111,16 @@ const enter = async () => {
   font-weight: 600;
   color: #555;
 }
+
 .alert {
   margin-bottom: 15px;
 }
+
+.page {
+  background-image: url(@/assets/img/Staff-center-1200x900.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 </style>
