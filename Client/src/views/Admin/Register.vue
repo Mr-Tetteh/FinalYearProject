@@ -15,8 +15,8 @@ onMounted(hospital)
 
 <template>
   <AdminNavBar/>
-  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center"
-       style="background-color: #eef2f6;">
+  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center main"
+  >
     <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
       <!-- Left Section -->
       <div class="col-md-5 py-4 px-3 text-white" style="background-color: #6c63ff;">
@@ -137,5 +137,9 @@ button.btn-outline-primary {
 
 button.btn-outline-primary i {
   font-size: 1.2rem;
+}
+
+.main{
+  background-image: url("@/assets/img/flat-nurse-team-background_23-2148169744.avif");
 }
 </style>
