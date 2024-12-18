@@ -16,7 +16,9 @@ class PatientsController extends Controller
      */
     public function index()
     {
-        //
+      $patents =   Patients::latest()->get();
+      return PatientResource::collection($patents);
+
     }
 
     /**
@@ -33,7 +35,9 @@ class PatientsController extends Controller
     public function store(Request$request)
     {
         $patient = Patients::create([
-            'full_name' => $request->input('full_name'),
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'other_name' => $request->input('other_names'),
             'age' => $request->input('age'),
             'gender' => $request->input('gender'),
             'date_of_birth' => $request->input('date_of_birth'),

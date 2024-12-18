@@ -2,12 +2,67 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Nette\Utils\Random;
 
 class Patients extends Model
 {
-    /** @use HasFactory<\Database\Factories\PatientsFactory> */
-    use HasFactory;
-    protected $fillable = ['full_name', 'age', 'gender', 'date_of_birth', 'contact', 'address', 'email', 'medical_history', 'allergies', 'additional_notes'];
+    use HasFactory, Sluggable;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'other_name',
+        'age',
+        'patient_number',
+        'gender',
+        'date_of_birth',
+        'contact',
+        'address',
+        'email',
+        'medical_history',
+        'allergies',
+        'additional_notes'
+    ];
+
+    public function sluggable(): array
+    {
+        return [
+            'patient_number' => [
+                'source' => 'patient_number'
+            ]
+        ];
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($patient) {
+            $patient->patient_number = $patient->generateUniquePatientNumber();
+        });
+    }
+
+    public function generateUniquePatientNumber()
+    {
+        $length = 7;
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $uniquePatientNumber = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $uniquePatientNumber .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+
+        // Check if the generated patient number already exists in the database
+        while (Patients::where('patient_number', $uniquePatientNumber)->exists()) {
+            $uniquePatientNumber = '';
+            for ($i = 0; $i < $length; $i++) {
+                $uniquePatientNumber .= $characters[random_int(0, strlen($characters) - 1)];
+            }
+        }
+
+        return $uniquePatientNumber;
+    }
+
 }

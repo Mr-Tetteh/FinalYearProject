@@ -14,7 +14,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [User::class, 'logout']);
     Route::get('user', [User::class, 'user']);
     Route::post('add_patient',[PatientsController::class,'store']);
+    Route::get('all_patient',[PatientsController::class,'index']);
     Route::post('register', [User::class, 'register']);
+
 
 
 });
