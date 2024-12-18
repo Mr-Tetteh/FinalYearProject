@@ -5,6 +5,7 @@ import HomePage from "@/views/HomePage.vue";
 import RegisterHospital from "@/views/auth/RegisterHospital.vue";
 import Dashboard from '@/views/Admin/Dashboard.vue';
 import Patients from '@/views/Admin/Patients.vue';
+import Patients_info from "@/views/Admin/Patients_info.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,12 @@ const router = createRouter({
       name: 'patients',
       component: Patients
     },
+    {
+      path: '/patients_info',
+      name: 'patients_info',
+      component: Patients_info
+    },
+
 
   ],
 })

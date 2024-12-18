@@ -5,7 +5,10 @@ import axios from "axios";
 export default function usePatients() {
 
     const input = ref({
-        full_name: "",
+        first_name: "",
+        last_name: "",
+        other_name: "",
+        patient_number: "",
         age: "",
         gender: "",
         date_of_birth: "",
@@ -16,6 +19,7 @@ export default function usePatients() {
         allergies: "",
         additional_notes: "",
     });
+    const patient = ref('')
 
     const register_patient = async () => {
         try {
@@ -30,8 +34,25 @@ export default function usePatients() {
         }
     }
 
+    const list_patients = async  () =>{
+        try{
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            let response = await axios.get('https://health.local.stay/api/all_patient',config)
+            patient.value =  response.data.data
+        }catch(err) {
+            alert(err.response.data.data)
+        }
+    }
+
+
     return{
         register_patient,
-        input
+        input,
+        patient,
+       list_patients
     }
 }

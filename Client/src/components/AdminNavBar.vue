@@ -47,7 +47,7 @@ const {hospital} = useSession()
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/patients" class="dropdown-item">
+                <RouterLink to="/patients_info" class="dropdown-item">
                   All Patients
                 </RouterLink>
               </li>

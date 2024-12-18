@@ -9,10 +9,11 @@ const registerPatient = () => {
 };
 </script>
 <template>
-  <div class="hospital-dashboard">
+  <div class="hospital-dashboard main">
     <div class="d-flex">
       <!-- Sidebar -->
       <AdminNavBar/>
+
       <div class="patient-registration-form">
         <div class="card shadow-lg border-0">
           <div class="card-header bg-primary text-white">
@@ -24,26 +25,58 @@ const registerPatient = () => {
               <h5 class="mb-3">Patient Details</h5>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label for="fullName" class="form-label">Full Name</label>
-                  <input
-                      type="text"
-                      id="fullName"
-                      v-model="input.full_name"
-                      class="form-control"
-                      placeholder="Enter full name"
-                      required
-                  />
+                  <label for="fullName" class="form-label">First name</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control"
+                             placeholder="First Name" id="first-name-icon" v-model="input.first_name">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="age" class="form-label">Age</label>
-                  <input
-                      type="number"
-                      id="age"
-                      v-model="input.age"
-                      class="form-control"
-                      placeholder="Enter age"
-                      required
-                  />
+                  <label for="fullName" class="form-label">Last name</label>
+
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control"
+                             placeholder="Last Name" id="first-name-icon" v-model="input.last_name"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label">other names</label>
+
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control"
+                             placeholder="Other Name" id="first-name-icon" v-model="input.other_name"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label">Age </label>
+
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="number" class="form-control"
+                             placeholder="Age" id="first-name-icon" v-model="input.age"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-calendar-date"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <label for="gender" class="form-label">Gender</label>
@@ -51,8 +84,9 @@ const registerPatient = () => {
                       id="gender"
                       v-model="input.gender"
                       class="form-select"
-                      required
+
                   >
+
                     <option selected disabled>Select gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -60,14 +94,18 @@ const registerPatient = () => {
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label for="dob" class="form-label">Date of Birth</label>
-                  <input
-                      type="date"
-                      id="dob"
-                      v-model="input.date_of_birth"
-                      class="form-control"
-                      required
-                  />
+                  <label for="fullName" class="form-label">Date of birth</label>
+
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="date" class="form-control"
+                             placeholder="Date of birth" id="first-name-icon" v-model="input.date_of_birth"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-calendar-date"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -77,37 +115,52 @@ const registerPatient = () => {
               <h5 class="mb-3">Contact Information</h5>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label for="phone" class="form-label">Phone Number</label>
-                  <input
-                      type="tel"
-                      id="phone"
-                      v-model="input.contact"
-                      class="form-control"
-                      placeholder="Enter phone number"
-                      required
-                  />
+                  <label for="fullName" class="form-label">Contact</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control"
+                             placeholder="Phone Number" id="first-name-icon" v-model="input.contact"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-phone"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="email" class="form-label">Email Address</label>
-                  <input
-                      type="email"
-                      id="email"
-                      v-model="input.email"
-                      class="form-control"
-                      placeholder="Enter email address"
-                  />
+                  <label for="fullName" class="form-label">Email Address</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control"
+                             placeholder="Enter your email address" id="first-name-icon" v-model="input.email"
+                      >
+                      <div class="form-control-icon">
+                        <i class="bi bi-envelope"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-12">
-                  <label for="address" class="form-label">Home Address</label>
-                  <textarea
-                      id="address"
-                      v-model="input.address"
-                      class="form-control"
-                      rows="3"
-                      placeholder="Enter home address"
-                      required
-                  ></textarea>
+
+                <div class="col-md-12">
+                  <label for="fullName" class="form-label">Home Address</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+
+                      <textarea
+                          id="address"
+                          v-model="input.address"
+                          class="form-control"
+                          rows="3"
+
+                      ></textarea>
+                      <div class="form-control-icon">
+                        <i class="bi bi-house"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+
               </div>
 
               <hr class="my-4"/>
@@ -115,17 +168,26 @@ const registerPatient = () => {
               <!-- Medical History -->
               <h5 class="mb-3">Medical History</h5>
               <div class="row g-3">
+
                 <div class="col-md-6">
-                  <label for="medicalCondition" class="form-label">Medical Condition</label>
-                  <input
-                      type="text"
-                      id="medicalCondition"
-                      v-model="input.medical_history"
-                      class="form-control"
-                      placeholder="E.g., Diabetes, Hypertension"
-                      required
-                  />
+                  <label for="fullName" class="form-label">Underlying condition </label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input
+                          type="text"
+                          id="medicalCondition"
+                          v-model="input.medical_history"
+                          class="form-control"
+                          placeholder="E.g., Diabetes, Hypertension"
+
+                      />
+                      <div class="form-control-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 <div class="col-md-6">
                   <label for="allergies" class="form-label">Allergies</label>
                   <input
@@ -136,15 +198,27 @@ const registerPatient = () => {
                       placeholder="E.g., Peanuts, Dust"
                   />
                 </div>
-                <div class="col-12">
-                  <label for="notes" class="form-label">Additional Notes</label>
-                  <textarea
-                      id="notes"
-                      v-model="input.additional_notes"
-                      class="form-control"
-                      rows="3"
-                      placeholder="Enter any additional medical notes"
-                  ></textarea>
+
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="notes" class="form-label">Additional Note</label>
+                    <div class="input-group has-icon-left">
+      <textarea
+          id="notes"
+          v-model="input.additional_notes"
+          class="form-control"
+          rows="3"
+          placeholder="Enter any additional medical notes"
+      ></textarea>
+                      <span class="input-group-text">
+        <i class="bi bi-pencil-square"></i>
+      </span>
+                    </div>
+                    <div class="form-text">
+                      Enter any additional notes or comments related to the patient's medical history.
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -181,5 +255,9 @@ const registerPatient = () => {
 
 button {
   border-radius: 5px;
+}
+
+.main {
+  background-image: url("@/assets/img/collection-healthcare-workers-including-doctors-nurses-stand-proudly-together-showcasing-their-commitment-patient-care-professional-collaboration_520881-14860.avif");
 }
 </style>
