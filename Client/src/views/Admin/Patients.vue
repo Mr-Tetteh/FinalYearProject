@@ -259,5 +259,6 @@ button {
 
 .main {
   background-image: url("@/assets/img/collection-healthcare-workers-including-doctors-nurses-stand-proudly-together-showcasing-their-commitment-patient-care-professional-collaboration_520881-14860.avif");
+  border-radius: 20%;
 }
 </style>
