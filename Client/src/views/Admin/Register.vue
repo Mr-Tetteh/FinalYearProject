@@ -72,8 +72,8 @@ onMounted(hospital)
               <option value="Doctor">Doctor</option>
               <option value="Nurse">Nurse</option>
               <option value="Pharmacist">Pharmacist</option>
-              <option value="Nurse">Account</option>
-              <option value="Manger">Manager</option>
+              <option value="Account">Account</option>
+              <option value="Manager">Manager</option>
             </select>
           </div>
 

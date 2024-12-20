@@ -118,7 +118,7 @@ const registerPatient = () => {
                   <label for="fullName" class="form-label">Contact</label>
                   <div class="form-group has-icon-left">
                     <div class="position-relative">
-                      <input type="text" class="form-control"
+                      <input type="tel" class="form-control"
                              placeholder="Phone Number" id="first-name-icon" v-model="input.contact"
                       >
                       <div class="form-control-icon">
@@ -259,5 +259,6 @@ button {
 
 .main {
   background-image: url("@/assets/img/collection-healthcare-workers-including-doctors-nurses-stand-proudly-together-showcasing-their-commitment-patient-care-professional-collaboration_520881-14860.avif");
+  border-radius: 20%;
 }
 </style>

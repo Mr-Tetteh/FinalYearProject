@@ -1,16 +1,19 @@
 <script setup>
-import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatients from "@/composerbles/usePatients.js";
-import { onMounted, ref } from "vue";
 
-const { list_patients, patient } = usePatients();
+import useAuth from "@/composerbles/useAuth.js";
+import {onMounted, ref} from "vue";
+import AdminNavBar from "@/components/AdminNavBar.vue";
+
+const {staffs, all_staff} = useAuth();
 const searchQuery = ref('');
 
-onMounted(list_patients);
+onMounted(staffs);
+
 </script>
 
 <template>
-  <AdminNavBar />
+
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -23,20 +26,20 @@ onMounted(list_patients);
         <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h3 class="mb-2">Patient Directory</h3>
-            <p class="text-muted">Manage and view all patient records</p>
+            <h3 class="mb-2">Staff Directory</h3>
+            <p class="text-muted">Manage and view all staff members</p>
           </div>
-          <button class="btn btn-primary">
+          <RouterLink class="btn btn-primary" to="register">
             <i class="bi bi-plus-circle me-2"></i>
-            Add New Patient
-          </button>
+            Add New Staff
+          </RouterLink>
         </div>
 
         <!-- Table Card -->
         <div class="card shadow-sm">
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title mb-0">Patient List</h5>
+              <h5 class="card-title mb-0">Staff List</h5>
               <div class="search-box">
                 <div class="input-group">
                   <span class="input-group-text bg-white border-end-0">
@@ -46,7 +49,7 @@ onMounted(list_patients);
                       type="text"
                       v-model="searchQuery"
                       class="form-control border-start-0"
-                      placeholder="Search patients..."
+                      placeholder="Search staff..."
                   >
                 </div>
               </div>
@@ -59,50 +62,39 @@ onMounted(list_patients);
                 <thead class="bg-light">
                 <tr>
                   <th class="py-3">Full Name</th>
-                  <th class="py-3">Patient ID</th>
-                  <th class="py-3">Gender</th>
                   <th class="py-3">Date of Birth</th>
-                  <th class="py-3">Allergies</th>
-                  <th class="py-3">Medical Conditions</th>
-                  <th class="py-3">Additional Notes</th>
+                  <th class="py-3">Gender</th>
+                  <th class="py-3">Role</th>
+                  <th class="py-3">Email</th>
+                  <th class="py-3">Hospital</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in patient" :key="item.id">
+                <tr v-for="item in all_staff" :key="item.id">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="avatar-initial me-3 rounded-circle bg-primary bg-opacity-10 text-primary">
                         {{ item.first_name[0] }}{{ item.last_name[0] }}
                       </div>
-                      <div class="fw-medium">{{ item.first_name }} {{ item.other_name }} {{ item.last_name }}</div>
+                      <div class="fw-medium">{{ item.first_name }} {{ item.last_name }}</div>
                     </div>
                   </td>
-                  <td>
-                      <span class="badge bg-secondary bg-opacity-10 text-secondary">
-                        {{ item.patient_number }}
-                      </span>
-                  </td>
+                  <td>{{ item.birthday }}</td>
                   <td>{{ item.gender }}</td>
-                  <td>{{ item.date_of_birth }}</td>
                   <td>
-                      <span v-if="item.allergies" class="badge bg-danger bg-opacity-10 text-danger">
-                        {{ item.allergies }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
+    <span class="badge rounded-pill" :class="{
+      'bg-primary text-white': item.role === 'Doctor',
+      'bg-teal text-white': item.role === 'Nurse',
+      'bg-orange text-white': item.role === 'Account',
+      'bg-purple text-white': item.role === 'Pharmacist',
+      'bg-pink text-white': item.role === 'Manager'
+    }">
+      {{ item.role }}
+    </span>
                   </td>
-                  <td>
-                      <span v-if="item.medical_history" class="badge bg-warning bg-opacity-10 text-warning">
-                        {{ item.medical_history }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
-                  </td>
-                  <td>
-                      <span v-if="item.additional_notes" class="text-truncate d-inline-block" style="max-width: 150px;">
-                        {{ item.additional_notes }}
-                      </span>
-                    <span v-else class="text-muted">No notes</span>
-                  </td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.hospital }}</td>
                   <td>
                     <div class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm">
@@ -127,6 +119,7 @@ onMounted(list_patients);
 </template>
 
 <style scoped>
+
 .page-content {
   max-width: 1400px;
   margin: 0 auto;
@@ -181,5 +174,26 @@ onMounted(list_patients);
 .input-group .form-control:focus {
   box-shadow: none;
   border-color: #86b7fe;
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.bg-teal {
+  background-color: #20c997;
+}
+
+.bg-orange {
+  background-color: #fd7e14;
+}
+
+.bg-purple {
+  background-color: #6f42c1;
+}
+
+.bg-pink {
+  background-color: #d63384;
 }
 </style>
