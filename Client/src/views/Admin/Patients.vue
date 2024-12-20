@@ -118,7 +118,7 @@ const registerPatient = () => {
                   <label for="fullName" class="form-label">Contact</label>
                   <div class="form-group has-icon-left">
                     <div class="position-relative">
-                      <input type="text" class="form-control"
+                      <input type="tel" class="form-control"
                              placeholder="Phone Number" id="first-name-icon" v-model="input.contact"
                       >
                       <div class="form-control-icon">

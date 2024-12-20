@@ -1,12 +1,12 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatients from "@/composerbles/usePatients.js";
+import useAuth from "@/composerbles/useAuth.js";
 import { onMounted, ref } from "vue";
 
-const { list_patients, patient } = usePatients();
+const { all_users, users } = useAuth();
 const searchQuery = ref('');
 
-onMounted(list_patients);
+onMounted(users);
 </script>
 
 <template>
@@ -23,12 +23,12 @@ onMounted(list_patients);
         <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h3 class="mb-2">Patient Directory</h3>
-            <p class="text-muted">Manage and view all patient records</p>
+            <h3 class="mb-2">User Directory</h3>
+            <p class="text-muted">Manage and view all user accounts</p>
           </div>
           <button class="btn btn-primary">
             <i class="bi bi-plus-circle me-2"></i>
-            Add New Patient
+            Add New User
           </button>
         </div>
 
@@ -36,7 +36,7 @@ onMounted(list_patients);
         <div class="card shadow-sm">
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title mb-0">Patient List</h5>
+              <h5 class="card-title mb-0">User List</h5>
               <div class="search-box">
                 <div class="input-group">
                   <span class="input-group-text bg-white border-end-0">
@@ -46,7 +46,7 @@ onMounted(list_patients);
                       type="text"
                       v-model="searchQuery"
                       class="form-control border-start-0"
-                      placeholder="Search patients..."
+                      placeholder="Search users..."
                   >
                 </div>
               </div>
@@ -59,49 +59,36 @@ onMounted(list_patients);
                 <thead class="bg-light">
                 <tr>
                   <th class="py-3">Full Name</th>
-                  <th class="py-3">Patient ID</th>
-                  <th class="py-3">Gender</th>
                   <th class="py-3">Date of Birth</th>
-                  <th class="py-3">Allergies</th>
-                  <th class="py-3">Medical Conditions</th>
-                  <th class="py-3">Additional Notes</th>
+                  <th class="py-3">Gender</th>
+                  <th class="py-3">Role</th>
+                  <th class="py-3">Email</th>
+                  <th class="py-3">Hospital</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in patient" :key="item.id">
+                <tr v-for="item in all_users" :key="item.email">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="avatar-initial me-3 rounded-circle bg-primary bg-opacity-10 text-primary">
                         {{ item.first_name[0] }}{{ item.last_name[0] }}
                       </div>
-                      <div class="fw-medium">{{ item.first_name }} {{ item.other_name }} {{ item.last_name }}</div>
+                      <div class="fw-medium">{{ item.first_name }} {{ item.last_name }}</div>
                     </div>
                   </td>
+                  <td>{{ item.birthday }}</td>
+                  <td>{{ item.gender }}</td>
+                  <td>
+                      <span class="badge bg-info bg-opacity-10 text-info">
+                        {{ item.role }}
+                      </span>
+                  </td>
+                  <td>{{ item.email }}</td>
                   <td>
                       <span class="badge bg-secondary bg-opacity-10 text-secondary">
-                        {{ item.patient_number }}
+                        {{ item.hospital }}
                       </span>
-                  </td>
-                  <td>{{ item.gender }}</td>
-                  <td>{{ item.date_of_birth }}</td>
-                  <td>
-                      <span v-if="item.allergies" class="badge bg-danger bg-opacity-10 text-danger">
-                        {{ item.allergies }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
-                  </td>
-                  <td>
-                      <span v-if="item.medical_history" class="badge bg-warning bg-opacity-10 text-warning">
-                        {{ item.medical_history }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
-                  </td>
-                  <td>
-                      <span v-if="item.additional_notes" class="text-truncate d-inline-block" style="max-width: 150px;">
-                        {{ item.additional_notes }}
-                      </span>
-                    <span v-else class="text-muted">No notes</span>
                   </td>
                   <td>
                     <div class="d-flex gap-2">

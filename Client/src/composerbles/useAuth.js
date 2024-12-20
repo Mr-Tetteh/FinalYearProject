@@ -8,6 +8,8 @@ export default function useAuth() {
         identifier: '',
         password: ''
     })
+    const all_users = ref('');
+    const all_staff = ref('');
 
     const input = ref({
         first_name: "",
@@ -22,15 +24,16 @@ export default function useAuth() {
         city: "",
         password: "my_name_is_jesus",
     })
+
 const hospitals_in_system = ref([])
     const login = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/login', user.value);
-            console.log('Response:', response.data); // Debug the API response
             const token = response.data.authorisation.token;
             localStorage.setItem('AUTH_TOKEN', token);
             localStorage.setItem('USER_TYPE', response.data.user.user_type);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
+            localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
             localStorage.setItem('HOSPITAL', response.data.user.hospital);
 
@@ -39,6 +42,36 @@ const hospitals_in_system = ref([])
             alert(err.response.data.message);
         }
     };
+
+    const users = async () =>{
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get('https://health.local.stay/api/all_users', config);
+            all_users.value = response.data.data
+
+        }catch (err){
+            alert(err.response.data.data)
+        }
+
+    }
+
+    const staffs = async () =>{
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get('https://health.local.stay/api/all_staff', config);
+            all_staff.value = response.data.data
+
+        }catch (err){
+            alert(err.response.data.data)
+        }
+
+    }
 
     const logout = async () =>{
         try {
@@ -75,7 +108,7 @@ const hospitals_in_system = ref([])
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post(`https://health.local.stay/api/register`, input.value, config)
-            await router.push('/all_patients')
+            await router.push('/staff_info')
         } catch (err) {
             alert(err.response.data.message)
         }
@@ -90,7 +123,11 @@ const hospitals_in_system = ref([])
         input,
         hospital,
         hospitals_in_system,
-        logout
+        logout,
+        all_users,
+        users,
+        staffs,
+        all_staff
     }
 
 

@@ -38,6 +38,19 @@ class User extends Controller
         return new UserResource($user);
     }
 
+    public function all_users()
+    {
+        $user = \App\Models\User::all();
+       return UserResource::collection($user);
+    }
+
+    public function all_staff()
+    {
+        $loggedInUser = Auth::user();
+
+       $all_staff =  \App\Models\User::where('hospital', $loggedInUser->hospital)->get();
+       return UserResource::collection($all_staff);
+    }
 
     public function login(Request $request)
     {
