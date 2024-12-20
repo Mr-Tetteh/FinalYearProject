@@ -61,7 +61,6 @@ const togglePasswordVisibility = () => {
                         v-model="user.identifier"
                         required
                     />
-                    <label for="staff-id" class="ms-4">Staff ID</label>
                   </div>
                 </div>
 
@@ -86,7 +85,6 @@ const togglePasswordVisibility = () => {
                     >
                       <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                     </button>
-                    <label for="password" class="ms-4">Password</label>
                   </div>
                 </div>
 
