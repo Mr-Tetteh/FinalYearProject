@@ -1,145 +1,315 @@
 <script setup>
-import {onMounted, ref} from "vue";
-import {RouterLink} from "vue-router";
+import { onMounted, ref, computed } from "vue";
+import { RouterLink } from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 
-const {input, register, hospital, hospitals_in_system} =  useAuth()
+const { input, register, hospital, hospitals_in_system } = useAuth();
 
-const registerUser = () =>{
+// Form validation state
+const formErrors = ref({});
+const isSubmitting = ref(false);
+
+// Validation functions
+const validateForm = () => {
+  const errors = {};
+
+  if (!input.first_name?.trim()) errors.first_name = 'First name is required';
+  if (!input.last_name?.trim()) errors.last_name = 'Last name is required';
+  if (!input.birthday) errors.birthday = 'Birthday is required';
+  if (!input.gender) errors.gender = 'Please select a gender';
+  if (!input.role) errors.role = 'Please select a role';
+  if (!input.email?.trim()) errors.email = 'Email is required';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) errors.email = 'Invalid email format';
+  if (!input.hospital) errors.hospital = 'Please select a hospital';
+  if (!input.staff_id?.trim()) errors.staff_id = 'Staff ID is required';
+  if (!input.phone?.trim()) errors.phone = 'Phone number is required';
+  if (!input.city?.trim()) errors.city = 'City is required';
+
+  formErrors.value = errors;
+  return Object.keys(errors).length === 0;
+};
+
+const registerUser = async () => {
   register()
-}
+};
 
-onMounted(hospital)
+onMounted(hospital);
 </script>
 
 <template>
-  <AdminNavBar/>
-  <div class="container-fluid vh-100 d-flex justify-content-center align-items-center main"
-  >
-    <div class="row w-75 shadow rounded overflow-hidden" style="max-width: 900px; background-color: #ffffff;">
-      <!-- Left Section -->
-      <div class="col-md-5 py-4 px-3 text-white" style="background-color: #6c63ff;">
-        <div class="text-center">
-          <img src="https://via.placeholder.com/100" alt="Healthcare Icon" class="mb-2"/>
-          <h4>Swift Care</h4>
-          <p class="mt-2">
-            Stay Healthy, Stay On Track
-          </p>
-        </div>
-      </div>
+  <AdminNavBar />
+  <div class="registration-page min-vh-100 d-flex justify-content-center align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+          <div class="card border-0 shadow-lg overflow-hidden">
+            <div class="row g-0">
+              <!-- Left Column -->
+              <div class="col-lg-4 bg-primary text-white d-flex flex-column justify-content-center p-4 p-lg-5">
+                <div class="text-center">
+                  <div class="mb-4">
+                    <i class="bi bi-hospital display-1"></i>
+                  </div>
+                  <h2 class="h3 mb-4">Swift Care</h2>
+                  <p class="lead mb-4">Join our healthcare community and make a difference in patients' lives.</p>
+                  <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-check-circle-fill me-2"></i>
+                      <span>Professional Healthcare Network</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-check-circle-fill me-2"></i>
+                      <span>Seamless Communication</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-check-circle-fill me-2"></i>
+                      <span>Efficient Patient Care</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-      <!-- Right Section -->
-      <div class="col-md-7 py-4 px-3">
-        <h3 class="mb-3 text-center">Register Staff Account</h3>
-<!--        <div class="d-flex justify-content-center gap-2 mb-3">
-          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-google me-1"></i> Google
-          </button>
-          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center">
-            <i class="bi bi-facebook me-1"></i> Facebook
-          </button>
-        </div>-->
-<!--
-        <div class="text-center my-2">- OR -</div>
--->
-        <form @submit.prevent="registerUser" class="mt-20">
-          <div class="mb-2">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" id="firstName" class="form-control" v-model="input.first_name" />
-          </div>
-          <div class="mb-2">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" id="lastName" class="form-control" v-model="input.last_name" />
-          </div>
-          <div class="mb-2">
-            <label for="birthday" class="form-label">Birthday</label>
-            <input type="date" id="birthday" class="form-control" v-model="input.birthday" />
-          </div>
-          <div class="mb-2">
-            <label for="gender" class="form-label">Gender</label>
-            <select v-model="input.gender" class="form-control">
-              <option selected disabled>Select Option</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
+              <!-- Right Column -->
+              <div class="col-lg-8 bg-white">
+                <div class="p-4 p-lg-5">
+                  <h3 class="text-center mb-4">Staff Registration</h3>
 
-          <div class="mb-2">
-            <label for="role" class="form-label">Role</label>
-            <select v-model="input.role" class="form-control">
-              <option selected disabled>Select Option</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Nurse">Nurse</option>
-              <option value="Pharmacist">Pharmacist</option>
-              <option value="Account">Account</option>
-              <option value="Manager">Manager</option>
-            </select>
-          </div>
+                  <form @submit.prevent="registerUser" class="needs-validation">
+                    <div class="row g-3">
+                      <!-- Personal Information -->
+                      <div class="col-md-6">
+                        <label class="form-label">First Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.first_name }"
+                            v-model="input.first_name"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.first_name }}</div>
+                      </div>
 
-          <div class="mb-2">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" class="form-control" v-model="input.email" />
-          </div>
-          <div class="mb-2">
-            <label for="role" class="form-label">Hospital</label>
-            <select v-model="input.hospital" class="form-control">
-              <option selected disabled>Select Option</option>
-              <option
-                  v-for="hospitals_in_systems in hospitals_in_system"
-                  :key="hospitals_in_systems.id"
-                  :value="hospitals_in_systems.hospital_name">
-                {{hospitals_in_systems.hospital_name}}
-              </option>
-            </select>
-          </div>
-          <div class="mb-2">
-            <label for="phone" class="form-label">Staff ID</label>
-            <input type="text" class="form-control" v-model="input.staff_id" />
-          </div>
-          <div class="mb-2">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="tel" id="phone" class="form-control" v-model="input.phone" />
-          </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Last Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.last_name }"
+                            v-model="input.last_name"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.last_name }}</div>
+                      </div>
 
-          <div class="mb-2">
-            <label for="city" class="form-label">City</label>
-            <input type="text" id="city" class="form-control" v-model="input.city" />
+                      <div class="col-md-6">
+                        <label class="form-label">Birthday</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.birthday }"
+                            v-model="input.birthday"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.birthday }}</div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">Gender</label>
+                        <select
+                            class="form-select"
+                            :class="{ 'is-invalid': formErrors.gender }"
+                            v-model="input.gender"
+                        >
+                          <option value="" disabled selected>Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                        <div class="invalid-feedback">{{ formErrors.gender }}</div>
+                      </div>
+
+                      <!-- Professional Information -->
+                      <div class="col-md-6">
+                        <label class="form-label">Role</label>
+                        <select
+                            class="form-select"
+                            :class="{ 'is-invalid': formErrors.role }"
+                            v-model="input.role"
+                        >
+                          <option value="" disabled selected>Select Role</option>
+                          <option value="Doctor">Doctor</option>
+                          <option value="Nurse">Nurse</option>
+                          <option value="Pharmacist">Pharmacist</option>
+                          <option value="Account">Account</option>
+                          <option value="Manager">Manager</option>
+                        </select>
+                        <div class="invalid-feedback">{{ formErrors.role }}</div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">Hospital</label>
+                        <select
+                            class="form-select"
+                            :class="{ 'is-invalid': formErrors.hospital }"
+                            v-model="input.hospital"
+                        >
+                          <option value="" disabled selected>Select Hospital</option>
+                          <option
+                              v-for="hospital in hospitals_in_system"
+                              :key="hospital.id"
+                              :value="hospital.hospital_name"
+                          >
+                            {{ hospital.hospital_name }}
+                          </option>
+                        </select>
+                        <div class="invalid-feedback">{{ formErrors.hospital }}</div>
+                      </div>
+
+                      <!-- Contact Information -->
+                      <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.email }"
+                            v-model="input.email"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.email }}</div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">Staff ID</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.staff_id }"
+                            v-model="input.staff_id"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.staff_id }}</div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">Phone</label>
+                        <input
+                            type="tel"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.phone }"
+                            v-model="input.phone"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.phone }}</div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': formErrors.city }"
+                            v-model="input.city"
+                        />
+                        <div class="invalid-feedback">{{ formErrors.city }}</div>
+                      </div>
+                    </div>
+
+                    <div class="mt-4">
+                      <button
+                          type="submit"
+                          class="btn btn-primary w-100 py-2"
+                          :disabled="isSubmitting"
+                      >
+                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                        {{ isSubmitting ? 'Creating Account...' : 'Create Account' }}
+                      </button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                      <p class="mb-0">
+                        Already have an account?
+                        <router-link to="/login" class="text-primary text-decoration-none ms-1">
+                          Login here
+                        </router-link>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-
-
-          <button type="submit" class="btn btn-primary w-100">Create Account</button>
-        </form>
-        <div class="text-center mt-2">
-          <p>
-            Already have an account?
-            <router-link to="/login" class="login-link">Login here</router-link>
-          </p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <style scoped>
-.container-fluid {
-  font-family: "Arial", sans-serif;
-}
-
-img {
-  max-width: 100px;
-}
-
-button.btn-outline-primary {
-  border: 1px solid #007bff;
-}
-
-button.btn-outline-primary i {
-  font-size: 1.2rem;
-}
-
-.main{
+.registration-page {
   background-image: url("@/assets/img/flat-nurse-team-background_23-2148169744.avif");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.registration-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+.form-control,
+.form-select {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+}
+
+.btn-primary {
+  background-color: #6c63ff;
+  border-color: #6c63ff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #5b52ff;
+  border-color: #5b52ff;
+  transform: translateY(-1px);
+}
+
+.bg-primary {
+  background-color: #6c63ff !important;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.invalid-feedback {
+  font-size: 0.875rem;
+}
+
+@media (max-width: 991.98px) {
+  .card {
+    margin: 1rem;
+  }
 }
 </style>

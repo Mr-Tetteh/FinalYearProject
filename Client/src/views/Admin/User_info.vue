@@ -26,10 +26,10 @@ onMounted(users);
             <h3 class="mb-2">User Directory</h3>
             <p class="text-muted">Manage and view all user accounts</p>
           </div>
-          <button class="btn btn-primary">
+          <RouterLink class="btn btn-primary" to="register">
             <i class="bi bi-plus-circle me-2"></i>
-            Add New User
-          </button>
+            Add New Staff
+          </RouterLink>
         </div>
 
         <!-- Table Card -->
@@ -80,13 +80,19 @@ onMounted(users);
                   <td>{{ item.birthday }}</td>
                   <td>{{ item.gender }}</td>
                   <td>
-                      <span class="badge bg-info bg-opacity-10 text-info">
-                        {{ item.role }}
-                      </span>
+                    <span class="badge rounded-pill" :class="{
+                    'bg-primary text-white': item.role === 'Doctor',
+                    'bg-teal text-white': item.role === 'Nurse',
+                    'bg-orange text-white': item.role === 'Account',
+                    'bg-purple text-white': item.role === 'Pharmacist',
+                    'bg-pink text-white': item.role === 'Manager'
+                  }">
+                      {{ item.role }}
+                    </span>
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
-                      <span class="badge bg-secondary bg-opacity-10 text-secondary">
+                      <span class="badge bg-primary bg-opacity-10 text-secondary">
                         {{ item.hospital }}
                       </span>
                   </td>
@@ -168,5 +174,22 @@ onMounted(users);
 .input-group .form-control:focus {
   box-shadow: none;
   border-color: #86b7fe;
+}
+
+
+.bg-teal {
+  background-color: #20c997;
+}
+
+.bg-orange {
+  background-color: #fd7e14;
+}
+
+.bg-purple {
+  background-color: #6f42c1;
+}
+
+.bg-pink {
+  background-color: #d63384;
 }
 </style>
