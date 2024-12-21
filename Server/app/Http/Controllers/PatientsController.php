@@ -21,6 +21,13 @@ class PatientsController extends Controller
       return PatientResource::collection($patents);
 
     }
+    public function hospitals_patients()
+    {
+        $user = Auth::user();
+        $patient = Patients::where('hospital', $user->hospital)->get();
+        return PatientResource::collection($patient);
+
+    }
 
 
     /**

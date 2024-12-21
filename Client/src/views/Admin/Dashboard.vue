@@ -1,15 +1,34 @@
 <script setup>
 import useSession from "@/composerbles/useSession.js";
-import { onMounted, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
+import usePatients from "@/composerbles/usePatients.js";
 
 const { username,lastname, hospital } = useSession();
+const {hospital_patient, all_hospital_patient,list_patients, patient} = usePatients()
+
 const { logout } = useAuth();
 
 const logout_user = async () => {
   await logout();
 };
+onMounted(hospital_patient,list_patients)
+onMounted(() => {
+  hospital_patient()
+      list_patients()
+})
+
+const firstNameCount = computed(() => {
+  const patients = all_hospital_patient.value || [];
+  return patients.filter(item => item.first_name).length;
+});
+
+const firstNameCountList = computed(() => {
+  const patients = patient.value || [];
+  return patients.filter(item => item.first_name).length;
+});
+
 
 // Mock data for charts (you can replace with real data)
 const recentAppointments = ref([
@@ -65,11 +84,18 @@ const submitAppointment = () => {
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Total Patients</h6>
-                <h3 class="stat-value text-primary">1,234</h3>
-                <p class="stat-change text-success mb-0">
-                  <i class="bi bi-arrow-up-short"></i>
-                  12% increase
-                </p>
+                <h3 class="stat-value text-primary">{{firstNameCount}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card bg-white border-start border-secondary border-4">
+              <div class="stat-icon text-secondary">
+                <i class="bi bi-people-fill text-secondary"></i>
+              </div>
+              <div class="stat-details">
+                <h6 class="stat-label">Total Number of all Patients</h6>
+                <h3 class="stat-value text-secondary">{{firstNameCountList}}</h3>
               </div>
             </div>
           </div>
@@ -82,10 +108,7 @@ const submitAppointment = () => {
               <div class="stat-details">
                 <h6 class="stat-label">Admitted Patients</h6>
                 <h3 class="stat-value text-success">567</h3>
-                <p class="stat-change text-success mb-0">
-                  <i class="bi bi-arrow-up-short"></i>
-                  8% increase
-                </p>
+
               </div>
             </div>
           </div>
@@ -98,10 +121,7 @@ const submitAppointment = () => {
               <div class="stat-details">
                 <h6 class="stat-label">Total Revenue</h6>
                 <h3 class="stat-value text-warning">$45,000</h3>
-                <p class="stat-change text-success mb-0">
-                  <i class="bi bi-arrow-up-short"></i>
-                  15% increase
-                </p>
+
               </div>
             </div>
           </div>
@@ -114,10 +134,7 @@ const submitAppointment = () => {
               <div class="stat-details">
                 <h6 class="stat-label">Pending Bills</h6>
                 <h3 class="stat-value text-danger">$12,000</h3>
-                <p class="stat-change text-danger mb-0">
-                  <i class="bi bi-arrow-down-short"></i>
-                  5% decrease
-                </p>
+
               </div>
             </div>
           </div>

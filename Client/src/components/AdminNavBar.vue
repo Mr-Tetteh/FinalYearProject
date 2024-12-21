@@ -53,6 +53,10 @@ const toggleSidebar = () => {
               <i class="bi bi-plus-circle"></i>
               <span>Register Patient</span>
             </RouterLink>
+            <RouterLink to="/hospital_patient" class="submenu-item">
+              <i class="bi bi-plus-circle"></i>
+              <span>Patients</span>
+            </RouterLink>
             <RouterLink to="/patients_info" class="submenu-item">
               <i class="bi bi-list-ul"></i>
               <span>All Patients</span>
