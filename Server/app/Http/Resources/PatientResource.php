@@ -21,13 +21,14 @@ class PatientResource extends JsonResource
             'patient_number' => $this->patient_number,
             'age' => $this->age,
             'gender' => $this->gender,
+            'hospital' => $this->hospital,
             'date_of_birth' => $this->date_of_birth,
             'contact' => $this->contact,
             'address' => $this->address,
             'email' => $this->email,
             'medical_history' => $this->medical_history,
             'allergies' => $this->allergies,
-            'additional_notes' => $this->additional_notes
+            'additional_notes' => $this->additional_notes,
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePatientsRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientsController extends Controller
 {
@@ -20,6 +21,7 @@ class PatientsController extends Controller
       return PatientResource::collection($patents);
 
     }
+
 
     /**
      * Show the form for creating a new resource.

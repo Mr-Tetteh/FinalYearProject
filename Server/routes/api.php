@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('register', [User::class, 'register']);
     Route::get('all_users', [User::class, 'all_users']);
     Route::get('all_staff', [User::class, 'all_staff']);
-
-
 });
+
+
+

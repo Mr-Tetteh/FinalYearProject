@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Nette\Utils\Random;
 
@@ -19,6 +20,7 @@ class Patients extends Model
         'age',
         'patient_number',
         'gender',
+        'hospital',
         'date_of_birth',
         'contact',
         'address',
@@ -33,6 +35,9 @@ class Patients extends Model
         return [
             'patient_number' => [
                 'source' => 'patient_number'
+            ],
+            'patient_hospital' =>[
+                'source' => Auth::user()->hospital
             ]
         ];
     }
@@ -41,6 +46,7 @@ class Patients extends Model
     {
         static::creating(function ($patient) {
             $patient->patient_number = $patient->generateUniquePatientNumber();
+            $patient->hospital = Auth::user()->hospital;
         });
     }
 
