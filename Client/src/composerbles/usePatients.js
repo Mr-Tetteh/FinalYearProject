@@ -11,6 +11,7 @@ export default function usePatients() {
         patient_number: "",
         age: "",
         gender: "",
+        hospital: "",
         date_of_birth: "",
         contact: "",
         email: "",
@@ -34,6 +35,8 @@ export default function usePatients() {
         }
     }
 
+
+
     const list_patients = async  () =>{
         try{
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -53,6 +56,6 @@ export default function usePatients() {
         register_patient,
         input,
         patient,
-       list_patients
+       list_patients,
     }
 }

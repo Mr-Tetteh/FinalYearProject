@@ -26,10 +26,10 @@ onMounted(list_patients);
             <h3 class="mb-2">Patient Directory</h3>
             <p class="text-muted">Manage and view all patient records</p>
           </div>
-          <button class="btn btn-primary">
+          <RouterLink to="patients" class="btn btn-primary">
             <i class="bi bi-plus-circle me-2"></i>
             Add New Patient
-          </button>
+          </RouterLink>
         </div>
 
         <!-- Table Card -->

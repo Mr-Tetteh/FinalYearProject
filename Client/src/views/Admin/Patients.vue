@@ -1,9 +1,15 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import usePatients from "@/composerbles/usePatients.js";
+import useSession from "@/composerbles/useSession.js";
 
 const {input, register_patient} = usePatients()
+
+
+
+
+
 const registerPatient = () => {
   register_patient()
 };
@@ -13,7 +19,6 @@ const registerPatient = () => {
     <div class="d-flex">
       <!-- Sidebar -->
       <AdminNavBar/>
-
       <div class="patient-registration-form">
         <div class="card shadow-lg border-0">
           <div class="card-header bg-primary text-white">
@@ -141,6 +146,7 @@ const registerPatient = () => {
                   </div>
                 </div>
 
+
                 <div class="col-md-12">
                   <label for="fullName" class="form-label">Home Address</label>
                   <div class="form-group has-icon-left">
@@ -221,9 +227,7 @@ const registerPatient = () => {
                   </div>
                 </div>
               </div>
-
               <hr class="my-4"/>
-
               <!-- Submit Button -->
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary btn-lg">
