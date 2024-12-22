@@ -1,16 +1,16 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import usePatients from "@/composerbles/usePatients.js";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 
-const { list_patients, patient } = usePatients();
+const {list_patients, patient} = usePatients();
 const searchQuery = ref('');
 
 onMounted(list_patients);
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -109,6 +109,10 @@ onMounted(list_patients);
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
+                      <RouterLink to="patient_file_add">
+                        <i class="bi bi-plus-circle me-1"></i>
+                        Add patient file
+                      </RouterLink>
                       <button class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle me-1"></i>
                         Form

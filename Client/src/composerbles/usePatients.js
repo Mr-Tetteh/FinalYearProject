@@ -20,6 +20,21 @@ export default function usePatients() {
         allergies: "",
         additional_notes: "",
     });
+
+    const record = ref({
+        symptoms: '',
+        diagnosis: '',
+        treatment: '',
+        temperature: '',
+        pulse_rate: '',
+        sugar_rate: '',
+        admitted: '',
+        ward_number: '',
+        surgery: '',
+        surgery_date: '',
+        surgery_reason: '',
+        additional_notes : ''
+    })
     const patient = ref('')
     const all_hospital_patient = ref('');
 
@@ -73,6 +88,7 @@ export default function usePatients() {
         patient,
        list_patients,
         hospital_patient,
-        all_hospital_patient
+        all_hospital_patient,
+        record
     }
 }
