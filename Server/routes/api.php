@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HosptialController;
+use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('all_users', [User::class, 'all_users']);
     Route::get('all_staff', [User::class, 'all_staff']);
     Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
-    Route::post('patient_rec', [\App\Models\PatientRecord::class, 'store']);
+    Route::post('patient_rec', [PatientRecordController::class, 'store']);
 });
 
 
