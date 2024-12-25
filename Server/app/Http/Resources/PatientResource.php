@@ -12,6 +12,7 @@ class PatientResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
     public function toArray(Request $request): array
     {
         return [
@@ -30,6 +31,23 @@ class PatientResource extends JsonResource
             'medical_history' => $this->medical_history,
             'allergies' => $this->allergies,
             'additional_notes' => $this->additional_notes,
+            'guardian1' => [
+                'first_name' => $this->guardian1_first_name,
+                'last_name' => $this->guardian1_last_name,
+                'other_names' => $this->guardian1_other_names,
+                'relation' => $this->guardian1_relation,
+                'residence' => $this->guardian1_residence,
+                'contact' => $this->guardian1_contact,
+            ],
+            'guardian2' => [
+                'first_name' => $this->guardian2_first_name,
+                'last_name' => $this->guardian2_last_name,
+                'other_names' => $this->guardian2_other_names,
+                'relation' => $this->guardian2_relation,
+                'residence' => $this->guardian2_residence,
+                'contact' => $this->guardian2_contact,
+            ],
         ];
     }
+
 }

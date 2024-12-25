@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('hospital_email');
             $table->string('hospital_country');
             $table->string('hospital_city');
+            $table->string('hospital_location');
             $table->string('user_name');
             $table->string('user_phone_number');
             $table->string('user_email');

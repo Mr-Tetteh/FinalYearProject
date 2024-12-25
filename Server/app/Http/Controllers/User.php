@@ -15,22 +15,23 @@ class User extends Controller
             return response()->json([
                 'message' => 'Sorry, Email already exists'
             ], 402);
-        } elseif (\App\Models\User::where('phone', $request->phone)->first()) {
+        } elseif (\App\Models\User::where('contact', $request->contact)->first()) {
             return response()->json([
-                'message' => 'Sorry, Phone number already exists with an account.'
+                'message' => 'Sorry, phone number already exists with an account.'
             ], 402);
         }
 
         $user = \App\Models\User::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
+            'other_names' => $request->input('other_names'),
             'birthday' => $request->input('birthday'),
             'gender' => $request->input('gender'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
             'hospital' => $request->input('hospital'),
             'staff_id' => $request->input('staff_id'),
-            'phone' => $request->input('phone'),
+            'contact' => $request->input('contact'),
             'city' => $request->input('city'),
             'password' => Hash::make($request->input('password'))
         ]);
@@ -68,7 +69,7 @@ class User extends Controller
                 "user" => $user,
                 "authorisation" => [
                     "type" => "Bearer",
-                    "token" => $user->createToken($user->email ?? $user->phone)->plainTextToken
+                    "token" => $user->createToken($user->email ?? $user->contact)->plainTextToken
                 ]
             ]);
         } catch (\Throwable $th) {

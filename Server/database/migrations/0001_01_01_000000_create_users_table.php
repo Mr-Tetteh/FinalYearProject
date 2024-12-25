@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('other_names')->nullable();
             $table->date('birthday');
             $table->string('gender');
             $table->string('role');
+            $table->string('contact');
             $table->string('email')->unique();
             $table->string('hospital');
             $table->string('staff_id');
-            $table->integer('phone');
             $table->string('city');
             $table->string('password');
 
