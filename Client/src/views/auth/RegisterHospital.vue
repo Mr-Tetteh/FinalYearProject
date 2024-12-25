@@ -77,6 +77,19 @@ const hospital = () => {
           />
         </div>
 
+        <div class="form-group mb-4">
+          <label for="hospital_email" class="form-label fw-bold">Hospital Location</label>
+          <input
+              id="hospital_email"
+              type="text"
+              v-model="input.hospital_location"
+              class="form-control form-control-lg"
+              placeholder="Enter hospital location"
+              required
+          />
+        </div>
+
+
         <!-- Select Country -->
         <div class="form-group mb-4">
           <label for="hospital_country" class="form-label fw-bold">Country</label>

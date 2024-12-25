@@ -113,10 +113,19 @@ onMounted(hospital_patient)
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
-                      <button class="btn btn-primary btn-sm">
+                      <RouterLink
+                          :to="{ name: 'patients.file_add', params: { id: item.id} }"
+                          class="btn btn-secondary btn-sm"
+                      >
+                        <i class="bi bi-plus-circle me-1"></i>
+
+                        Add to file
+                      </RouterLink>
+
+                      <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle me-1"></i>
                         Form
-                      </button>
+                      </RouterLink>
                     </div>
                   </td>
                 </tr>

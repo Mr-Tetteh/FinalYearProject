@@ -6,29 +6,6 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 
 const { input, register, hospital, hospitals_in_system } = useAuth();
 
-// Form validation state
-const formErrors = ref({});
-const isSubmitting = ref(false);
-
-// Validation functions
-const validateForm = () => {
-  const errors = {};
-
-  if (!input.first_name?.trim()) errors.first_name = 'First name is required';
-  if (!input.last_name?.trim()) errors.last_name = 'Last name is required';
-  if (!input.birthday) errors.birthday = 'Birthday is required';
-  if (!input.gender) errors.gender = 'Please select a gender';
-  if (!input.role) errors.role = 'Please select a role';
-  if (!input.email?.trim()) errors.email = 'Email is required';
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) errors.email = 'Invalid email format';
-  if (!input.hospital) errors.hospital = 'Please select a hospital';
-  if (!input.staff_id?.trim()) errors.staff_id = 'Staff ID is required';
-  if (!input.phone?.trim()) errors.phone = 'Phone number is required';
-  if (!input.city?.trim()) errors.city = 'City is required';
-
-  formErrors.value = errors;
-  return Object.keys(errors).length === 0;
-};
 
 const registerUser = async () => {
   register()
@@ -83,10 +60,8 @@ onMounted(hospital);
                         <input
                             type="text"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.first_name }"
                             v-model="input.first_name"
                         />
-                        <div class="invalid-feedback">{{ formErrors.first_name }}</div>
                       </div>
 
                       <div class="col-md-6">
@@ -94,10 +69,25 @@ onMounted(hospital);
                         <input
                             type="text"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.last_name }"
                             v-model="input.last_name"
                         />
-                        <div class="invalid-feedback">{{ formErrors.last_name }}</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Other Names</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="input.other_names"
+                        />
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">Contact</label>
+                        <input
+                            type="tel"
+                            class="form-control"
+                            v-model="input.contact"
+                        />
                       </div>
 
                       <div class="col-md-6">
@@ -105,24 +95,20 @@ onMounted(hospital);
                         <input
                             type="date"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.birthday }"
                             v-model="input.birthday"
                         />
-                        <div class="invalid-feedback">{{ formErrors.birthday }}</div>
                       </div>
 
                       <div class="col-md-6">
                         <label class="form-label">Gender</label>
                         <select
                             class="form-select"
-                            :class="{ 'is-invalid': formErrors.gender }"
                             v-model="input.gender"
                         >
                           <option value="" disabled selected>Select Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
                         </select>
-                        <div class="invalid-feedback">{{ formErrors.gender }}</div>
                       </div>
 
                       <!-- Professional Information -->
@@ -130,7 +116,6 @@ onMounted(hospital);
                         <label class="form-label">Role</label>
                         <select
                             class="form-select"
-                            :class="{ 'is-invalid': formErrors.role }"
                             v-model="input.role"
                         >
                           <option value="" disabled selected>Select Role</option>
@@ -140,14 +125,12 @@ onMounted(hospital);
                           <option value="Account">Account</option>
                           <option value="Manager">Manager</option>
                         </select>
-                        <div class="invalid-feedback">{{ formErrors.role }}</div>
                       </div>
 
                       <div class="col-md-6">
                         <label class="form-label">Hospital</label>
                         <select
                             class="form-select"
-                            :class="{ 'is-invalid': formErrors.hospital }"
                             v-model="input.hospital"
                         >
                           <option value="" disabled selected>Select Hospital</option>
@@ -159,7 +142,6 @@ onMounted(hospital);
                             {{ hospital.hospital_name }}
                           </option>
                         </select>
-                        <div class="invalid-feedback">{{ formErrors.hospital }}</div>
                       </div>
 
                       <!-- Contact Information -->
@@ -168,10 +150,8 @@ onMounted(hospital);
                         <input
                             type="email"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.email }"
                             v-model="input.email"
                         />
-                        <div class="invalid-feedback">{{ formErrors.email }}</div>
                       </div>
 
                       <div class="col-md-6">
@@ -179,32 +159,17 @@ onMounted(hospital);
                         <input
                             type="text"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.staff_id }"
                             v-model="input.staff_id"
                         />
-                        <div class="invalid-feedback">{{ formErrors.staff_id }}</div>
                       </div>
 
-                      <div class="col-md-6">
-                        <label class="form-label">Phone</label>
-                        <input
-                            type="tel"
-                            class="form-control"
-                            :class="{ 'is-invalid': formErrors.phone }"
-                            v-model="input.phone"
-                        />
-                        <div class="invalid-feedback">{{ formErrors.phone }}</div>
-                      </div>
-
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <label class="form-label">City</label>
                         <input
                             type="text"
                             class="form-control"
-                            :class="{ 'is-invalid': formErrors.city }"
                             v-model="input.city"
                         />
-                        <div class="invalid-feedback">{{ formErrors.city }}</div>
                       </div>
                     </div>
 
@@ -212,10 +177,8 @@ onMounted(hospital);
                       <button
                           type="submit"
                           class="btn btn-primary w-100 py-2"
-                          :disabled="isSubmitting"
                       >
-                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                        {{ isSubmitting ? 'Creating Account...' : 'Create Account' }}
+                        <span class="  me-2"> Creat Staff Account</span>
                       </button>
                     </div>
 
