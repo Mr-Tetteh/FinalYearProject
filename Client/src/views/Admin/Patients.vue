@@ -6,10 +6,6 @@ import useSession from "@/composerbles/useSession.js";
 
 const {input, register_patient} = usePatients()
 
-
-
-
-
 const registerPatient = () => {
   register_patient()
 };
@@ -136,7 +132,7 @@ const registerPatient = () => {
                   <label for="fullName" class="form-label">Email Address</label>
                   <div class="form-group has-icon-left">
                     <div class="position-relative">
-                      <input type="text" class="form-control"
+                      <input type="email" class="form-control"
                              placeholder="Enter your email address" id="first-name-icon" v-model="input.email"
                       >
                       <div class="form-control-icon">
@@ -168,6 +164,153 @@ const registerPatient = () => {
 
 
               </div>
+
+              <hr class="my-4"/>
+
+              <!-- Contact Information -->
+              <h5 class="mb-3">First Guardian Information</h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="guardian1FirstName" class="form-label">First Name *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter First Name" id="guardian1FirstName" v-model="input.guardian1_first_name">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian1LastName" class="form-label">Last Name *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Last Name" id="guardian1LastName" v-model="input.guardian1_last_name">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian1OtherNames" class="form-label">Other Names</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Other Names" id="guardian1OtherNames" v-model="input.guardian1_other_names">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="guardian1Relation" class="form-label">Relation *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Relation (e.g., Parent)" id="guardian1Relation" v-model="input.guardian1_relation">
+                      <div class="form-control-icon">
+                        <i class="bi bi-people-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian1Residence" class="form-label">Residence *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Residence Address" id="guardian1Residence" v-model="input.guardian1_residence">
+                      <div class="form-control-icon">
+                        <i class="bi bi-house"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian1Contact" class="form-label">Contact *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="tel" class="form-control" placeholder="Enter Contact Number" id="guardian1Contact" v-model="input.guardian1_contact">
+                      <div class="form-control-icon">
+                        <i class="bi bi-telephone"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h5 class="mt-5">Second Guardian Information</h5>
+              <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                  <label for="guardian2FirstName" class="form-label">First Name *</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter First Name" id="guardian2FirstName" v-model="input.guardian2_first_name">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian2LastName" class="form-label">Last Name</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Last Name" id="guardian2LastName" v-model="input.guardian2_last_name">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian2OtherNames" class="form-label">Other Names</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Other Names" id="guardian2OtherNames" v-model="input.guardian2_other_names">
+                      <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian2Relation" class="form-label">Relation</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Relation" id="guardian2Relation" v-model="input.guardian2_relation">
+                      <div class="form-control-icon">
+                        <i class="bi bi-people-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian2Residence" class="form-label">Residence</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="text" class="form-control" placeholder="Enter Residence Address" id="guardian2Residence" v-model="input.guardian2_residence">
+                      <div class="form-control-icon">
+                        <i class="bi bi-house"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="guardian2Contact" class="form-label">Contact</label>
+                  <div class="form-group has-icon-left">
+                    <div class="position-relative">
+                      <input type="tel" class="form-control" placeholder="Enter Contact Number" id="guardian2Contact" v-model="input.guardian2_contact">
+                      <div class="form-control-icon">
+                        <i class="bi bi-telephone"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
 
               <hr class="my-4"/>
 

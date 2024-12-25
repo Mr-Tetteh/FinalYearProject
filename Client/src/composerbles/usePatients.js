@@ -1,6 +1,7 @@
 import {ref} from "vue";
 import router from "@/router/index.js";
 import axios from "axios";
+import toast from "bootstrap/js/src/toast.js";
 
 export default function usePatients() {
 
@@ -19,24 +20,25 @@ export default function usePatients() {
         medical_history: "",
         allergies: "",
         additional_notes: "",
+        guardian1_first_name: "",
+        guardian1_last_name: "",
+        guardian1_other_names: "",
+        guardian1_relation: "",
+        guardian1_residence: "",
+        guardian1_contact: "",
+        guardian2_first_name: "",
+        guardian2_last_name: "",
+        guardian2_other_names: "",
+        guardian2_relation: "",
+        guardian2_residence: "",
+        guardian2_contact: "",
     });
 
-    const record = ref({
-        symptoms: '',
-        diagnosis: '',
-        treatment: '',
-        temperature: '',
-        pulse_rate: '',
-        sugar_rate: '',
-        admitted: '',
-        ward_number: '',
-        surgery: '',
-        surgery_date: '',
-        surgery_reason: '',
-        additional_notes : ''
-    })
+
+
     const patient = ref('')
     const all_hospital_patient = ref('');
+    const patient_record = ref('')
 
     const register_patient = async () => {
         try {
@@ -52,6 +54,19 @@ export default function usePatients() {
     }
 
 
+
+    const list_patients_record = async  (id) =>{
+        try{
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            let response = await axios.get(`https://health.local.stay/api/patient_record/${id}`,config)
+            patient_record.value =  response.data.data
+        }catch(err) {
+            alert(err.response.data.data)
+        }
+    }
 
     const list_patients = async  () =>{
         try{
@@ -89,6 +104,7 @@ export default function usePatients() {
        list_patients,
         hospital_patient,
         all_hospital_patient,
-        record
+        patient_record,
+        list_patients_record
     }
 }

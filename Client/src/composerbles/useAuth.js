@@ -14,9 +14,10 @@ export default function useAuth() {
     const input = ref({
         first_name: "",
         last_name: "",
+        other_names: '',
+        contact: "",
         birthday: "",
         email: "",
-        phone: "",
         gender: "",
         role: "",
         hospital: "",

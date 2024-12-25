@@ -6,6 +6,7 @@ export default function useHospital(){
     const input =  ref({
         hospital_name: "",
         hospital_address: "",
+        hospital_location: "",
         hospital_contact: "",
         hospital_email: "",
         hospital_country: "",
