@@ -37,6 +37,7 @@ class HosptialController extends Controller
             'hospital_address' => $request->input('hospital_address'),
             'hospital_contact' => $request->input('hospital_contact'),
             'hospital_email' => $request->input('hospital_email'),
+            'hospital_location' => $request->input('hospital_location'),
             'hospital_country' => $request->input('hospital_country'),
             'hospital_city' => $request->input('hospital_city'),
             'user_name' => $request->input('user_name'),

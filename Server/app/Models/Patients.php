@@ -12,7 +12,6 @@ use Nette\Utils\Random;
 class Patients extends Model
 {
     use HasFactory, Sluggable;
-
     protected $fillable = [
         'first_name',
         'last_name',
@@ -27,8 +26,21 @@ class Patients extends Model
         'email',
         'medical_history',
         'allergies',
-        'additional_notes'
+        'additional_notes',
+        'guardian1_first_name',
+        'guardian1_last_name',
+        'guardian1_other_names',
+        'guardian1_relation',
+        'guardian1_residence',
+        'guardian1_contact',
+        'guardian2_first_name',
+        'guardian2_last_name',
+        'guardian2_other_names',
+        'guardian2_relation',
+        'guardian2_residence',
+        'guardian2_contact',
     ];
+
 
     public function sluggable(): array
     {

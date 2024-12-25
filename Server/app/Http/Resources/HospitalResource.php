@@ -18,6 +18,7 @@ class HospitalResource extends JsonResource
             'hospital_name' => $this->hospital_name,
             'hospital_address' => $this->hospital_address,
             'hospital_contact' => $this->hospital_contact,
+            'hospital_location' => $this->hospital_location,
             'hospital_email' => $this->hospital_email,
             'hospital_country' => $this->hospital_country,
             'hospital_city' => $this->hospital_city,

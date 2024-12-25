@@ -15,15 +15,16 @@ class PatientRecordResource extends JsonResource
     public function toArray(Request $request): array
     {return [
         'patient_id' => $this->patient_id,
-        'symptoms' => $this->symptoms,
+        'user_id' => $this->user_id,
+        'history' => $this->history,
+        'examination_findings' => $this->examination_findings,
         'diagnosis' => $this->diagnosis,
         'treatment' => $this->treatment,
         'temperature' => $this->temperature,
         'pulse_rate' => $this->pulse_rate,
-        'sugar_rate' => $this->sugar_rate,
-        'surgery' => $this->surgery,
-        'surgery_date' => $this->surgery_date,
-        'surgery_reason' => $this->surgery_reason,
+        'respiratory_rate'=> $this->respiratory_rate,
+        'blood_pressure' => $this->blood_pressure,
+        'blood_and_sugar_rate' => $this->blood_and_sugar_rate,
         'additional_notes' => $this->additional_notes,
         'admitted' => $this->admitted,
         'ward_number' => $this->ward_number,
@@ -47,20 +48,7 @@ class PatientRecordResource extends JsonResource
         'lab8_results' => $this->lab8_results,
         'lab9' => $this->lab9,
         'lab9_results' => $this->lab9_results,
-        'lab10' => $this->lab10,
-        'lab10_results' => $this->lab10_results,
-        'lab11' => $this->lab11,
-        'lab11_results' => $this->lab11_results,
-        'lab12' => $this->lab12,
-        'lab12_results' => $this->lab12_results,
-        'lab13' => $this->lab13,
-        'lab13_results' => $this->lab13_results,
-        'lab14' => $this->lab14,
-        'lab14_results' => $this->lab14_results,
-        'lab15' => $this->lab15,
-        'lab15_results' => $this->lab15_results,
-        'labs_is_paid' => $this->labs_is_paid,
-        'drugs_is_paid' => $this->drugs_is_paid
+
     ];
 
     }

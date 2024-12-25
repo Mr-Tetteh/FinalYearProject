@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('all_staff', [User::class, 'all_staff']);
     Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
     Route::post('patient_rec', [PatientRecordController::class, 'store']);
+    Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'create']);
 });
 
 
