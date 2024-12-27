@@ -5,6 +5,8 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 
+import { reactive } from 'vue';
+
 const props = defineProps({
   id: {
     type: String,
@@ -12,10 +14,8 @@ const props = defineProps({
   },
 });
 
-
-const record = ref({
+const record = reactive({
   patient_id: props.id,
-
   history: '',
   examination_findings: '',
   diagnosis: '',
@@ -26,47 +26,73 @@ const record = ref({
   temperature: '',
   pulse_rate: '',
   weight: '',
-  sugar_rate: '',
   admitted: '',
   labs: '',
   ward_number: '',
   additional_notes: '',
   lab1: '',
-  lab1_results: '',
+  lab1_results: [],
   lab2: '',
-  lab2_results: '',
+  lab2_results: [],
   lab3: '',
-  lab3_results: '',
+  lab3_results: [],
   lab4: '',
-  lab4_results: '',
+  lab4_results: [],
   lab5: '',
-  lab5_results: '',
+  lab5_results: [],
   lab6: '',
-  lab6_results: '',
+  lab6_results: [],
   lab7: '',
-  lab7_results: '',
+  lab7_results: [],
   lab8: '',
-  lab8_results: '',
+  lab8_results: [],
   lab9: '',
-  lab9_results: '',
+  lab9_results: [],
   lab10: '',
-  lab10_results: '',
+  lab10_results: [],
+});
 
+const handleFileUpload = (event, labNumber) => {
+  const files = event.target.files;
+  const fileArray = Array.from(files);
+  record[`lab${labNumber}_results`] = fileArray;
+};
 
-})
 const handleSubmit = async () => {
   try {
     const token = localStorage.getItem('AUTH_TOKEN');
     const config = {
-      headers: {Authorization: `Bearer ${token}`}
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
     };
-    await axios.post('https://health.local.stay/api/patient_rec', record.value, config);
+
+    const formData = new FormData();
+
+    // Append non-file data
+    Object.keys(record).forEach((key) => {
+      if (!key.includes('_results')) {
+        formData.append(key, record[key]);
+      }
+    });
+
+    // Append files with unique names
+    for (let i = 1; i <= 10; i++) {
+      const files = record[`lab${i}_results`];
+      if (files && files.length > 0) {
+        files.forEach((file, index) => {
+          formData.append(`lab${i}_results[]`, file);
+        });
+      }
+    }
+
+    await axios.post('https://health.local.stay/api/patient_rec', formData, config);
     await router.push('/hospital_patient');
   } catch (err) {
-    alert(err.response.data.data);
+    alert(err.response?.data?.data || 'An error occurred');
   }
 };
-
 </script>
 
 <template>
@@ -338,144 +364,164 @@ const handleSubmit = async () => {
                   </div>
 
                   <div class="doctor-section">
-                    <div
-                        class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                    <div class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                       <i class="bi bi-person-workspace me-2"></i>
                       <h5 class="mb-0">Lab Technician Section</h5>
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
+                        <!-- Lab 1 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 1</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab1" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 1 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 1)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab1_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 2 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 2</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab2" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 2 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 2)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab2_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 3 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 3</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab3" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 3 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 3)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab3_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 4 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 4</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab4" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 4 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 4)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab4_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 5 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 5</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab5" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 5 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 5)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab5_results')"
-                          >
+                              multiple
+                          />
                         </div>
+
+                        <!-- Lab 6 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 6</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab6" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 6 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 6)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab6_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 7 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 7</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab7" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 7 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 7)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab7_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 8 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 8</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab8" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 8 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 8)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab8_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 9 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 9</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab9" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 9 Report</label>
+                          <label class="form-label text-center w-100">Lab Report</label>
                           <input
                               type="file"
+                              @change="(e) => handleFileUpload(e, 9)"
                               class="form-control text-center"
-                              @change="handleFileUpload($event, 'lab9_results')"
-                          >
+                              multiple
+                          />
                         </div>
 
+                        <!-- Lab 10 -->
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 10</label>
+                          <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab10" class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab 10 Report</label>    <input
-                            type="file"
-                            class="form-control text-center"
-                            @change="handleFileUpload($event, 'lab10_results')"
-                        >
+                          <label class="form-label text-center w-100">Lab Report</label>
+                          <input
+                              type="file"
+                              @change="(e) => handleFileUpload(e, 10)"
+                              class="form-control text-center"
+                              multiple
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <!-- Submit Button -->
                   <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">

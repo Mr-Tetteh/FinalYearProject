@@ -37,48 +37,49 @@ class PatientRecordController extends Controller
      */
     public function store(Request $request)
     {
-
-        $patient_record = PatientRecord::create([
-            'patient_id' => $request->input('patient_id'),
-            'user_id' => $request->input('user_id'),
-            'history' => $request->input('history'),
-            'diagnosis' => $request->input('diagnosis'),
-            'examination_findings' => $request->input('examination_findings'),
-            'treatment' => $request->input('treatment'),
-            'temperature' => $request->input('temperature'),
-            'respiratory_rate' => $request->input('respiratory_rate'),
-            'admitted' => $request->input('admitted'),
-            'ward_number' => $request->input('ward_number'),
-            'pulse_rate' => $request->input('pulse_rate'),
-            'sugar_rate' => $request->input('sugar_rate'),
-            'additional_note' => $request->input('additional_note'),
-            'blood_and_sugar_rate' => $request->input('blood_and_sugar_rate'),
-            'blood_pressure' => $request->input('blood_pressure'),
-            'weight' => $request->input('weight'),
-            'labs' => $request->input('labs'),
-            'lab1' => $request->input('lab1'),
-            'lab1_results' => $request->input('lab1_results'),
-            'lab2' => $request->input('lab2'),
-            'lab2_results' => $request->input('lab2_results'),
-            'lab3' => $request->input('lab3'),
-            'lab3_results' => $request->input('lab3_results'),
-            'lab4' => $request->input('lab4'),
-            'lab4_results' => $request->input('lab4_results'),
-            'lab5' => $request->input('lab5'),
-            'lab5_results' => $request->input('lab5_results'),
-            'lab6' => $request->input('lab6'),
-            'lab6_results' => $request->input('lab6_results'),
-            'lab7' => $request->input('lab7'),
-            'lab7_results' => $request->input('lab7_results'),
-            'lab8' => $request->input('lab8'),
-            'lab8_results' => $request->input('lab8_results'),
-            'lab9' => $request->input('lab9'),
-            'lab9_results' => $request->input('lab9_results'),
-            'lab10' => $request->input('lab10'),
-            'lab10_results' => $request->input('lab10_results'),
+        // Create basic patient record
+        $record = PatientRecord::create([
+            'patient_id' => $request->patient_id,
+            'history' => $request->history,
+            'examination_findings' => $request->examination_findings,
+            'diagnosis' => $request->diagnosis,
+            'treatment' => $request->treatment,
+            'respiratory_rate' => $request->respiratory_rate,
+            'blood_pressure' => $request->blood_pressure,
+            'blood_and_sugar_rate' => $request->blood_and_sugar_rate,
+            'temperature' => $request->temperature,
+            'pulse_rate' => $request->pulse_rate,
+            'weight' => $request->weight,
+            'admitted' => $request->admitted,
+            'labs' => $request->labs,
+            'ward_number' => $request->ward_number,
+            'additional_notes' => $request->additional_notes,
         ]);
 
-        return new PatientRecordResource($patient_record);
+        for ($i = 1; $i <= 10; $i++) {
+            $labName = "lab{$i}";
+            $labResults = "lab{$i}_results";
+
+            if ($request->has($labName)) {
+                $record->{$labName} = $request->input($labName);
+            }
+
+            if ($request->hasFile($labResults)) {
+                $paths = collect($request->file($labResults))->map(function ($file) use ($record, $i) {
+                    return $file->store("patient_records/{$record->id}/lab{$i}", 'public');
+                })->toArray();
+
+                $record->{$labResults} = json_encode($paths);
+            }
+        }
+
+        $record->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Patient record created successfully',
+            'data' => $record
+        ], 201);
     }
 
     /**
