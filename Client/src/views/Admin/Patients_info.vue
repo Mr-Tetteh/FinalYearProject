@@ -91,8 +91,9 @@ onMounted(list_patients);
                       </span>
                     <span v-else class="text-muted">None</span>
                   </td>
+
                   <td>
-                      <span v-if="item.medical_history" class="badge bg-warning bg-opacity-10 text-warning">
+                      <span v-if="item.medical_history" class="badge bg-primary bg-opacity-10 text-black ">
                         {{ item.medical_history }}
                       </span>
                     <span v-else class="text-muted">None</span>
