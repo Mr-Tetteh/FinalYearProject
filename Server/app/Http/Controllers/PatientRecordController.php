@@ -19,18 +19,15 @@ class PatientRecordController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+
     public function create($id)
     {
-        $patient = PatientRecord::where('patient_id', $id)->first();
+        $patients = PatientRecord::where('patient_id', $id)->latest()->get();
 
-        if (!$patient) {
-            return response()->json([
-                'message' => 'Patient record not found'
-            ], 404);
-        }
-
-        return new PatientRecordResource($patient);
+        return PatientRecordResource::collection($patients);
     }
+
 
     /**
      * Store a newly created resource in storage.
