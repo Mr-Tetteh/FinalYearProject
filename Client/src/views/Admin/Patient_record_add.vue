@@ -242,7 +242,7 @@ const handleSubmit = async () => {
                               <input
                                   type="text"
                                   class="form-control text-center"
-                                  placeholder="Blood and sugar rate"
+                                  placeholder="Ward Number"
                                   v-model="record.ward_number"
                               >
                               <div class="form-control-icon">

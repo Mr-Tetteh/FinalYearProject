@@ -17,7 +17,6 @@ onMounted(() => list_patients_record(props.id));
 
 <template>
   <AdminNavBar />
-
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -45,9 +44,10 @@ onMounted(() => list_patients_record(props.id));
             <div v-for="(record, index) in patient_record" :key="index" class="card shadow-sm mb-4">
               <div class="card-body">
                 <!-- Section Title -->
-                <div class="d-flex align-items-center mb-4">
+                <div class="d-flex align-items-center mb-4 gap-3">
                   <i class="bi bi-journal-medical text-primary fs-3 me-2"></i>
-                  <h4 class="mb-0">Medical Record #{{ index + 1 }}</h4>
+                  <h4 class="mb-0">Medical Record #{{ index + 1 }} </h4>
+                  <p>{{record.created_at}}</p>
                 </div>
 
                 <!-- Vitals Section -->
@@ -115,32 +115,67 @@ onMounted(() => list_patients_record(props.id));
                 </div>
 
                 <hr class="my-4">
-
                 <!-- Doctor's Assessment -->
                 <div class="section-container">
-                  <div class="section-header">
-                    <i class="bi bi-clipboard2-pulse text-primary me-2"></i>
+                  <div class="section-header gap-3">
+                    <i class="bi bi-file-medical text-primary me-2"></i>
                     <h5 class="mb-0">Doctor's Assessment</h5>
+                    <i>Assessed by {{record.first_name}} {{record.other_name}} {{record.last_name}} </i>
                   </div>
-                  <div class="row g-4">
-                    <div class="col-md-6">
-                      <div class="assessment-item">
-                        <h6 class="text-muted mb-2">History of Complaints</h6>
-                        <p>{{ record.history }}</p>
-                      </div>
-                      <div class="assessment-item">
-                        <h6 class="text-muted mb-2">Diagnosis</h6>
-                        <p>{{ record.diagnosis }}</p>
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-journal-medical text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">History of Complaints</small>
+                          <p>{{ record.history }}</p>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="assessment-item">
-                        <h6 class="text-muted mb-2">Treatment</h6>
-                        <p>{{ record.treatment }}</p>
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-search-heart text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">Examination Findings</small>
+                          <p>{{ record.examination_findings }}</p>
+                        </div>
                       </div>
-                      <div class="assessment-item">
-                        <h6 class="text-muted mb-2">Additional Notes</h6>
-                        <p>{{ record.additional_notes }}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-clipboard2-pulse text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">Diagnosis</small>
+                          <p>{{ record.diagnosis }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-card-checklist text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">Investigation/Labs</small>
+                          <p>{{ record.labs }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-capsule text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">Treatment</small>
+                          <p>{{ record.treatment }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="vital-card">
+                        <i class="bi bi-chat-square-text text-primary"></i>
+                        <div>
+                          <small class="text-muted mb-2">Additional Notes</small>
+                          <p>{{ record.additional_notes }}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -185,112 +220,112 @@ onMounted(() => list_patients_record(props.id));
                     <h5 class="mb-0">Laboratory Results</h5>
                   </div>
                   <div class="row g-3">
-                    <div v-if=" record.lab1_results" class="col-md-6">
-                      <div class="lab-card">
+                    <div v-if="record.lab1_results" class="col-md-6">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab1 }}</small>
                           <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab1_results" width="800" height="500"/>
-
+                            <embed class="pdf" :src="record.lab1_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab2_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab2 }}</small>
                           <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab2_results" width="800" height="500"/>
-
+                            <embed class="pdf" :src="record.lab2_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
-                    <div v-if=" record.lab3_results" class="col-md-6">
-                      <div class="lab-card">
+                    <div v-if="record.lab3_results" class="col-md-6">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab3 }}</small>
                           <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab3_results" width="800" height="500"/>
-
+                            <embed class="pdf" :src="record.lab3_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
-                    <div v-if=" record.lab4_results" class="col-md-6">
-                      <div class="lab-card">
+                    <div v-if="record.lab4_results" class="col-md-6">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab4 }}</small>
                           <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab4_results" width="800" height="500"/>
-
+                            <embed class="pdf" :src="record.lab4_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab5_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab5 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab5_results" width="800" height="500"/>
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab5_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
-                    <div v-if=" record.lab6_results" class="col-md-6">
-                      <div class="lab-card">
+                    <div v-if="record.lab6_results" class="col-md-6">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab6 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab6_results" width="800" height="500"/>
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab6_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab7_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab7 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab7_results" width="800" height="500"/>
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab7_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab8_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab8 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab8_results" width="800" height="500"/>
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab8_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab9_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab9 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab9_results" width="800" height="500"/>
-
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab9_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>
                     </div>
                     <div v-if="record.lab10_results" class="col-md-6">
-                      <div class="lab-card">
+                      <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
                           <small class="text-muted">{{ record.lab10 }}</small>
-                          <p class="mb-0 fw-bold"><embed class="pdf" :src="record.lab10_results" width="800" height="500"/>
-
+                          <p class="mb-0 fw-bold">
+                            <embed class="pdf" :src="record.lab10_results" width="800" height="500" />
                           </p>
                         </div>
                       </div>

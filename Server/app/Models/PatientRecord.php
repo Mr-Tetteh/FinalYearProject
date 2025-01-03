@@ -31,8 +31,13 @@ class PatientRecord extends Model
         });
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function patient(){
-        return $this->hasMany(PatientRecord::class, 'patient_id');
+        return $this->hasMany(PatientRecord::class);
     }
 
 
