@@ -1,3 +1,4 @@
+###
 ### GET request to example server
 GET https://health.local.stay/api/get_drugs
 Authorization: Bearer 6|8WxbvLVSdifyRSgXVn3sgKVQzeWxUrQ4BDBMRwlh99d0a6d6
@@ -6,15 +7,14 @@ Content-Type: application/json
 
 
 ###
-
 POST https://health.local.stay/api/post_drug
 Authorization: Bearer 6|8WxbvLVSdifyRSgXVn3sgKVQzeWxUrQ4BDBMRwlh99d0a6d6
 Accept: application/json
 Content-Type: application/json
 
-
 {
-    "name": "Taabea",
+    "name": "Lonat",
+    "quantity": "20",
     "category": "Anti Biotic",
     "price": 20.5
 }

@@ -103,9 +103,6 @@ const handleSubmit = async () => {
         <div class="row justify-content-center">
           <div class="col-md-10">
             <div class="card shadow-lg border-0">
-              <div class="card-header bg-primary text-white text-center">
-                <h4 class="mb-0">Patient Registration</h4>
-              </div>
               <div class="card-body">
                 <form @submit.prevent="handleSubmit" class="text-center">
                   <!-- Nurse Section -->
@@ -545,10 +542,24 @@ const handleSubmit = async () => {
   transform: translateY(-50%);
   padding: 0.5rem;
 }
-
 .main {
-  background-image: url("@/assets/img/patient_rec.jpg");
+  background-image: url("@/assets/img/doctor-talking-to-patient-in-hospital-office-medical-consultation-in-clinic-cartoon-character-illustration-vector.jpg");
+  background-size: contain; /* Or use auto if exact fit isn't necessary */
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
+
+.main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1); /* Adjust opacity and color as needed */
+}
+
 
 .form-control-icon i {
   width: 1.2rem;

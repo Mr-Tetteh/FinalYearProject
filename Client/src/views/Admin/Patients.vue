@@ -405,7 +405,19 @@ button {
 }
 
 .main {
-  background-image: url("@/assets/img/collection-healthcare-workers-including-doctors-nurses-stand-proudly-together-showcasing-their-commitment-patient-care-professional-collaboration_520881-14860.avif");
-  border-radius: 20%;
+  background-image: url("@/assets/img/istockphoto-1344935909-2048x2048.jpg");
+  border-radius: 1%;
+  background-size: cover;
+
+}
+
+main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1); /* Adjust opacity and color as needed */
 }
 </style>

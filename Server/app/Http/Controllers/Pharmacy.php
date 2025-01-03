@@ -39,6 +39,7 @@ class Pharmacy extends Controller
         $pharmacy =  \App\Models\Pharmacy::create([
            'name' => $request->input('name'),
            'price' => $request->input('price'),
+           'quantity' => $request->input('quantity'),
            'category' => $request->input('category'),
            'use' => $request->input('use'),
            'additional_notes' => $request->input('additional_notes'),
