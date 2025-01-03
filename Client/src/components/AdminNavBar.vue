@@ -99,18 +99,18 @@ const toggleSidebar = () => {
         <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
           <div class="menu-header">
             <div class="menu-icon">
-              <i class="bi bi-person-fill-add"></i>
+              <i class="bi bi-prescription" style="color: black; font-size: 1.2em;"></i>
             </div>
             <span class="menu-text">Pharmacy</span>
             <i class="bi bi-chevron-down menu-arrow"></i>
           </div>
           <div class="submenu">
             <RouterLink to="/pharmacy_add" class="submenu-item">
-              <i class="bi bi-person-plus"></i>
+              <i class="bi bi-plus-circle"></i> <!-- Icon for adding a drug -->
               <span>Add Drug</span>
             </RouterLink>
             <RouterLink to="/Pharmacy_all_drugs" class="submenu-item">
-              <i class="bi bi-person-plus"></i>
+              <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
               <span>All Drugs</span>
             </RouterLink>
           </div>
@@ -301,4 +301,7 @@ const toggleSidebar = () => {
 .sidebar-wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+
 </style>
