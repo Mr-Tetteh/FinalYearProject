@@ -11,6 +11,8 @@ import Staff_info from "@/views/Admin/Staff_info.vue";
 import Hospital_patients from "@/views/Admin/Hospital_patients.vue";
 import Patient_record_add from "@/views/Admin/Patient_record_add.vue";
 import Patient_record_list_all from "@/views/Admin/Patient_record_list_all.vue";
+import Pharmacy_Add from "@/views/Admin/Pharmacy_Add.vue";
+import Pharmacy_all_drugs from "@/views/Admin/Pharmacy_all_drugs.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +84,18 @@ const router = createRouter({
       path: '/staff_info',
       name: 'staff_info',
       component: Staff_info
+    },
+
+    {
+      path: '/pharmacy_add',
+      name: 'pharmacy_add',
+      component: Pharmacy_Add
+    },
+
+    {
+      path: '/Pharmacy_all_drugs',
+      name: 'Pharmacy_all_drugs',
+      component: Pharmacy_all_drugs
     },
 
 

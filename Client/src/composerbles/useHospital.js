@@ -18,6 +18,28 @@ export default function useHospital(){
     })
 
 
+    const data = ref({
+        name: '',
+        price:'',
+        category: '',
+        quantity: '',
+        use: '',
+        additional_note: ''
+    })
+
+    const stock_drugs = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.post('https://health.local.stay/api/post_drug', data.value, config);
+            await router.push('/pharmacy_add');
+        } catch (err) {
+            alert(err.response.data.data.message);
+        }
+    }
+
     const register_hospital = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/register_hospital', input.value);
@@ -31,6 +53,8 @@ export default function useHospital(){
 
     return{
         input,
-        register_hospital
+        register_hospital,
+        data,
+        stock_drugs
     }
 }

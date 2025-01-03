@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('category');
+            $table->string('hospital');
+            $table->integer('quantity');
             $table->string('use')->nullable();
             $table->text('additional_notes')->nullable();
             $table->timestamps();
