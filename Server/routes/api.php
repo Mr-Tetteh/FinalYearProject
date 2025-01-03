@@ -3,6 +3,7 @@
 use App\Http\Controllers\HosptialController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\Pharmacy;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
     Route::post('patient_rec', [PatientRecordController::class, 'store']);
     Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'create']);
+
+
+Route::get('get_drugs', [Pharmacy::class, 'index']);
+    Route::post('post_drug', [Pharmacy::class, 'store']);
 });
 
 
