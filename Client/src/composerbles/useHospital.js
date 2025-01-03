@@ -27,6 +27,17 @@ export default function useHospital(){
         additional_note: ''
     })
 
+
+    const resetForm = () => {
+        data.value = {
+            name: '',
+            price: '',
+            category: '',
+            quantity: '',
+            use: '',
+            additional_note: ''
+        };
+    };
     const stock_drugs = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -34,7 +45,7 @@ export default function useHospital(){
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post('https://health.local.stay/api/post_drug', data.value, config);
-            await router.push('/pharmacy_add');
+            resetForm()
         } catch (err) {
             alert(err.response.data.data.message);
         }
