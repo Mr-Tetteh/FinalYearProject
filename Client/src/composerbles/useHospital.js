@@ -24,9 +24,10 @@ export default function useHospital(){
         category: '',
         quantity: '',
         use: '',
-        additional_note: ''
+        additional_notes: ''
     })
 
+    const drugs = ref()
 
     const resetForm = () => {
         data.value = {
@@ -38,6 +39,8 @@ export default function useHospital(){
             additional_note: ''
         };
     };
+
+
     const stock_drugs = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -51,6 +54,20 @@ export default function useHospital(){
         }
     }
 
+
+
+    const get_stock_drugs = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get('https://health.local.stay/api/get_drugs', config);
+         drugs.value =  response.data
+        } catch (err) {
+            alert(err.response.data.data.message);
+        }
+    }
     const register_hospital = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/register_hospital', input.value);
@@ -66,6 +83,8 @@ export default function useHospital(){
         input,
         register_hospital,
         data,
-        stock_drugs
+        stock_drugs,
+        get_stock_drugs,
+        drugs
     }
 }

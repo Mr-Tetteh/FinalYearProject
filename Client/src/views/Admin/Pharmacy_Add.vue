@@ -135,7 +135,7 @@ const registerDrug = () =>{
                       <label class="form-label">Additional Notes</label>
                       <textarea
                           class="form-control"
-                          v-model="data.additional_note"
+                          v-model="data.additional_notes"
                           rows="2"
                           placeholder="Enter any storage requirements, warnings, or special instructions"
                       ></textarea>
