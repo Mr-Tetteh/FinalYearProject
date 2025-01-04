@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Pharmacy extends Model
 {
-    Protected $fillable = ['name', 'price', 'category', 'quantity', 'use', 'additional_note'];
+    Protected $fillable = ['name', 'price', 'category', 'quantity', 'use', 'additional_notes'];
 
 
 
