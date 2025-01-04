@@ -1,23 +1,37 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useHospital from "@/composerbles/useHospital.js";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 
-const { get_stock_drugs, drugs } = useHospital();
+const {get_stock_drugs, drugs} = useHospital();
 const cart = ref([]);
+const searchQuery = ref('');
 
-const addToCart = (drug) => {
-  cart.value.push({
-    ...drug,
-    quantity: 1
-  });
+const addToCart = (drug, event) => {
+
+  const quantityInput = event.target.querySelector('.quantity-input');
+  const quantity = parseInt(quantityInput.value);
+
+  const cartItem = {
+    id: drug.id,
+    name: drug.name,
+    price: drug.price,
+    quantity: quantity
+  };
+
+  cart.value.push(cartItem);
+
+  const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  cartItems.push(cartItem);
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
 };
 
 onMounted(get_stock_drugs);
+
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <div class="patient-registration-form container">
@@ -75,13 +89,24 @@ onMounted(get_stock_drugs);
                       {{ drug.quantity }} in stock
                     </div>
 
-
-                    <button @click="addToCart(drug)"
-                            :disabled="drug.quantity <= 0"
-                            class="add-to-cart">
-                      Add to Cart
-                    </button>
+                    <form @submit.prevent="(event) => addToCart(drug, event)"
+                          class="cart-form">
+                      <div class="input-group">
+                        <input type="number"
+                               min="1"
+                               :max="drug.quantity"
+                               value="1"
+                               class="quantity-input"
+                               :disabled="drug.quantity <= 0">
+                        <button type="submit"
+                                :disabled="drug.quantity <= 0"
+                                class="add-to-cart">
+                          Add to Cart
+                        </button>
+                      </div>
+                    </form>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -107,7 +132,7 @@ onMounted(get_stock_drugs);
   justify-content: center;
   font-size: 1.2rem;
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .category-title {
@@ -135,7 +160,7 @@ onMounted(get_stock_drugs);
 
 .drug-item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .drug-header {
@@ -151,6 +176,7 @@ onMounted(get_stock_drugs);
   color: #333;
   margin: 0;
 }
+
 
 .price {
   background: #f8f9fa;
@@ -190,13 +216,18 @@ onMounted(get_stock_drugs);
 }
 
 .add-to-cart {
+  height: 35px;
+  padding: 0 1.25rem;
   background: #000;
   color: white;
   border: none;
-  padding: 0.5rem 1.25rem;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-to-cart:hover {
@@ -215,4 +246,5 @@ onMounted(get_stock_drugs);
     grid-template-columns: 1fr;
   }
 }
+
 </style>
