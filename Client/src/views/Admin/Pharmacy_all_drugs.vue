@@ -54,9 +54,11 @@ onMounted(get_stock_drugs);
           </div>
         </div>
         <!-- Cart Bubble -->
+        <RouterLink to="checkout">
         <div class="cart-bubble" v-if="cart.length">
           {{ cart.length }}
         </div>
+        </RouterLink>
 
         <!-- Categories -->
         <div v-for="category in drugs" :key="category.category">
