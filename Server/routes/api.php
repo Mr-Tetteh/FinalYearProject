@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('get_drugs', [Pharmacy::class, 'index']);
     Route::post('post_drug', [Pharmacy::class, 'store']);
+    Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
 });
 
 

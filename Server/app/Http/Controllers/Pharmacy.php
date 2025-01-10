@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Pharmacy extends Controller
 {
@@ -22,7 +23,37 @@ class Pharmacy extends Controller
 
         return response()->json($result);
     }
+    public function updateQuantities(Request $request)
+    {
+        DB::beginTransaction();
 
+        try {
+            foreach ($request->items as $item) {
+                $drug = \App\Models\Pharmacy::findOrFail($item['id']);
+
+                if ($drug->quantity < $item['quantity']) {
+                    throw new \Exception("Insufficient quantity for drug: {$drug->name}");
+                }
+
+                $drug->decrement('quantity', $item['quantity']);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Quantities updated successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      */
