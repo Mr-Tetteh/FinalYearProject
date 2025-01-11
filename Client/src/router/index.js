@@ -14,6 +14,8 @@ import Patient_record_list_all from "@/views/Admin/Patient_record_list_all.vue";
 import Pharmacy_Add from "@/views/Admin/Pharmacy_Add.vue";
 import Pharmacy_all_drugs from "@/views/Admin/Pharmacy_all_drugs.vue";
 import Checkout from "@/views/Admin/Checkout.vue";
+import Pharmacy_drugs_edit from "@/views/Admin/Pharmacy_drugs_edit.vue";
+import Pharmacy_drug_details from "@/views/Admin/pharmacy_drug_details.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,6 +99,21 @@ const router = createRouter({
       path: '/Pharmacy_all_drugs',
       name: 'Pharmacy_all_drugs',
       component: Pharmacy_all_drugs
+    },
+
+
+    {
+      path: '/Pharmacy_all_drugs_edit',
+      name: 'Pharmacy_all_drugs_edit',
+      component: Pharmacy_drugs_edit
+    },
+
+
+    {
+      path: '/Pharmacy_all_drugs_details/:id',
+      name: 'pharmacy.edit.drug.details',
+      component: Pharmacy_drug_details,
+      props:true
     },
 
     {
