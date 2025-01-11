@@ -28,7 +28,7 @@ export default function useHospital(){
     })
 
     const drugs = ref()
-
+const drug = ref()
     const resetForm = () => {
         data.value = {
             name: '',
@@ -53,6 +53,21 @@ export default function useHospital(){
             alert(err.response.data.data.message);
         }
     }
+    const update_drug = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN')
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+        try {
+            const response = await axios.patch(`https://health.local.stay/api/drug_edit/${drug.value.id}`, drug.value, config
+            )
+            await router.push('/Pharmacy_all_drugs_edit')
+        } catch (err) {
+            console.error('Error updating drug:', err)
+            alert(err.response?.data?.message || 'Error updating drug')
+        }
+    }
+
 
 
 
@@ -64,6 +79,21 @@ export default function useHospital(){
             }
             const response = await axios.get('https://health.local.stay/api/get_drugs', config);
          drugs.value =  response.data
+        } catch (err) {
+            alert(err.response.data.data.message);
+        }
+    }
+
+
+
+    const get_stock_drugs_edit = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get(`https://health.local.stay/api/get_drugs_edit/${id}`, config);
+            drug.value =  response.data.data
         } catch (err) {
             alert(err.response.data.data.message);
         }
@@ -85,6 +115,10 @@ export default function useHospital(){
         data,
         stock_drugs,
         get_stock_drugs,
-        drugs
+        drugs,
+        drug,
+        get_stock_drugs_edit,
+        update_drug
+
     }
 }

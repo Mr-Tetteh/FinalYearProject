@@ -113,6 +113,10 @@ const toggleSidebar = () => {
               <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
               <span>All Drugs</span>
             </RouterLink>
+            <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item">
+              <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
+              <span>All Drugs Edit</span>
+            </RouterLink>
           </div>
         </div>
       </div>

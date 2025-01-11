@@ -25,8 +25,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'create']);
 
 
-Route::get('get_drugs', [Pharmacy::class, 'index']);
+    Route::get('get_drugs', [Pharmacy::class, 'index']);
+    Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);
+    Route::patch('drug_edit/{pharmacy}', [Pharmacy::class, 'update']);
     Route::post('post_drug', [Pharmacy::class, 'store']);
+    Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
+
 });
 
 

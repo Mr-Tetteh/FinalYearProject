@@ -2,6 +2,8 @@
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import {onMounted, ref} from "vue";
 import useSession from "@/composerbles/useSession.js";
+import axios from "axios";
+import router from "@/router/index.js";
 
 const print = () => {
   window.print();
@@ -28,6 +30,41 @@ onMounted( ()=> {
 
 
 const {hospital} =  useSession()
+
+
+
+const handleDone = async () => {
+  try {
+    const token = localStorage.getItem('AUTH_TOKEN');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    // Prepare the data to send to the backend
+    const updateData = cartItems.value.map(item => ({
+      id: item.id,
+      quantity: item.quantity
+    }));
+
+    const response = await axios.post(
+        'https://health.local.stay/api/update-quantities',
+        { items: updateData },
+        config
+    );
+
+    if (response.data.success) {
+      // Clear the cart after successful update
+      localStorage.removeItem("cartItems");
+      cartItems.value = [];
+
+      // Show success message
+      alert('Transaction completed successfully!');
+      router.push('/Pharmacy_all_drugs');
+    }
+  } catch (error) {
+    console.error('Error updating quantities:', error);
+  }
+};
 </script>
 
 <template>
@@ -82,8 +119,14 @@ const {hospital} =  useSession()
           <td colspan="2" class="text-center fw-bold">
             GHC{{ cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2) }}
           </td>
-          <td class="no-print"></td>
-          </tr>
+            <td class="text-center no-print">
+              <button
+                  class="btn btn-primary"
+                  @click="handleDone"
+              >
+                Done
+              </button>
+            </td>          </tr>
           </tbody>
         </table>
       </div>
