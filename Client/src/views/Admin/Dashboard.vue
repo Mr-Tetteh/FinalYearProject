@@ -4,19 +4,27 @@ import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
 import usePatients from "@/composerbles/usePatients.js";
+import useHospital from "@/composerbles/useHospital.js";
 
-const { username,lastname, hospital } = useSession();
-const {hospital_patient, all_hospital_patient,list_patients, patient} = usePatients()
+const {username, lastname, hospital} = useSession();
+const {hospital_patient, all_hospital_patient, list_patients, patient,  all_today_patient, today_patient_count} = usePatients()
+const {hospital_patient_count, count_hospital_patient, count_all_patient, count_all_patient_on_swift,
+  count_all_users, count_all_users_on_swift,hospital_users, count_all_hospital_users} = useHospital()
 
-const { logout } = useAuth();
+const {logout} = useAuth();
 
 const logout_user = async () => {
   await logout();
 };
-onMounted(hospital_patient,list_patients)
+onMounted(hospital_patient, list_patients)
 onMounted(() => {
   hospital_patient()
-      list_patients()
+  list_patients()
+  count_hospital_patient()
+  count_all_patient()
+  count_all_users()
+  count_all_hospital_users()
+  today_patient_count()
 })
 
 const firstNameCount = computed(() => {
@@ -32,9 +40,9 @@ const firstNameCountList = computed(() => {
 
 // Mock data for charts (you can replace with real data)
 const recentAppointments = ref([
-  { id: 1, patient: 'John Doe', date: '2024-12-21', status: 'Confirmed' },
-  { id: 2, patient: 'Jane Smith', date: '2024-12-22', status: 'Pending' },
-  { id: 3, patient: 'Mike Johnson', date: '2024-12-23', status: 'Confirmed' },
+  {id: 1, patient: 'John Doe', date: '2024-12-21', status: 'Confirmed'},
+  {id: 2, patient: 'Jane Smith', date: '2024-12-22', status: 'Pending'},
+  {id: 3, patient: 'Mike Johnson', date: '2024-12-23', status: 'Confirmed'},
 ]);
 
 const appointmentForm = ref({
@@ -50,7 +58,7 @@ const submitAppointment = () => {
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
 
   <div id="app">
     <div id="main" class="bg-light min-vh-100 py-4">
@@ -64,7 +72,7 @@ const submitAppointment = () => {
             </div>
             <div class="user-actions d-flex align-items-center gap-3">
               <div class="user-info d-flex align-items-center">
-                <div class="avatar-circle me-2">{{ username[0].toUpperCase() }} {{lastname[0].toUpperCase()}}</div>
+                <div class="avatar-circle me-2">{{ username[0].toUpperCase() }} {{ lastname[0].toUpperCase() }}</div>
                 <span class="fw-medium">{{ username }}</span>
               </div>
               <button class="btn btn-outline-danger" @click="logout_user">
@@ -83,8 +91,8 @@ const submitAppointment = () => {
                 <i class="bi bi-people-fill text-primary"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total Patients</h6>
-                <h3 class="stat-value text-primary">{{firstNameCount}}</h3>
+                <h6 class="stat-label">Total of {{ hospital }} Patients </h6>
+                <h3 class="stat-value text-primary">{{ hospital_patient_count }}</h3>
               </div>
             </div>
           </div>
@@ -94,8 +102,8 @@ const submitAppointment = () => {
                 <i class="bi bi-people-fill text-secondary"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total Number of all Patients</h6>
-                <h3 class="stat-value text-secondary">{{firstNameCountList}}</h3>
+                <h6 class="stat-label">Total Number Of All Patients</h6>
+                <h3 class="stat-value text-secondary">{{ count_all_patient_on_swift }}</h3>
               </div>
             </div>
           </div>
@@ -106,8 +114,8 @@ const submitAppointment = () => {
                 <i class="bi bi-hospital-fill text-success"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Admitted Patients</h6>
-                <h3 class="stat-value text-success">567</h3>
+                <h6 class="stat-label">Total Users On Swift</h6>
+                <h3 class="stat-value text-success">{{ count_all_users_on_swift }}</h3>
 
               </div>
             </div>
@@ -119,12 +127,43 @@ const submitAppointment = () => {
                 <i class="bi bi-currency-dollar text-warning"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total Revenue</h6>
-                <h3 class="stat-value text-warning">$45,000</h3>
+                <h6 class="stat-label">Total {{hospital}} Users</h6>
+                <h3 class="stat-value text-warning">{{hospital_users}}</h3>
 
               </div>
             </div>
           </div>
+
+
+          <div class="col-md-3">
+            <div class="stat-card bg-white border-start border-warning border-4">
+              <div class="stat-icon bg-warning-subtle">
+                <i class="bi bi-currency-dollar text-warning"></i>
+              </div>
+              <div class="stat-details">
+                <h6 class="stat-label">Total Number Of Today's patients</h6>
+                <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <div class="stat-card bg-white border-start border-warning border-4">
+              <div class="stat-icon bg-warning-subtle">
+                <i class="bi bi-currency-dollar text-warning"></i>
+              </div>
+              <div class="stat-details">
+                <h6 class="stat-label">Today's {{ hospital }} patients</h6>
+                <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
+
+              </div>
+            </div>
+          </div>
+
+
 
           <div class="col-md-3">
             <div class="stat-card bg-white border-start border-danger border-4">

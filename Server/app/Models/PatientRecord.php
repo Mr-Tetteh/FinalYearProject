@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class PatientRecord extends Model
 {
@@ -16,7 +17,7 @@ class PatientRecord extends Model
         'lab1', 'lab1_results', 'lab2', 'lab2_results', 'lab3', 'lab3_results',
         'lab4', 'lab4_results', 'lab5', 'lab5_results', 'lab6', 'lab6_results',
         'lab7', 'lab7_results', 'lab8', 'lab8_results', 'lab9', 'lab9_results',
-        'lab10', 'lab10_results',];
+        'lab10', 'lab10_results', 'hospital'];
 
 
 
@@ -28,9 +29,20 @@ class PatientRecord extends Model
             if ($user && $user->role === 'Doctor') {
                 $record->user_id = $user->id;
             }
+            $user->hospital = Auth::user()->hospital();
+
         });
     }
 
+    public function Sluggable()
+    {
+        return [
+            'hospital' => [
+                'source' => Auth::user()->hospital
+            ]
+        ];
+
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

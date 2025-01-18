@@ -17,10 +17,11 @@ class PatientsController extends Controller
      */
     public function index()
     {
-      $patents =   Patients::latest()->get();
-      return PatientResource::collection($patents);
+        $patents = Patients::latest()->get();
+        return PatientResource::collection($patents);
 
     }
+
     public function hospitals_patients()
     {
         $user = Auth::user();
@@ -29,6 +30,20 @@ class PatientsController extends Controller
 
     }
 
+    public function hospitals_patients_count()
+    {
+        $user = Auth::user();
+        $patient_count = Patients::where('hospital', $user->hospital)->count();
+        return response()->json($patient_count);
+
+    }
+
+    public function count_all_patient()
+    {
+    $patients = Patients::all()->count();
+    return response()->json($patients);
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -42,36 +57,36 @@ class PatientsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $patient = Patients::create([
-        'first_name' => $request->input('first_name'),
-        'last_name' => $request->input('last_name'),
-        'other_name' => $request->input('other_names'),
-        'age' => $request->input('age'),
-        'gender' => $request->input('gender'),
-        'date_of_birth' => $request->input('date_of_birth'),
-        'contact' => $request->input('contact'),
-        'address' => $request->input('address'),
-        'email' => $request->input('email'),
-        'medical_history' => $request->input('medical_history'),
-        'allergies' => $request->input('allergies'),
-        'additional_notes' => $request->input('additional_notes'),
-        'guardian1_first_name' => $request->input('guardian1_first_name'),
-        'guardian1_last_name' => $request->input('guardian1_last_name'),
-        'guardian1_other_names' => $request->input('guardian1_other_names'),
-        'guardian1_relation' => $request->input('guardian1_relation'),
-        'guardian1_residence' => $request->input('guardian1_residence'),
-        'guardian1_contact' => $request->input('guardian1_contact'),
-        'guardian2_first_name' => $request->input('guardian2_first_name'),
-        'guardian2_last_name' => $request->input('guardian2_last_name'),
-        'guardian2_other_names' => $request->input('guardian2_other_names'),
-        'guardian2_relation' => $request->input('guardian2_relation'),
-        'guardian2_residence' => $request->input('guardian2_residence'),
-        'guardian2_contact' => $request->input('guardian2_contact'),
-    ]);
+    {
+        $patient = Patients::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'other_name' => $request->input('other_names'),
+            'age' => $request->input('age'),
+            'gender' => $request->input('gender'),
+            'date_of_birth' => $request->input('date_of_birth'),
+            'contact' => $request->input('contact'),
+            'address' => $request->input('address'),
+            'email' => $request->input('email'),
+            'medical_history' => $request->input('medical_history'),
+            'allergies' => $request->input('allergies'),
+            'additional_notes' => $request->input('additional_notes'),
+            'guardian1_first_name' => $request->input('guardian1_first_name'),
+            'guardian1_last_name' => $request->input('guardian1_last_name'),
+            'guardian1_other_names' => $request->input('guardian1_other_names'),
+            'guardian1_relation' => $request->input('guardian1_relation'),
+            'guardian1_residence' => $request->input('guardian1_residence'),
+            'guardian1_contact' => $request->input('guardian1_contact'),
+            'guardian2_first_name' => $request->input('guardian2_first_name'),
+            'guardian2_last_name' => $request->input('guardian2_last_name'),
+            'guardian2_other_names' => $request->input('guardian2_other_names'),
+            'guardian2_relation' => $request->input('guardian2_relation'),
+            'guardian2_residence' => $request->input('guardian2_residence'),
+            'guardian2_contact' => $request->input('guardian2_contact'),
+        ]);
 
-    return new PatientResource($patient);
-}
+        return new PatientResource($patient);
+    }
 
 
     /**
