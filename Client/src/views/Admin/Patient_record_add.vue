@@ -67,7 +67,6 @@ const handleSubmit = async () => {
         'Content-Type': 'multipart/form-data',
       },
     };
-
     const formData = new FormData();
 
     // Append non-file data

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PatientRecordResource;
 use App\Models\PatientRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PatientRecordController extends Controller
 {
@@ -26,6 +28,20 @@ class PatientRecordController extends Controller
         $patients = PatientRecord::where('patient_id', $id)->latest()->get();
 
         return PatientRecordResource::collection($patients);
+    }
+
+
+    public function now_patient()
+    {
+        $patients = PatientRecord::where('created_at', Carbon::now())->count();
+        return response()->json($patients);
+
+    }
+
+    public function now_hospital_patient()
+    {
+        $user = Auth::user();
+        $patients = PatientRecord::where('created_at', Carbon::now())->where('hospital', $user->hospital);
     }
 
 
@@ -51,6 +67,7 @@ class PatientRecordController extends Controller
             'labs' => $request->labs,
             'ward_number' => $request->ward_number,
             'additional_notes' => $request->additional_notes,
+            'hospital' => $request->hospital
         ]);
 
         for ($i = 1; $i <= 10; $i++) {

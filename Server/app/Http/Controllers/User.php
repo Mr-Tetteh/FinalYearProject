@@ -79,6 +79,21 @@ class User extends Controller
         }
     }
 
+public function count_all_users()
+{
+    $users = \App\Models\User::count();
+    return response()->json($users);
+
+}
+
+public function count_all_hospital_users()
+{
+    $user = Auth::user();
+    $user = \App\Models\User::where('hospital', $user->hospital)->count();
+    return response()->json($user);
+
+}
+
 
 
     public function user()

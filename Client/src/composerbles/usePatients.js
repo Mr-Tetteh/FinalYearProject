@@ -39,6 +39,7 @@ export default function usePatients() {
     const patient = ref('')
     const all_hospital_patient = ref('');
     const patient_record = ref('')
+    const all_today_patient= ref()
 
     const register_patient = async () => {
         try {
@@ -81,6 +82,21 @@ export default function usePatients() {
             alert(err.response.data.data)
         }
     }
+    const today_patient_count = async  () =>{
+        try{
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            let response = await axios.get('https://health.local.stay/api/today_patient_count',config)
+            all_today_patient.value =  response.data
+        }catch(err) {
+            alert(err.response.data.data)
+        }
+    }
+
+
 
     const hospital_patient = async  () =>{
         try{
@@ -105,6 +121,8 @@ export default function usePatients() {
         hospital_patient,
         all_hospital_patient,
         patient_record,
-        list_patients_record
+        list_patients_record,
+        all_today_patient,
+        today_patient_count
     }
 }

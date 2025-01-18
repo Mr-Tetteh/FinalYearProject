@@ -40,6 +40,11 @@ const drug = ref()
         };
     };
 
+    const hospital_patient_count = ref()
+    const count_all_patient_on_swift  = ref()
+    const count_all_users_on_swift = ref()
+    const hospital_users = ref()
+
 
     const stock_drugs = async () => {
         try {
@@ -108,6 +113,68 @@ const drug = ref()
         }
     };
 
+    const count_hospital_patient = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get('https://health.local.stay/api/count_hospital_patient', config);
+            hospital_patient_count.value  = response.data
+            console.log('Response:', response.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+
+
+    const count_all_patient = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get('https://health.local.stay/api/count_all_patient', config);
+            count_all_patient_on_swift.value  = response.data
+            console.log('sdughilk:', response.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+
+    const count_all_users = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get('https://health.local.stay/api/count_all_users', config);
+            count_all_users_on_swift.value  = response.data
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+    const count_all_hospital_users = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get('https://health.local.stay/api/count_all_hospital_users', config);
+            hospital_users.value  = response.data
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+
 
     return{
         input,
@@ -118,7 +185,15 @@ const drug = ref()
         drugs,
         drug,
         get_stock_drugs_edit,
-        update_drug
+        update_drug,
+        hospital_patient_count,
+        count_hospital_patient,
+        count_all_patient,
+        count_all_patient_on_swift,
+        count_all_users_on_swift,
+        count_all_users,
+        hospital_users,
+        count_all_hospital_users
 
     }
 }
