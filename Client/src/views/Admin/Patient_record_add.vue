@@ -1,7 +1,5 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatients from "@/composerbles/usePatients.js";
-import {onMounted, ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 
