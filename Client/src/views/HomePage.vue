@@ -342,122 +342,69 @@ import NavBar from "@/components/NavBar.vue";
       </div>
     </section>
 
-    <section id="pricing" class="section py-5 light-background">
-      <div class="container">
-        <h3 class="mb-5 text-center text-primary">Pricing</h3>
-          <div class="row">
-            <div class="col-12 col-md-8 offset-md-2">
-              <div class="pricing">
-                <div class="row align-items-center">
-                  <div class="col-md-4 px-0">
-                    <div class="card">
-                      <div class="card-header text-center">
-                        <h4 class="card-title">Basic</h4>
-                        <p class="text-center">A standard features you can get for a month</p>
-                      </div>
-                      <h1 class="price">GHC200</h1>
-                      <ul>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
-                      </ul>
-                      <div class="card-footer">
-                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Register Now</RouterLink>
 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 px-0">
-                    <div class="card card-highlighted">
-                      <div class="card-header text-center">
-                        <h4 class="card-title">Entrepreneur</h4>
-                        <p class="text-center">A standard features you can get for a Year</p>
-                      </div>
-                      <h1 class="price text-white">GHC2000</h1>
-                      <ul>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum kolor sit amet</li>
-                      </ul>
-                      <div class="card-footer">
-                        <RouterLink class="btn btn-outline-white btn-block" to="/register_hospital">Register Now
-                        </RouterLink>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 px-0">
-                    <div class="card">
-                      <div class="card-header text-center">
-                        <h4 class="card-title">Professional</h4>
-                        <p class="text-center">A higher features you will need for 6 month</p>
-                      </div>
-                      <h1 class="price">GHC1000</h1>
-                      <ul>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem ipsum sit amet</li>
-                        <li><i class="bi bi-check-circle"></i>Lorem dolor sit amet</li>
-                      </ul>
-                      <div class="card-footer">
-                        <RouterLink class="btn btn-primary btn-block" to="/register_hospital">Register Now</RouterLink>
-                      </div>
-                    </div>
-                  </div>
+    <section class="card_start overflow-y-auto">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="title">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                  <h2>Basic</h2>
                 </div>
+                <div class="price">
+                  <h4><sup>$</sup>25</h4>
+                </div>
+                <div class="option">
+                  <ul>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>10 GB Space</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>3 Domain Names</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>20 Email Address</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                  </ul>
+                </div>
+                <a href="#">Order Now</a>
               </div>
             </div>
-          </div>
-      </div>
-    </section>
-
-
-    <section id="contact" class="stats section py-5 light-background">
-      <div class="container d-flex justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center gy-4 w-100">
-          <div class="col-lg-6 col-md-8">
-            <div class="stats-item shadow p-4 rounded text-center">
-              <h3 class="mb-4 text-primary">Contact Us</h3>
-              <div class="d-flex flex-column gap-4">
-                <!-- Facebook -->
-                <a href="https://facebook.com"
-                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-primary" viewBox="0 0 512 512">
-                    <path
-                        d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
-                  </svg>
-                  <span class="text-lg text-dark">Facebook</span>
-                </a>
-
-                <!-- Email -->
-                <a href="https://Gmail.com"
-                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-danger" viewBox="0 0 512 512">
-                    <path
-                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-                  </svg>
-                  <span class="text-lg text-dark">Email Us</span>
-                </a>
-
-                <!-- Phone -->
-                <a href="tel:0559724772"
-                   class="d-flex align-items-center justify-content-center text-decoration-none gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" class="text-success" viewBox="0 0 512 512">
-                    <path
-                        d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-                  </svg>
-                  <span class="text-lg text-dark">Call Us</span>
-                </a>
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="title">
+                  <i class="fa fa-plane" aria-hidden="true"></i>
+                  <h2>Standard</h2>
+                </div>
+                <div class="price">
+                  <h4><sup>$</sup>50</h4>
+                </div>
+                <div class="option">
+                  <ul>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>50 GB Space</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>5 Domain Names</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>unlimited Email Address</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                  </ul>
+                </div>
+                <a href="#">Order Now</a>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="title">
+                  <i class="fa fa-rocket" aria-hidden="true"></i>
+                  <h2>Premium</h2>
+                </div>
+                <div class="price">
+                  <h4><sup>$</sup>100</h4>
+                </div>
+                <div class="option">
+                  <ul>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>Unlimited GB Space</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>30 Domain Names</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>Unlimited Email Address</li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                  </ul>
+                </div>
+                <a href="#">Order Now</a>
               </div>
             </div>
           </div>
@@ -465,6 +412,59 @@ import NavBar from "@/components/NavBar.vue";
       </div>
     </section>
 
+
+
+    <section class="contact-section d-flex align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-8">
+            <div class="contact-card floating">
+              <h2 class="contact-title text-center">Get in Touch</h2>
+              <p class="contact-subtitle text-center">We'd love to hear from you! Connect with us through any of these platforms.</p>
+
+              <!-- Facebook -->
+              <a href="https://facebook.com" class="contact-link">
+                <div class="contact-icon facebook-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                    <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="contact-text">Facebook</div>
+                  <p class="contact-subtext">Follow us for updates</p>
+                </div>
+              </a>
+
+              <!-- Email -->
+              <a href="mailto:contact@example.com" class="contact-link">
+                <div class="contact-icon email-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="contact-text">Email Us</div>
+                  <p class="contact-subtext">Get in touch 24/7</p>
+                </div>
+              </a>
+
+              <!-- Phone -->
+              <a href="tel:0559724772" class="contact-link">
+                <div class="contact-icon phone-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                    <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="contact-text">Call Us</div>
+                  <p class="contact-subtext">055-972-4772</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Gallery Section -->
     <section id="gallery" class="gallery section">
@@ -2161,5 +2161,284 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+
+
+
+.card_start {
+  width: 100%;
+  height: 60vh;
+  box-sizing: border-box;
+  padding: 140px 0;
+  background: #F8FAFC;
+}
+
+.card {
+  position: relative;
+  max-width: 300px;
+  height: auto;
+  background: linear-gradient(-45deg, #fe0847, #feae3f);
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
+  transition: .5s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.col-sm-4:nth-child(1) .card,
+.col-sm-4:nth-child(1) .card .title .fa {
+  background: linear-gradient(-45deg, #f403d1, #64b5f6);
+}
+
+.col-sm-4:nth-child(2) .card,
+.col-sm-4:nth-child(2) .card .title .fa {
+  background: linear-gradient(-45deg, #ffec61, #f321d7);
+}
+
+.col-sm-4:nth-child(3) .card,
+.col-sm-4:nth-child(3) .card .title .fa {
+  background: linear-gradient(-45deg, #24ff72, #9a4eff);
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(255, 255, 255, .1);
+  z-index: 1;
+  transform: skewY(-5deg) scale(1.5);
+  -webkit-transform: skewY(-5deg) scale(1.5);
+  -moz-transform: skewY(-5deg) scale(1.5);
+  -ms-transform: skewY(-5deg) scale(1.5);
+  -o-transform: skewY(-5deg) scale(1.5);
+}
+
+.title .fa {
+  color: #fff;
+  font-size: 60px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  text-align: center;
+  line-height: 100px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, .2);
+}
+
+.title h2 {
+  position: relative;
+  margin: 20px 0 0;
+  padding: 0;
+  color: #fff;
+  font-size: 28px;
+  z-index: 2;
+}
+
+.price {
+  position: relative;
+  z-index: 2;
+}
+
+.price h4 {
+  margin: 0;
+  padding: 20px 0;
+  color: #fff;
+  font-size: 60px;
+}
+
+.option {
+  position: relative;
+  z-index: 2;
+}
+
+.option ul {
+  margin: 0;
+  padding: 0;
+}
+
+.option ul li {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.card a {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  color: #262626;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 40px;
+  display: block;
+  text-align: center;
+  margin: 20px auto 0;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.card a:hover {
+  text-decoration: none;
+}
+
+
+.contact-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 5rem 0;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 3rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #6366f1 0%, #8b5cf6 100%);
+  z-index: -1;
+  clip-path: circle(60px at 90% 10%);
+  transition: 0.5s ease-in-out;
+}
+
+.contact-card:hover::before {
+  clip-path: circle(400px at 90% -10%);
+}
+
+.contact-card:hover .contact-title {
+  color: white;
+}
+
+.contact-card:hover .contact-subtitle {
+  color: black;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: black;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.contact-subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.contact-link {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.contact-link:hover {
+  transform: translateX(10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+  width: 45px;
+  height: 45px;
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.facebook-icon {
+  background: rgba(66, 103, 178, 0.1);
+  color: #4267B2;
+}
+
+.email-icon {
+  background: rgba(234, 67, 53, 0.1);
+  color: #EA4335;
+}
+
+.phone-icon {
+  background: rgba(52, 168, 83, 0.1);
+  color: #34A853;
+}
+
+.contact-link:hover .contact-icon {
+  transform: scale(1.1);
+}
+
+.contact-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.contact-subtext {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+@keyframes floatAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating {
+  animation: floatAnimation 3s ease-in-out infinite;
 }
 </style>
