@@ -2,7 +2,7 @@
 import useAuth from "@/composerbles/useAuth.js";
 import {ref, computed} from "vue";
 
-const { password_rest, reset_password} = useAuth();
+const {password_rest, reset_password} = useAuth();
 
 const errorMessage = ref("");
 const showPassword = ref(false);
@@ -59,6 +59,9 @@ const togglePasswordVisibility = () => {
                       <button type="submit" class="btn btn-primary text-black">
                         Reset Password
                       </button>
+                      <RouterLink to="login" class="text-primary text-3xl  offset-8"><i class="bi bi-arrow-bar-left  text-primary"></i>
+                        Back to login
+                      </RouterLink>
                     </div>
                   </form>
                 </div>
