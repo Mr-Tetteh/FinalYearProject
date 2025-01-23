@@ -414,7 +414,7 @@ import NavBar from "@/components/NavBar.vue";
 
 
 
-    <section class="contact-section d-flex align-items-center">
+    <section class="contact-section d-flex align-items-center" id="contact" >
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6 col-md-8">
@@ -466,71 +466,6 @@ import NavBar from "@/components/NavBar.vue";
       </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Gallery</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-0">
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid ">
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <img src="../assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Gallery Section -->
 
 
   </main>
@@ -2064,22 +1999,6 @@ section,
 }
 
 
-/*--------------------------------------------------------------
-# Gallery Section
---------------------------------------------------------------*/
-.gallery .gallery-item {
-  overflow: hidden;
-  border-right: 3px solid var(--background-color);
-  border-bottom: 3px solid var(--background-color);
-}
-
-.gallery .gallery-item img {
-  transition: all ease-in-out 0.4s;
-}
-
-.gallery .gallery-item:hover img {
-  transform: scale(1.1);
-}
 
 /*--------------------------------------------------------------
 # Contact Section

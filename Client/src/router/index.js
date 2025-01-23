@@ -16,6 +16,8 @@ import Pharmacy_all_drugs from "@/views/Admin/Pharmacy_all_drugs.vue";
 import Checkout from "@/views/Admin/Checkout.vue";
 import Pharmacy_drugs_edit from "@/views/Admin/Pharmacy_drugs_edit.vue";
 import Pharmacy_drug_details from "@/views/Admin/pharmacy_drug_details.vue";
+import ResetPassword from "@/views/auth/ResetPassword.vue";
+import SetPassword from "@/views/auth/SetPassword.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -122,6 +124,16 @@ const router = createRouter({
       component: Checkout
     },
 
+    {
+      path: '/rest_password',
+      name: 'RestPassword',
+      component: ResetPassword
+    },
+    {
+      path: '/set_password/:token',
+      name: 'SetPassword',
+      component: SetPassword
+    },
   ],
 })
 

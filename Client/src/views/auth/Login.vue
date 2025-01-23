@@ -101,7 +101,7 @@ const togglePasswordVisibility = () => {
                       Remember me
                     </label>
                   </div>
-                  <a href="#" class="text-decoration-none">Forgot Password?</a>
+                  <RouterLink to="rest_password" class="text-decoration-none">Reset Password?</RouterLink>
                 </div>
 
                 <!-- Login Button -->
