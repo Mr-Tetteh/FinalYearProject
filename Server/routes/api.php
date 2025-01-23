@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [User::class, 'login']);
 Route::post('register_hospital', [HosptialController::class, 'store']);
 Route::get('all_hospitals', [HosptialController::class, 'index']);
+Route::post('rest_password', [User::class, 'forgotPassword']);
+Route::post('password_reset', [User::class, 'resetPassword']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
