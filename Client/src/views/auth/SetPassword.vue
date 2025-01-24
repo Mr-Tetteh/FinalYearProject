@@ -52,7 +52,7 @@ const handelPassword = async () => {
                                class="form-control"
                                v-model="password_set.password"
                                placeholder="New Password"
-                               required>
+                               >
                       </div>
                       <div class="input-group">
                                             <span class="input-group-text">
@@ -62,7 +62,7 @@ const handelPassword = async () => {
                                class="form-control"
                                v-model="password_set.confirm_password"
                                placeholder="Confirm Password"
-                               required>
+                               >
                       </div>
                     </div>
                     <div class="d-grid gap-2">
