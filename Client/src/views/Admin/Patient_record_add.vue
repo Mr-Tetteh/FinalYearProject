@@ -101,7 +101,8 @@ const handleSubmit = async () => {
           <div class="col-md-10">
             <div class="card shadow-lg border-0">
               <div class="card-body">
-                <form @submit.prevent="handleSubmit" class="text-center">
+                <form @submit.prevent="handleSubmit" class="text-center" disabled="false">
+
                   <!-- Nurse Section -->
                   <div class="nurse-section mb-5">
                     <div
@@ -115,6 +116,7 @@ const handleSubmit = async () => {
                           <label class="form-label text-center w-100">Temperature</label>
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
+
                               <input
                                   type="text"
                                   class="form-control text-center"
@@ -555,6 +557,7 @@ const handleSubmit = async () => {
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.1); /* Adjust opacity and color as needed */
+  pointer-events: none;
 }
 
 
