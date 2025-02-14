@@ -39,7 +39,7 @@
                 This code will expire in a hour!
 
             </p>
-            <a href="http://localhost:5174/set_password/{{$token}}"><button class="button">SET NEW PASSWORD HERE</button></a>
+            <a href="http://localhost:5173/set_password/{{$token}}"><button class="button">SET NEW PASSWORD HERE</button></a>
         </div>
     </div>
 </div>

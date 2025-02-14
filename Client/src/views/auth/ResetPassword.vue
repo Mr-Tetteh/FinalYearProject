@@ -52,7 +52,7 @@ const togglePasswordVisibility = () => {
                                id="email"
                                placeholder="Enter Email"
                                v-model="password_rest.email"
-                               required>
+                               >
                       </div>
                     </div>
                     <div class="d-grid gap-2">
