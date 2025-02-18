@@ -143,6 +143,11 @@
       <path value="$PROJECT_DIR$/Server/vendor/paragonie/sodium_compat" />
       <path value="$PROJECT_DIR$/Server/vendor/cviebrock/eloquent-sluggable" />
       <path value="$PROJECT_DIR$/Server/vendor/cocur/slugify" />
+      <path value="$PROJECT_DIR$/Server/vendor/darkaonline/l5-swagger" />
+      <path value="$PROJECT_DIR$/Server/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/Server/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/Server/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/Server/vendor/swagger-api/swagger-ui" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
