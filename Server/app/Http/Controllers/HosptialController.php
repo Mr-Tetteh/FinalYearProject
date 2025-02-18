@@ -8,28 +8,79 @@ use App\Http\Resources\HospitalResource;
 use App\Models\Hosptial;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(
+ *     name="Hospital",
+ *     description="Operations related to hospitals"
+ * )
+ */
 class HosptialController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/all_hospitals",
+     *     summary="Get list of hospitals",
+     *     description="Returns a list of all hospitals",
+     *     tags={"Hospital"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="List of hospitals",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Hospital")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
      */
     public function index()
     {
         $hospitals = Hosptial::all();
-      return  HospitalResource::collection($hospitals);
+        return HospitalResource::collection($hospitals);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @OA\Post(
+     *     path="/api/register_hospitals",
+     *     summary="Create a new hospital",
+     *     description="Stores a newly created hospital",
+     *     tags={"Hospital"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"hospital_name", "hospital_address", "hospital_contact", "hospital_email", "hospital_country", "hospital_city", "user_name", "user_phone_number", "user_email"},
+     *             @OA\Property(property="hospital_name", type="string", description="The name of the hospital"),
+     *             @OA\Property(property="hospital_address", type="string", description="The address of the hospital"),
+     *             @OA\Property(property="hospital_contact", type="string", description="The contact number of the hospital"),
+     *             @OA\Property(property="hospital_email", type="string", description="The email address of the hospital"),
+     *             @OA\Property(property="hospital_location", type="string", description="The location of the hospital"),
+     *             @OA\Property(property="hospital_country", type="string", description="The country of the hospital"),
+     *             @OA\Property(property="hospital_city", type="string", description="The city of the hospital"),
+     *             @OA\Property(property="user_name", type="string", description="The name of the contact person at the hospital"),
+     *             @OA\Property(property="user_phone_number", type="string", description="The phone number of the contact person"),
+     *             @OA\Property(property="user_email", type="string", description="The email address of the contact person"),
+     *             @OA\Property(property="number_of_monthly_subscription", type="integer", description="The number of monthly subscriptions for the hospital")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Hospital created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Hospital")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
        $hospital = Hosptial::create([

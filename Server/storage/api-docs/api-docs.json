@@ -1,0 +1,232 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SERVER",
+        "description": "API for managing hospitals and related data.",
+        "contact": {
+            "email": "support@hospitalapi.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/all_hospitals": {
+            "get": {
+                "tags": [
+                    "Hospital"
+                ],
+                "summary": "Get list of hospitals",
+                "description": "Returns a list of all hospitals",
+                "operationId": "dffcfa3b0d742d5ad017108857960a71",
+                "responses": {
+                    "200": {
+                        "description": "List of hospitals",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Hospital"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/register_hospitals": {
+            "post": {
+                "tags": [
+                    "Hospital"
+                ],
+                "summary": "Create a new hospital",
+                "description": "Stores a newly created hospital",
+                "operationId": "a3a1a5e77a5b5149334f0b8794676a97",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "hospital_name",
+                                    "hospital_address",
+                                    "hospital_contact",
+                                    "hospital_email",
+                                    "hospital_country",
+                                    "hospital_city",
+                                    "user_name",
+                                    "user_phone_number",
+                                    "user_email"
+                                ],
+                                "properties": {
+                                    "hospital_name": {
+                                        "description": "The name of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_address": {
+                                        "description": "The address of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_contact": {
+                                        "description": "The contact number of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_email": {
+                                        "description": "The email address of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_location": {
+                                        "description": "The location of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_country": {
+                                        "description": "The country of the hospital",
+                                        "type": "string"
+                                    },
+                                    "hospital_city": {
+                                        "description": "The city of the hospital",
+                                        "type": "string"
+                                    },
+                                    "user_name": {
+                                        "description": "The name of the contact person at the hospital",
+                                        "type": "string"
+                                    },
+                                    "user_phone_number": {
+                                        "description": "The phone number of the contact person",
+                                        "type": "string"
+                                    },
+                                    "user_email": {
+                                        "description": "The email address of the contact person",
+                                        "type": "string"
+                                    },
+                                    "number_of_monthly_subscription": {
+                                        "description": "The number of monthly subscriptions for the hospital",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Hospital created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Hospital"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Hospital": {
+                "required": [
+                    "hospital_name",
+                    "hospital_address",
+                    "hospital_contact",
+                    "hospital_email",
+                    "hospital_country",
+                    "hospital_city",
+                    "user_name",
+                    "user_phone_number",
+                    "user_email"
+                ],
+                "properties": {
+                    "hospital_name": {
+                        "description": "The name of the hospital",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "hospital_address": {
+                        "description": "The address of the hospital",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "hospital_location": {
+                        "description": "The location or area where the hospital is situated",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "hospital_contact": {
+                        "description": "Contact number of the hospital",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "hospital_email": {
+                        "description": "Email address of the hospital",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "hospital_country": {
+                        "description": "The country where the hospital is located",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "hospital_city": {
+                        "description": "The city where the hospital is located",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "user_name": {
+                        "description": "The name of the user or contact person at the hospital",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "user_phone_number": {
+                        "description": "Phone number of the user/contact person",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "user_email": {
+                        "description": "Email address of the user/contact person",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": false
+                    },
+                    "number_of_monthly_subscription": {
+                        "description": "The number of monthly subscriptions associated with the hospital",
+                        "type": "integer",
+                        "readOnly": false,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Hospital",
+            "description": "Operations related to hospitals"
+        }
+    ]
+}
