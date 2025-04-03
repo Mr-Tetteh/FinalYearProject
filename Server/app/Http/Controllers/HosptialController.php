@@ -18,7 +18,7 @@ class HosptialController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/all_hospitals",
+     *     path="/api/hospitals",
      *     summary="Get list of hospitals",
      *     description="Returns a list of all hospitals",
      *     tags={"Hospital"},
@@ -44,7 +44,7 @@ class HosptialController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/register_hospitals",
+     *     path="/api/hospitals",
      *     summary="Create a new hospital",
      *     description="Stores a newly created hospital",
      *     tags={"Hospital"},
@@ -80,7 +80,7 @@ class HosptialController extends Controller
      *     )
      * )
      */
-   
+
     public function store(Request $request)
     {
        $hospital = Hosptial::create([

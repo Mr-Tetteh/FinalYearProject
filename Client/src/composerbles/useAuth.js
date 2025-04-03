@@ -35,7 +35,7 @@ export default function useAuth() {
     const login = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/login', user.value);
-            const token = response.data.authorisation.token;
+            const token = response.data.authorisation.token
             localStorage.setItem('AUTH_TOKEN', token);
             localStorage.setItem('USER_TYPE', response.data.user.user_type);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
@@ -80,7 +80,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/all_users', config);
+            const response = await axios.get('https://health.local.stay/api/users', config);
             all_users.value = response.data.data
 
         } catch (err) {
@@ -124,7 +124,7 @@ export default function useAuth() {
 
     const hospital = async () => {
         try {
-            let response = await axios.get('https://health.local.stay/api/all_hospitals')
+            let response = await axios.get('https://health.local.stay/api/hospitals')
             hospitals_in_system.value = response.data.data;
         } catch (err) {
             alert(err.response.data.message)

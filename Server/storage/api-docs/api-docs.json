@@ -4,7 +4,7 @@
         "title": "SERVER",
         "description": "API for managing hospitals and related data.",
         "contact": {
-            "email": "support@hospitalapi.com"
+            "email": "danielstay73@gmail.com"
         },
         "license": {
             "name": "MIT",
@@ -13,14 +13,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/all_hospitals": {
+        "/api/hospitals": {
             "get": {
                 "tags": [
                     "Hospital"
                 ],
                 "summary": "Get list of hospitals",
                 "description": "Returns a list of all hospitals",
-                "operationId": "dffcfa3b0d742d5ad017108857960a71",
+                "operationId": "dffab40f45dbdf59267ef1b9c0c80c1e",
                 "responses": {
                     "200": {
                         "description": "List of hospitals",
@@ -39,16 +39,14 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/api/register_hospitals": {
+            },
             "post": {
                 "tags": [
                     "Hospital"
                 ],
                 "summary": "Create a new hospital",
                 "description": "Stores a newly created hospital",
-                "operationId": "a3a1a5e77a5b5149334f0b8794676a97",
+                "operationId": "14c1c4149febefe0fe6302ab01529c4b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -123,6 +121,129 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Hospital"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get list of Users",
+                "description": "Returns a list of all users",
+                "operationId": "cc0b064d13f773137e0250bba18f230e",
+                "responses": {
+                    "200": {
+                        "description": "List of users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a new user",
+                "description": "Stores a newly created users",
+                "operationId": "3c0c2f2dffa548f22fa8a8f1c3185e2e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "other_names",
+                                    "birthday",
+                                    "gender",
+                                    "role",
+                                    "contact",
+                                    "email",
+                                    "hospital",
+                                    "staff_id",
+                                    "city"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "description": "The first name of the user",
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "description": "The last name of the user",
+                                        "type": "string"
+                                    },
+                                    "other_names": {
+                                        "description": "The other names of the user",
+                                        "type": "string"
+                                    },
+                                    "birthday": {
+                                        "description": "The birthday of the user",
+                                        "type": "string"
+                                    },
+                                    "gender": {
+                                        "description": "The gender of the user",
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "The role of the user",
+                                        "type": "string"
+                                    },
+                                    "contact": {
+                                        "description": "The contact of the user",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "The name of the  email of the user",
+                                        "type": "string"
+                                    },
+                                    "hospital": {
+                                        "description": "The hospital the user belogns to",
+                                        "type": "string"
+                                    },
+                                    "staff_id": {
+                                        "description": "The staff id of the user",
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "description": "The city which the user comes from",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Hospital created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -220,6 +341,70 @@
                     }
                 },
                 "type": "object"
+            },
+            "User": {
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "other_names",
+                    "birthday",
+                    "gender",
+                    "role",
+                    "contact",
+                    "email",
+                    "hospital",
+                    "staff_id",
+                    "city"
+                ],
+                "properties": {
+                    "first_name": {
+                        "description": "The first name of the user",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "description": "The last name of the user",
+                        "type": "string"
+                    },
+                    "other_names": {
+                        "description": "Other names of the user",
+                        "type": "string"
+                    },
+                    "birthday": {
+                        "description": "The birthday of the user",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "gender": {
+                        "description": "The gender of the user",
+                        "type": "string"
+                    },
+                    "role": {
+                        "description": "The role of the user",
+                        "type": "string"
+                    },
+                    "contact": {
+                        "description": "The contact number of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email address of the user",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "hospital": {
+                        "description": "The hospital associated with the user",
+                        "type": "string"
+                    },
+                    "staff_id": {
+                        "description": "The staff ID of the user",
+                        "type": "string"
+                    },
+                    "city": {
+                        "description": "The city of the user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -227,6 +412,10 @@
         {
             "name": "Hospital",
             "description": "Operations related to hospitals"
+        },
+        {
+            "name": "User",
+            "description": "User"
         }
     ]
 }
