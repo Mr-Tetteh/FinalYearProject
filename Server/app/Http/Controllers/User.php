@@ -14,6 +14,46 @@ use Illuminate\Support\Str;
 
 class User extends Controller
 {
+
+    /**
+     * @OA\Post(
+     *     path="/api/users",
+     *     summary="Create a new user",
+     *     description="Stores a newly created users",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"first_name", "last_name", "other_names", "birthday", "gender", "role", "contact", "email",
+     *      "hospital", "staff_id", "city"},
+     *             @OA\Property(property="first_name", type="string", description="The first name of the user"),
+     *             @OA\Property(property="last_name", type="string", description="The last name of the user"),
+     *             @OA\Property(property="other_names", type="string", description="The other names of the user"),
+     *             @OA\Property(property="birthday", type="string", description="The birthday of the user"),
+     *             @OA\Property(property="gender", type="string", description="The gender of the user"),
+     *             @OA\Property(property="role", type="string", description="The role of the user"),
+     *             @OA\Property(property="contact", type="string", description="The contact of the user"),
+     *             @OA\Property(property="email", type="string", description="The name of the  email of the user"),
+     *             @OA\Property(property="hospital", type="string", description="The hospital the user belogns to"),
+     *             @OA\Property(property="staff_id", type="string", description="The staff id of the user"),
+     *             @OA\Property(property="city", type="integer", description="The city which the user comes from")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Hospital created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     */
     public function register(Request $request)
     {
         if (\App\Models\User::where('email', $request->email)->first()) {
@@ -108,6 +148,26 @@ class User extends Controller
         return response()->json(['message' => 'A Reset password link sent on your email. Please check your inbox to update your password.']);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/users",
+     *     summary="Get list of Users",
+     *     description="Returns a list of all users",
+     *     tags={"User"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="List of users",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     */
     public function all_users()
     {
         $user = \App\Models\User::all();

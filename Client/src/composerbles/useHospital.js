@@ -105,7 +105,7 @@ const drug = ref()
     }
     const register_hospital = async () => {
         try {
-            const response = await axios.post('https://health.local.stay/api/register_hospital', input.value);
+            const response = await axios.post('https://health.local.stay/api/hospital', input.value);
             console.log('Response:', response.data);
             await router.push('/');
         } catch (err) {

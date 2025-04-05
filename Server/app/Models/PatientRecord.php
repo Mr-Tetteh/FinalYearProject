@@ -20,20 +20,6 @@ class PatientRecord extends Model
         'lab10', 'lab10_results', 'hospital'];
 
 
-
-
-    protected static function booted()
-    {
-        static::creating(function ($record) {
-            $user = auth()->user();
-            if ($user && $user->role === 'Doctor') {
-                $record->user_id = $user->id;
-            }
-            $user->hospital = Auth::user()->hospital();
-
-        });
-    }
-
     public function Sluggable()
     {
         return [
@@ -43,6 +29,15 @@ class PatientRecord extends Model
         ];
 
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($patient) {
+            $patient->hospital = Auth::user()->hospital;
+        });
+    }
+
+
     public function user()
     {
         return $this->belongsTo(User::class);

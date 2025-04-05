@@ -8,16 +8,16 @@ use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [User::class, 'login']);
-Route::post('register_hospital', [HosptialController::class, 'store']);
-Route::get('all_hospitals', [HosptialController::class, 'index']);
+Route::post('hospital', [HosptialController::class, 'store']);
+Route::get('hospitals', [HosptialController::class, 'index']);
 Route::post('rest_password', [User::class, 'forgotPassword']);
 Route::post('password_reset', [User::class, 'resetPassword']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [User::class, 'logout']);
-    Route::get('user', [User::class, 'user']);
-    Route::post('register', [User::class, 'register']);
+    Route::get('users', [User::class, 'user']);
+    Route::post('users', [User::class, 'register']);
     Route::get('all_users', [User::class, 'all_users']);
     Route::get('all_staff', [User::class, 'all_staff']);
     Route::get('count_all_users', [User::class, 'count_all_users']);
