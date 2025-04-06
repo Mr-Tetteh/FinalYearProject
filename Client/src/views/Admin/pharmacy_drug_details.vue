@@ -32,7 +32,7 @@ onMounted(async () => {
             <div class="card-header bg-primary p-4">
               <div class="d-flex align-items-center">
                 <i class="bi bi-capsule text-white me-3 fs-3"></i>
-                <h3 class="text-white mb-0">Edit Medications</h3>
+                <h3 class="text-white mb-0">Edit Medication</h3>
               </div>
             </div>
 
