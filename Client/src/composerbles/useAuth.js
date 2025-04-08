@@ -25,7 +25,7 @@ export default function useAuth() {
         email: "",
         gender: "",
         role: "",
-        hospital: "",
+        // hospital: "",
         staff_id: "",
         city: "",
         password: "my_name_is_jesus",
@@ -80,7 +80,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/users', config);
+            const response = await axios.get('https://health.local.stay/api/all_users', config);
             all_users.value = response.data.data
 
         } catch (err) {
@@ -138,7 +138,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.post(`https://health.local.stay/api/register`, input.value, config)
+            const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
             await router.push('/staff_info')
         } catch (err) {
             alert(err.response.data.message)

@@ -48,7 +48,7 @@ export default function usePatients() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             let response = await axios.post('https://health.local.stay/api/add_patient', input.value, config)
-            await router.push('/dashboard')
+            await router.push('/hospital_patient')
         } catch (err) {
             alert(err.response.data.data)
         }

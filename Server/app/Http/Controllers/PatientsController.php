@@ -25,7 +25,7 @@ class PatientsController extends Controller
     public function hospitals_patients()
     {
         $user = Auth::user();
-        $patient = Patients::where('hospital', $user->hospital)->get();
+        $patient = Patients::where('hospital', $user->hospital)->latest()->get();
         return PatientResource::collection($patient);
 
     }
@@ -61,7 +61,7 @@ class PatientsController extends Controller
         $patient = Patients::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'other_name' => $request->input('other_names'),
+            'other_name' => $request->input('other_name'),
             'age' => $request->input('age'),
             'gender' => $request->input('gender'),
             'date_of_birth' => $request->input('date_of_birth'),

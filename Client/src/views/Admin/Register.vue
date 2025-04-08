@@ -126,7 +126,7 @@ onMounted(hospital);
                           <option value="Manager">Manager</option>
                         </select>
                       </div>
-
+<!--
                       <div class="col-md-6">
                         <label class="form-label">Hospital</label>
                         <select
@@ -142,7 +142,7 @@ onMounted(hospital);
                             {{ hospital.hospital_name }}
                           </option>
                         </select>
-                      </div>
+                      </div>-->
 
                       <!-- Contact Information -->
                       <div class="col-md-6">
@@ -163,7 +163,7 @@ onMounted(hospital);
                         />
                       </div>
 
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <label class="form-label">City</label>
                         <input
                             type="text"
