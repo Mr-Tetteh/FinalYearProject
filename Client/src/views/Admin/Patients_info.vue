@@ -33,7 +33,7 @@ onMounted(list_patients);
         </div>
 
         <!-- Table Card -->
-        <div class="card shadow-sm">
+        <div class="card shadow-sm py-5">
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">Patient List</h5>
@@ -65,6 +65,7 @@ onMounted(list_patients);
                   <th class="py-3">Allergies</th>
                   <th class="py-3">Medical Conditions</th>
                   <th class="py-3">Additional Notes</th>
+                  <th class="py-3">Hospital</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
@@ -104,8 +105,16 @@ onMounted(list_patients);
                       </span>
                     <span v-else class="text-muted">No notes</span>
                   </td>
+
                   <td>
-                    <div class="d-flex gap-2">
+                        <span class="badge bg-light-info bg-opacity-10 text-primary">
+
+                        {{ item.hospital }}
+                      </span>
+
+                  </td>
+                  <td>
+                    <div class="d-flex gap-1">
                       <button class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
@@ -140,7 +149,7 @@ onMounted(list_patients);
 
 <style scoped>
 .page-content {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 

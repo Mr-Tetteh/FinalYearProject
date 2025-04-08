@@ -94,7 +94,7 @@ class User extends Authenticatable
         'gender',
         'role',
         'email',
-        'hospital',
+        'hospital_slug',
         'staff_id',
         'city',
         'password',
@@ -132,15 +132,15 @@ class User extends Authenticatable
             if ($user && $user->role === 'Doctor') {
                 $record->user_id = $user->id;
             }
-            $user->hospital = Auth::user()->hospital();
+            $record->hospital = Auth::user()->hospital;
 
         });
     }
 
-    public function Sluggable()
+    public function Sluggable() : array
     {
         return [
-            'hospital' => [
+            'hospital_slug' => [
                 'source' => Auth::user()->hospital
             ]
         ];

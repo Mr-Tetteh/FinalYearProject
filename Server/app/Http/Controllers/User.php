@@ -74,7 +74,7 @@ class User extends Controller
             'gender' => $request->input('gender'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
-            'hospital' => $request->input('hospital'),
+//            'hospital' => $request->input('hospital'),
             'staff_id' => $request->input('staff_id'),
             'contact' => $request->input('contact'),
             'city' => $request->input('city'),
@@ -178,7 +178,7 @@ class User extends Controller
     {
         $loggedInUser = Auth::user();
 
-       $all_staff =  \App\Models\User::where('hospital', $loggedInUser->hospital)->get();
+       $all_staff =  \App\Models\User::where('hospital', $loggedInUser->hospital)->latest()->get();
        return UserResource::collection($all_staff);
     }
 
