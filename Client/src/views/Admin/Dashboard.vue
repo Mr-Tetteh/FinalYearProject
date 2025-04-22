@@ -12,6 +12,7 @@ const {hospital_patient_count, count_hospital_patient, count_all_patient, count_
   count_all_users, count_all_users_on_swift,hospital_users, count_all_hospital_users} = useHospital()
 
 const {logout} = useAuth();
+const {userRole} =  useSession();
 
 const logout_user = async () => {
   await logout();
@@ -96,10 +97,10 @@ const submitAppointment = () => {
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div v-if="userRole == 'Admin'" class="col-md-3">
             <div class="stat-card bg-white border-start border-secondary border-4">
               <div class="stat-icon text-secondary">
-                <i class="bi bi-people-fill text-secondary"></i>
+                <i class="bi bi-person-lines-fill text-secondary"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Total Number Of All Patients</h6>
@@ -108,7 +109,7 @@ const submitAppointment = () => {
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3" v-if="userRole == 'Admin'" >
             <div class="stat-card bg-white border-start border-success border-4">
               <div class="stat-icon bg-success-subtle">
                 <i class="bi bi-hospital-fill text-success"></i>
@@ -124,7 +125,7 @@ const submitAppointment = () => {
           <div class="col-md-3">
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
-                <i class="bi bi-currency-dollar text-warning"></i>
+                <i class="bi bi-person-workspace text-warning"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Total {{hospital}} Users</h6>
@@ -135,10 +136,10 @@ const submitAppointment = () => {
           </div>
 
 
-          <div class="col-md-3">
+          <div class="col-md-3" v-if="userRole == 'Admin'" >
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
-                <i class="bi bi-currency-dollar text-warning"></i>
+                <i class="bi bi-calendar-check text-warning"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Total Number Of Today's patients</h6>
@@ -153,7 +154,7 @@ const submitAppointment = () => {
           <div class="col-md-3">
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
-                <i class="bi bi-currency-dollar text-warning"></i>
+                <i class="bi bi-calendar-check text-warning"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Today's {{ hospital }} patients</h6>
@@ -168,7 +169,7 @@ const submitAppointment = () => {
           <div class="col-md-3">
             <div class="stat-card bg-white border-start border-danger border-4">
               <div class="stat-icon bg-danger-subtle">
-                <i class="bi bi-receipt text-danger"></i>
+                <i class="bi bi-cash-stack text-danger"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Pending Bills</h6>

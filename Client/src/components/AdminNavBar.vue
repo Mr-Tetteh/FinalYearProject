@@ -1,8 +1,9 @@
 <script setup>
 import useSession from "@/composerbles/useSession.js";
-import { ref } from 'vue';
+import {ref} from 'vue';
 
-const { hospital } = useSession();
+const {hospital} = useSession();
+const {userRole} = useSession()
 const isCollapsed = ref(false);
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
@@ -57,7 +58,7 @@ const toggleSidebar = () => {
               <i class="bi bi-plus-circle"></i>
               <span>Patients</span>
             </RouterLink>
-            <RouterLink to="/patients_info" class="submenu-item">
+            <RouterLink v-if="userRole === 'Admin'" to="/patients_info" class="submenu-item">
               <i class="bi bi-list-ul"></i>
               <span>All Patients</span>
             </RouterLink>
@@ -77,7 +78,7 @@ const toggleSidebar = () => {
             <i class="bi bi-chevron-down menu-arrow"></i>
           </div>
           <div class="submenu">
-            <RouterLink to="/register" class="submenu-item">
+            <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item">
               <i class="bi bi-person-plus"></i>
               <span>Register Staff</span>
             </RouterLink>
@@ -85,7 +86,7 @@ const toggleSidebar = () => {
               <i class="bi bi-people"></i>
               <span>All Staff</span>
             </RouterLink>
-            <RouterLink to="/user_info" class="submenu-item">
+            <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
               <i class="bi bi-person-lines-fill"></i>
               <span>All Users</span>
             </RouterLink>
@@ -93,33 +94,35 @@ const toggleSidebar = () => {
         </div>
       </div>
 
-
-      <div class="menu-category">Hospital Management</div>
-      <div class="menu-group">
-        <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
-          <div class="menu-header">
-            <div class="menu-icon">
-              <i class="bi bi-prescription" style="color: black; font-size: 1.2em;"></i>
+      <div v-if="userRole === 'Admin' || userRole === 'Pharmacist' || userRole === 'Manager'">
+        <div class="menu-category">Hospital Management</div>
+        <div class="menu-group">
+          <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
+            <div class="menu-header">
+              <div class="menu-icon">
+                <i class="bi bi-prescription" style="color: black; font-size: 1.2em;"></i>
+              </div>
+              <span class="menu-text">Pharmacy</span>
+              <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
-            <span class="menu-text">Pharmacy</span>
-            <i class="bi bi-chevron-down menu-arrow"></i>
-          </div>
-          <div class="submenu">
-            <RouterLink to="/pharmacy_add" class="submenu-item">
-              <i class="bi bi-plus-circle"></i> <!-- Icon for adding a drug -->
-              <span>Add Drug</span>
-            </RouterLink>
-            <RouterLink to="/Pharmacy_all_drugs" class="submenu-item">
-              <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
-              <span>All Drugs</span>
-            </RouterLink>
-            <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item">
-              <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
-              <span>Update Drugs</span>
-            </RouterLink>
+            <div class="submenu">
+              <RouterLink to="/pharmacy_add" class="submenu-item">
+                <i class="bi bi-plus-circle"></i> <!-- Icon for adding a drug -->
+                <span>Add Drug</span>
+              </RouterLink>
+              <RouterLink to="/Pharmacy_all_drugs" class="submenu-item">
+                <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
+                <span>All Drugs</span>
+              </RouterLink>
+              <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item">
+                <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
+                <span>Update Drugs</span>
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
+
 
     </div>
   </div>
@@ -305,7 +308,6 @@ const toggleSidebar = () => {
 .sidebar-wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
 
 
 </style>

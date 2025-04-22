@@ -3,8 +3,10 @@
 import useAuth from "@/composerbles/useAuth.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
+import useSession from "@/composerbles/useSession.js";
 
 const {staffs, all_staff} = useAuth();
+const {userRole} = useSession()
 const searchQuery = ref('');
 
 onMounted(staffs);
@@ -29,7 +31,7 @@ onMounted(staffs);
             <h3 class="mb-2">Staff Directory</h3>
             <p class="text-muted">Manage and view all staff members</p>
           </div>
-          <RouterLink class="btn btn-primary" to="register">
+          <RouterLink v-if="userRole == 'Admin' || userRole == 'Manager'" class="btn btn-primary" to="register">
             <i class="bi bi-plus-circle me-2"></i>
             Add New Staff
           </RouterLink>
@@ -101,9 +103,9 @@ onMounted(staffs);
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
-                      <button class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle me-1"></i>
-                        Form
+                      <button v-if="userRole == 'Admin'" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash me-1"></i>
+                        Delete Staff
                       </button>
                     </div>
                   </td>

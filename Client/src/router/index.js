@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import Register from "@/views/Admin/Register.vue";
 import Login from "@/views/auth/Login.vue";
 import HomePage from "@/views/HomePage.vue";
@@ -20,121 +20,170 @@ import ResetPassword from "@/views/auth/ResetPassword.vue";
 import SetPassword from "@/views/auth/SetPassword.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomePage,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
-    },
-    {
-      path: '/register_hospital',
-      name: 'register_hospital',
-      component: RegisterHospital
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard
-    },
-    {
-      path: '/patients',
-      name: 'patients',
-      component: Patients
-    },
-    {
-      path: '/patients_info',
-      name: 'patients_info',
-      component: Patients_info,
-      props:true
-    },
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: HomePage,
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
+        },
+        {
+            path: '/register_hospital',
+            name: 'register_hospital',
+            component: RegisterHospital
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+        {
+            path: '/patients',
+            name: 'patients',
+            component: Patients,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+        {
+            path: '/patients_info',
+            name: 'patients_info',
+            component: Patients_info,
+            props: true,
+            meta: {
+                requiresAuth: true,
+                roles: ['admin']
+            }
+        },
 
-    {
-      path: '/patients/:id/file_add',
-      name: 'patients.file_add',
-      component: Patient_record_add,
-      props: true,
-    },
+        {
+            path: '/patients/:id/file_add',
+            name: 'patients.file_add',
+            component: Patient_record_add,
+            props: true,
+        },
 
-    {
-      path: '/patients/:id/record_list_all',
-      name: 'patients.list_all',
-      component: Patient_record_list_all,
-      props: true,
-    },
-
-
-    {
-      path: '/hospital_patient/',
-      name: 'hospital_patients_info',
-      component: Hospital_patients,
-    },
-
-    {
-      path: '/user_info',
-      name: 'users_info',
-      component: User_info
-    },
-    {
-      path: '/staff_info',
-      name: 'staff_info',
-      component: Staff_info
-    },
-
-    {
-      path: '/pharmacy_add',
-      name: 'pharmacy_add',
-      component: Pharmacy_Add
-    },
-
-    {
-      path: '/Pharmacy_all_drugs',
-      name: 'Pharmacy_all_drugs',
-      component: Pharmacy_all_drugs
-    },
+        {
+            path: '/patients/:id/record_list_all',
+            name: 'patients.list_all',
+            component: Patient_record_list_all,
+            props: true,
+        },
 
 
-    {
-      path: '/Pharmacy_all_drugs_edit',
-      name: 'Pharmacy_all_drugs_edit',
-      component: Pharmacy_drugs_edit
-    },
+        {
+            path: '/hospital_patient/',
+            name: 'hospital_patients_info',
+            component: Hospital_patients,
+        },
+
+        {
+            path: '/user_info',
+            name: 'users_info',
+            component: User_info
+        },
+        {
+            path: '/staff_info',
+            name: 'staff_info',
+            component: Staff_info
+        },
+
+        {
+            path: '/pharmacy_add',
+            name: 'pharmacy_add',
+            component: Pharmacy_Add,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Manger', 'Pharmacist']
+            }
+        },
+
+        {
+            path: '/Pharmacy_all_drugs',
+            name: 'Pharmacy_all_drugs',
+            component: Pharmacy_all_drugs,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Manger', 'Pharmacist']
+            }
+
+        },
 
 
-    {
-      path: '/Pharmacy_all_drugs_details/:id',
-      name: 'pharmacy.edit.drug.details',
-      component: Pharmacy_drug_details,
-      props:true
-    },
+        {
+            path: '/Pharmacy_all_drugs_edit',
+            name: 'Pharmacy_all_drugs_edit',
+            component: Pharmacy_drugs_edit,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Manger', 'Pharmacist']
+            }
+        },
 
-    {
-      path: '/checkout',
-      name: 'checkout',
-      component: Checkout
-    },
 
-    {
-      path: '/rest_password',
-      name: 'RestPassword',
-      component: ResetPassword
-    },
-    {
-      path: '/set_password/:token',
-      name: 'SetPassword',
-      component: SetPassword
-    },
-  ],
+        {
+            path: '/Pharmacy_all_drugs_details/:id',
+            name: 'pharmacy.edit.drug.details',
+            component: Pharmacy_drug_details,
+            props: true,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Manger', 'Pharmacist']
+            },
+        },
+
+        {
+            path: '/checkout',
+            name: 'checkout',
+            component: Checkout,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Manger', 'Pharmacist']
+            }
+        },
+
+        {
+            path: '/rest_password',
+            name: 'RestPassword',
+            component: ResetPassword
+        },
+        {
+            path: '/set_password/:token',
+            name: 'SetPassword',
+            component: SetPassword
+        },
+    ],
 })
+
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem("AUTH_TOKEN")
+    const userRole = localStorage.getItem("USER_TYPE")
+
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        next({name: "login", query: {redirect: to.fullPath}});
+    } else if (to.meta.roles && Array.isArray(to.meta.roles) && userRole) {
+        if (to.meta.roles.includes(userRole)) {
+            next();
+        } else {
+            next({name: "home"});
+        }
+    } else {
+        next();
+    }
+});
 
 export default router
