@@ -37,7 +37,7 @@ export default function useAuth() {
             const response = await axios.post('https://health.local.stay/api/login', user.value);
             const token = response.data.authorisation.token
             localStorage.setItem('AUTH_TOKEN', token);
-            localStorage.setItem('USER_TYPE', response.data.user.user_type);
+            localStorage.setItem('USER_TYPE', response.data.user.role);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
@@ -111,11 +111,7 @@ export default function useAuth() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post('https://health.local.stay/api/logout', {}, config)
-            localStorage.removeItem('AUTH_TOKEN');
-            localStorage.removeItem('USER_TYPE');
-            localStorage.removeItem('USER_NAME');
-            localStorage.removeItem('USER_ID');
-            localStorage.removeItem('HOSPITAL');
+            localStorage.clear()
             router.push('/login')
         } catch (err) {
             alert(err.response.data.data)

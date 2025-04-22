@@ -113,7 +113,6 @@ class User extends Controller
         }
 
 
-
         $passwordReset = DB::table('password_resets')->where('token', $request->input('token'))->first();
 
         $user = \App\Models\User::where('email', $passwordReset->email)->first();
@@ -171,15 +170,15 @@ class User extends Controller
     public function all_users()
     {
         $user = \App\Models\User::all();
-       return UserResource::collection($user);
+        return UserResource::collection($user);
     }
 
     public function all_staff()
     {
         $loggedInUser = Auth::user();
 
-       $all_staff =  \App\Models\User::where('hospital', $loggedInUser->hospital)->latest()->get();
-       return UserResource::collection($all_staff);
+        $all_staff = \App\Models\User::where('hospital', $loggedInUser->hospital)->latest()->get();
+        return UserResource::collection($all_staff);
     }
 
     public function login(Request $request)
@@ -208,21 +207,20 @@ class User extends Controller
         }
     }
 
-public function count_all_users()
-{
-    $users = \App\Models\User::count();
-    return response()->json($users);
+    public function count_all_users()
+    {
+        $users = \App\Models\User::count();
+        return response()->json($users);
 
-}
+    }
 
-public function count_all_hospital_users()
-{
-    $user = Auth::user();
-    $user = \App\Models\User::where('hospital', $user->hospital)->count();
-    return response()->json($user);
+    public function count_all_hospital_users()
+    {
+        $user = Auth::user();
+        $user = \App\Models\User::where('hospital', $user->hospital)->count();
+        return response()->json($user);
 
-}
-
+    }
 
 
     public function user()
