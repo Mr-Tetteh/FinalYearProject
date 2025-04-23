@@ -56,7 +56,7 @@ onMounted(hospital);
                     <div class="row g-3">
                       <!-- Personal Information -->
                       <div class="col-md-6">
-                        <label class="form-label">First Name</label>
+                        <label class="form-label">First Names</label>
                         <input
                             type="text"
                             class="form-control"
