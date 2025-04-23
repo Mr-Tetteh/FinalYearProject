@@ -1,4 +1,4 @@
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import router from "@/router/index.js";
 import axios from "axios";
 import toast from "bootstrap/js/src/toast.js";
@@ -34,12 +34,49 @@ export default function usePatients() {
         guardian2_contact: "",
     });
 
+    const record = ref({
+        history: '',
+        examination_findings: '',
+        diagnosis: '',
+        treatment: '',
+        respiratory_rate: '',
+        blood_pressure: '',
+        blood_and_sugar_rate: '',
+        temperature: '',
+        pulse_rate: '',
+        weight: '',
+        admitted: '',
+        labs: '',
+        ward_number: '',
+        additional_notes: '',
+        lab1: '',
+        lab1_results: [],
+        lab2: '',
+        lab2_results: [],
+        lab3: '',
+        lab3_results: [],
+        lab4: '',
+        lab4_results: [],
+        lab5: '',
+        lab5_results: [],
+        lab6: '',
+        lab6_results: [],
+        lab7: '',
+        lab7_results: [],
+        lab8: '',
+        lab8_results: [],
+        lab9: '',
+        lab9_results: [],
+        lab10: '',
+        lab10_results: [],
+    });
 
 
     const patient = ref('')
     const all_hospital_patient = ref('');
     const patient_record = ref('')
-    const all_today_patient= ref()
+    const all_today_patient = ref()
+    const patient_update = ref(null)
 
     const register_patient = async () => {
         try {
@@ -55,74 +92,89 @@ export default function usePatients() {
     }
 
 
-
-    const list_patients_record = async  (id) =>{
-        try{
+    const list_patients_record = async (id) => {
+        try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.get(`https://health.local.stay/api/patient_record/${id}`,config)
-            patient_record.value =  response.data.data
-        }catch(err) {
+            let response = await axios.get(`https://health.local.stay/api/patient_record/${id}`, config)
+            patient_record.value = response.data.data
+        } catch (err) {
             alert(err.response.data.data)
         }
     }
 
-    const list_patients = async  () =>{
-        try{
-            const token = localStorage.getItem('AUTH_TOKEN')
-            const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-
-            let response = await axios.get('https://health.local.stay/api/all_patient',config)
-            patient.value =  response.data.data
-        }catch(err) {
-            alert(err.response.data.data)
-        }
-    }
-    const today_patient_count = async  () =>{
-        try{
+    const list_patients = async () => {
+        try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            let response = await axios.get('https://health.local.stay/api/today_patient_count',config)
-            all_today_patient.value =  response.data
-        }catch(err) {
+            let response = await axios.get('https://health.local.stay/api/all_patient', config)
+            patient.value = response.data.data
+        } catch (err) {
             alert(err.response.data.data)
         }
     }
-
-
-
-    const hospital_patient = async  () =>{
-        try{
+    const today_patient_count = async () => {
+        try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            let response = await axios.get('https://health.local.stay/api/hospital_patients',config)
-            all_hospital_patient.value =  response.data.data
-        }catch(err) {
+            let response = await axios.get('https://health.local.stay/api/today_patient_count', config)
+            all_today_patient.value = response.data
+        } catch (err) {
+            alert(err.response.data.data)
+        }
+    }
+
+    const update_record = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` },
+            };
+            let response = await axios.get(`https://health.local.stay/api/patient_record_update/${id}`, config);
+            record.value = response.data.data;
+        } catch (err) {
+            const errorMsg =
+                err?.response?.data?.message || 'Failed to fetch patient record';
+            alert(errorMsg);
+        }
+    };
+
+
+    const hospital_patient = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            let response = await axios.get('https://health.local.stay/api/hospital_patients', config)
+            all_hospital_patient.value = response.data.data
+        } catch (err) {
             alert(err.response.data.data)
         }
     }
 
 
-    return{
+    return {
         register_patient,
         input,
         patient,
-       list_patients,
+        list_patients,
         hospital_patient,
         all_hospital_patient,
         patient_record,
         list_patients_record,
         all_today_patient,
-        today_patient_count
+        today_patient_count,
+        update_record,
+        record
     }
 }

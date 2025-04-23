@@ -67,7 +67,7 @@ class PatientRecordController extends Controller
             'labs' => $request->labs,
             'ward_number' => $request->ward_number,
             'additional_notes' => $request->additional_notes,
-            'hospital' => $request->hospital
+//            'hospital' => $request->hospital
         ]);
 
         for ($i = 1; $i <= 10; $i++) {
@@ -104,12 +104,14 @@ class PatientRecordController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PatientRecord $patientRecord)
     {
-        //
+        return new PatientRecordResource($patientRecord);
+
     }
 
     /**

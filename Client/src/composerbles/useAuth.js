@@ -52,7 +52,7 @@ export default function useAuth() {
     const reset_password = async () => {
         try {
 
-            const response = await axios.post('https://health.local.stay/api/rest_password', password_rest.value );
+            const response = await axios.post('https://health.local.stay/api/rest_password', password_rest.value);
             alert(response.data.message)
 
         } catch (err) {
@@ -135,6 +135,9 @@ export default function useAuth() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
+            if (response.data.message) {
+                return alert(response.data.message)
+            }
             await router.push('/staff_info')
         } catch (err) {
             alert(err.response.data.message)

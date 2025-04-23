@@ -1,7 +1,8 @@
 <script setup>
 import usePatients from "@/composerbles/usePatients.js";
-import { onMounted } from "vue";
+import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
+import UpdatePatientRecord from "@/components/updatePatientRecord.vue";
 
 const props = defineProps({
   id: {
@@ -13,6 +14,8 @@ const props = defineProps({
 const { patient_record, list_patients_record } = usePatients();
 
 onMounted(() => list_patients_record(props.id));
+
+const modal = ref(false);
 </script>
 
 <template>
@@ -62,7 +65,7 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-thermometer-half text-primary"></i>
                         <div>
                           <small class="text-muted">Temperature</small>
-                          <p class="mb-0 fw-bold">{{ record.temperature }}</p>
+                          <p class="mb-0 fw-bold">{{ record.temperature }}°C </p>
                         </div>
                       </div>
                     </div>
@@ -71,7 +74,7 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-heart-pulse text-primary"></i>
                         <div>
                           <small class="text-muted">Pulse Rate</small>
-                          <p class="mb-0 fw-bold">{{ record.pulse_rate }}</p>
+                          <p class="mb-0 fw-bold">{{ record.pulse_rate }} bpm</p>
                         </div>
                       </div>
                     </div>
@@ -80,7 +83,7 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-lungs text-primary"></i>
                         <div>
                           <small class="text-muted">Respiratory Rate</small>
-                          <p class="mb-0 fw-bold">{{ record.respiratory_rate }}</p>
+                          <p class="mb-0 fw-bold">{{ record.respiratory_rate }}  breaths/min </p>
                         </div>
                       </div>
                     </div>
@@ -89,7 +92,7 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-activity text-primary"></i>
                         <div>
                           <small class="text-muted">Blood Pressure</small>
-                          <p class="mb-0 fw-bold">{{ record.blood_pressure }}</p>
+                          <p class="mb-0 fw-bold">{{ record.blood_pressure }} mmHg</p>
                         </div>
                       </div>
                     </div>
@@ -98,7 +101,7 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-person text-primary"></i>
                         <div>
                           <small class="text-muted">Weight</small>
-                          <p class="mb-0 fw-bold">{{ record.weight }}</p>
+                          <p class="mb-0 fw-bold">{{ record.weight }} Kg</p>
                         </div>
                       </div>
                     </div>
@@ -107,16 +110,16 @@ onMounted(() => list_patients_record(props.id));
                         <i class="bi bi-droplet text-primary"></i>
                         <div>
                           <small class="text-muted">Blood Sugar</small>
-                          <p class="mb-0 fw-bold">{{ record.blood_and_sugar_rate }}</p>
+                          <p class="mb-0 fw-bold">{{ record.blood_and_sugar_rate }} mg/dL</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <hr class="my-4">
+                <hr class="my-4" />
                 <!-- Doctor's Assessment -->
-                <div class="section-container">
+                <div class="section-container" v-if="record.history">
                   <div class="section-header gap-3">
                     <i class="bi bi-file-medical text-primary me-2"></i>
                     <h5 class="mb-0">Doctor's Assessment</h5>
@@ -214,7 +217,7 @@ onMounted(() => list_patients_record(props.id));
                 <hr class="my-4">
 
                 <!-- Laboratory Results -->
-                <div class="section-container">
+                <div class="section-container" v-if="record.lab1">
                   <div class="section-header">
                     <i class="bi bi-flask text-primary me-2"></i>
                     <h5 class="mb-0">Laboratory Results</h5>
@@ -334,7 +337,15 @@ onMounted(() => list_patients_record(props.id));
                 </div>
 
               </div>
+              <router-link :to="{ name: 'patient.record_update', params: { id: record.id } }">
+                <div class="flex col-6 float-start">
+                  <Button class="btn btn-primary" @click="modal = true">
+                <i class="bi bi-plus-circle"></i>
+                Additional Records</Button>
+              </div>
+              </router-link>
             </div>
+
           </template>
 
           <!-- Empty State -->

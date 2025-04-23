@@ -109,22 +109,17 @@ onMounted(hospital_patient)
                   </td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square me-1"></i>
-                        Edit
-                      </button>
                       <RouterLink
                           :to="{ name: 'patients.file_add', params: { id: item.id} }"
                           class="btn btn-secondary btn-sm"
                       >
                         <i class="bi bi-plus-circle me-1"></i>
 
-                        Add to file
+                        New Medical Record
                       </RouterLink>
 
                       <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle me-1"></i>
-                        Form
+                        Past Medical History
                       </RouterLink>
                     </div>
                   </td>

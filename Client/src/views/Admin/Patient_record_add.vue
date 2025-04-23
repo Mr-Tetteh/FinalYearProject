@@ -4,6 +4,7 @@ import axios from "axios";
 import router from "@/router/index.js";
 
 import { reactive } from 'vue';
+import useSession from "@/composerbles/useSession.js";
 
 const props = defineProps({
   id: {
@@ -11,6 +12,7 @@ const props = defineProps({
     required: true,
   },
 });
+const {userRole} = useSession()
 
 const record = reactive({
   patient_id: props.id,
@@ -253,7 +255,7 @@ const handleSubmit = async () => {
                   </div>
 
                   <!-- Doctor Section -->
-                  <div class="doctor-section">
+                  <div v-if="userRole == 'Doctor'" class="doctor-section">
                     <div
                         class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                       <i class="bi bi-person-workspace me-2"></i>
@@ -359,7 +361,8 @@ const handleSubmit = async () => {
                     </div>
                   </div>
 
-                  <div class="doctor-section">
+                  <div v-if="userRole == 'Lab Technician'" class="doctor-section">
+
                     <div class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                       <i class="bi bi-person-workspace me-2"></i>
                       <h5 class="mb-0">Lab Technician Section</h5>

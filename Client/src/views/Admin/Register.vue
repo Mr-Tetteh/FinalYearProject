@@ -124,6 +124,8 @@ onMounted(hospital);
                           <option value="Pharmacist">Pharmacist</option>
                           <option value="Account">Account</option>
                           <option value="Manager">Manager</option>
+                          <option value="Lab Technician">Lab Technician</option>
+
                         </select>
                       </div>
 <!--
