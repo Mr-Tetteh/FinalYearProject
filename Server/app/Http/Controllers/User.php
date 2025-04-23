@@ -64,6 +64,10 @@ class User extends Controller
             return response()->json([
                 'message' => 'Sorry, phone number already exists with an account.'
             ], 402);
+        }elseif (\App\Models\User::where('staff_id', $request->staff_id)->first()) {
+            return response()->json([
+                'message' => 'Sorry, Staff_id already exist'
+            ]);
         }
 
         $user = \App\Models\User::create([

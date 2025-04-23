@@ -128,12 +128,9 @@ onMounted(list_patients);
 
                         Add to file
                       </RouterLink>
-
-
-                      <button class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle me-1"></i>
-                        Form
-                      </button>
+                      <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
+                        Past Medical History
+                      </RouterLink>
                     </div>
                   </td>
                 </tr>

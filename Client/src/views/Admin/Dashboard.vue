@@ -69,7 +69,7 @@ const submitAppointment = () => {
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <h2 class="text-dark mb-1">{{ hospital }} Dashboard</h2>
-              <p class="text-muted mb-0">Welcome back, {{ username }}</p>
+              <p class="text-muted mb-0">Welcome back, {{userRole}} {{ username }}</p>
             </div>
             <div class="user-actions d-flex align-items-center gap-3">
               <div class="user-info d-flex align-items-center">

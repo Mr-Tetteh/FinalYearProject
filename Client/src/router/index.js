@@ -18,6 +18,7 @@ import Pharmacy_drugs_edit from "@/views/Admin/Pharmacy_drugs_edit.vue";
 import Pharmacy_drug_details from "@/views/Admin/pharmacy_drug_details.vue";
 import ResetPassword from "@/views/auth/ResetPassword.vue";
 import SetPassword from "@/views/auth/SetPassword.vue";
+import Patient_record_update from "@/views/Admin/Patient_record_update.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,7 +66,7 @@ const router = createRouter({
             props: true,
             meta: {
                 requiresAuth: true,
-                roles: ['admin']
+                roles: ['Admin']
             }
         },
 
@@ -81,24 +82,45 @@ const router = createRouter({
             name: 'patients.list_all',
             component: Patient_record_list_all,
             props: true,
+            meta: {
+                requiresAuth: true,
+            }
         },
 
+        {
+            path: '/patient_record_update/:id',
+            name: 'patient.record_update',
+            component: Patient_record_update,
+            props: true,
+            meta: {
+                requiresAuth: true,
+            }
+        },
 
         {
             path: '/hospital_patient/',
             name: 'hospital_patients_info',
             component: Hospital_patients,
+            meta: {
+                requiresAuth: true,
+            }
         },
 
         {
             path: '/user_info',
             name: 'users_info',
-            component: User_info
+            component: User_info,
+            meta: {
+                requiresAuth: true,
+            }
         },
         {
             path: '/staff_info',
             name: 'staff_info',
-            component: Staff_info
+            component: Staff_info,
+            meta: {
+                requiresAuth: true,
+            }
         },
 
         {

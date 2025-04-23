@@ -15,11 +15,9 @@ class PatientRecordResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'patient_id' => $this->patient_id,
             'user_id' => $this->user_id,
-            'first_name' => $this->user?->first_name,
-            'last_name' => $this->user?->last_name,
-            'other_name' => $this->user?->other_name,
             'history' => $this->history,
             'examination_findings' => $this->examination_findings,
             'diagnosis' => $this->diagnosis,
@@ -52,8 +50,9 @@ class PatientRecordResource extends JsonResource
             'lab8_results' => $this->lab8_results ? url('storage/' . $this->lab8_results) : null,
             'lab9' => $this->lab9,
             'lab9_results' => $this->lab9_results ? url('storage/' . $this->lab9_results) : null,
-            'hospital' => $this->hospital,
-            'created_at' => $this->created_at->format('jS M Y h:i A'),
+//            'hospital' => $this->hospital,
+            'created_at' => $this->created_at ? $this->created_at->format('jS M Y h:i A') : null,
+
         ];
     }
 
