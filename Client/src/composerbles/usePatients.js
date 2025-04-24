@@ -1,8 +1,10 @@
 import {reactive, ref} from "vue";
 import router from "@/router/index.js";
 import axios from "axios";
-import toast from "bootstrap/js/src/toast.js";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
+const $toast = useToast();
 export default function usePatients() {
 
     const input = ref({
@@ -132,18 +134,37 @@ export default function usePatients() {
         }
     }
 
+    const edit = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` },
+            };
+            let response = await axios.get(`https://health.local.stay/api/patient_record_edit/${id}`, config);
+            record.value = response.data.data;
+        } catch (err) {
+            const errorMsg =
+                err?.response?.data?.message || 'Failed to fetch patient record';
+            alert(errorMsg);
+        }
+    };
+
+
     const update_record = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN');
             const config = {
                 headers: { Authorization: `Bearer ${token}` },
             };
-            let response = await axios.get(`https://health.local.stay/api/patient_record_update/${id}`, config);
-            record.value = response.data.data;
+            let response = await axios.patch(`https://health.local.stay/api/patient_record_update/${id}`, record.value, config);
+             $toast.success('Patient Record Add Successfully', {
+                 position: 'top-right',
+             });
+             setTimeout(() => {
+                 router.push('/hospital_patient')
+             },1000)
         } catch (err) {
-            const errorMsg =
-                err?.response?.data?.message || 'Failed to fetch patient record';
-            alert(errorMsg);
+            alert(err.response.data.data)
         }
     };
 
@@ -175,6 +196,7 @@ export default function usePatients() {
         all_today_patient,
         today_patient_count,
         update_record,
+        edit,
         record
     }
 }
