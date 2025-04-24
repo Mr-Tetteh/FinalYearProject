@@ -5,7 +5,7 @@ import usePatients from "@/composerbles/usePatients.js";
 import {onMounted} from "vue";
 
 const {userRole} = useSession();
-const {record, update_record} = usePatients()
+const {record, edit, update_record, handleFileUpload} = usePatients()
 
 
 const props = defineProps({
@@ -15,7 +15,11 @@ const props = defineProps({
   }
 })
 
-onMounted(() => update_record(props.id))
+onMounted(() => edit(props.id))
+
+const handleSubmit = () => (
+    update_record(props.id)
+)
 
 </script>
 
@@ -48,6 +52,7 @@ onMounted(() => update_record(props.id))
                                   type="text"
                                   class="form-control text-center"
                                   placeholder="Temperature"
+                                  :disabled="userRole !== 'Nurse'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-thermometer"></i>
@@ -65,6 +70,8 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Pulse Rate"
                                   v-model="record.pulse_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -82,6 +89,8 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Respiratory Rate"
                                   v-model="record.respiratory_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -99,6 +108,8 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Blood Pressure"
                                   v-model="record.blood_pressure"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -116,6 +127,7 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Weight (kg)"
                                   v-model="record.weight"
+                                  :disabled="userRole !== 'Nurse'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-clipboard-data"></i>
@@ -133,6 +145,8 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Blood and sugar rate"
                                   v-model="record.blood_and_sugar_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-droplet"></i>
@@ -144,7 +158,9 @@ onMounted(() => update_record(props.id))
                           <label class="form-label text-center w-100">Admitted</label>
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
-                              <select class="form-control form-select" v-model="record.admitted">
+                              <select class="form-control form-select" v-model="record.admitted"
+                                      :disabled="userRole !== 'Nurse'"
+                              >
                                 <option> Select an option</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
@@ -165,6 +181,8 @@ onMounted(() => update_record(props.id))
                                   class="form-control text-center"
                                   placeholder="Ward Number"
                                   v-model="record.ward_number"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-droplet"></i>
@@ -186,12 +204,10 @@ onMounted(() => update_record(props.id))
                                 <label class="form-label text-center w-100">History of presenting complaints </label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="History of presenting complaints  "
-                                        v-model="record.history"
-                                    >
+
+                                    <textarea class="form-control text-center"
+                                              placeholder="History of presenting complaints  "
+                                              v-model="record.history" rows="8"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-clipboard2-pulse"></i>
                                     </div>
@@ -204,8 +220,8 @@ onMounted(() => update_record(props.id))
                                 </label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <input class="form-select text-center" v-model="record.examination_findings"
-                                           placeholder="Examination findings">
+                                    <textarea class="form-control text-center" v-model="record.examination_findings"
+                                              placeholder="Examination findings" rows="8"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-clipboard2-pulse"></i>
                                     </div>
@@ -218,12 +234,8 @@ onMounted(() => update_record(props.id))
                                 <label class="form-label text-center w-100">Diagnosis</label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Diagnosis"
-                                        v-model="record.diagnosis"
-                                    >
+                                    <textarea class="form-control text-center" v-model="record.diagnosis"
+                                              placeholder="Diagnosis" rows="8"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-journal-medical"></i>
                                     </div>
@@ -236,12 +248,8 @@ onMounted(() => update_record(props.id))
                                 </label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Labs"
-                                        v-model="record.labs"
-                                    >
+                                    <textarea class="form-control text-center" v-model="record.labs"
+                                              placeholder="Investigations/ Labs" rows="8"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-capsule"></i>
                                     </div>
@@ -253,12 +261,8 @@ onMounted(() => update_record(props.id))
                                 <label class="form-label text-center w-100">Treatment</label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Treatment"
-                                        v-model="record.treatment"
-                                    >
+                                    <textarea class="form-control text-center" v-model="record.treatment"
+                                              placeholder="Treatment" rows="3"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-capsule"></i>
                                     </div>
@@ -282,7 +286,8 @@ onMounted(() => update_record(props.id))
 
                         <div v-if="userRole == 'Lab Technician'" class="doctor-section">
 
-                          <div class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                          <div
+                              class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                             <i class="bi bi-person-workspace me-2"></i>
                             <h5 class="mb-0">Lab Technician Section</h5>
                           </div>
@@ -426,7 +431,8 @@ onMounted(() => update_record(props.id))
                               <!-- Lab 10 -->
                               <div class="col-md-6">
                                 <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab10" class="form-control" placeholder="Name of Lab">
+                                <input type="text" v-model="record.lab10" class="form-control"
+                                       placeholder="Name of Lab">
                               </div>
                               <div class="col-md-6">
                                 <label class="form-label text-center w-100">Lab Report</label>

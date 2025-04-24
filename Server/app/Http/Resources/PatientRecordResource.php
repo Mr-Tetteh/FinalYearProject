@@ -50,6 +50,8 @@ class PatientRecordResource extends JsonResource
             'lab8_results' => $this->lab8_results ? url('storage/' . $this->lab8_results) : null,
             'lab9' => $this->lab9,
             'lab9_results' => $this->lab9_results ? url('storage/' . $this->lab9_results) : null,
+            'lab10' => $this->lab10,
+            'lab10_results' => $this->lab10_results ? url('storage/' . $this->lab10_results) : null,
 //            'hospital' => $this->hospital,
             'created_at' => $this->created_at ? $this->created_at->format('jS M Y h:i A') : null,
 

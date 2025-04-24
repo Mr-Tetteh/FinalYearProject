@@ -223,7 +223,7 @@ const modal = ref(false);
                     <h5 class="mb-0">Laboratory Results</h5>
                   </div>
                   <div class="row g-3">
-                    <div v-if="record.lab1_results" class="col-md-6">
+                    <div v-if="record.lab1" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -234,7 +234,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab2_results" class="col-md-6">
+                    <div v-if="record.lab2" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -245,7 +245,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab3_results" class="col-md-6">
+                    <div v-if="record.lab3" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -256,7 +256,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab4_results" class="col-md-6">
+                    <div v-if="record.lab4" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -267,7 +267,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab5_results" class="col-md-6">
+                    <div v-if="record.lab5" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -278,7 +278,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab6_results" class="col-md-6">
+                    <div v-if="record.lab6" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -289,7 +289,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab7_results" class="col-md-6">
+                    <div v-if="record.lab7" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -300,7 +300,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab8_results" class="col-md-6">
+                    <div v-if="record.lab8" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -311,7 +311,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab9_results" class="col-md-6">
+                    <div v-if="record.lab9" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
@@ -322,7 +322,7 @@ const modal = ref(false);
                         </div>
                       </div>
                     </div>
-                    <div v-if="record.lab10_results" class="col-md-6">
+                    <div v-if="record.lab10" class="col-md-6">
                       <div class="vital-card">
                         <i class="bi bi-flask-fill text-primary"></i>
                         <div>
