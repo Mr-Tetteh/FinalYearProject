@@ -117,9 +117,11 @@ class PatientRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, PatientRecord $patientRecord)
     {
-        //
+        $patientRecord->update($request->all());
+
+        return new PatientRecordResource($patientRecord);
     }
 
     /**

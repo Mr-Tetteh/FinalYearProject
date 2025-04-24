@@ -1,7 +1,11 @@
 import {ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+import toast from "bootstrap/js/src/toast.js";
 
+const $toast = useToast();
 
 export default function useAuth() {
     const user = ref({
@@ -43,10 +47,14 @@ export default function useAuth() {
             localStorage.setItem('USER_ID', response.data.user.id);
             localStorage.setItem('HOSPITAL', response.data.user.hospital);
 
+            $toast.success('Login Successfully', {
+                position: 'top-right',
+            })
             await router.push('/dashboard');
         } catch (err) {
-            alert(err.response.data.message);
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
     };
 
     const reset_password = async () => {
@@ -56,8 +64,9 @@ export default function useAuth() {
             alert(response.data.message)
 
         } catch (err) {
-            alert(err)
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
 
     }
 
@@ -69,8 +78,9 @@ export default function useAuth() {
             await router.push('/login')
 
         } catch (err) {
-            alert(err.response.data.message)
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
 
     }
 
@@ -84,8 +94,9 @@ export default function useAuth() {
             all_users.value = response.data.data
 
         } catch (err) {
-            alert(err.response.data.data)
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
 
     }
 
@@ -99,8 +110,9 @@ export default function useAuth() {
             all_staff.value = response.data.data
 
         } catch (err) {
-            alert(err.response.data.data)
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
 
     }
 
@@ -112,9 +124,14 @@ export default function useAuth() {
             }
             const response = await axios.post('https://health.local.stay/api/logout', {}, config)
             localStorage.clear()
+            $toast.success('Logout Successfully', {
+                position: 'top-right',
+            })
             router.push('/login')
         } catch (err) {
-            alert(err.response.data.data)
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })
         }
     }
 
@@ -123,8 +140,9 @@ export default function useAuth() {
             let response = await axios.get('https://health.local.stay/api/hospitals')
             hospitals_in_system.value = response.data.data;
         } catch (err) {
-            alert(err.response.data.message)
-        }
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })        }
     }
 
 
@@ -136,11 +154,15 @@ export default function useAuth() {
             }
             const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
             if (response.data.message) {
-                return alert(response.data.message)
+              return   $toast.error(response.data.message, {
+                    position: 'top-right',
+                })
             }
             await router.push('/staff_info')
         } catch (err) {
-            alert(err.response.data.message)
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })
         }
 
     }
