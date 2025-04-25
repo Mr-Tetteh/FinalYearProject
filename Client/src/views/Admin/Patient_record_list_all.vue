@@ -2,7 +2,7 @@
 import usePatients from "@/composerbles/usePatients.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import UpdatePatientRecord from "@/components/updatePatientRecord.vue";
+import UpdatePatientRecord from "@/components/updateUserRole.vue";
 
 const props = defineProps({
   id: {

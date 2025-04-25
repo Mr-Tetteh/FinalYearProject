@@ -249,4 +249,17 @@ class User extends Controller
         return new UserResource($user);
 
     }
+
+    public function destroy(\App\Models\User $user)
+    {
+        if ($user->delete()) {
+            return response()->json([
+                'message' => 'User deleted successfully'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'User not deleted'
+            ], 500);
+        }
+    }
 }

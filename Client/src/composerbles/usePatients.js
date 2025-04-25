@@ -149,6 +149,12 @@ export default function usePatients() {
         }
     };
 
+    const handleFileUpload = (event, labNumber) => {
+        const files = event.target.files;
+        const fileArray = Array.from(files);
+        record[`lab${labNumber}_results`] = fileArray;
+    };
+
 
     const update_record = async (id) => {
         try {
@@ -197,6 +203,7 @@ export default function usePatients() {
         today_patient_count,
         update_record,
         edit,
-        record
+        record,
+        handleFileUpload
     }
 }
