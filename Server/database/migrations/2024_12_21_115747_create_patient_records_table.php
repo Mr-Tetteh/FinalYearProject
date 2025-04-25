@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('respiratory_rate')->nullable();
             $table->string('blood_pressure')->nullable();
             $table->string('blood_and_sugar_rate')->nullable();
-            $table->boolean('admitted')->default(false);
+            $table->boolean('admitted')->default(false)->nullable();
             $table->string('ward_number')->nullable();
             $table->string('weight')->nullable();
             $table->string('labs')->nullable();

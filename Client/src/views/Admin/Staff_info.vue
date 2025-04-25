@@ -4,12 +4,18 @@ import useAuth from "@/composerbles/useAuth.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
+import UpdateUserRole from "@/components/updateUserRole.vue";
 
-const {staffs, all_staff} = useAuth();
+const {staffs, all_staff, delete_user} = useAuth();
 const {userRole} = useSession()
 const searchQuery = ref('');
+const modal = ref(false);
 
 onMounted(staffs);
+
+const openEditModal = () => {
+  modal.value = true;
+};
 
 </script>
 
@@ -68,8 +74,9 @@ onMounted(staffs);
                   <th class="py-3">Gender</th>
                   <th class="py-3">Role</th>
                   <th class="py-3">Email</th>
+                  <th class="py-3">Staff ID</th>
                   <th class="py-3">Hospital</th>
-                  <th class="py-3">Actions</th>
+                  <th class="py-3" v-if="userRole == 'Admin' || userRole == 'Manager'">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,20 +97,25 @@ onMounted(staffs);
       'bg-teal text-white': item.role === 'Nurse',
       'bg-orange text-white': item.role === 'Account',
       'bg-purple text-white': item.role === 'Pharmacist',
-      'bg-pink text-white': item.role === 'Manager'
+      'bg-pink text-white': item.role === 'Manager',
+      'bg-secondary text-white': item.role === 'Lab Technician',
+      'bg-warning text-white': item.role === 'Accountant'
+
+
     }">
       {{ item.role }}
     </span>
                   </td>
                   <td>{{ item.email }}</td>
+                  <td>{{ item.staff_id }}</td>
                   <td>{{ item.hospital }}</td>
                   <td>
-                    <div class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm">
+                    <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
+                        <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
-                      <button v-if="userRole == 'Admin'" class="btn btn-danger btn-sm">
+                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash me-1"></i>
                         Delete Staff
                       </button>
@@ -112,6 +124,11 @@ onMounted(staffs);
                 </tr>
                 </tbody>
               </table>
+            </div>
+            <div v-if="modal" class="modal-overlay">
+              <div class="modal-content">
+                <update-user-role v-if="modal" v-model="modal"/>
+              </div>
             </div>
           </div>
         </div>
@@ -197,5 +214,31 @@ onMounted(staffs);
 
 .bg-pink {
   background-color: #d63384;
+}
+
+
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* make sure it’s on top */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  max-width: 95%;
 }
 </style>

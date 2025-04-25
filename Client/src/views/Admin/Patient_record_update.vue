@@ -5,7 +5,7 @@ import usePatients from "@/composerbles/usePatients.js";
 import {onMounted} from "vue";
 
 const {userRole} = useSession();
-const {record, edit, update_record, handleFileUpload} = usePatients()
+const {record, edit, update_record} = usePatients()
 
 
 const props = defineProps({
@@ -248,8 +248,7 @@ const handleSubmit = () => (
                                 </label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.labs"
-                                              placeholder="Investigations/ Labs" rows="8"></textarea>
+                                    <textarea class="form-control text-center" v-model="record.labs" placeholder="Investigations/ Labs" rows="8"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-capsule"></i>
                                     </div>
@@ -261,8 +260,7 @@ const handleSubmit = () => (
                                 <label class="form-label text-center w-100">Treatment</label>
                                 <div class="form-group has-icon-left">
                                   <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.treatment"
-                                              placeholder="Treatment" rows="3"></textarea>
+                                    <textarea class="form-control text-center" v-model="record.treatment" placeholder="Treatment" rows="3"></textarea>
                                     <div class="form-control-icon">
                                       <i class="bi bi-capsule"></i>
                                     </div>
