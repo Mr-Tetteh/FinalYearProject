@@ -145,7 +145,29 @@ export default function useAuth() {
             })        }
     }
 
+    const delete_user = async  (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.delete(`https://health.local.stay/api/delete_user/${id}`, config)
+            if (response.data.message) {
+                   $toast.success(response.data.message, {
+                    position: 'top-right',
+                })
+            }
+            setTimeout(() => {
+                window.location.reload()
 
+            },1000)
+        } catch (err) {
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })
+        }
+
+    }
     const register = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -165,6 +187,7 @@ export default function useAuth() {
             })
         }
 
+
     }
 
 
@@ -183,7 +206,8 @@ export default function useAuth() {
         password_rest,
         reset_password,
         setPass,
-        reset
+        reset,
+        delete_user
     }
 
 

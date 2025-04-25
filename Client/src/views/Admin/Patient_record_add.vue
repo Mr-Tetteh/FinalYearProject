@@ -3,7 +3,7 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import axios from "axios";
 import router from "@/router/index.js";
 
-import { reactive } from 'vue';
+import {reactive} from 'vue';
 import useSession from "@/composerbles/useSession.js";
 
 const props = defineProps({
@@ -124,6 +124,7 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Temperature"
                                   v-model="record.temperature"
+                                  :disabled="userRole !== 'Nurse'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-thermometer"></i>
@@ -141,6 +142,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Pulse Rate"
                                   v-model="record.pulse_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -158,6 +161,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Respiratory Rate"
                                   v-model="record.respiratory_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -175,6 +180,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Blood Pressure"
                                   v-model="record.blood_pressure"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-heart-pulse"></i>
@@ -192,6 +199,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Weight (kg)"
                                   v-model="record.weight"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-clipboard-data"></i>
@@ -209,6 +218,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Blood and sugar rate"
                                   v-model="record.blood_and_sugar_rate"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-droplet"></i>
@@ -220,7 +231,9 @@ const handleSubmit = async () => {
                           <label class="form-label text-center w-100">Admitted</label>
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
-                              <select class="form-control form-select" v-model="record.admitted">
+                              <select class="form-control form-select" v-model="record.admitted"
+                                      :disabled="userRole !== 'Nurse'"
+                              >
                                 <option> Select an option</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
@@ -242,6 +255,8 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Ward Number"
                                   v-model="record.ward_number"
+                                  :disabled="userRole !== 'Nurse'"
+
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-droplet"></i>
@@ -271,8 +286,9 @@ const handleSubmit = async () => {
                               <input
                                   type="text"
                                   class="form-control text-center"
-                                  placeholder="History of presenting complaints  "
+                                  placeholder="History of presenting complaints"
                                   v-model="record.history"
+                                  :disabled="userRole !== 'Doctor'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-clipboard2-pulse"></i>
@@ -287,7 +303,9 @@ const handleSubmit = async () => {
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
                               <input class="form-select text-center" v-model="record.examination_findings"
-                                     placeholder="Examination findings">
+                                     placeholder="Examination findings"
+                                     :disabled="userRole !== 'Doctor'"
+                              >
                               <div class="form-control-icon">
                                 <i class="bi bi-clipboard2-pulse"></i>
                               </div>
@@ -305,6 +323,7 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Diagnosis"
                                   v-model="record.diagnosis"
+                                  :disabled="userRole !== 'Doctor'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-journal-medical"></i>
@@ -323,6 +342,7 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Labs"
                                   v-model="record.labs"
+                                  :disabled="userRole !== 'Doctor'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-capsule"></i>
@@ -340,6 +360,7 @@ const handleSubmit = async () => {
                                   class="form-control text-center"
                                   placeholder="Treatment"
                                   v-model="record.treatment"
+                                  :disabled="userRole !== 'Doctor'"
                               >
                               <div class="form-control-icon">
                                 <i class="bi bi-capsule"></i>
@@ -355,6 +376,7 @@ const handleSubmit = async () => {
                               rows="3"
                               placeholder="Enter any additional notes"
                               v-model="record.additional_notes"
+                              :disabled="userRole !== 'Doctor'"
                           ></textarea>
                         </div>
                       </div>
@@ -363,7 +385,8 @@ const handleSubmit = async () => {
 
                   <div v-if="userRole == 'Lab Technician'" class="doctor-section">
 
-                    <div class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                    <div
+                        class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                       <i class="bi bi-person-workspace me-2"></i>
                       <h5 class="mb-0">Lab Technician Section</h5>
                     </div>
@@ -372,7 +395,8 @@ const handleSubmit = async () => {
                         <!-- Lab 1 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab1" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab1" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -381,13 +405,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 1)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 2 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab2" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab2" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -396,13 +422,16 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 2)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 3 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab3" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab3" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'"
+                                 placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -411,13 +440,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 3)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 4 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab4" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab4" :disabled="userRole !== 'Lab Technician'"
+                                 class="form-control" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -426,13 +457,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 4)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 5 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab5" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab5" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -441,13 +474,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 5)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 6 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab6" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab6" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -456,13 +491,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 6)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 7 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab7" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab7" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -471,13 +508,16 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 7)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 8 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab8" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab8" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'"
+                                 placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -486,13 +526,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 8)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 9 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab9" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab9" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -501,13 +543,15 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 9)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
 
                         <!-- Lab 10 -->
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab10" class="form-control" placeholder="Name of Lab">
+                          <input type="text" v-model="record.lab10" class="form-control"
+                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
                         </div>
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Lab Report</label>
@@ -516,6 +560,7 @@ const handleSubmit = async () => {
                               @change="(e) => handleFileUpload(e, 10)"
                               class="form-control text-center"
                               multiple
+                              :disabled="userRole !== 'Lab Technician'"
                           />
                         </div>
                       </div>
@@ -544,6 +589,7 @@ const handleSubmit = async () => {
   transform: translateY(-50%);
   padding: 0.5rem;
 }
+
 .main {
   background-image: url("@/assets/img/doctor-talking-to-patient-in-hospital-office-medical-consultation-in-clinic-cartoon-character-illustration-vector.jpg");
   background-size: contain; /* Or use auto if exact fit isn't necessary */
