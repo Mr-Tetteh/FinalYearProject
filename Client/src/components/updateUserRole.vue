@@ -4,8 +4,8 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  user: {
-    type: Object,
+  id:{
+    type: String,
     required: true
   }
 });
@@ -25,7 +25,6 @@ const closeEditModal = () => {
         <div class="modal-header p-5 pb-4 border-bottom-0">
           <h1 class="fw-bold mb-0 fs-2">Update User Role</h1>
           <button @click="closeEditModal" type="button" class="btn-close" aria-label="Close"></button>        </div>
-
         <div class="modal-body p-5 pt-0">
           <form class="">
             <div class="form-floating mb-3">
@@ -36,6 +35,7 @@ const closeEditModal = () => {
               <input type="text" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
               <label for="floatingPassword">First Name</label>
             </div>
+            {{props.id}}
 
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
