@@ -4,25 +4,28 @@ use App\Http\Controllers\HosptialController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\Pharmacy;
-use App\Http\Controllers\User;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('login', [User::class, 'login']);
+Route::post('login', [UserController::class, 'login']);
 Route::post('hospital', [HosptialController::class, 'store']);
 Route::get('hospitals', [HosptialController::class, 'index']);
-Route::post('rest_password', [User::class, 'forgotPassword']);
-Route::post('password_reset', [User::class, 'resetPassword']);
+Route::post('rest_password', [UserController::class, 'forgotPassword']);
+Route::post('password_reset', [UserController::class, 'resetPassword']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('logout', [User::class, 'logout']);
-    Route::get('all_users', [User::class, 'user']);
-    Route::post('users', [User::class, 'register']);
-    Route::get('all_users', [User::class, 'all_users']);
-    Route::get('all_staff', [User::class, 'all_staff']);
-    Route::get('count_all_users', [User::class, 'count_all_users']);
-    Route::get('count_all_hospital_users', [User::class, 'count_all_hospital_users']);
-    Route::delete('delete_user/{user}', [User::class, 'destroy']);
+    Route::post('logout', [UserController::class, 'logout']);
+    Route::get('all_users', [UserController::class, 'user']);
+    Route::post('users', [UserController::class, 'register']);
+    Route::get('all_users', [UserController::class, 'all_users']);
+    Route::get('all_staff', [UserController::class, 'all_staff']);
+    Route::get('count_all_users', [UserController::class, 'count_all_users']);
+    Route::get('count_all_hospital_users', [UserController::class, 'count_all_hospital_users']);
+    Route::get('get_details/{user}', [UserController::class, 'show']);
+    Route::patch('update_role/{user}', [UserController::class, 'update_role']);
+    Route::delete('delete_user/{user}', [UserController::class, 'destroy']);
+
 
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);

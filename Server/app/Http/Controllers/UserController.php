@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class User extends Controller
+class UserController extends Controller
 {
 
     /**
@@ -64,7 +65,7 @@ class User extends Controller
             return response()->json([
                 'message' => 'Sorry, phone number already exists with an account.'
             ], 402);
-        }elseif (\App\Models\User::where('staff_id', $request->staff_id)->first()) {
+        } elseif (\App\Models\User::where('staff_id', $request->staff_id)->first()) {
             return response()->json([
                 'message' => 'Sorry, Staff_id already exist'
             ]);
@@ -244,8 +245,16 @@ class User extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(User $user)
     {
+        return new UserResource($user);
+    }
+
+    public function update_role(User $user, Request $request)
+    {
+        $user->update($request->all());
+
         return new UserResource($user);
 
     }

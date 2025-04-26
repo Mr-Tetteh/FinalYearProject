@@ -34,8 +34,13 @@ export default function useAuth() {
         city: "",
         password: "my_name_is_jesus",
     })
+    const role = ref({
+        role: ''
+    })
 
     const hospitals_in_system = ref([])
+    let userData = ref(null)
+
     const login = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/login', user.value);
@@ -54,7 +59,8 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
     };
 
     const reset_password = async () => {
@@ -66,7 +72,8 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
 
     }
 
@@ -80,7 +87,8 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
 
     }
 
@@ -96,7 +104,8 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
 
     }
 
@@ -112,7 +121,8 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
 
     }
 
@@ -142,10 +152,11 @@ export default function useAuth() {
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
-            })        }
+            })
+        }
     }
 
-    const delete_user = async  (id) => {
+    const delete_user = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
@@ -153,20 +164,59 @@ export default function useAuth() {
             }
             const response = await axios.delete(`https://health.local.stay/api/delete_user/${id}`, config)
             if (response.data.message) {
-                   $toast.success(response.data.message, {
+                $toast.success(response.data.message, {
                     position: 'top-right',
                 })
             }
             setTimeout(() => {
                 window.location.reload()
 
-            },1000)
+            }, 1000)
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
             })
         }
 
+    }
+
+
+    const view_role = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get(`https://health.local.stay/api/get_details/${id}`, config)
+            userData.value = response.data.data
+        } catch (err) {
+            alert(err)
+        }
+
+    }
+
+    const update_role = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            
+            const response = await axios.patch(`https://health.local.stay/api/update_role/${id}`, userData.value, config)
+
+            $toast.success('User Role Updated Successfully', {
+                position: 'top-right',
+            });
+            
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'Failed to update user role';
+            $toast.error(errorMessage, {
+                position: 'top-right',
+            });
+        }
     }
     const register = async () => {
         try {
@@ -175,12 +225,20 @@ export default function useAuth() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
-            if (response.data.message) {
-              return   $toast.error(response.data.message, {
+            if (response) {
+                  $toast.error(response.data.message, {
                     position: 'top-right',
+                    pauseOnHover: true
                 })
             }
-            await router.push('/staff_info')
+            $toast.success('Staff Registered Successfully', {
+                position: 'top-right',
+                pauseOnHover: true
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
@@ -207,7 +265,10 @@ export default function useAuth() {
         reset_password,
         setPass,
         reset,
-        delete_user
+        delete_user,
+        update_role,
+        userData,
+        view_role
     }
 
 
