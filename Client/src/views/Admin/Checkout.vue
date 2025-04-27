@@ -4,10 +4,14 @@ import {onMounted, ref} from "vue";
 import useSession from "@/composerbles/useSession.js";
 import axios from "axios";
 import router from "@/router/index.js";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+const $toast = useToast();
 
 const print = () => {
   window.print();
-  router.push('/').catch(() => {});
+  window.location.reload()
 };
 const currentDateTime = ref(new Date().toLocaleString());
 
@@ -58,7 +62,9 @@ const handleDone = async () => {
       cartItems.value = [];
 
       // Show success message
-      alert('Transaction completed successfully!');
+      $toast.success('Transaction completed successfully!', {
+        position: 'top-right'
+      })
       router.push('/Pharmacy_all_drugs');
     }
   } catch (error) {
@@ -133,7 +139,11 @@ const handleDone = async () => {
     </div>
     <!-- Footer -->
     <div class="text-center text-sm text-gray-500">
-      Thank you for your business
+      Thanks a ton! We got you — your health is our top vibe. 💖✨
+    </div>
+
+    <div class="text-center text-sm text-gray-500">
+      Powered by Swift Care. © {{ new Date().getFullYear() }}
     </div>
   </div>
 </template>
