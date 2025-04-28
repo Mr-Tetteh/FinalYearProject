@@ -2,7 +2,9 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import useAuth from "@/composerbles/useAuth.js";
+import useSession from "@/composerbles/useSession.js";
 const {update_role, userData, view_role} = useAuth()
+const {userRole} = useSession()
 
 const props = defineProps({
   modelValue: {
@@ -84,6 +86,8 @@ onMounted(() => {
                 <option value="Account">Account</option>
                 <option value="Manager">Manager</option>
                 <option value="Lab Technician">Lab Technician</option>
+                <option v-if="userRole == 'Admin'" value="Admin"> Admin</option>
+
               </select>
             </div>
 
