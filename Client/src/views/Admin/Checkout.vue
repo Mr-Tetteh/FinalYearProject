@@ -144,6 +144,7 @@ const handleDone = async () => {
 
     <div class="text-center text-sm text-gray-500">
       Powered by Swift Care. © {{ new Date().getFullYear() }}
+      link
     </div>
   </div>
 </template>
