@@ -20,6 +20,7 @@ import ResetPassword from "@/views/auth/ResetPassword.vue";
 import SetPassword from "@/views/auth/SetPassword.vue";
 import Patient_record_update from "@/views/Admin/Patient_record_update.vue";
 
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -187,6 +188,7 @@ const router = createRouter({
             name: 'SetPassword',
             component: SetPassword
         },
+
     ],
 })
 

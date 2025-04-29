@@ -128,9 +128,7 @@ const togglePasswordVisibility = () => {
 
 <style scoped>
 .page {
-  background-image: url(@/assets/img/Staff-center-1200x900.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-image: url(@/assets/img/Doctors-rafiki.svg);
   background-position: center;
   position: relative;
 }

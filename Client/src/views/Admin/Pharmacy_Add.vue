@@ -212,10 +212,8 @@ const registerDrug = () =>{
 
 <style scoped>
 .drugs_registration {
-  background-image: url("@/assets/img/drugs.jpg");
-  background-size: cover;
+  background-image: url("@/assets/img/Medicine-amico.svg");
   background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   border-radius: 2%;
 }

@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('allergies')->nullable();
             $table->string('medical_history')->nullable();
             $table->string('additional_notes')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

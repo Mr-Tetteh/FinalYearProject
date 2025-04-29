@@ -3,9 +3,10 @@ import { onMounted, ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
 import AdminNavBar from "@/components/AdminNavBar.vue";
+import useSession from "@/composerbles/useSession.js";
 
 const { input, register, hospital, hospitals_in_system } = useAuth();
-
+const {userRole} = useSession()
 
 const registerUser = async () => {
   register()
@@ -128,8 +129,7 @@ onMounted(hospital);
 
                         </select>
                       </div>
-<!--
-                      <div class="col-md-6">
+                      <div class="col-md-6" v-if="userRole === 'Admin'">
                         <label class="form-label">Hospital</label>
                         <select
                             class="form-select"
@@ -144,7 +144,7 @@ onMounted(hospital);
                             {{ hospital.hospital_name }}
                           </option>
                         </select>
-                      </div>-->
+                      </div>
 
                       <!-- Contact Information -->
                       <div class="col-md-6">
@@ -183,15 +183,6 @@ onMounted(hospital);
                         <span class="  me-2"> Creat Staff Account</span>
                       </button>
                     </div>
-
-                    <div class="text-center mt-3">
-                      <p class="mb-0">
-                        Already have an account?
-                        <router-link to="/login" class="text-primary text-decoration-none ms-1">
-                          Login here
-                        </router-link>
-                      </p>
-                    </div>
                   </form>
                 </div>
               </div>
@@ -205,8 +196,7 @@ onMounted(hospital);
 
 <style scoped>
 .registration-page {
-  background-image: url("@/assets/img/flat-nurse-team-background_23-2148169744.avif");
-  background-size: cover;
+  background-image: url("@/assets/img/Doctors-bro.svg");
   background-position: center;
   position: relative;
 }

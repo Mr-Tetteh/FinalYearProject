@@ -1,383 +1,477 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import { onMounted, ref, reactive } from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import usePatients from "@/composerbles/usePatients.js";
 import useSession from "@/composerbles/useSession.js";
 
-const {input, register_patient} = usePatients()
 
-const registerPatient = () => {
-  register_patient()
-};
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
+import Button from 'primevue/button';
+
+const { input, register_patient } = usePatients();
+const currentStep = ref("1");
+
+
+
+
+const handleSubmit = async () => {
+ await register_patient()
+}
 </script>
+
 <template>
   <div class="hospital-dashboard main">
     <div class="d-flex">
       <!-- Sidebar -->
-      <AdminNavBar/>
-      <div class="patient-registration-form">
-        <div class="card shadow-lg border-0">
-          <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Patient Registration</h4>
-          </div>
-          <div class="card-body">
-            <form @submit.prevent="registerPatient">
-              <!-- Patient Details -->
-              <h5 class="mb-3">Patient Details</h5>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">First name</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control"
-                             placeholder="First Name" id="first-name-icon" v-model="input.first_name">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
+      <AdminNavBar />
+
+      <div class="content-wrapper">
+        <div class="patient-registration-form">
+          <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white">
+              <h4 class="mb-0">Patient Registration</h4>
+              <p class="text-white-50 mb-0">Please fill in the patient information below</p>
+            </div>
+
+            <div class="card-body">
+              <div class="stepper-container">
+                <Stepper v-model:value="currentStep">
+<!--                  <StepList>
+                    <Step value="1"> Patient Details</Step>
+                    <Step value="2"> Contact Info</Step>
+                    <Step value="3"> Medical History</Step>
+                    <Step value="4"> Primary Guardian</Step>
+                    <Step value="5"> Secondary Guardian</Step>
+                  </StepList>-->
+
+                  <form @submit.prevent="handleSubmit">
+                    <StepPanels>
+                      <!-- Step 1: Patient Details -->
+                      <StepPanel v-slot="{ activateCallback }" value="1">
+                        <div class="panel-content">
+                          <h5 class="section-title text-center">
+                            <i class="bi bi-info-circle-fill me-2"></i> Basic Information
+                          </h5>
+
+
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label for="first-name" class="form-label">First name <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control"
+                                         placeholder="First Name" id="first-name" v-model="input.first_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="last-name" class="form-label">Last name <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control"
+                                         placeholder="Last Name" id="last-name" v-model="input.last_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="other-name" class="form-label">Other names</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control"
+                                         placeholder="Other Name" id="other-name" v-model="input.other_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="date-of-birth" class="form-label">Date of birth <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="date" class="form-control"
+                                         id="date-of-birth" v-model="input.date_of_birth">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-calendar-date"></i>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="age" class="form-label">Age</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="number" class="form-control"
+                                         placeholder="Age" id="age" v-model="input.age" >
+                                  <div class="form-control-icon">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <select id="gender" v-model="input.gender" class="form-select">
+                                    <option value="" disabled selected>Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                  </select>
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-gender-ambiguous"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="button-group">
+
+                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" class="w-auto offset-11 btn "
+                                  @click="activateCallback('2')" />
+
+                        </div>
+                      </StepPanel>
+
+                      <!-- Step 2: Contact Information -->
+                      <StepPanel v-slot="{ activateCallback }" value="2">
+                        <div class="panel-content">
+                          <h5 class="section-title text-center ">
+                            <i class="bi bi-telephone-fill me-2"></i> Contact Details
+                          </h5>
+
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label for="contact" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="tel" class="form-control"
+                                         placeholder="Phone Number" id="contact" v-model="input.contact">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-phone"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="email" class="form-label">Email Address</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="email" class="form-control"
+                                         placeholder="Email address" id="email" v-model="input.email">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-envelope"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12">
+                              <label for="address" class="form-label">Home Address  <span class="text-danger">*</span> </label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <textarea id="address" v-model="input.address" class="form-control"
+                                            rows="3" placeholder="Enter home address"></textarea>
+                                  <div class="form-control-icon textarea-icon">
+                                    <i class="bi bi-house"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="button-group">
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('1')" />
+                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+                        </div>
+                      </StepPanel>
+
+                      <!-- Step 3: Medical History -->
+                      <StepPanel v-slot="{ activateCallback }" value="3">
+                        <div class="panel-content">
+                          <h5 class="section-title text-center">
+                            <i class="bi bi-heart-pulse-fill me-2"></i> Medical Information
+                          </h5>
+
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label for="medical-condition" class="form-label">Underlying Conditions</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" id="medical-condition" v-model="input.medical_history"
+                                         class="form-control" placeholder="E.g., Diabetes, Hypertension">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-clipboard-check"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="allergies" class="form-label">Allergies</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" id="allergies" v-model="input.allergies"
+                                         class="form-control" placeholder="E.g., Peanuts, Dust, Medications">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12">
+                              <label for="notes" class="form-label">Additional Medical Notes</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <textarea id="notes" v-model="input.additional_notes" class="form-control"
+                                            rows="3" placeholder="Enter any additional medical information"></textarea>
+                                  <div class="form-control-icon textarea-icon">
+                                    <i class="bi bi-pencil-square"></i>
+                                  </div>
+                                </div>
+                                <small class="form-text text-muted">
+                                  Include any relevant medical information that may be important for treatment.
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="button-group">
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('2')" />
+                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('4')" />
+                        </div>
+                      </StepPanel>
+
+                      <!-- Step 4: First Guardian Information -->
+                      <StepPanel v-slot="{ activateCallback }" value="4">
+                        <div class="panel-content">
+                          <h5 class="section-title text-center">
+                            <i class="bi bi bi-person-fill me-2"></i> Primary Guardian Information
+                          </h5>
+
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label for="guardian1-first-name" class="form-label">First Name <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control"
+                                         placeholder="First Name" id="guardian1-first-name" v-model="input.guardian1_first_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian1-last-name" class="form-label">Last Name</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Last Name"
+                                         id="guardian1-last-name" v-model="input.guardian1_last_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian1-other-names" class="form-label">Other Names</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Other Names"
+                                         id="guardian1-other-names" v-model="input.guardian1_other_names">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian1-relation" class="form-label">Relationship <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control"
+                                         placeholder="e.g. Parent, Grandparent" id="guardian1-relation" v-model="input.guardian1_relation">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian1-residence" class="form-label">Residence Address  <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Residence Address"
+                                         id="guardian1-residence" v-model="input.guardian1_residence">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-house"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian1-contact" class="form-label">Contact Number <span class="text-danger">*</span></label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="tel" class="form-control"
+                                         placeholder="Phone Number" id="guardian1-contact" v-model="input.guardian1_contact">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-telephone"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="button-group">
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('3')" />
+                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('5')" />
+                        </div>
+                      </StepPanel>
+
+                      <!-- Step 5: Second Guardian Information -->
+                      <StepPanel v-slot="{ activateCallback }" value="5">
+                        <div class="panel-content">
+                          <h5 class="section-title text-center">
+                            <i class="bi bi-person-vcard-fill me-2"></i> Secondary Guardian Information <span class="text-muted">(Optional)</span>
+                          </h5>
+
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label for="guardian2-first-name" class="form-label">First Name</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="First Name"
+                                         id="guardian2-first-name" v-model="input.guardian2_first_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian2-last-name" class="form-label">Last Name</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Last Name"
+                                         id="guardian2-last-name" v-model="input.guardian2_last_name">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian2-other-names" class="form-label">Other Names</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Other Names"
+                                         id="guardian2-other-names" v-model="input.guardian2_other_names">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian2-relation" class="form-label">Relationship</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="e.g. Parent, Grandparent"
+                                         id="guardian2-relation" v-model="input.guardian2_relation">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian2-residence" class="form-label">Residence Address</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="text" class="form-control" placeholder="Residence Address"
+                                         id="guardian2-residence" v-model="input.guardian2_residence">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-house"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="guardian2-contact" class="form-label">Contact Number</label>
+                              <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                  <input type="tel" class="form-control" placeholder="Phone Number"
+                                         id="guardian2-contact" v-model="input.guardian2_contact">
+                                  <div class="form-control-icon">
+                                    <i class="bi bi-telephone"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="button-group">
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('4')" />
+                          <Button type="submit" label="Register Patient" icon="pi pi-check"
+                                  :loading="loading" class="submit-btn" severity="success"/>
+                        </div>
+                      </StepPanel>
+                    </StepPanels>
+                  </form>
+                </Stepper>
+              </div>
+            </div>
+
+            <div class="card-footer bg-light">
+              <div class="progress-indicator">
+                <div class="step-indicator">
+                  Step {{ currentStep }} of 5
                 </div>
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Last name</label>
-
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control"
-                             placeholder="Last Name" id="first-name-icon" v-model="input.last_name"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">other names</label>
-
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control"
-                             placeholder="Other Name" id="first-name-icon" v-model="input.other_name"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Age </label>
-
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="number" class="form-control"
-                             placeholder="Age" id="first-name-icon" v-model="input.age"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-calendar-date"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="gender" class="form-label">Gender</label>
-                  <select
-                      id="gender"
-                      v-model="input.gender"
-                      class="form-select"
-
-                  >
-
-                    <option selected disabled>Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Date of birth</label>
-
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="date" class="form-control"
-                             placeholder="Date of birth" id="first-name-icon" v-model="input.date_of_birth"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-calendar-date"></i>
-                      </div>
-                    </div>
+                <div class="progress">
+                  <div class="progress-bar bg-primary" role="progressbar"
+                       :style="{ width: ((parseInt(currentStep)/5)*100) + '%' }"
+                       :aria-valuenow="(parseInt(currentStep)/5)*100" aria-valuemin="0" aria-valuemax="100">
                   </div>
                 </div>
               </div>
-
-              <hr class="my-4"/>
-
-              <!-- Contact Information -->
-              <h5 class="mb-3">Contact Information</h5>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Contact</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="tel" class="form-control"
-                             placeholder="Phone Number" id="first-name-icon" v-model="input.contact"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-phone"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Email Address</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="email" class="form-control"
-                             placeholder="Enter your email address" id="first-name-icon" v-model="input.email"
-                      >
-                      <div class="form-control-icon">
-                        <i class="bi bi-envelope"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="col-md-12">
-                  <label for="fullName" class="form-label">Home Address</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-
-                      <textarea
-                          id="address"
-                          v-model="input.address"
-                          class="form-control"
-                          rows="3"
-
-                      ></textarea>
-                      <div class="form-control-icon">
-                        <i class="bi bi-house"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <hr class="my-4"/>
-
-              <!-- Contact Information -->
-              <h5 class="mb-3">First Guardian Information</h5>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="guardian1FirstName" class="form-label">First Name *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter First Name" id="guardian1FirstName" v-model="input.guardian1_first_name">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian1LastName" class="form-label">Last Name *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Last Name" id="guardian1LastName" v-model="input.guardian1_last_name">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian1OtherNames" class="form-label">Other Names</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Other Names" id="guardian1OtherNames" v-model="input.guardian1_other_names">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="guardian1Relation" class="form-label">Relation *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Relation (e.g., Parent)" id="guardian1Relation" v-model="input.guardian1_relation">
-                      <div class="form-control-icon">
-                        <i class="bi bi-people-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian1Residence" class="form-label">Residence *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Residence Address" id="guardian1Residence" v-model="input.guardian1_residence">
-                      <div class="form-control-icon">
-                        <i class="bi bi-house"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian1Contact" class="form-label">Contact *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="tel" class="form-control" placeholder="Enter Contact Number" id="guardian1Contact" v-model="input.guardian1_contact">
-                      <div class="form-control-icon">
-                        <i class="bi bi-telephone"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <h5 class="mt-5">Second Guardian Information</h5>
-              <div class="row g-3 mt-3">
-                <div class="col-md-6">
-                  <label for="guardian2FirstName" class="form-label">First Name *</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter First Name" id="guardian2FirstName" v-model="input.guardian2_first_name">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian2LastName" class="form-label">Last Name</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Last Name" id="guardian2LastName" v-model="input.guardian2_last_name">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian2OtherNames" class="form-label">Other Names</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Other Names" id="guardian2OtherNames" v-model="input.guardian2_other_names">
-                      <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian2Relation" class="form-label">Relation</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Relation" id="guardian2Relation" v-model="input.guardian2_relation">
-                      <div class="form-control-icon">
-                        <i class="bi bi-people-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian2Residence" class="form-label">Residence</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" placeholder="Enter Residence Address" id="guardian2Residence" v-model="input.guardian2_residence">
-                      <div class="form-control-icon">
-                        <i class="bi bi-house"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="guardian2Contact" class="form-label">Contact</label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input type="tel" class="form-control" placeholder="Enter Contact Number" id="guardian2Contact" v-model="input.guardian2_contact">
-                      <div class="form-control-icon">
-                        <i class="bi bi-telephone"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-              <hr class="my-4"/>
-
-              <!-- Medical History -->
-              <h5 class="mb-3">Medical History</h5>
-              <div class="row g-3">
-
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Underlying condition </label>
-                  <div class="form-group has-icon-left">
-                    <div class="position-relative">
-                      <input
-                          type="text"
-                          id="medicalCondition"
-                          v-model="input.medical_history"
-                          class="form-control"
-                          placeholder="E.g., Diabetes, Hypertension"
-
-                      />
-                      <div class="form-control-icon">
-                        <i class="bi bi-clipboard-check"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="allergies" class="form-label">Allergies</label>
-                  <input
-                      type="text"
-                      id="allergies"
-                      v-model="input.allergies"
-                      class="form-control"
-                      placeholder="E.g., Peanuts, Dust"
-                  />
-                </div>
-
-
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="notes" class="form-label">Additional Note</label>
-                    <div class="input-group has-icon-left">
-      <textarea
-          id="notes"
-          v-model="input.additional_notes"
-          class="form-control"
-          rows="3"
-          placeholder="Enter any additional medical notes"
-      ></textarea>
-                      <span class="input-group-text">
-        <i class="bi bi-pencil-square"></i>
-      </span>
-                    </div>
-                    <div class="form-text">
-                      Enter any additional notes or comments related to the patient's medical history.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="my-4"/>
-              <!-- Submit Button -->
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg">
-                  Register Patient
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -385,39 +479,291 @@ const registerPatient = () => {
   </div>
 </template>
 
-
 <style scoped>
-.patient-registration-form {
-  max-width: 800px;
-  margin: 2rem auto;
-}
-
-.card-header {
-  border-radius: 10px 10px 0 0;
-}
-
-.card {
-  border-radius: 10px;
-}
-
-button {
-  border-radius: 5px;
+.hospital-dashboard {
+  min-height: 100vh;
+  position: relative;
 }
 
 .main {
-  background-image: url("@/assets/img/istockphoto-1344935909-2048x2048.jpg");
-  border-radius: 1%;
-  background-size: cover;
-
+  background-image: url("@/assets/img/Online Doctor-rafiki.svg");
+  background-position: center;
+  background-repeat: repeat;
+  position: relative;
 }
 
-main::after {
-  content: '';
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 1rem;
+}
+
+.patient-registration-form {
+  max-width: 1000px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header {
+  border-radius: 15px 15px 0 0;
+  padding: 1.25rem 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.section-title {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #344767;
+  margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  padding-left: 2.5rem;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+.form-control-icon {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1); /* Adjust opacity and color as needed */
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.textarea-icon {
+  top: 1rem;
+  transform: none;
+}
+
+.form-text {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.stepper-container {
+  padding: 0.5rem;
+}
+
+.panel-content {
+  padding: 1.5rem 0.5rem;
+  min-height: 400px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.button-group button {
+  min-width: 120px;
+}
+
+.submit-btn {
+  background-color: #16a34a;
+  border-color: #16a34a;
+}
+
+.submit-btn:hover {
+  background-color: #15803d;
+  border-color: #15803d;
+}
+
+.progress-indicator {
+  margin-top: 0.5rem;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.progress {
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #e9ecef;
+}
+
+.progress-bar {
+  transition: width 0.3s ease;
+}
+
+/* PrimeVue Stepper Customization */
+:deep(.p-stepper) {
+  background: transparent;
+  border: none;
+}
+
+:deep(.p-steplist) {
+  margin-bottom: 2rem;
+}
+
+:deep(.p-step-action) {
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+:deep(.p-step-title) {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+:deep(.p-step-active .p-step-action) {
+  background-color: #4361ee;
+  color: white;
+}
+
+:deep(.p-step-active .p-step-title) {
+  color: #4361ee;
+  font-weight: 600;
+}
+
+:deep(.p-step-completed .p-step-action) {
+  background-color: #16a34a;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patient-registration-form {
+    margin: 1rem;
+    max-width: 100%;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .panel-content {
+    min-height: 300px;
+  }
+
+  :deep(.p-steplist) {
+    flex-direction: column;
+  }
+
+  :deep(.p-step) {
+    margin-bottom: 0.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Form validation styles */
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+/* Required field indicator */
+.text-danger {
+  color: #dc3545;
+}
+
+/* Dark mode considerations */
+@media (prefers-color-scheme: dark) {
+  .form-control, .form-select {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f3f4f6;
+  }
+
+  .form-label {
+    color: #e5e7eb;
+  }
+
+  .section-title {
+    color: #f3f4f6;
+    border-bottom-color: #374151;
+  }
+
+  .card {
+    background-color: #111827;
+  }
+
+  .card-footer {
+    background-color: #1f2937;
+    border-top-color: #374151;
+  }
+
+  .form-text {
+    color: #9ca3af;
+  }
 }
 </style>

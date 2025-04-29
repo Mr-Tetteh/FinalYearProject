@@ -81,15 +81,40 @@ export default function usePatients() {
     const patient_update = ref(null)
 
     const register_patient = async () => {
+        const requiredFields = [
+            "first_name",
+            "last_name",
+            "other_name",
+            "gender",
+            "date_of_birth",
+            "contact",
+            "address",
+            "guardian1_first_name",
+            "guardian1_last_name" ,
+            "guardian1_relation",
+            "guardian1_residence",
+            "guardian1_contact",
+        ]
+        for (const field of requiredFields) {
+            if (!input.value[field]) {
+                $toast.error(`Please fill in the ${field.replace(/_/g, ' ')} field.`, {
+                    position: 'top-right'
+                });
+                return;
+            }
+        }
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
             let response = await axios.post('https://health.local.stay/api/add_patient', input.value, config)
+            $toast.info(response)
             await router.push('/hospital_patient')
         } catch (err) {
-            alert(err.response.data.data)
+            $toast.error(err.response.data.message, {
+                position: "top-right"
+            })
         }
     }
 
