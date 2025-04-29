@@ -20,6 +20,7 @@ class Patients extends Model
         'patient_number',
         'gender',
         'hospital',
+        'status',
         'date_of_birth',
         'contact',
         'address',
