@@ -84,7 +84,6 @@ export default function usePatients() {
         const requiredFields = [
             "first_name",
             "last_name",
-            "other_name",
             "gender",
             "date_of_birth",
             "contact",
@@ -109,12 +108,42 @@ export default function usePatients() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             let response = await axios.post('https://health.local.stay/api/add_patient', input.value, config)
-            $toast.info(response)
+            $toast.success('patient Registered Successfully', {
+                position: "top-right"
+            })
             await router.push('/hospital_patient')
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: "top-right"
             })
+        }
+    }
+
+    const editPatient = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            let response = await axios.get(`https://health.local.stay/api/edit_patient/${id}`, config)
+            input.value = response.data.data
+        } catch (err) {
+            alert(err.response.data.data)
+        }
+    }
+    const activatePatient = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            let response = await axios.patch(`https://health.local.stay/api/activate_patient/${id}`, input.value, config)
+            $toast.success('Patient Activated Successfully', {
+                position: "top-right"
+            })
+            window.location.reload()
+        } catch (err) {
+            alert(err.response.data.data)
         }
     }
 
@@ -199,7 +228,6 @@ export default function usePatients() {
         }
     };
 
-
     const hospital_patient = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -229,6 +257,8 @@ export default function usePatients() {
         update_record,
         edit,
         record,
-        handleFileUpload
+        handleFileUpload,
+        editPatient,
+        activatePatient
     }
 }

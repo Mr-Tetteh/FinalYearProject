@@ -32,6 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
     Route::get('count_hospital_patient', [PatientsController::class, 'hospitals_patients_count']);
     Route::get('count_all_patient', [PatientsController::class, 'count_all_patient']);
+    Route::get('edit_patient/{patients}', [PatientsController::class, 'edit']);
+    Route::patch('activate_patient/{patients}', [PatientsController::class, 'update']);
 
 
     Route::post('patient_rec', [PatientRecordController::class, 'store']);

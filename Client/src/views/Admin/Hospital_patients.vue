@@ -1,13 +1,21 @@
 <script setup>
 
 import usePatients from "@/composerbles/usePatients.js";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
+import ActivatePatient from "@/components/activatePatient.vue";
 
-
-
+const selectedPatientId = ref(null);
+const modal = ref(false);
 
 const {hospital_patient, all_hospital_patient, list_patients} = usePatients()
+
+const activate_patient = (patient) => {
+  selectedPatientId.value = patient.id;
+  modal.value = true
+}
+
+
 onMounted(hospital_patient)
 
 
@@ -64,6 +72,7 @@ onMounted(hospital_patient)
                 <tr>
                   <th class="py-3">Full Name</th>
                   <th class="py-3">Patient ID</th>
+                  <th class="py-3">Status</th>
                   <th class="py-3">Gender</th>
                   <th class="py-3">Date of Birth</th>
                   <th class="py-3">Allergies</th>
@@ -85,6 +94,15 @@ onMounted(hospital_patient)
                   <td>
                       <span class="badge bg-secondary bg-opacity-10 text-secondary">
                         {{ item.patient_number }}
+                      </span>
+                  </td>
+
+                  <td>
+                      <span v-if="item.status == false" class="badge bg-secondary bg-opacity-10 text-secondary">
+                        Inactive
+                      </span>
+                    <span v-else class="badge bg-success  text-dark">
+                        Active
                       </span>
                   </td>
                   <td>{{ item.gender }}</td>
@@ -109,7 +127,14 @@ onMounted(hospital_patient)
                   </td>
                   <td>
                     <div class="d-flex gap-2">
-                      <RouterLink
+
+                      <button v-if="item.status == false" class="btn btn-info btn-sm" @click="activate_patient(item)">
+                        <i class="bi bi-pencil-square"></i>
+                        Activate Patient
+                      </button>
+
+
+                      <RouterLink v-if="item.status == true"
                           :to="{ name: 'patients.file_add', params: { id: item.id} }"
                           class="btn btn-secondary btn-sm"
                       >
@@ -126,6 +151,11 @@ onMounted(hospital_patient)
                 </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div v-if="modal" class="modal-overlay">
+            <div class="modal-content">
+          <activate-patient v-if="modal" v-model="modal" :id="selectedPatientId"/>
             </div>
           </div>
         </div>
@@ -191,5 +221,28 @@ onMounted(hospital_patient)
 .input-group .form-control:focus {
   box-shadow: none;
   border-color: #86b7fe;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* make sure it’s on top */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  max-width: 95%;
 }
 </style>

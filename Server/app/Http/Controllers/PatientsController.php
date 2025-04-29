@@ -102,15 +102,17 @@ class PatientsController extends Controller
      */
     public function edit(Patients $patients)
     {
-        //
+        return new PatientResource($patients);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePatientsRequest $request, Patients $patients)
+    public function update(Request $request, Patients $patients)
     {
-        //
+        $patients->update($request->all());
+
+        return new PatientResource($patients);
     }
 
     /**
