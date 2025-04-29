@@ -3,7 +3,6 @@ import axios from "axios";
 import router from "@/router/index.js";
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
-import toast from "bootstrap/js/src/toast.js";
 
 const $toast = useToast();
 

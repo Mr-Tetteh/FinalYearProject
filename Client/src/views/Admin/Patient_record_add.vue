@@ -2,8 +2,12 @@
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
-import {reactive} from 'vue';
+const $toast = useToast();
+
+import {reactive, ref} from 'vue';
 import useSession from "@/composerbles/useSession.js";
 
 const props = defineProps({
@@ -14,12 +18,8 @@ const props = defineProps({
 });
 const {userRole} = useSession()
 
-const record = reactive({
+const record = ref({
   patient_id: props.id,
-  history: '',
-  examination_findings: '',
-  diagnosis: '',
-  treatment: '',
   respiratory_rate: '',
   blood_pressure: '',
   blood_and_sugar_rate: '',
@@ -27,38 +27,31 @@ const record = reactive({
   pulse_rate: '',
   weight: '',
   admitted: '',
-  labs: '',
   ward_number: '',
-  additional_notes: '',
-  lab1: '',
-  lab1_results: [],
-  lab2: '',
-  lab2_results: [],
-  lab3: '',
-  lab3_results: [],
-  lab4: '',
-  lab4_results: [],
-  lab5: '',
-  lab5_results: [],
-  lab6: '',
-  lab6_results: [],
-  lab7: '',
-  lab7_results: [],
-  lab8: '',
-  lab8_results: [],
-  lab9: '',
-  lab9_results: [],
-  lab10: '',
-  lab10_results: [],
+
 });
 
-const handleFileUpload = (event, labNumber) => {
-  const files = event.target.files;
-  const fileArray = Array.from(files);
-  record[`lab${labNumber}_results`] = fileArray;
-};
 
 const handleSubmit = async () => {
+
+  const requiredFields = [
+    'respiratory_rate',
+    'blood_pressure',
+    'blood_and_sugar_rate',
+    'temperature',
+    'pulse_rate',
+    'weight',
+    'admitted',
+    'ward_number'
+  ];
+  for (const field of requiredFields) {
+    if (!record.value[field]) {
+      $toast.error(`Please fill in the ${field.replace(/_/g, ' ')} field.`, {
+        position: 'top-right'
+      });
+      return;
+    }
+  }
   try {
     const token = localStorage.getItem('AUTH_TOKEN');
     const config = {
@@ -67,26 +60,9 @@ const handleSubmit = async () => {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const formData = new FormData();
 
-    // Append non-file data
-    Object.keys(record).forEach((key) => {
-      if (!key.includes('_results')) {
-        formData.append(key, record[key]);
-      }
-    });
+    await axios.post('https://health.local.stay/api/patient_rec', record.value, config);
 
-    // Append files with unique names
-    for (let i = 1; i <= 10; i++) {
-      const files = record[`lab${i}_results`];
-      if (files && files.length > 0) {
-        files.forEach((file, index) => {
-          formData.append(`lab${i}_results[]`, file);
-        });
-      }
-    }
-
-    await axios.post('https://health.local.stay/api/patient_rec', formData, config);
     await router.push('/hospital_patient');
   } catch (err) {
     alert(err.response?.data?.data || 'An error occurred');
@@ -270,7 +246,7 @@ const handleSubmit = async () => {
                   </div>
 
                   <!-- Doctor Section -->
-                  <div v-if="userRole == 'Doctor'" class="doctor-section">
+<!--                  <div v-if="userRole == 'Doctor'" class="doctor-section">
                     <div
                         class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                       <i class="bi bi-person-workspace me-2"></i>
@@ -278,7 +254,7 @@ const handleSubmit = async () => {
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
-                        <!-- Existing doctor section fields with centered text -->
+                        &lt;!&ndash; Existing doctor section fields with centered text &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">History of presenting complaints </label>
                           <div class="form-group has-icon-left">
@@ -392,7 +368,7 @@ const handleSubmit = async () => {
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
-                        <!-- Lab 1 -->
+                        &lt;!&ndash; Lab 1 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab1" class="form-control"
@@ -409,7 +385,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 2 -->
+                        &lt;!&ndash; Lab 2 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab2" class="form-control"
@@ -426,7 +402,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 3 -->
+                        &lt;!&ndash; Lab 3 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab3" class="form-control"
@@ -444,7 +420,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 4 -->
+                        &lt;!&ndash; Lab 4 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab4" :disabled="userRole !== 'Lab Technician'"
@@ -461,7 +437,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 5 -->
+                        &lt;!&ndash; Lab 5 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab5" class="form-control"
@@ -478,7 +454,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 6 -->
+                        &lt;!&ndash; Lab 6 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab6" class="form-control"
@@ -495,7 +471,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 7 -->
+                        &lt;!&ndash; Lab 7 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab7" class="form-control"
@@ -512,7 +488,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 8 -->
+                        &lt;!&ndash; Lab 8 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab8" class="form-control"
@@ -530,7 +506,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 9 -->
+                        &lt;!&ndash; Lab 9 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab9" class="form-control"
@@ -547,7 +523,7 @@ const handleSubmit = async () => {
                           />
                         </div>
 
-                        <!-- Lab 10 -->
+                        &lt;!&ndash; Lab 10 &ndash;&gt;
                         <div class="col-md-6">
                           <label class="form-label text-center w-100">Name of Lab</label>
                           <input type="text" v-model="record.lab10" class="form-control"
@@ -565,7 +541,7 @@ const handleSubmit = async () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>-->
                   <!-- Submit Button -->
                   <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">
@@ -638,3 +614,30 @@ select.form-select {
   text-align: center;
 }
 </style>
+
+
+// const handleFileUpload = (event, labNumber) => {
+//   const files = event.target.files;
+//   const fileArray = Array.from(files);
+//   record[`lab${labNumber}_results`] = fileArray;
+// };
+
+
+// const formData = new FormData();
+//
+// // Append non-file data
+// Object.keys(record).forEach((key) => {
+//   if (!key.includes('_results')) {
+//     formData.append(key, record[key]);
+//   }
+// });
+//
+// // Append files with unique names
+// for (let i = 1; i <= 10; i++) {
+//   const files = record[`lab${i}_results`];
+//   if (files && files.length > 0) {
+//     files.forEach((file, index) => {
+//       formData.append(`lab${i}_results[]`, file);
+//     });
+//   }
+// }

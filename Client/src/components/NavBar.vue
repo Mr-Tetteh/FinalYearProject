@@ -1,5 +1,10 @@
 <script setup>
-// No specific setup needed here as functionality remains unchanged
+import useSession from "@/composerbles/useSession.js";
+import useAuth from "@/composerbles/useAuth.js";
+
+const {isLoggedIn} = useSession();
+const {logout} = useAuth()
+
 </script>
 
 <template>
@@ -33,10 +38,19 @@
             <li class="nav-item">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="!isLoggedIn">
+              <RouterLink to="dashboard" class="nav-link">Dashboard</RouterLink>
+            </li>
+            <li class="nav-item" v-if="!isLoggedIn">
+            <button class="btn btn-outline-danger" @click="logout">
+              <i class="bi bi-box-arrow-right me-2"></i>
+              Logout
+            </button>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn">
               <RouterLink to="/login" class="nav-link">Login</RouterLink>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isLoggedIn">
               <RouterLink to="/register_hospital" class="nav-link">Register Hospital</RouterLink>
             </li>
           </ul>
@@ -63,10 +77,19 @@
               <li class="nav-item">
                 <a href="#contact" class="nav-link">Contact</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="!isLoggedIn">
+                <RouterLink to="dashboard" class="nav-link">Dashboard</RouterLink>
+              </li>
+              <li class="nav-item" v-if="!isLoggedIn">
+                <button class="btn btn-outline-danger" @click="logout">
+                  <i class="bi bi-box-arrow-right me-2"></i>
+                  Logout
+                </button>
+              </li>
+              <li class="nav-item" v-if="isLoggedIn">
                 <RouterLink to="/login" class="nav-link">Login</RouterLink>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="isLoggedIn">
                 <RouterLink to="/register_hospital" class="nav-link">Register Hospital</RouterLink>
               </li>
             </ul>
