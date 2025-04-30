@@ -32,6 +32,7 @@ class PatientResource extends JsonResource
             'medical_history' => $this->medical_history,
             'allergies' => $this->allergies,
             'additional_notes' => $this->additional_notes,
+            'activated_at' => $this->activated_at,
             'guardian1' => [
                 'first_name' => $this->guardian1_first_name,
                 'last_name' => $this->guardian1_last_name,

@@ -12,6 +12,8 @@ use Nette\Utils\Random;
 class Patients extends Model
 {
     use HasFactory, Sluggable;
+    protected $table = 'patients';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -40,6 +42,7 @@ class Patients extends Model
         'guardian2_relation',
         'guardian2_residence',
         'guardian2_contact',
+        'activated_at'
     ];
 
 
