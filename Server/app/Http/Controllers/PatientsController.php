@@ -110,7 +110,10 @@ class PatientsController extends Controller
      */
     public function update(Request $request, Patients $patients)
     {
-        $patients->update($request->all());
+        $patients->update([
+            'status' => $request->input('status'),
+            'activated_at' => now(),
+        ]);
 
         return new PatientResource($patients);
     }
