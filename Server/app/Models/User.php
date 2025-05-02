@@ -92,6 +92,7 @@ class User extends Authenticatable
         'contact',
         'birthday',
         'gender',
+        'hospital',
         'role',
         'email',
         'hospital_slug',
@@ -131,8 +132,9 @@ class User extends Authenticatable
             if ($user && $user->role === 'Doctor') {
                 $record->user_id = $user->id;
             }
-            $record->hospital = Auth::user()->hospital;
-
+            if (empty($record->hospital) && Auth::check()) {
+                $record->hospital = Auth::user()->hospital;
+            }
         });
     }
 

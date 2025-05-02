@@ -15,9 +15,6 @@ export default function useHospital() {
         hospital_email: "",
         hospital_country: "",
         hospital_city: "",
-        user_name: "",
-        user_phone_number: "",
-        user_email: "",
         number_of_monthly_subscription: ""
     })
 
@@ -58,6 +55,9 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.post('https://health.local.stay/api/post_drug', data.value, config);
+            $toast.success('Drugs has been added successfully', {
+                position: "top-right"
+            })
             resetForm()
         } catch (err) {
             alert(err.response.data.data.message);
@@ -72,6 +72,9 @@ export default function useHospital() {
             const response = await axios.patch(`https://health.local.stay/api/drug_edit/${drug.value.id}`, drug.value, config
             )
             await router.push('/Pharmacy_all_drugs_edit')
+            $toast.success('Drugs has been updated successfully', {
+                position: "top-right"
+            })
         } catch (err) {
             console.error('Error updating drug:', err)
             alert(err.response?.data?.message || 'Error updating drug')

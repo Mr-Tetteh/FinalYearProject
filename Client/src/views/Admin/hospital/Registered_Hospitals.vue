@@ -111,8 +111,8 @@ onMounted(registered_hospital);
                   <td>{{ item.hospital_country }}</td>
                   <td>{{ item.hospital_city }}</td>
                   <td>{{ item.number_of_monthly_subscription }}</td>
-                  <td>Active</td>
-
+                  <td> <span v-if="item.status == 1" class="badge bg-success"> Active</span>
+                    <span v-else class="badge bg-danger"> Inactive</span></td>
                   <td>
                     <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">

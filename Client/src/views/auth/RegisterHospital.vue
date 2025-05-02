@@ -297,206 +297,328 @@ const filteredConstituencies = computed(() => {
 
 <template>
   <NavBar />
-  <div class="login-page d-flex align-items-center justify-content-center min-vh-100 bg-light">
-    <div
-      class="card shadow-lg"
-      style="max-width: 700px; width: 100%; border-radius: 20px;"
-    >
-      <!-- Card Header -->
-      <div
-        class="card-header text-center py-4"
-        style="background-color: #001f3f; color: white; border-radius: 20px 20px 0 0;"
-      >
-        <h2 class="mb-0">Register Hospital</h2>
+  <div class="register-page d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card animated-card shadow-lg" style="max-width: 800px; width: 100%;">
+      <!-- Card Header with Gradient -->
+      <div class="card-header text-center py-4 gradient-header">
+        <h2 class="mb-0 text-white fw-bold display-6">Hospital Registration</h2>
+        <p class="text-white-50 mb-0">Join our network of healthcare providers</p>
       </div>
 
-      <!-- Form -->
-      <form class="p-5" @submit.prevent="hospital">
-        <!-- Hospital Name -->
-        <div class="form-group mb-4">
-          <label for="hospital_name" class="form-label fw-bold">Hospital Name</label>
-          <input
-            id="hospital_name"
-            type="text"
-            class="form-control form-control-lg"
-            v-model="input.hospital_name"
-            placeholder="Enter hospital name"
-            required
-          />
-        </div>
+      <!-- Form with Floating Labels -->
+      <form class="p-4 p-md-5" @submit.prevent="hospital">
+        <div class="row g-4">
+          <!-- Hospital Name -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_name"
+                  type="text"
+                  class="form-control form-control-lg"
+                  v-model="input.hospital_name"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_name" class="fw-semibold">Hospital Name</label>
+              <div class="form-icon">
+                <i class="fas fa-hospital"></i>
+              </div>
+            </div>
+          </div>
 
-        <!-- Hospital Address -->
-        <div class="form-group mb-4">
-          <label for="hospital_address" class="form-label fw-bold">Hospital Address</label>
-          <input
-            id="hospital_address"
-            type="text"
-            v-model="input.hospital_address"
-            class="form-control form-control-lg"
-            placeholder="Enter hospital address"
-            required
-          />
-        </div>
+          <!-- Hospital Email -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_email"
+                  type="email"
+                  v-model="input.hospital_email"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_email" class="fw-semibold">Hospital Email</label>
+              <div class="form-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+            </div>
+          </div>
 
-        <!-- Hospital Contact -->
-        <div class="form-group mb-4">
-          <label for="hospital_contact" class="form-label fw-bold">Hospital Contact</label>
-          <input
-            id="hospital_contact"
-            type="tel"
-            v-model="input.hospital_contact"
-            class="form-control form-control-lg"
-            placeholder="Enter hospital contact"
-            required
-          />
-        </div>
+          <!-- Hospital Address -->
+          <div class="col-12">
+            <div class="form-floating">
+              <input
+                  id="hospital_address"
+                  type="text"
+                  v-model="input.hospital_address"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_address" class="fw-semibold">Hospital Address</label>
+              <div class="form-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+            </div>
+          </div>
 
-        <!-- Hospital Email -->
-        <div class="form-group mb-4">
-          <label for="hospital_email" class="form-label fw-bold">Hospital Email</label>
-          <input
-            id="hospital_email"
-            type="email"
-            v-model="input.hospital_email"
-            class="form-control form-control-lg"
-            placeholder="Enter hospital email"
-            required
-          />
-        </div>
+          <!-- Hospital Contact -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_contact"
+                  type="tel"
+                  v-model="input.hospital_contact"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_contact" class="fw-semibold">Hospital Contact</label>
+              <div class="form-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+            </div>
+          </div>
 
-        <div class="form-group mb-4">
-          <label for="hospital_email" class="form-label fw-bold">Hospital Location</label>
-          <input
-              id="hospital_email"
-              type="text"
-              v-model="input.hospital_location"
-              class="form-control form-control-lg"
-              placeholder="Enter hospital location"
-              required
-          />
-        </div>
+          <!-- Hospital Location -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_location"
+                  type="text"
+                  v-model="input.hospital_location"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_location" class="fw-semibold">Hospital Location</label>
+              <div class="form-icon">
+                <i class="fas fa-map-pin"></i>
+              </div>
+            </div>
+          </div>
 
+          <!-- Select Constituency -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_country"
+                  type="text"
+                  v-model="input.hospital_country"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  @input="filterConstituencies"
+              />
+              <label for="hospital_country" class="fw-semibold">Select Constituency</label>
+              <div class="form-icon">
+                <i class="fas fa-globe-africa"></i>
+              </div>
+              <div v-if="input.hospital_country" class="dropdown-options mt-2">
+                <div
+                    v-for="constituency in filteredConstituencies"
+                    @click="input.hospital_country = constituency"
+                    class="dropdown-item"
+                >
+                  {{constituency}}
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <!-- Select Country -->
-        <!-- Select Country -->
-        <div class="form-group mb-4">
-          <label for="hospital_country" class="form-label fw-bold">Select Consistency </label>
-          <input class="form-control form-control-lg" type="text" v-model="input.hospital_country" @input="filterConstituencies"/>
-          <div v-if="input.hospital_country">
-            <p v-for="constituency in filteredConstituencies" @click="input.hospital_country = constituency">{{constituency}}</p>
+          <!-- Hospital City -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                  id="hospital_city"
+                  type="text"
+                  v-model="input.hospital_city"
+                  class="form-control form-control-lg"
+                  placeholder=" "
+                  required
+              />
+              <label for="hospital_city" class="fw-semibold">City</label>
+              <div class="form-icon">
+                <i class="fas fa-city"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Payment -->
+          <div class="col-12">
+            <div class="form-floating">
+              <select
+                  id="monthly_subscription"
+                  class="form-select form-select-lg"
+                  v-model="input.number_of_monthly_subscription"
+                  required
+              >
+                <option value="" disabled selected></option>
+                <option value="1 month">1 Month - GHC200</option>
+                <option value="6 Month">6 Months - GHC1000</option>
+                <option value="1 Year">1 Year - GHC2000</option>
+              </select>
+              <label for="monthly_subscription" class="fw-semibold">Monthly Payment Plan</label>
+              <div class="form-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12 mt-4">
+            <button
+                type="submit"
+                class="btn btn-primary btn-lg w-100 gradient-btn py-3"
+            >
+              <span class="button-content">
+                <i class="fas fa-hospital-user me-2"></i>
+                Register Hospital
+              </span>
+            </button>
           </div>
         </div>
-
-        <!-- Hospital City -->
-        <div class="form-group mb-4">
-          <label for="hospital_city" class="form-label fw-bold">City</label>
-          <input
-            id="hospital_city"
-            type="text"
-            v-model="input.hospital_city"
-            class="form-control form-control-lg"
-            placeholder="Enter hospital city"
-            required
-          />
-        </div>
-
-        <!-- User Name -->
-        <div class="form-group mb-4">
-          <label for="user_name" class="form-label fw-bold">Your Full Name</label>
-          <input
-            id="user_name"
-            type="text"
-            v-model="input.user_name"
-            class="form-control form-control-lg"
-            placeholder="Enter your full name"
-            required
-          />
-        </div>
-
-        <!-- User Phone Number -->
-        <div class="form-group mb-4">
-          <label for="user_phone" class="form-label fw-bold">Your Phone Number</label>
-          <input
-            id="user_phone"
-            type="tel"
-            v-model="input.user_phone_number"
-            class="form-control form-control-lg"
-            placeholder="Enter your phone number"
-            required
-          />
-        </div>
-
-        <!-- User Email -->
-        <div class="form-group mb-4">
-          <label for="user_email" class="form-label fw-bold">Your Email</label>
-          <input
-            id="user_email"
-            type="email"
-            v-model="input.user_email"
-            class="form-control form-control-lg"
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <!-- Monthly Payment -->
-        <div class="form-group mb-4">
-          <label for="monthly_subscription" class="form-label fw-bold">Monthly Payment Plan</label>
-          <select
-            id="monthly_subscription"
-            class="form-control form-control-lg"
-            v-model="input.number_of_monthly_subscription"
-            required
-          >
-            <option value="" disabled selected>Select plan</option>
-            <option value="1 month">1 Month - GHC200</option>
-            <option value="6 Month">6 Months - GHC1000</option>
-            <option value="1 Year">1 Year - GHC2000</option>
-          </select>
-        </div>
-
-        <!-- Submit Button -->
-        <button
-          type="submit"
-          class="btn btn-primary btn-lg w-100"
-          style="background-color: #001f3f; border-color: #001f3f; border-radius: 10px;"
-        >
-          Register
-        </button>
       </form>
     </div>
   </div>
 </template>
 
 <style scoped>
-.login-page {
-  background: linear-gradient(135deg, #001f3f, #0074d9);
-  color: #fff;
+.register-page {
   padding: 2rem;
+  background-image: url(@/assets/img/Doctor-amico.svg);
+  background-size: cover;
+  background-blend-mode: overlay;
 }
 
 .card {
-  background-color: #ffffff;
+  border: none;
   border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-header h2 {
-  font-weight: bold;
+.animated-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 31, 63, 0.2);
 }
 
-input::placeholder,
-select::placeholder {
-  color: #6c757d;
+.gradient-header {
+  background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+  border-bottom: none;
+}
+
+.form-floating {
+  position: relative;
+}
+
+.form-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #001f3f;
+  opacity: 0.7;
+}
+
+.form-control, .form-select {
+  padding-left: 15px;
+  padding-right: 45px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #001f3f;
+  box-shadow: 0 0 0 0.25rem rgba(0, 31, 63, 0.15);
+  outline: none;
+}
+
+.form-control:focus + .form-icon, .form-select:focus + .form-icon {
+  color: #001f3f;
   opacity: 1;
 }
 
-button {
-  font-size: 1.2rem;
-  font-weight: bold;
+.gradient-btn {
+  background: linear-gradient(to right, #001f3f, #003366);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.form-control:focus {
-  border-color: #001f3f;
-  box-shadow: 0 0 0 0.2rem rgba(0, 31, 63, 0.25);
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 31, 63, 0.3);
+}
+
+.gradient-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.gradient-btn:hover::before {
+  left: 100%;
+}
+
+.dropdown-options {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #001f3f;
+}
+
+/* Floating label animation */
+.form-floating label {
+  transition: all 0.2s ease;
+  color: #6c757d;
+}
+
+.form-floating .form-control:not(:placeholder-shown) ~ label,
+.form-floating .form-control:focus ~ label {
+  transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
+  color: #001f3f;
+  background: white;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin: 1rem;
+  }
+
+  .register-page {
+    padding: 1rem;
+  }
 }
 </style>
