@@ -6,12 +6,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Nette\Utils\Random;
 
 class Patients extends Model
 {
     use HasFactory, Sluggable;
+
     protected $table = 'patients';
 
     protected $fillable = [
@@ -42,25 +41,24 @@ class Patients extends Model
         'guardian2_relation',
         'guardian2_residence',
         'guardian2_contact',
-        'activated_at'
+        'activated_at',
     ];
-
 
     public function sluggable(): array
     {
         return [
             'patient_number' => [
-                'source' => 'patient_number'
+                'source' => 'patient_number',
             ],
-            'patient_hospital' =>[
-                'source' => Auth::user()->hospital
-            ]
+            'patient_hospital' => [
+                'source' => Auth::user()->hospital,
+            ],
         ];
     }
 
     protected static function booted()
     {
-        static::creating(function ($patient) {
+        static::creating(function ($patient): void {
             $patient->patient_number = $patient->generateUniquePatientNumber();
             $patient->hospital = Auth::user()->hospital;
         });
@@ -86,5 +84,4 @@ class Patients extends Model
 
         return $uniquePatientNumber;
     }
-
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *      schema="Hospital",
  *      required={"hospital_name", "hospital_address", "hospital_contact", "hospital_email", "hospital_country",
  *     "hospital_city", "user_name", "user_phone_number", "user_email"},
+ *
  *      @OA\Property(
  *          property="hospital_name",
  *          description="The name of the hospital",

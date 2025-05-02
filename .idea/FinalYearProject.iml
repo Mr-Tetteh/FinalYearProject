@@ -122,6 +122,16 @@
       <excludeFolder url="file://$MODULE_DIR$/Server/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/Server/vendor/swagger-api/swagger-ui" />
       <excludeFolder url="file://$MODULE_DIR$/Server/vendor/zircote/swagger-php" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/justinrainbow/json-schema" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/marc-mabe/php-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/rector/rector" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/seld/jsonlint" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/seld/phar-utils" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/seld/signal-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/symfony/polyfill-php73" />
+      <excludeFolder url="file://$MODULE_DIR$/Server/vendor/symfony/polyfill-php81" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -21,8 +21,6 @@ class PatientRecordController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
-
     public function create($id)
     {
         $patients = PatientRecord::where('patient_id', $id)->latest()->get();
@@ -30,10 +28,10 @@ class PatientRecordController extends Controller
         return PatientRecordResource::collection($patients);
     }
 
-
     public function now_patient()
     {
         $patients = PatientRecord::where('created_at', Carbon::now())->count();
+
         return response()->json($patients);
 
     }
@@ -43,7 +41,6 @@ class PatientRecordController extends Controller
         $user = Auth::user();
         $patients = PatientRecord::where('created_at', Carbon::now())->where('hospital', $user->hospital);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -67,7 +64,7 @@ class PatientRecordController extends Controller
             'labs' => $request->labs,
             'ward_number' => $request->ward_number,
             'additional_notes' => $request->additional_notes,
-//            'hospital' => $request->hospital
+            //            'hospital' => $request->hospital
         ]);
 
         for ($i = 1; $i <= 10; $i++) {
@@ -92,7 +89,7 @@ class PatientRecordController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Patient record created successfully',
-            'data' => $record
+            'data' => $record,
         ], 201);
     }
 
@@ -103,7 +100,6 @@ class PatientRecordController extends Controller
     {
         //
     }
-
 
     /**
      * Show the form for editing the specified resource.

@@ -124,6 +124,29 @@ const toggleSidebar = () => {
       </div>
 
 
+      <div class="menu-category" v-if="userRole === 'Admin'" >Hospitals Management</div>
+      <div class="menu-group" v-if="userRole === 'Admin'" >
+        <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
+          <div class="menu-header">
+            <div class="menu-icon">
+              <i class="bi bi-person-fill-add"></i>
+            </div>
+            <span class="menu-text">Hospital</span>
+            <i class="bi bi-chevron-down menu-arrow"></i>
+          </div>
+          <div class="submenu">
+            <RouterLink to="/register_hospital" class="submenu-item">
+              <i class="bi bi-person-plus"></i>
+              <span>Register Hospital</span>
+            </RouterLink>
+            <RouterLink to="/registered_hospitals" class="submenu-item">
+              <i class="bi bi-people"></i>
+              <span>All Hospitals</span>
+            </RouterLink>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

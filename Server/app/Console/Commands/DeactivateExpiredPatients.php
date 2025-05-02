@@ -20,6 +20,7 @@ class DeactivateExpiredPatients extends Command
      * @var string
      */
     protected $description = 'Deactivate patients every day after activation';
+
     /**
      * Execute the console command.
      */
@@ -28,9 +29,9 @@ class DeactivateExpiredPatients extends Command
         // Change to use update directly on the query builder
         $query = Patients::where('status', true)->where('activated_at', '<=', now()->subDay());
 
-        $this->info('Query: ' . $query->toSql());
+        $this->info('Query: '.$query->toSql());
         $count = $query->count();
-        $this->info('Found ' . $count . ' expired patients');
+        $this->info('Found '.$count.' expired patients');
 
         if ($count > 0) {
             // Update directly using the query builder to avoid model accessors/mutators
@@ -38,11 +39,12 @@ class DeactivateExpiredPatients extends Command
                 ->where('activated_at', '<=', now()->subDay())
                 ->update([
                     'status' => false,
-                    'activated_at' => null
+                    'activated_at' => null,
                 ]);
 
             $this->info("Deactivated {$updated} patients successfully.");
         } else {
             $this->info('No expired patients found.');
         }
-    }}
+    }
+}

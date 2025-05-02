@@ -1,9 +1,13 @@
 import {ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+import {$t} from "@primeuix/themes";
 
-export default function useHospital(){
-    const input =  ref({
+const $toast = useToast();
+export default function useHospital() {
+    const input = ref({
         hospital_name: "",
         hospital_address: "",
         hospital_location: "",
@@ -20,7 +24,7 @@ export default function useHospital(){
 
     const data = ref({
         name: '',
-        price:'',
+        price: '',
         category: '',
         quantity: '',
         use: '',
@@ -28,7 +32,7 @@ export default function useHospital(){
     })
 
     const drugs = ref()
-const drug = ref()
+    const drug = ref()
     const resetForm = () => {
         data.value = {
             name: '',
@@ -41,9 +45,10 @@ const drug = ref()
     };
 
     const hospital_patient_count = ref()
-    const count_all_patient_on_swift  = ref()
+    const count_all_patient_on_swift = ref()
     const count_all_users_on_swift = ref()
     const hospital_users = ref()
+    const registered_hospitals_data = ref([]);
 
 
     const stock_drugs = async () => {
@@ -61,7 +66,7 @@ const drug = ref()
     const update_drug = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
         const config = {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {Authorization: `Bearer ${token}`}
         }
         try {
             const response = await axios.patch(`https://health.local.stay/api/drug_edit/${drug.value.id}`, drug.value, config
@@ -74,8 +79,6 @@ const drug = ref()
     }
 
 
-
-
     const get_stock_drugs = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -83,12 +86,11 @@ const drug = ref()
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.get('https://health.local.stay/api/get_drugs', config);
-         drugs.value =  response.data
+            drugs.value = response.data
         } catch (err) {
             alert(err.response.data.data.message);
         }
     }
-
 
 
     const get_stock_drugs_edit = async (id) => {
@@ -98,7 +100,7 @@ const drug = ref()
                 headers: {Authorization: `Bearer ${token}`}
             }
             const response = await axios.get(`https://health.local.stay/api/get_drugs_edit/${id}`, config);
-            drug.value =  response.data.data
+            drug.value = response.data.data
         } catch (err) {
             alert(err.response.data.data.message);
         }
@@ -107,6 +109,9 @@ const drug = ref()
         try {
             const response = await axios.post('https://health.local.stay/api/hospital', input.value);
             console.log('Response:', response.data);
+            $toast.success('Congrats Your hospital has been registered successfully', {
+                position: "top-right"
+            })
             await router.push('/');
         } catch (err) {
             alert(err.response.data.message);
@@ -121,13 +126,12 @@ const drug = ref()
             }
 
             const response = await axios.get('https://health.local.stay/api/count_hospital_patient', config);
-            hospital_patient_count.value  = response.data
+            hospital_patient_count.value = response.data
             console.log('Response:', response.data);
         } catch (err) {
             alert(err.response.data.message);
         }
     };
-
 
 
     const count_all_patient = async () => {
@@ -138,8 +142,7 @@ const drug = ref()
             }
 
             const response = await axios.get('https://health.local.stay/api/count_all_patient', config);
-            count_all_patient_on_swift.value  = response.data
-            console.log('sdughilk:', response.data);
+            count_all_patient_on_swift.value = response.data
         } catch (err) {
             alert(err.response.data.message);
         }
@@ -154,7 +157,7 @@ const drug = ref()
             }
 
             const response = await axios.get('https://health.local.stay/api/count_all_users', config);
-            count_all_users_on_swift.value  = response.data
+            count_all_users_on_swift.value = response.data
         } catch (err) {
             alert(err.response.data.message);
         }
@@ -168,15 +171,49 @@ const drug = ref()
             }
 
             const response = await axios.get('https://health.local.stay/api/count_all_hospital_users', config);
-            hospital_users.value  = response.data
+            hospital_users.value = response.data
         } catch (err) {
             alert(err.response.data.message);
         }
     };
 
+    const registered_hospital = async () => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get('https://health.local.stay/api/registered_hospital', config);
+            registered_hospitals_data.value = response.data.data
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+    const delete_hospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.delete(`https://health.local.stay/api/delete_hospital/${id}`, config);
+            if (response.data.message) {
+                $toast.success(response.data.message, {
+                    position: 'top-right',
+                })
+            }
+            setTimeout(() => {
+                window.location.reload()
+            })
+        } catch (err) {
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })
+        }
+    };
 
 
-    return{
+    return {
         input,
         register_hospital,
         data,
@@ -193,7 +230,10 @@ const drug = ref()
         count_all_users_on_swift,
         count_all_users,
         hospital_users,
-        count_all_hospital_users
+        count_all_hospital_users,
+        registered_hospital,
+        registered_hospitals_data,
+        delete_hospital
 
     }
 }

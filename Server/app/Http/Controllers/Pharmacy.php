@@ -23,6 +23,7 @@ class Pharmacy extends Controller
 
         return response()->json($result);
     }
+
     public function updateQuantities(Request $request)
     {
         DB::beginTransaction();
@@ -42,7 +43,7 @@ class Pharmacy extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Quantities updated successfully'
+                'message' => 'Quantities updated successfully',
             ]);
 
         } catch (\Exception $e) {
@@ -50,10 +51,11 @@ class Pharmacy extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -67,13 +69,13 @@ class Pharmacy extends Controller
      */
     public function store(Request $request)
     {
-        $pharmacy =  \App\Models\Pharmacy::create([
-           'name' => $request->input('name'),
-           'price' => $request->input('price'),
-           'quantity' => $request->input('quantity'),
-           'category' => $request->input('category'),
-           'use' => $request->input('use'),
-           'additional_notes' => $request->input('additional_notes'),
+        $pharmacy = \App\Models\Pharmacy::create([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+            'category' => $request->input('category'),
+            'use' => $request->input('use'),
+            'additional_notes' => $request->input('additional_notes'),
         ]);
 
         return new \App\Http\Resources\Pharmacy($pharmacy);
@@ -91,15 +93,11 @@ class Pharmacy extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
-    {
-
-    }
+    public function edit() {}
 
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, \App\Models\Pharmacy $pharmacy)
     {
         $validated = $request->validate([
@@ -108,7 +106,7 @@ class Pharmacy extends Controller
             'category' => 'required|string',
             'quantity' => 'required|integer',
             'use' => 'nullable|string',
-            'additional_notes' => 'nullable|string'
+            'additional_notes' => 'nullable|string',
         ]);
 
         $pharmacy->update($validated);
