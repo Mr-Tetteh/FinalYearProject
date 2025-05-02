@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PatientRequest;
-use App\Http\Requests\StorePatientsRequest;
-use App\Http\Requests\UpdatePatientsRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patients;
 use Illuminate\Http\Request;
@@ -18,6 +15,7 @@ class PatientsController extends Controller
     public function index()
     {
         $patents = Patients::latest()->get();
+
         return PatientResource::collection($patents);
 
     }
@@ -26,6 +24,7 @@ class PatientsController extends Controller
     {
         $user = Auth::user();
         $patient = Patients::where('hospital', $user->hospital)->latest()->get();
+
         return PatientResource::collection($patient);
 
     }
@@ -34,14 +33,16 @@ class PatientsController extends Controller
     {
         $user = Auth::user();
         $patient_count = Patients::where('hospital', $user->hospital)->count();
+
         return response()->json($patient_count);
 
     }
 
     public function count_all_patient()
     {
-    $patients = Patients::all()->count();
-    return response()->json($patients);
+        $patients = Patients::all()->count();
+
+        return response()->json($patients);
 
     }
 
@@ -87,7 +88,6 @@ class PatientsController extends Controller
 
         return new PatientResource($patient);
     }
-
 
     /**
      * Display the specified resource.

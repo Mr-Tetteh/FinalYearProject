@@ -13,8 +13,7 @@ Route::get('hospitals', [HosptialController::class, 'index']);
 Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
 
-
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
     Route::get('all_users', [UserController::class, 'user']);
     Route::post('users', [UserController::class, 'register']);
@@ -26,7 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('update_role/{user}', [UserController::class, 'update_role']);
     Route::delete('delete_user/{user}', [UserController::class, 'destroy']);
 
-
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);
     Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
@@ -35,14 +33,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('edit_patient/{patients}', [PatientsController::class, 'edit']);
     Route::patch('activate_patient/{patients}', [PatientsController::class, 'update']);
 
-
     Route::post('patient_rec', [PatientRecordController::class, 'store']);
     Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'create']);
     Route::get('patient_record_edit/{patient_record}', [PatientRecordController::class, 'edit']);
     Route::patch('patient_record_update/{patient_record}', [PatientRecordController::class, 'update']);
     Route::get('today_patient_count', [PatientRecordController::class, 'now_patient']);
-
-
 
     Route::get('get_drugs', [Pharmacy::class, 'index']);
     Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);
@@ -50,8 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('post_drug', [Pharmacy::class, 'store']);
     Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
 
+    Route::get('registered_hospital', [HosptialController::class, 'show']);
+    Route::delete('delete_hospital/{hospital}', [HosptialController::class, 'destroy']);
 
 });
-
-
-

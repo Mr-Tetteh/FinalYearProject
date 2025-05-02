@@ -18,29 +18,28 @@ class PatientRecord extends Model
         'lab1', 'lab1_results', 'lab2', 'lab2_results', 'lab3', 'lab3_results',
         'lab4', 'lab4_results', 'lab5', 'lab5_results', 'lab6', 'lab6_results',
         'lab7', 'lab7_results', 'lab8', 'lab8_results', 'lab9', 'lab9_results',
-        'lab10', 'lab10_results',];
+        'lab10', 'lab10_results', ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-//    public function Sluggable()
-//    {
-//        return [
-//            'hospital' => [
-//                'source' => Auth::user()->hospital
-//            ]
-//        ];
-//
-//    }
+    //    public function Sluggable()
+    //    {
+    //        return [
+    //            'hospital' => [
+    //                'source' => Auth::user()->hospital
+    //            ]
+    //        ];
+    //
+    //    }
 
-//    protected static function booted()
-//    {
-//        static::creating(function ($patient) {
-//            $patient->hospital = Auth::user()->hospital;
-//        });
-//    }
-
+    //    protected static function booted()
+    //    {
+    //        static::creating(function ($patient) {
+    //            $patient->hospital = Auth::user()->hospital;
+    //        });
+    //    }
 
     public function user()
     {
@@ -51,6 +50,4 @@ class PatientRecord extends Model
     {
         return $this->hasMany(PatientRecord::class);
     }
-
-
 }

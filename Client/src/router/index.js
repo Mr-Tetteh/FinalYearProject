@@ -1,24 +1,26 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Register from "@/views/Admin/Register.vue";
+import Register from "@/views/Admin/users/Register.vue";
 import Login from "@/views/auth/Login.vue";
 import HomePage from "@/views/HomePage.vue";
 import RegisterHospital from "@/views/auth/RegisterHospital.vue";
 import Dashboard from '@/views/Admin/Dashboard.vue';
-import Patients from '@/views/Admin/Patients.vue';
-import Patients_info from "@/views/Admin/Patients_info.vue";
-import User_info from "@/views/Admin/User_info.vue";
-import Staff_info from "@/views/Admin/Staff_info.vue";
-import Hospital_patients from "@/views/Admin/Hospital_patients.vue";
-import Patient_record_add from "@/views/Admin/Patient_record_add.vue";
-import Patient_record_list_all from "@/views/Admin/Patient_record_list_all.vue";
-import Pharmacy_Add from "@/views/Admin/Pharmacy_Add.vue";
-import Pharmacy_all_drugs from "@/views/Admin/Pharmacy_all_drugs.vue";
+import Patients from '@/views/Admin/patients/Patients.vue';
+import Patients_info from "@/views/Admin/patients/Patients_info.vue";
+import User_info from "@/views/Admin/users/User_info.vue";
+import Staff_info from "@/views/Admin/users/Staff_info.vue";
+import Hospital_patients from "@/views/Admin/patients/Hospital_patients.vue";
+import Patient_record_add from "@/views/Admin/patients/Patient_record_add.vue";
+import Patient_record_list_all from "@/views/Admin/patients/Patient_record_list_all.vue";
+import Pharmacy_Add from "@/views/Admin/pharmacy/Pharmacy_Add.vue";
+import Pharmacy_all_drugs from "@/views/Admin/pharmacy/Pharmacy_all_drugs.vue";
 import Checkout from "@/views/Admin/Checkout.vue";
-import Pharmacy_drugs_edit from "@/views/Admin/Pharmacy_drugs_edit.vue";
-import Pharmacy_drug_details from "@/views/Admin/pharmacy_drug_details.vue";
+import Pharmacy_drugs_edit from "@/views/Admin/pharmacy/Pharmacy_drugs_edit.vue";
+import Pharmacy_drug_details from "@/views/Admin/pharmacy/pharmacy_drug_details.vue";
 import ResetPassword from "@/views/auth/ResetPassword.vue";
 import SetPassword from "@/views/auth/SetPassword.vue";
-import Patient_record_update from "@/views/Admin/Patient_record_update.vue";
+import Patient_record_update from "@/views/Admin/patients/Patient_record_update.vue";
+import Register_Hospital from "@/views/Admin/hospital/Register_Hospital.vue";
+import Registered_Hospitals from "@/views/Admin/hospital/Registered_Hospitals.vue";
 
 
 const router = createRouter({
@@ -175,6 +177,26 @@ const router = createRouter({
             meta: {
                 requiresAuth: true,
                 roles: ['Admin', 'Manager', 'Pharmacist']
+            }
+        },
+
+        {
+            path: '/register_hospital/login',
+            name: 'register_hospital_login',
+            component: Register_Hospital,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin',]
+            }
+        },
+
+        {
+            path: '/registered_hospitals',
+            name: 'registered_hospitals',
+            component: Registered_Hospitals,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin']
             }
         },
 

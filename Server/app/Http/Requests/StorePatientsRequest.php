@@ -25,11 +25,11 @@ class StorePatientsRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'other_name' => 'required',
-            'age' =>'required | number',
+            'age' => 'required | number',
             'gender' => 'required',
             'date_of_birth' => 'required',
             'contact' => 'required',
-            'address' =>'required',
+            'address' => 'required',
             'email' => 'required',
             'medical_history' => 'required',
             'allergies' => 'required',
@@ -38,7 +38,7 @@ class StorePatientsRequest extends FormRequest
             'guardian1_last_name' => 'required',
             'guardian1_other_names' => 'required',
             'guardian1_relation' => 'required',
-            'guardian1_residence' =>'required',
+            'guardian1_residence' => 'required',
             'guardian1_contact' => 'required',
         ];
     }

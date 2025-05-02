@@ -15,18 +15,20 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-
     /**
      * @OA\Post(
      *     path="/api/users",
      *     summary="Create a new user",
      *     description="Stores a newly created users",
      *     tags={"User"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"first_name", "last_name", "other_names", "birthday", "gender", "role", "contact", "email",
      *      "hospital", "staff_id", "city"},
+     *
      *             @OA\Property(property="first_name", type="string", description="The first name of the user"),
      *             @OA\Property(property="last_name", type="string", description="The last name of the user"),
      *             @OA\Property(property="other_names", type="string", description="The other names of the user"),
@@ -40,11 +42,14 @@ class UserController extends Controller
      *             @OA\Property(property="city", type="integer", description="The city which the user comes from")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Hospital created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request"
@@ -59,15 +64,15 @@ class UserController extends Controller
     {
         if (\App\Models\User::where('email', $request->email)->first()) {
             return response()->json([
-                'message' => 'Sorry, Email already exists'
+                'message' => 'Sorry, Email already exists',
             ], 402);
         } elseif (\App\Models\User::where('contact', $request->contact)->first()) {
             return response()->json([
-                'message' => 'Sorry, phone number already exists with an account.'
+                'message' => 'Sorry, phone number already exists with an account.',
             ], 402);
         } elseif (\App\Models\User::where('staff_id', $request->staff_id)->first()) {
             return response()->json([
-                'message' => 'Sorry, Staff_id already exist'
+                'message' => 'Sorry, Staff_id already exist',
             ]);
         }
 
@@ -79,16 +84,15 @@ class UserController extends Controller
             'gender' => $request->input('gender'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
-//            'hospital' => $request->input('hospital'),
+            //            'hospital' => $request->input('hospital'),
             'staff_id' => $request->input('staff_id'),
             'contact' => $request->input('contact'),
             'city' => $request->input('city'),
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')),
         ]);
 
         return new UserResource($user);
     }
-
 
     public function resetPassword(Request $request)
     {
@@ -102,35 +106,34 @@ class UserController extends Controller
         logger($request->input('token'));
         logger($request->all());
 
-        if (!$passwordReset) {
+        if (! $passwordReset) {
             return response()->json([
-                'message' => 'Invalid token.'
+                'message' => 'Invalid token.',
             ], 404);
         }
-
 
         if (Carbon::parse($passwordReset->created_at)->addHour()->isPast()) {
             DB::table('password_resets')->where('token', $request->input('token'))->delete();
 
             return response()->json([
-                'message' => 'Token has expired.'
+                'message' => 'Token has expired.',
             ], 400);
         }
-
 
         $passwordReset = DB::table('password_resets')->where('token', $request->input('token'))->first();
 
         $user = \App\Models\User::where('email', $passwordReset->email)->first();
-        if (!$user) {
+        if (! $user) {
             return response()->json([
-                'message' => 'Sorry User not found'
+                'message' => 'Sorry User not found',
             ], 404);
         }
 
         $user->password = Hash::make($request->input('password'));
         $user->save();
+
         return response()->json([
-            'message' => 'Password reset successfully.'
+            'message' => 'Password reset successfully.',
         ]);
     }
 
@@ -142,9 +145,9 @@ class UserController extends Controller
         DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
-        Mail::send('Reset', ['token' => $token], function (Message $message) use ($email) {
+        Mail::send('Reset', ['token' => $token], function (Message $message) use ($email): void {
             $message->subject('Reset your Password');
             $message->to($email);
         });
@@ -158,14 +161,18 @@ class UserController extends Controller
      *     summary="Get list of Users",
      *     description="Returns a list of all users",
      *     tags={"User"},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of users",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/User")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Internal server error"
@@ -175,6 +182,7 @@ class UserController extends Controller
     public function all_users()
     {
         $user = \App\Models\User::all();
+
         return UserResource::collection($user);
     }
 
@@ -183,6 +191,7 @@ class UserController extends Controller
         $loggedInUser = Auth::user();
 
         $all_staff = \App\Models\User::where('hospital', $loggedInUser->hospital)->latest()->get();
+
         return UserResource::collection($all_staff);
     }
 
@@ -192,22 +201,23 @@ class UserController extends Controller
             $user = \App\Models\User::where('staff_id', $request->identifier)
                 ->first();
 
-            if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            if (! $user || ! Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
-                    'message' => 'Sorry Wrong Staff ID or Password'
+                    'message' => 'Sorry Wrong Staff ID or Password',
                 ], 401);
             }
+
             return response()->json([
-                "message" => "Login Successful",
-                "user" => $user,
-                "authorisation" => [
-                    "type" => "Bearer",
-                    "token" => $user->createToken($user->email ?? $user->contact)->plainTextToken
-                ]
+                'message' => 'Login Successful',
+                'user' => $user,
+                'authorisation' => [
+                    'type' => 'Bearer',
+                    'token' => $user->createToken($user->email ?? $user->contact)->plainTextToken,
+                ],
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => 'Something went wrong'
+                'error' => 'Something went wrong',
             ], 500);
         }
     }
@@ -215,6 +225,7 @@ class UserController extends Controller
     public function count_all_users()
     {
         $users = \App\Models\User::count();
+
         return response()->json($users);
 
     }
@@ -223,10 +234,10 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user = \App\Models\User::where('hospital', $user->hospital)->count();
+
         return response()->json($user);
 
     }
-
 
     public function user()
     {
@@ -237,15 +248,15 @@ class UserController extends Controller
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
+
         return response()->json([
-            'message' => 'Logout Successful'
+            'message' => 'Logout Successful',
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-
     public function show(User $user)
     {
         return new UserResource($user);
@@ -263,11 +274,11 @@ class UserController extends Controller
     {
         if ($user->delete()) {
             return response()->json([
-                'message' => 'User deleted successfully'
+                'message' => 'User deleted successfully',
             ]);
         } else {
             return response()->json([
-                'message' => 'User not deleted'
+                'message' => 'User not deleted',
             ], 500);
         }
     }

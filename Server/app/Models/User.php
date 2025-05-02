@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,7 @@ class User extends Authenticatable
      *      schema="User",
      *      required={"first_name", "last_name", "other_names", "birthday", "gender",
      *     "role", "contact", "email", "hospital", "staff_id", "city"},
+     *
      *      @OA\Property(
      *          property="first_name",
      *          description="The first name of the user",
@@ -84,7 +85,6 @@ class User extends Authenticatable
      *      ),
      * )
      */
-
     protected $fillable = [
         'first_name',
         'last_name',
@@ -100,6 +100,7 @@ class User extends Authenticatable
         'password',
 
     ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -110,13 +111,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-
     protected function casts(): array
     {
         return [
@@ -127,7 +126,7 @@ class User extends Authenticatable
 
     protected static function booted()
     {
-        static::creating(function ($record) {
+        static::creating(function ($record): void {
             $user = auth()->user();
             if ($user && $user->role === 'Doctor') {
                 $record->user_id = $user->id;
@@ -137,17 +136,18 @@ class User extends Authenticatable
         });
     }
 
-    public function Sluggable() : array
+    public function Sluggable(): array
     {
         return [
             'hospital_slug' => [
-                'source' => Auth::user()->hospital
-            ]
+                'source' => Auth::user()->hospital,
+            ],
         ];
 
     }
 
-    public function hospital() {
+    public function hospital()
+    {
         return $this->belongsTo(Hosptial::class);
     }
 }

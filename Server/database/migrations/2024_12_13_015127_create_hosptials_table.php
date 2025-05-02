@@ -25,9 +25,6 @@ return new class extends Migration
             $table->string('user_email');
             $table->string('number_of_monthly_subscription');
 
-
-
-
             $table->timestamps();
         });
     }

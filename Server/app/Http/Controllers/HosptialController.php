@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHosptialRequest;
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
 use App\Models\Hosptial;
@@ -22,14 +21,18 @@ class HosptialController extends Controller
      *     summary="Get list of hospitals",
      *     description="Returns a list of all hospitals",
      *     tags={"Hospital"},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of hospitals",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Hospital")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Internal server error"
@@ -39,6 +42,7 @@ class HosptialController extends Controller
     public function index()
     {
         $hospitals = Hosptial::all();
+
         return HospitalResource::collection($hospitals);
     }
 
@@ -48,10 +52,13 @@ class HosptialController extends Controller
      *     summary="Create a new hospital",
      *     description="Stores a newly created hospital",
      *     tags={"Hospital"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"hospital_name", "hospital_address", "hospital_contact", "hospital_email", "hospital_country", "hospital_city", "user_name", "user_phone_number", "user_email"},
+     *
      *             @OA\Property(property="hospital_name", type="string", description="The name of the hospital"),
      *             @OA\Property(property="hospital_address", type="string", description="The address of the hospital"),
      *             @OA\Property(property="hospital_contact", type="string", description="The contact number of the hospital"),
@@ -65,11 +72,14 @@ class HosptialController extends Controller
      *             @OA\Property(property="number_of_monthly_subscription", type="integer", description="The number of monthly subscriptions for the hospital")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Hospital created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Hospital")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request"
@@ -80,10 +90,9 @@ class HosptialController extends Controller
      *     )
      * )
      */
-
     public function store(Request $request)
     {
-       $hospital = Hosptial::create([
+        $hospital = Hosptial::create([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
             'hospital_contact' => $request->input('hospital_contact'),
@@ -96,15 +105,18 @@ class HosptialController extends Controller
             'user_email' => $request->input('user_email'),
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
-       return new HospitalResource($hospital);
+
+        return new HospitalResource($hospital);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Hosptial $hosptial)
+    public function show(Hosptial $hospital)
     {
-        //
+        $hospitals = $hospital->all();
+
+        return HospitalResource::collection($hospitals);
     }
 
     /**
@@ -126,8 +138,13 @@ class HosptialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Hosptial $hosptial)
+    public function destroy(Hosptial $hospital)
     {
-        //
+        if ($hospital->delete()) {
+            return response()->json(['message' => 'Hospital deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Hospital not deleted'], 500);
+        }
+
     }
 }
