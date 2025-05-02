@@ -84,7 +84,7 @@ class UserController extends Controller
             'gender' => $request->input('gender'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
-            //            'hospital' => $request->input('hospital'),
+            'hospital' => $request->input('hospital'),
             'staff_id' => $request->input('staff_id'),
             'contact' => $request->input('contact'),
             'city' => $request->input('city'),

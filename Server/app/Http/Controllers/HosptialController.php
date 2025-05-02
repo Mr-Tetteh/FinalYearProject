@@ -100,9 +100,7 @@ class HosptialController extends Controller
             'hospital_location' => $request->input('hospital_location'),
             'hospital_country' => $request->input('hospital_country'),
             'hospital_city' => $request->input('hospital_city'),
-            'user_name' => $request->input('user_name'),
-            'user_phone_number' => $request->input('user_phone_number'),
-            'user_email' => $request->input('user_email'),
+            'status' => $request->input('status'),
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
 

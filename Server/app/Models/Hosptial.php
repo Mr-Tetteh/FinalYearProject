@@ -96,6 +96,6 @@ class Hosptial extends Model
     use HasFactory;
 
     protected $fillable = ['hospital_name', 'hospital_address', 'hospital_location',
-        'hospital_contact', 'hospital_email', 'hospital_country',
-        'hospital_city', 'user_name', 'user_phone_number', 'user_email', 'number_of_monthly_subscription'];
+        'hospital_contact', 'hospital_email', 'hospital_country', 'status',
+        'hospital_city', 'number_of_monthly_subscription'];
 }
