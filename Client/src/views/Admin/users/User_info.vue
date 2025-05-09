@@ -2,11 +2,20 @@
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
 import { onMounted, ref } from "vue";
+import UpdateUserRole from "@/components/updateUserRole.vue";
 
-const { all_users, users } = useAuth();
+const { all_users, users, delete_user } = useAuth();
+
 const searchQuery = ref('');
-
+const modal = ref(false);
+const selectedUserId = ref(null); // Add this line to track the selected user ID
 onMounted(users);
+
+
+const openEditModal = (user) => {
+  selectedUserId.value = user.id; // Store the user ID when opening modal
+  modal.value = true;
+};
 </script>
 
 <template>
@@ -98,13 +107,13 @@ onMounted(users);
                   </td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm">
+                      <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
-                      <button class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle me-1"></i>
-                        Form
+                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash me-1"></i>
+                        Delete Staff
                       </button>
                     </div>
                   </td>
@@ -113,6 +122,12 @@ onMounted(users);
               </table>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div v-if="modal" class="modal-overlay">
+        <div class="modal-content">
+          <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
         </div>
       </div>
     </div>
@@ -191,5 +206,28 @@ onMounted(users);
 
 .bg-pink {
   background-color: #d63384;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* make sure it’s on top */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  max-width: 95%;
 }
 </style>

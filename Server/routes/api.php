@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('get_details/{user}', [UserController::class, 'show']);
     Route::patch('update_role/{user}', [UserController::class, 'update_role']);
     Route::delete('delete_user/{user}', [UserController::class, 'destroy']);
+    Route::get('deleted_users', [UserController::class, 'deleted_users']);
+    Route::post('restore_user', [UserController::class, 'restore_user']);
 
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);

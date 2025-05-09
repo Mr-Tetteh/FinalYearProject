@@ -270,6 +270,12 @@ class UserController extends Controller
 
     }
 
+    public function deleted_users()
+    {
+        return   User::onlyTrashed()->latest()->get();
+
+    }
+
     public function destroy(\App\Models\User $user)
     {
         if ($user->delete()) {
