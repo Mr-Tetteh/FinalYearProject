@@ -22,35 +22,16 @@ const record = ref({
   patient_id: props.id,
   respiratory_rate: '',
   blood_pressure: '',
-  blood_and_sugar_rate: '',
   temperature: '',
   pulse_rate: '',
   weight: '',
-  admitted: '',
-  ward_number: '',
+
 
 });
 
 
 const handleSubmit = async () => {
 
-  const requiredFields = [
-    'respiratory_rate',
-    'blood_pressure',
-    'blood_and_sugar_rate',
-    'temperature',
-    'pulse_rate',
-    'weight',
-    'admitted'
-  ];
-  for (const field of requiredFields) {
-    if (!record.value[field]) {
-      $toast.error(`Please fill in the ${field.replace(/_/g, ' ')} field.`, {
-        position: 'top-right'
-      });
-      return;
-    }
-  }
   try {
     const token = localStorage.getItem('AUTH_TOKEN');
     const config = {
@@ -186,34 +167,13 @@ const handleSubmit = async () => {
                           </div>
                         </div>
 
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Blood and sugar rate</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Blood and sugar rate"
-                                  v-model="record.blood_and_sugar_rate"
-                                  :disabled="userRole !== 'Nurse'"
 
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-droplet"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         <div class="col-md-4">
-                          <label class="form-label text-center w-100">Admitted</label>
+                          <label class="form-label text-center w-100">FBS</label>
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
-                              <select class="form-control form-select" v-model="record.admitted"
-                                      :disabled="userRole !== 'Nurse'"
-                              >
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                              </select>
+                              <input class="form-control " v-model="record.fbs"
+                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="FBS">
                               <div class="form-control-icon">
                                 <i class="bi bi-clipboard-data"></i>
                               </div>
@@ -221,16 +181,28 @@ const handleSubmit = async () => {
                           </div>
                         </div>
 
+                        <div class="col-md-4">
+                          <label class="form-label text-center w-100">RBS</label>
+                          <div class="form-group has-icon-left">
+                            <div class="position-relative">
+                              <input class="form-control " v-model="record.rbs"
+                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="RBS">
+                              <div class="form-control-icon">
+                                <i class="bi bi-clipboard-data"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                         <div class="col-md-4">
-                          <label class="form-label text-center w-100">Ward Number</label>
+                          <label class="form-label text-center w-100">SPO2</label>
                           <div class="form-group has-icon-left">
                             <div class="position-relative">
                               <input
                                   type="text"
                                   class="form-control text-center"
-                                  placeholder="Ward Number"
-                                  v-model="record.ward_number"
+                                  placeholder="SP02"
+                                  v-model="record.spo2"
                                   :disabled="userRole !== 'Nurse'"
 
                               >

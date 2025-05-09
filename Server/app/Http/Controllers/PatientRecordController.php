@@ -51,18 +51,17 @@ class PatientRecordController extends Controller
         $record = PatientRecord::create([
             'patient_id' => $request->patient_id,
             'history' => $request->history,
-            'examination_findings' => $request->examination_findings,
             'diagnosis' => $request->diagnosis,
+            'rbs' => $request->rbs,
+            'fbs' => $request->fbs,
+            'spo2' => $request->spo2,
             'treatment' => $request->treatment,
             'respiratory_rate' => $request->respiratory_rate,
             'blood_pressure' => $request->blood_pressure,
-            'blood_and_sugar_rate' => $request->blood_and_sugar_rate,
             'temperature' => $request->temperature,
             'pulse_rate' => $request->pulse_rate,
             'weight' => $request->weight,
-            'admitted' => $request->admitted,
             'labs' => $request->labs,
-            'ward_number' => $request->ward_number,
             'additional_notes' => $request->additional_notes,
             //            'hospital' => $request->hospital
         ]);

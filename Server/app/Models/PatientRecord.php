@@ -13,8 +13,8 @@ class PatientRecord extends Model
 
     protected $fillable = [
         'patient_id', 'user_id', 'history', 'diagnosis',
-        'examination_findings', 'treatment', 'temperature', 'pulse_rate', 'respiratory_rate', 'blood_pressure', 'weight', 'blood_and_sugar_rate', 'admitted',
-        'ward_number', 'labs', 'additional_notes',
+        'examination_findings', 'treatment', 'temperature', 'pulse_rate', 'respiratory_rate', 'blood_pressure', 'weight', 'blood_and_sugar_rate',
+        'rbs', 'fbs', 'spo2', 'labs', 'additional_notes',
         'lab1', 'lab1_results', 'lab2', 'lab2_results', 'lab3', 'lab3_results',
         'lab4', 'lab4_results', 'lab5', 'lab5_results', 'lab6', 'lab6_results',
         'lab7', 'lab7_results', 'lab8', 'lab8_results', 'lab9', 'lab9_results',
