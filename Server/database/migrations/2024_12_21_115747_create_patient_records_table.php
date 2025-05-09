@@ -17,16 +17,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->longText('history')->nullable();
             $table->string('diagnosis')->nullable();
-            $table->longText('examination_findings')->nullable();
             $table->longText('treatment')->nullable();
             $table->string('temperature')->nullable();
             $table->string('pulse_rate')->nullable();
             $table->string('respiratory_rate')->nullable();
             $table->string('blood_pressure')->nullable();
-            $table->string('blood_and_sugar_rate')->nullable();
-            $table->boolean('admitted')->default(false)->nullable();
             $table->string('rbs')->nullable();
             $table->string('fbs')->nullable();
+            $table->string('spo2')->nullable();
             $table->string('weight')->nullable();
             $table->string('labs')->nullable();
             $table->string('lab1')->nullable();
