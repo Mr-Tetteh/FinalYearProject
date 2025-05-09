@@ -41,8 +41,7 @@ const handleSubmit = async () => {
     'temperature',
     'pulse_rate',
     'weight',
-    'admitted',
-    'ward_number'
+    'admitted'
   ];
   for (const field of requiredFields) {
     if (!record.value[field]) {
@@ -65,7 +64,9 @@ const handleSubmit = async () => {
 
     await router.push('/hospital_patient');
   } catch (err) {
-    alert(err.response?.data?.data || 'An error occurred');
+    $toast.error(err.response.data.message, {
+      position: 'top-right',
+    })
   }
 };
 </script>
@@ -210,7 +211,6 @@ const handleSubmit = async () => {
                               <select class="form-control form-select" v-model="record.admitted"
                                       :disabled="userRole !== 'Nurse'"
                               >
-                                <option> Select an option</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                               </select>
@@ -246,302 +246,302 @@ const handleSubmit = async () => {
                   </div>
 
                   <!-- Doctor Section -->
-<!--                  <div v-if="userRole == 'Doctor'" class="doctor-section">
-                    <div
-                        class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
-                      <i class="bi bi-person-workspace me-2"></i>
-                      <h5 class="mb-0">Doctor's Section</h5>
-                    </div>
-                    <div class="section-content p-3 bg-light rounded">
-                      <div class="row justify-content-center g-3">
-                        &lt;!&ndash; Existing doctor section fields with centered text &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">History of presenting complaints </label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="History of presenting complaints"
-                                  v-model="record.history"
-                                  :disabled="userRole !== 'Doctor'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard2-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                  <!--                  <div v-if="userRole == 'Doctor'" class="doctor-section">
+                                      <div
+                                          class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                                        <i class="bi bi-person-workspace me-2"></i>
+                                        <h5 class="mb-0">Doctor's Section</h5>
+                                      </div>
+                                      <div class="section-content p-3 bg-light rounded">
+                                        <div class="row justify-content-center g-3">
+                                          &lt;!&ndash; Existing doctor section fields with centered text &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">History of presenting complaints </label>
+                                            <div class="form-group has-icon-left">
+                                              <div class="position-relative">
+                                                <input
+                                                    type="text"
+                                                    class="form-control text-center"
+                                                    placeholder="History of presenting complaints"
+                                                    v-model="record.history"
+                                                    :disabled="userRole !== 'Doctor'"
+                                                >
+                                                <div class="form-control-icon">
+                                                  <i class="bi bi-clipboard2-pulse"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
 
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Examination findings
-                          </label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input class="form-select text-center" v-model="record.examination_findings"
-                                     placeholder="Examination findings"
-                                     :disabled="userRole !== 'Doctor'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard2-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Examination findings
+                                            </label>
+                                            <div class="form-group has-icon-left">
+                                              <div class="position-relative">
+                                                <input class="form-select text-center" v-model="record.examination_findings"
+                                                       placeholder="Examination findings"
+                                                       :disabled="userRole !== 'Doctor'"
+                                                >
+                                                <div class="form-control-icon">
+                                                  <i class="bi bi-clipboard2-pulse"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
 
 
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Diagnosis</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Diagnosis"
-                                  v-model="record.diagnosis"
-                                  :disabled="userRole !== 'Doctor'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-journal-medical"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Diagnosis</label>
+                                            <div class="form-group has-icon-left">
+                                              <div class="position-relative">
+                                                <input
+                                                    type="text"
+                                                    class="form-control text-center"
+                                                    placeholder="Diagnosis"
+                                                    v-model="record.diagnosis"
+                                                    :disabled="userRole !== 'Doctor'"
+                                                >
+                                                <div class="form-control-icon">
+                                                  <i class="bi bi-journal-medical"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
 
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Investigations/ Labs
-                          </label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Labs"
-                                  v-model="record.labs"
-                                  :disabled="userRole !== 'Doctor'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-capsule"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Investigations/ Labs
+                                            </label>
+                                            <div class="form-group has-icon-left">
+                                              <div class="position-relative">
+                                                <input
+                                                    type="text"
+                                                    class="form-control text-center"
+                                                    placeholder="Labs"
+                                                    v-model="record.labs"
+                                                    :disabled="userRole !== 'Doctor'"
+                                                >
+                                                <div class="form-control-icon">
+                                                  <i class="bi bi-capsule"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
 
-                        <div class="col-md-12">
-                          <label class="form-label text-center w-100">Treatment</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Treatment"
-                                  v-model="record.treatment"
-                                  :disabled="userRole !== 'Doctor'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-capsule"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                          <div class="col-md-12">
+                                            <label class="form-label text-center w-100">Treatment</label>
+                                            <div class="form-group has-icon-left">
+                                              <div class="position-relative">
+                                                <input
+                                                    type="text"
+                                                    class="form-control text-center"
+                                                    placeholder="Treatment"
+                                                    v-model="record.treatment"
+                                                    :disabled="userRole !== 'Doctor'"
+                                                >
+                                                <div class="form-control-icon">
+                                                  <i class="bi bi-capsule"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
 
-                        <div class="col-md-12">
-                          <label class="form-label text-center w-100">Additional Notes</label>
-                          <textarea
-                              class="form-control text-center"
-                              rows="3"
-                              placeholder="Enter any additional notes"
-                              v-model="record.additional_notes"
-                              :disabled="userRole !== 'Doctor'"
-                          ></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                                          <div class="col-md-12">
+                                            <label class="form-label text-center w-100">Additional Notes</label>
+                                            <textarea
+                                                class="form-control text-center"
+                                                rows="3"
+                                                placeholder="Enter any additional notes"
+                                                v-model="record.additional_notes"
+                                                :disabled="userRole !== 'Doctor'"
+                                            ></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
 
-                  <div v-if="userRole == 'Lab Technician'" class="doctor-section">
+                                    <div v-if="userRole == 'Lab Technician'" class="doctor-section">
 
-                    <div
-                        class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
-                      <i class="bi bi-person-workspace me-2"></i>
-                      <h5 class="mb-0">Lab Technician Section</h5>
-                    </div>
-                    <div class="section-content p-3 bg-light rounded">
-                      <div class="row justify-content-center g-3">
-                        &lt;!&ndash; Lab 1 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab1" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 1)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                      <div
+                                          class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                                        <i class="bi bi-person-workspace me-2"></i>
+                                        <h5 class="mb-0">Lab Technician Section</h5>
+                                      </div>
+                                      <div class="section-content p-3 bg-light rounded">
+                                        <div class="row justify-content-center g-3">
+                                          &lt;!&ndash; Lab 1 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab1" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 1)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 2 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab2" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 2)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 2 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab2" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 2)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 3 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab3" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'"
-                                 placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 3)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 3 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab3" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'"
+                                                   placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 3)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 4 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab4" :disabled="userRole !== 'Lab Technician'"
-                                 class="form-control" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 4)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 4 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab4" :disabled="userRole !== 'Lab Technician'"
+                                                   class="form-control" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 4)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 5 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab5" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 5)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 5 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab5" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 5)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 6 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab6" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 6)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 6 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab6" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 6)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 7 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab7" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 7)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 7 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab7" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 7)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 8 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab8" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'"
-                                 placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 8)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 8 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab8" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'"
+                                                   placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 8)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 9 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab9" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 9)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
+                                          &lt;!&ndash; Lab 9 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab9" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 9)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
 
-                        &lt;!&ndash; Lab 10 &ndash;&gt;
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Name of Lab</label>
-                          <input type="text" v-model="record.lab10" class="form-control"
-                                 :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label text-center w-100">Lab Report</label>
-                          <input
-                              type="file"
-                              @change="(e) => handleFileUpload(e, 10)"
-                              class="form-control text-center"
-                              multiple
-                              :disabled="userRole !== 'Lab Technician'"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>-->
+                                          &lt;!&ndash; Lab 10 &ndash;&gt;
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Name of Lab</label>
+                                            <input type="text" v-model="record.lab10" class="form-control"
+                                                   :disabled="userRole !== 'Lab Technician'" placeholder="Name of Lab">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label class="form-label text-center w-100">Lab Report</label>
+                                            <input
+                                                type="file"
+                                                @change="(e) => handleFileUpload(e, 10)"
+                                                class="form-control text-center"
+                                                multiple
+                                                :disabled="userRole !== 'Lab Technician'"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>-->
                   <!-- Submit Button -->
                   <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">
