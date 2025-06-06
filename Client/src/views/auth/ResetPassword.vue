@@ -25,7 +25,7 @@ const togglePasswordVisibility = () => {
         <!-- Image Column -->
         <div class="col-lg-6 image-column">
           <div class="image-wrapper floating">
-            <img src="../../assets/img/forgot-password-concept-illustration_114360-1095.avif" alt="Record Management"
+            <img src="../../assets/img/Forgot password-bro.svg" alt="Record Management"
                  class="img-fluid">
           </div>
         </div>

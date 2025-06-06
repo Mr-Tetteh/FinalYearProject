@@ -87,11 +87,11 @@ export default function usePatients() {
             "first_name",
             "last_name",
             "gender",
+            "age",
             "date_of_birth",
             "contact",
             "address",
             "guardian1_first_name",
-            "guardian1_last_name" ,
             "guardian1_relation",
             "guardian1_residence",
             "guardian1_contact",
@@ -182,7 +182,6 @@ export default function usePatients() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-
             let response = await axios.get('https://health.local.stay/api/today_patient_count', config)
             all_today_patient.value = response.data
         } catch (err) {

@@ -46,6 +46,7 @@ export default function useHospital() {
     const count_all_users_on_swift = ref()
     const hospital_users = ref()
     const registered_hospitals_data = ref([]);
+    const reg_payment = ref([]);
 
 
     const stock_drugs = async () => {
@@ -111,16 +112,26 @@ export default function useHospital() {
     const register_hospital = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/hospital', input.value);
-            console.log('Response:', response.data);
-            $toast.success('Congrats Your hospital has been registered successfully', {
+            const hospitalData = response.data;
+
+            // Use the hospital ID from the response
+            const payment = await axios.get(`https://health.local.stay/api/payments/${hospitalData.id}`);
+            reg_payment.value = payment.data;
+            console.log(reg_payment.value); // Added .value here
+
+            $toast.success('Congrats Your hospital has been registered successfully.', {
+                position: "top-right"
+            });
+            $toast.success('We will get in touch with you soon to create your user account for you', {
                 position: "top-right"
             })
-            await router.push('/');
+
+            return hospitalData;
         } catch (err) {
-            alert(err.response.data.message);
+            console.error('Error details:', err); // Better error logging
+            alert(err.response?.data?.message || 'Registration failed');
         }
     };
-
     const count_hospital_patient = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')

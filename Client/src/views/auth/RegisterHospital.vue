@@ -453,9 +453,9 @@ const filteredConstituencies = computed(() => {
                   required
               >
                 <option value="" disabled selected></option>
-                <option value="1 month">1 Month - GHC200</option>
-                <option value="6 Month">6 Months - GHC1000</option>
-                <option value="1 Year">1 Year - GHC2000</option>
+                <option value="50">1 Month - GHC50</option>
+                <option value="150">6 Months - GHC150</option>
+                <option value="250">1 Year - GHC250</option>
               </select>
               <label for="monthly_subscription" class="fw-semibold">Monthly Payment Plan</label>
               <div class="form-icon">
