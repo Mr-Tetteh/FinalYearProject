@@ -66,7 +66,7 @@ export default function useAuth() {
         try {
 
             const response = await axios.post('https://health.local.stay/api/rest_password', password_rest.value);
-            alert(response.data.message)
+            $toast.success(response.data.message)
 
         } catch (err) {
             $toast.error(err.response.data.message, {

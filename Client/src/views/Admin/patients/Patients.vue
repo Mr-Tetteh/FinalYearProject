@@ -57,8 +57,6 @@ const handleSubmit = async () => {
                           <h5 class="section-title text-center">
                             <i class="bi bi-info-circle-fill me-2"></i> Basic Information
                           </h5>
-
-
                           <div class="row g-3">
                             <div class="col-md-6">
                               <label for="first-name" class="form-label">First name <span class="text-danger">*</span></label>
@@ -115,7 +113,7 @@ const handleSubmit = async () => {
                             </div>
 
                             <div class="col-md-6">
-                              <label for="age" class="form-label">Age</label>
+                              <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="number" class="form-control"
