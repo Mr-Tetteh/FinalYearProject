@@ -2,6 +2,9 @@
 import useSession from "@/composerbles/useSession.js";
 import useAuth from "@/composerbles/useAuth.js";
 
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
 const {isLoggedIn} = useSession();
 const {logout} = useAuth()
 
@@ -26,26 +29,27 @@ const {logout} = useAuth()
         <!-- Navigation Menu -->
         <nav id="navmenu" class="navmenu d-none d-md-block">
           <ul class="nav">
-            <li class="nav-item">
+            <li class="nav-item" v-if="route.name !== 'register_hospital'">
               <a href="#hero" class="nav-link active">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="route.name !== 'register_hospital'">
               <a href="#about" class="nav-link">About</a>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item" v-if="route.name !== 'register_hospital'">
               <a href="#services" class="nav-link">Services</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="route.name !== 'register_hospital'">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <RouterLink to="dashboard" class="nav-link">Dashboard</RouterLink>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
-            <button class="btn btn-outline-danger" @click="logout">
-              <i class="bi bi-box-arrow-right me-2"></i>
-              Logout
-            </button>
+              <button class="btn btn-outline-danger" @click="logout">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Logout
+              </button>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <RouterLink to="/login" class="nav-link">Login</RouterLink>
@@ -57,7 +61,8 @@ const {logout} = useAuth()
         </nav>
 
         <!-- Mobile Navigation Toggle -->
-        <button class="btn btn-outline-primary d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-expanded="false" aria-controls="mobileNav">
+        <button class="btn btn-outline-primary d-md-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mobileNav" aria-expanded="false" aria-controls="mobileNav">
           <i class="bi bi-list"></i>
         </button>
 

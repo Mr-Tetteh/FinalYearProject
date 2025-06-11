@@ -3,6 +3,7 @@
 use App\Http\Controllers\HosptialController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\PaymentsControllers;
 use App\Http\Controllers\Pharmacy;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [UserController::class, 'login']);
 Route::post('hospital', [HosptialController::class, 'store']);
 Route::get('hospitals', [HosptialController::class, 'index']);
+Route::get('payments/hospital/{hospitalId}', [PaymentsControllers::class, 'getByHospital']);
 Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
 

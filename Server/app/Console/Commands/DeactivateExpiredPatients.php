@@ -26,25 +26,26 @@ class DeactivateExpiredPatients extends Command
      */
     public function handle()
     {
+        logger()->info('deactivate-expired');
         // Change to use update directly on the query builder
-        $query = Patients::where('status', true)->where('activated_at', '<=', now()->subDay());
-
-        $this->info('Query: '.$query->toSql());
-        $count = $query->count();
-        $this->info('Found '.$count.' expired patients');
-
-        if ($count > 0) {
-            // Update directly using the query builder to avoid model accessors/mutators
-            $updated = Patients::where('status', true)
-                ->where('activated_at', '<=', now()->subDay())
-                ->update([
-                    'status' => false,
-                    'activated_at' => null,
-                ]);
-
-            $this->info("Deactivated {$updated} patients successfully.");
-        } else {
-            $this->info('No expired patients found.');
-        }
+//        $query = Patients::where('status', 1);
+//
+//        $this->info('Query: '.$query->toSql());
+//        $count = $query->count();
+//        $this->info('Found '.$count.' expired patients');
+//
+//        if ($count > 0) {
+//            // Update directly using the query builder to avoid model accessors/mutators
+//            $updated = Patients::where('status', true)
+//                ->where('activated_at', '<=', now()->subDay())
+//                ->update([
+//                    'status' => false,
+//                    'activated_at' => null,
+//                ]);
+//
+//            $this->info("Deactivated {$updated} patients successfully.");
+//        } else {
+//            $this->info('No expired patients found.');
+//        }
     }
 }
