@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
+use App\Jobs\InitPaymentJB;
 use App\Models\Hosptial;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 /**
@@ -104,7 +106,12 @@ class HosptialController extends Controller
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
 
-        return new HospitalResource($hospital);
+        InitPaymentJB::dispatch($hospital);
+
+        return response()->json([
+            'message' => 'Hospital created successfully',
+            'hospital' => $hospital,
+        ], 201);
     }
 
     /**

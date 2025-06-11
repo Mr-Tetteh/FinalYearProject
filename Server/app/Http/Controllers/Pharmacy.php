@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Pharmacy extends Controller
@@ -12,7 +13,7 @@ class Pharmacy extends Controller
      */
     public function index()
     {
-        $drugs = \App\Models\Pharmacy::all()->groupBy('category');
+        $drugs = \App\Models\Pharmacy::all()->where('hospital', Auth::user()->hospital)->groupBy('category');
 
         $result = $drugs->map(function ($items, $category) {
             return [

@@ -30,7 +30,7 @@ class PatientRecordController extends Controller
 
     public function now_patient()
     {
-        $patients = PatientRecord::where('created_at', Carbon::now())->count();
+        $patients = PatientRecord::whereDate('created_at', Carbon::now())->count();
 
         return response()->json($patients);
 

@@ -50,11 +50,11 @@ const toggleSidebar = () => {
             <i class="bi bi-chevron-down menu-arrow"></i>
           </div>
           <div class="submenu">
-            <RouterLink to="/patients" class="submenu-item">
+            <RouterLink to="/patients" class="submenu-item" v-if="userRole !== 'Admin'">
               <i class="bi bi-plus-circle"></i>
               <span>Register Patient</span>
             </RouterLink>
-            <RouterLink to="/hospital_patient" class="submenu-item">
+            <RouterLink to="/hospital_patient" class="submenu-item" v-if="userRole !=='Admin'">
               <i class="bi bi-plus-circle"></i>
               <span>Patients</span>
             </RouterLink>
@@ -82,7 +82,11 @@ const toggleSidebar = () => {
               <i class="bi bi-person-plus"></i>
               <span>Register Staff</span>
             </RouterLink>
-            <RouterLink to="/staff_info" class="submenu-item">
+            <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'">
+              <i class="bi bi-people"></i>
+              <span>All Admin Users</span>
+            </RouterLink>
+            <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'">
               <i class="bi bi-people"></i>
               <span>All Staff</span>
             </RouterLink>
@@ -94,7 +98,7 @@ const toggleSidebar = () => {
         </div>
       </div>
 
-      <div v-if="userRole === 'Admin' || userRole === 'Pharmacist' || userRole === 'Manager'">
+      <div v-if="userRole === 'Pharmacist' || userRole === 'Manager'">
         <div class="menu-category">Hospital Management</div>
         <div class="menu-group">
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
@@ -129,19 +133,19 @@ const toggleSidebar = () => {
         <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
           <div class="menu-header">
             <div class="menu-icon">
-              <i class="bi bi-person-fill-add"></i>
+              <i class="bi bi-hospital-fill"></i>
             </div>
             <span class="menu-text">Hospital</span>
             <i class="bi bi-chevron-down menu-arrow"></i>
           </div>
           <div class="submenu">
             <RouterLink to="/register_hospital" class="submenu-item">
-              <i class="bi bi-person-plus"></i>
+              <i class="bi bi-hospital"></i>
               <span>Register Hospital</span>
             </RouterLink>
             <RouterLink to="/registered_hospitals" class="submenu-item">
-              <i class="bi bi-people"></i>
-              <span>All Hospitals</span>
+              <i class="bi bi-building-add"></i>
+              <span>Registered Hospitals</span>
             </RouterLink>
           </div>
         </div>

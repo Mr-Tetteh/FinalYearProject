@@ -15,9 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
     })
-    ->withSchedule(function (Schedule $schedule): void {
-        $schedule->command('patients:deactivate-expired')->daily();
-    })
+//    ->withSchedule(function (Schedule $schedule): void {
+//        $schedule->command('patients:deactivate-expired')->everyMinute();
+//    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

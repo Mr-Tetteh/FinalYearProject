@@ -86,14 +86,13 @@ const submitAppointment = () => {
 
         <!-- Stats Cards -->
         <div class="row g-4 mb-4">
-          <div class="col-md-3">
+          <div class="col-md-3" v-if="userRole !== 'Admin'">
             <div class="stat-card bg-white border-start border-primary border-4">
               <div class="stat-icon bg-primary-subtle">
                 <i class="bi bi-people-fill text-primary"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total of {{ hospital }} Patients </h6>
-                <h3 class="stat-value text-primary">{{ hospital_patient_count }}</h3>
+                <h6 class="stat-label">Total <b>{{ hospital }}</b> Patients</h6>                <h3 class="stat-value text-primary">{{ hospital_patient_count }}</h3>
               </div>
             </div>
           </div>
@@ -115,7 +114,7 @@ const submitAppointment = () => {
                 <i class="bi bi-hospital-fill text-success"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total Users On Swift</h6>
+                <h6 class="stat-label">Total Users/Staff On Swift</h6>
                 <h3 class="stat-value text-success">{{ count_all_users_on_swift }}</h3>
 
               </div>
@@ -128,7 +127,8 @@ const submitAppointment = () => {
                 <i class="bi bi-person-workspace text-warning"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total {{hospital}} Users</h6>
+                <h6 class="stat-label" v-if="userRole === 'Admin'">Admins Users</h6>
+                <h6 class="stat-label" v-else> <b>{{hospital}} </b> Users/Staff</h6>
                 <h3 class="stat-value text-warning">{{hospital_users}}</h3>
 
               </div>
@@ -136,13 +136,13 @@ const submitAppointment = () => {
           </div>
 
 
-          <div class="col-md-3" v-if="userRole == 'Admin'" >
+          <div class="col-md-3 " v-if="userRole == 'Admin'">
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
                 <i class="bi bi-calendar-check text-warning"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total Number Of Today's patients</h6>
+                <h6 class="stat-label"> Today's patients</h6>
                 <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
 
               </div>
@@ -150,23 +150,21 @@ const submitAppointment = () => {
           </div>
 
 
-
-          <div class="col-md-3">
+          <div class="col-md-3" v-if="userRole !=='Admin'">
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
                 <i class="bi bi-calendar-check text-warning"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Today's {{ hospital }} patients</h6>
+                <h6 class="stat-label">Today's <b> {{ hospital }}</b> patient</h6>
                 <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
-
               </div>
             </div>
           </div>
 
 
 
-          <div class="col-md-3">
+<!--          <div class="col-md-3">
             <div class="stat-card bg-white border-start border-danger border-4">
               <div class="stat-icon bg-danger-subtle">
                 <i class="bi bi-cash-stack text-danger"></i>
@@ -177,7 +175,7 @@ const submitAppointment = () => {
 
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
 
         <!-- Main Content -->
