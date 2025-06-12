@@ -3,9 +3,11 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
 import usePatients from "@/composerbles/usePatients.js";
 import {onMounted} from "vue";
+import Editor from "@tinymce/tinymce-vue";
+import usePatientRecord from "@/composerbles/usePatientRecord.js";
 
 const {userRole} = useSession();
-const {record, edit, update_record} = usePatients()
+const {record, edit, update_record} = usePatientRecord()
 
 
 const props = defineProps({
@@ -22,7 +24,6 @@ const handleSubmit = () => (
 )
 
 </script>
-
 <template>
   <div class="hospital-dashboard main">
     <div class="d-flex justify-content-center">
@@ -32,411 +33,79 @@ const handleSubmit = () => (
           <div class="col-md-10">
             <div class="card shadow-lg border-0">
               <div class="card-body">
-                <form v-if="record" @submit.prevent="handleSubmit" class="text-center" disabled="false">
+                <form v-if="record" @submit.prevent="handleSubmit" class="text-center">
 
                   <!-- Nurse Section -->
                   <div class="nurse-section mb-5">
-                    <div
-                        class="section-header bg-info text-white p-2 rounded d-flex align-items-center mt-3 justify-content-center">
+                    <div v-if="userRole === 'Nurse'"
+                         class="section-header bg-info text-white p-2 rounded d-flex align-items-center mt-3 justify-content-center">
                       <i class="bi bi-person-badge me-2"></i>
                       <h5 class="mb-0">Nurse's Section</h5>
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Temperature</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  v-model="record.temperature"
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Temperature"
-                                  :disabled="userRole !== 'Nurse'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-thermometer"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <editor
+                            v-if="userRole === 'Nurse'"
+                            v-model="record.nurse_notes"
+                            id="nurse-editor"
+                            apiKey="ymk7tbhj4ul5sgm1y5zx7dc6g2qravp7l63cs23wxpvepxoh"
+                            :init="editorConfig"
+                            @update:modelValue="(value) => record.nurse_notes = value"
+                        />
 
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Pulse Rate</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Pulse Rate"
-                                  v-model="record.pulse_rate"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Respiratory Rate</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Respiratory Rate"
-                                  v-model="record.respiratory_rate"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Blood Pressure</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Blood Pressure"
-                                  v-model="record.blood_pressure"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Weight</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Weight (kg)"
-                                  v-model="record.weight"
-                                  :disabled="userRole !== 'Nurse'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">FBS</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input class="form-control " v-model="record.fbs"
-                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="FBS">
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">RBS</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input class="form-control " v-model="record.rbs"
-                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="RBS">
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">SPO2</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="SP02"
-                                  v-model="record.spo2"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-droplet"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-
-                        <div v-if="userRole == 'Doctor'" class="doctor-section">
-                          <div
-                              class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                        <!-- Doctor Section -->
+                        <div class="doctor-section">
+                          <div v-if="userRole === 'Doctor'"
+                               class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
                             <i class="bi bi-person-workspace me-2"></i>
                             <h5 class="mb-0">Doctor's Section</h5>
                           </div>
-                          <div class="section-content p-3 bg-light rounded">
-                            <div class="row justify-content-center g-3">
-                              <!-- Existing doctor section fields with centered text -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">History of presenting complaints </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-
-                                    <textarea class="form-control text-center"
-                                              placeholder="History of presenting complaints  "
-                                              v-model="record.history" rows="8"></textarea>
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-clipboard2-pulse"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Examination findings
-                                </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.examination_findings"
-                                              placeholder="Examination findings" rows="8"></textarea>
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-clipboard2-pulse"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Diagnosis</label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.diagnosis"
-                                              placeholder="Diagnosis" rows="8"></textarea>
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-journal-medical"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Investigations/ Labs
-                                </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.labs" placeholder="Investigations/ Labs" rows="8"></textarea>
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-capsule"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-12">
-                                <label class="form-label text-center w-100">Treatment</label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <textarea class="form-control text-center" v-model="record.treatment" placeholder="Treatment" rows="3"></textarea>
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-capsule"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-12">
-                                <label class="form-label text-center w-100">Additional Notes</label>
-                                <textarea
-                                    class="form-control text-center"
-                                    rows="3"
-                                    placeholder="Enter any additional notes"
-                                    v-model="record.additional_notes"
-                                ></textarea>
-                              </div>
-                            </div>
+                          <div v-if="userRole === 'Doctor'" class="section-content p-3 bg-light rounded">
+                            <editor
+                                v-model="record.doctor_notes"
+                                id="doctor-editor"
+                                apiKey="ymk7tbhj4ul5sgm1y5zx7dc6g2qravp7l63cs23wxpvepxoh"
+                                :init="editorConfig"
+                                @update:modelValue="(value) => record.doctor_notes = value"
+                            />
                           </div>
                         </div>
 
-
-                        <div v-if="userRole == 'Lab Technician'" class="doctor-section">
-
+                        <!-- Pharmacist Section -->
+                        <div v-if="userRole == 'Pharmacist'" class="pharmacist-section">
                           <div
-                              class="section-header bg-secondary text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
-                            <i class="bi bi-person-workspace me-2"></i>
-                            <h5 class="mb-0">Lab Technician Section</h5>
+                              class="section-header bg-dark text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                            <i class="bi bi-file-medical me-2"></i>
+                            <h5 class="mb-0">Pharmacist's Section</h5>
                           </div>
                           <div class="section-content p-3 bg-light rounded">
-                            <div class="row justify-content-center g-3">
-                              <!-- Lab 1 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab1" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 1)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 2 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab2" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 2)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 3 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab3" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 3)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 4 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab4" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 4)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 5 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab5" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 5)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 6 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab6" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 6)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 7 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab7" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 7)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 8 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab8" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 8)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 9 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab9" class="form-control" placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 9)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-
-                              <!-- Lab 10 -->
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Name of Lab</label>
-                                <input type="text" v-model="record.lab10" class="form-control"
-                                       placeholder="Name of Lab">
-                              </div>
-                              <div class="col-md-6">
-                                <label class="form-label text-center w-100">Lab Report</label>
-                                <input
-                                    type="file"
-                                    @change="(e) => handleFileUpload(e, 10)"
-                                    class="form-control text-center"
-                                    multiple
-                                />
-                              </div>
-                            </div>
+                            <editor
+                                v-model="record.pharmacists_notes"
+                                id="pharmacist-editor"
+                                apiKey="ymk7tbhj4ul5sgm1y5zx7dc6g2qravp7l63cs23wxpvepxoh"
+                                :init="editorConfig"
+                                @update:modelValue="(value) => record.pharmacists_notes = value"
+                            />
                           </div>
                         </div>
 
+                        <!-- Lab Technician Section -->
+                        <div v-if="userRole == 'Lab Technician'" class="lab-tech-section">
+                          <div
+                              class="section-header bg-dark text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
+                            <i class="bi bi-file-medical me-2"></i>
+                            <h5 class="mb-0">Lab Technician's Section</h5>
+                          </div>
+                          <div class="section-content p-3 bg-light rounded">
+                            <editor
+                                v-model="record.lab_tech_notes"
+                                id="lab-tech-editor"
+                                apiKey="ymk7tbhj4ul5sgm1y5zx7dc6g2qravp7l63cs23wxpvepxoh"
+                                :init="editorConfig"
+                                @update:modelValue="(value) => record.lab_tech_notes = value"
+                            />
+                          </div>
+                        </div>
 
                         <div class="d-grid gap-2 mt-4">
                           <button type="submit" class="btn btn-primary btn-lg">
@@ -447,6 +116,14 @@ const handleSubmit = () => (
                     </div>
                   </div>
                 </form>
+
+                <!-- Loading state -->
+                <div v-else class="text-center py-5">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mt-2">Loading patient record...</p>
+                </div>
               </div>
             </div>
           </div>
@@ -454,8 +131,27 @@ const handleSubmit = () => (
       </div>
     </div>
   </div>
-
 </template>
-<style scoped>
 
+<style scoped>
+.hospital-dashboard {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.section-content {
+  border: 1px solid #dee2e6;
+}
+
+/* Ensure proper spacing between sections */
+.nurse-section,
+.doctor-section,
+.pharmacist-section,
+.lab-tech-section {
+  margin-bottom: 2rem;
+}
 </style>

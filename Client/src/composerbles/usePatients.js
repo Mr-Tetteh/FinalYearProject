@@ -149,20 +149,6 @@ export default function usePatients() {
         }
     }
 
-
-    const list_patients_record = async (id) => {
-        try {
-            const token = localStorage.getItem('AUTH_TOKEN')
-            const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-            let response = await axios.get(`https://health.local.stay/api/patient_record/${id}`, config)
-            patient_record.value = response.data.data
-        } catch (err) {
-            alert(err.response.data.data)
-        }
-    }
-
     const list_patients = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -189,46 +175,6 @@ export default function usePatients() {
         }
     }
 
-    const edit = async (id) => {
-        try {
-            const token = localStorage.getItem('AUTH_TOKEN');
-            const config = {
-                headers: { Authorization: `Bearer ${token}` },
-            };
-            let response = await axios.get(`https://health.local.stay/api/patient_record_edit/${id}`, config);
-            record.value = response.data.data;
-        } catch (err) {
-            const errorMsg =
-                err?.response?.data?.message || 'Failed to fetch patient record';
-            alert(errorMsg);
-        }
-    };
-
-    const handleFileUpload = (event, labNumber) => {
-        const files = event.target.files;
-        const fileArray = Array.from(files);
-        record[`lab${labNumber}_results`] = fileArray;
-    };
-
-
-    const update_record = async (id) => {
-        try {
-            const token = localStorage.getItem('AUTH_TOKEN');
-            const config = {
-                headers: { Authorization: `Bearer ${token}` },
-            };
-            let response = await axios.patch(`https://health.local.stay/api/patient_record_update/${id}`, record.value, config);
-             $toast.success('Patient Record Add Successfully', {
-                 position: 'top-right',
-             });
-             setTimeout(() => {
-                 router.push('/hospital_patient')
-             },1000)
-        } catch (err) {
-            alert(err.response.data.data)
-        }
-    };
-
     const hospital_patient = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -252,13 +198,9 @@ export default function usePatients() {
         hospital_patient,
         all_hospital_patient,
         patient_record,
-        list_patients_record,
         all_today_patient,
         today_patient_count,
-        update_record,
-        edit,
         record,
-        handleFileUpload,
         editPatient,
         activatePatient
     }

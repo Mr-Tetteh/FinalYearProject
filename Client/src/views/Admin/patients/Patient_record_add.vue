@@ -4,6 +4,7 @@ import axios from "axios";
 import router from "@/router/index.js";
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import Editor from '@tinymce/tinymce-vue'
 
 const $toast = useToast();
 
@@ -20,11 +21,7 @@ const {userRole} = useSession()
 
 const record = ref({
   patient_id: props.id,
-  respiratory_rate: '',
-  blood_pressure: '',
-  temperature: '',
-  pulse_rate: '',
-  weight: '',
+  nurse_notes: ''
 
 
 });
@@ -72,147 +69,18 @@ const handleSubmit = async () => {
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Temperature</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Temperature"
-                                  v-model="record.temperature"
-                                  :disabled="userRole !== 'Nurse'"
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-thermometer"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Pulse Rate</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Pulse Rate"
-                                  v-model="record.pulse_rate"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Respiratory Rate</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Respiratory Rate"
-                                  v-model="record.respiratory_rate"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Blood Pressure</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Blood Pressure"
-                                  v-model="record.blood_pressure"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-heart-pulse"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">Weight</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="Weight (kg)"
-                                  v-model="record.weight"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
 
 
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">FBS</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input class="form-control " v-model="record.fbs"
-                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="FBS">
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">RBS</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input class="form-control " v-model="record.rbs"
-                                     :disabled="userRole !== 'Nurse'" type="text" placeholder="RBS">
-                              <div class="form-control-icon">
-                                <i class="bi bi-clipboard-data"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <label class="form-label text-center w-100">SPO2</label>
-                          <div class="form-group has-icon-left">
-                            <div class="position-relative">
-                              <input
-                                  type="text"
-                                  class="form-control text-center"
-                                  placeholder="SP02"
-                                  v-model="record.spo2"
-                                  :disabled="userRole !== 'Nurse'"
-
-                              >
-                              <div class="form-control-icon">
-                                <i class="bi bi-droplet"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
+                        <editor
+                            v-model="record.nurse_notes"
+                            id="nurse-editor"
+                            apiKey="ymk7tbhj4ul5sgm1y5zx7dc6g2qravp7l63cs23wxpvepxoh"
+                            :init="{
+                    plugins: 'advlist anchor autolink charmap code fullscreen help image insertdatetime link lists media preview searchreplace table visualblocks wordcount',
+                    toolbar: 'undo redo | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                    height: 300
+                  }"
+                        />
                       </div>
                     </div>
                   </div>

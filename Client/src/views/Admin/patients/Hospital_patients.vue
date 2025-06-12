@@ -1,24 +1,30 @@
 <script setup>
 
 import usePatients from "@/composerbles/usePatients.js";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import ActivatePatient from "@/components/activatePatient.vue";
 
 const selectedPatientId = ref(null);
 const modal = ref(false);
-
+const searchQuery = ref('')
 const {hospital_patient, all_hospital_patient, list_patients} = usePatients()
 
 const activate_patient = (patient) => {
   selectedPatientId.value = patient.id;
   modal.value = true
 }
-
-
 onMounted(hospital_patient)
 
+const searchResults = computed(() => {
+  if (!searchQuery.value || !all_hospital_patient.value) return all_hospital_patient.value;
 
+  const searched = searchQuery.value.toLowerCase();
+  return all_hospital_patient.value.filter(patient => {
+    const patientId = (patient.patient_number || '').toLowerCase();
+    return patientId.includes(searched);
+  });
+});
 </script>
 
 <template>
@@ -58,7 +64,7 @@ onMounted(hospital_patient)
                       type="text"
                       v-model="searchQuery"
                       class="form-control border-start-0"
-                      placeholder="Search patients..."
+                      placeholder="Search patients ID.."
                   >
                 </div>
               </div>
@@ -82,7 +88,7 @@ onMounted(hospital_patient)
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in all_hospital_patient" :key="item.id">
+                <tr v-for="item in searchResults" :key="item.id">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="avatar-initial me-3 rounded-circle bg-primary bg-opacity-10 text-primary">
@@ -135,15 +141,16 @@ onMounted(hospital_patient)
 
 
                       <RouterLink v-if="item.status == true"
-                          :to="{ name: 'patients.file_add', params: { id: item.id} }"
-                          class="btn btn-secondary btn-sm"
+                                  :to="{ name: 'patients.file_add', params: { id: item.id} }"
+                                  class="btn btn-secondary btn-sm"
                       >
                         <i class="bi bi-plus-circle me-1"></i>
 
                         New Medical Record
                       </RouterLink>
 
-                      <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
+                      <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}"
+                                  class="btn btn-primary btn-sm">
                         Past Medical History
                       </RouterLink>
                     </div>
@@ -155,10 +162,38 @@ onMounted(hospital_patient)
           </div>
           <div v-if="modal" class="modal-overlay">
             <div class="modal-content">
-          <activate-patient v-if="modal" v-model="modal" :id="selectedPatientId"/>
+              <activate-patient v-if="modal" v-model="modal" :id="selectedPatientId"/>
             </div>
           </div>
         </div>
+
+        <div v-if="!searchResults?.length" class="text-center py-5">
+          <div class="container mx-auto" style="max-width: 28rem;">
+            <svg class="mb-4" style="width: 4rem; height: 4rem; color: #94a3b8;" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24" width="64">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <h3 class="h5 fw-semibold text-secondary mb-2">
+              {{ searchQuery ? 'No patients found' : 'No patients registered' }}
+            </h3>
+            <p class="text-muted small">
+              {{
+                searchQuery ? 'Try adjusting your search criteria.' : 'Get started by registering your first patient.'
+              }}
+            </p>
+            <div v-if="searchQuery" class="mt-4">
+              <button
+                  @click="searchQuery = ''"
+                  class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
+              >
+                Clear search
+              </button>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>

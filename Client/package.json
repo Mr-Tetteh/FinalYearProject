@@ -11,6 +11,7 @@
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@primeuix/themes": "^1.0.3",
+    "@tinymce/tinymce-vue": "^6.2.0",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "axios": "^1.7.9",

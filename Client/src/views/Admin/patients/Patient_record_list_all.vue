@@ -3,6 +3,7 @@ import usePatients from "@/composerbles/usePatients.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import UpdatePatientRecord from "@/components/updateUserRole.vue";
+import usePatientRecord from "@/composerbles/usePatientRecord.js";
 
 const props = defineProps({
   id: {
@@ -11,7 +12,7 @@ const props = defineProps({
   }
 });
 
-const { patient_record, list_patients_record } = usePatients();
+const {patient_record, list_patients_record} = usePatientRecord();
 
 onMounted(() => list_patients_record(props.id));
 
@@ -19,7 +20,7 @@ const modal = ref(false);
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -50,9 +51,8 @@ const modal = ref(false);
                 <div class="d-flex align-items-center mb-4 gap-3">
                   <i class="bi bi-journal-medical text-primary fs-3 me-2"></i>
                   <h4 class="mb-0">Medical Record #{{ index + 1 }} </h4>
-                  <p>{{record.created_at}}</p>
+                  <p>{{ record.created_at }}</p>
                 </div>
-
                 <!-- Vitals Section -->
                 <div class="section-container">
                   <div class="section-header">
@@ -60,289 +60,82 @@ const modal = ref(false);
                     <h5 class="mb-0">Vital Signs</h5>
                   </div>
                   <div class="row g-3">
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-thermometer-half text-primary"></i>
-                        <div>
-                          <small class="text-muted">Temperature</small>
-                          <p class="mb-0 fw-bold">{{ record.temperature }}°C </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-heart-pulse text-primary"></i>
-                        <div>
-                          <small class="text-muted">Pulse Rate</small>
-                          <p class="mb-0 fw-bold">{{ record.pulse_rate }} bpm</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-lungs text-primary"></i>
-                        <div>
-                          <small class="text-muted">Respiratory Rate</small>
-                          <p class="mb-0 fw-bold">{{ record.respiratory_rate }}  breaths/min </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-activity text-primary"></i>
-                        <div>
-                          <small class="text-muted">Blood Pressure</small>
-                          <p class="mb-0 fw-bold">{{ record.blood_pressure }} mmHg</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-person text-primary"></i>
-                        <div>
-                          <small class="text-muted">Weight</small>
-                          <p class="mb-0 fw-bold">{{ record.weight }} Kg</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-droplet text-primary"></i>
-                        <div>
-                          <small class="text-muted">Blood Sugar</small>
-                          <p class="mb-0 fw-bold">{{ record.blood_and_sugar_rate }} mg/dL</p>
+                    <div class="col-12">
+                      <div class="vital-card w-100">
+                        <div class="w-100">
+                          <p class="mb-0 fw-bold" v-html="record.nurse_notes"></p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <hr class="my-4" />
+                <hr class="my-4"/>
                 <!-- Doctor's Assessment -->
-                <div class="section-container" v-if="record.history">
+                <div class="section-container" v-if="record.doctor_notes">
                   <div class="section-header gap-3">
                     <i class="bi bi-file-medical text-primary me-2"></i>
                     <h5 class="mb-0">Doctor's Assessment</h5>
-                    <i>Assessed by {{record.first_name}} {{record.other_name}} {{record.last_name}} </i>
+                    <i>Assessed by {{ record.first_name }} {{ record.other_name }} {{ record.last_name }} </i>
                   </div>
-                  <div class="row g-3">
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-journal-medical text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">History of Complaints</small>
-                          <p>{{ record.history }}</p>
+                  <div class="row g-3" v-if="record.doctor_notes">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <div class="vital-card w-100">
+                          <div class="w-100">
+                            <p class="mb-0 fw-bold" v-html="record.doctor_notes"></p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-search-heart text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">Examination Findings</small>
-                          <p>{{ record.examination_findings }}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-clipboard2-pulse text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">Diagnosis</small>
-                          <p>{{ record.diagnosis }}</p>
-                        </div>
-                      </div>
-                    </div>
+                  </div>
 
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-card-checklist text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">Investigation/Labs</small>
-                          <p>{{ record.labs }}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-capsule text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">Treatment</small>
-                          <p>{{ record.treatment }}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="vital-card">
-                        <i class="bi bi-chat-square-text text-primary"></i>
-                        <div>
-                          <small class="text-muted mb-2">Additional Notes</small>
-                          <p>{{ record.additional_notes }}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                <hr class="my-4" v-if="record.admitted">
-
-                <!-- Admission Details -->
-                <div v-if="record.admitted" class="section-container">
-                  <div class="section-header">
-                    <i class="bi bi-hospital text-primary me-2"></i>
-                    <h5 class="mb-0">Admission Details</h5>
-                  </div>
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                          <small class="text-muted">Status</small>
-                          <p class="mb-0 fw-bold">Admitted</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-door-open text-primary"></i>
-                        <div>
-                          <small class="text-muted">Ward Number</small>
-                          <p class="mb-0 fw-bold">{{ record.ward_number }}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <hr class="my-4">
-
+                <hr class="my-4" v-if="record.lab_tech_notes">
                 <!-- Laboratory Results -->
-                <div class="section-container" v-if="record.lab1">
-                  <div class="section-header">
-                    <i class="bi bi-flask text-primary me-2"></i>
-                    <h5 class="mb-0">Laboratory Results</h5>
-                  </div>
+                <div class="section-header gap-3" v-if="record.lab_tech_notes">
+                  <i class="bi bi-file-medical text-primary me-2"></i>
+                  <h5 class="mb-0">Lab Tech</h5>
+                </div>
+                <div class="row g-3" v-if="record.lab_tech_notes">
                   <div class="row g-3">
-                    <div v-if="record.lab1" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab1 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab1_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab2" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab2 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab2_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab3" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab3 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab3_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab4" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab4 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab4_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab5" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab5 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab5_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab6" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab6 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab6_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab7" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab7 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab7_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab8" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab8 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab8_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab9" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab9 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab9_results" width="800" height="500" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="record.lab10" class="col-md-6">
-                      <div class="vital-card">
-                        <i class="bi bi-flask-fill text-primary"></i>
-                        <div>
-                          <small class="text-muted">{{ record.lab10 }}</small>
-                          <p class="mb-0 fw-bold">
-                            <embed class="pdf" :src="record.lab10_results" width="800" height="500" />
-                          </p>
+                    <div class="col-12">
+                      <div class="vital-card w-100">
+                        <div class="w-100">
+                          <p class="mb-0 fw-bold" v-html="record.lab_tech_notes"></p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
               </div>
+
+              <hr class="my-4" v-if="record.pharmacists_notes">
+              <!-- Laboratory Results -->
+              <div class="section-header gap-3" v-if="record.pharmacists_notes">
+                <i class="bi bi-file-medical text-primary me-2"></i>
+                <h5 class="mb-0">Pharmacist Notes</h5>
+              </div>
+              <div class="row g-3" v-if="record.pharmacists_notes">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="vital-card w-100">
+                      <div class="w-100">
+                        <p class="mb-0 fw-bold" v-html="record.pharmacists_notes"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <router-link :to="{ name: 'patient.record_update', params: { id: record.id } }">
                 <div class="flex col-6 float-start">
                   <Button class="btn btn-primary" @click="modal = true">
-                <i class="bi bi-plus-circle"></i>
-                Additional Records</Button>
-              </div>
+                    <i class="bi bi-plus-circle"></i>
+                    Additional Records
+                  </Button>
+                </div>
               </router-link>
             </div>
 
