@@ -116,14 +116,7 @@ onMounted(list_patients);
 
                   <td>
                     <div class="d-flex gap-2">
-                      <RouterLink
-                          :to="{ name: 'patients.file_add', params: { id: item.id} }"
-                          class="btn btn-secondary btn-sm"
-                      >
-                        <i class="bi bi-plus-circle me-1"></i>
 
-                        New Medical Record
-                      </RouterLink>
 
                       <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
                         Past Medical History
