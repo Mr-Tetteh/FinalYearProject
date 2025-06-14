@@ -9,7 +9,7 @@ const $toast = useToast();
 export default function usePatientRecord() {
     const record = ref({
         nurse_note: '',
-        doctor_notes: '',
+        doctor_notes: 'History: Diagnosis: Treatment: Investigation: Additional Note: ',
         pharmacists_notes: '',
         lab_tech_notes: ''
     });

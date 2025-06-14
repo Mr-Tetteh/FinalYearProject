@@ -9,7 +9,7 @@ import useHospital from "@/composerbles/useHospital.js";
 const {username, lastname, hospital} = useSession();
 const {hospital_patient, all_hospital_patient, list_patients, patient,  all_today_patient, today_patient_count} = usePatients()
 const {hospital_patient_count, count_hospital_patient, count_all_patient, count_all_patient_on_swift,
-  count_all_users, count_all_users_on_swift,hospital_users, count_all_hospital_users} = useHospital()
+  count_all_users, count_all_users_on_swift,hospital_users, count_all_hospital_users, count_all_hospitals, count_hospital} = useHospital()
 
 const {logout} = useAuth();
 const {userRole} =  useSession();
@@ -26,6 +26,7 @@ onMounted(() => {
   count_all_users()
   count_all_hospital_users()
   today_patient_count()
+  count_hospital()
 })
 
 const firstNameCount = computed(() => {
@@ -68,7 +69,9 @@ const submitAppointment = () => {
         <header class="dashboard-header mb-4">
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <h2 class="text-dark mb-1">{{ hospital }} Dashboard</h2>
+
+              <h2 class="text-dark mb-1" v-if="userRole == 'Admin'">Admin Dashboard</h2>
+              <h2 class="text-dark mb-1" v-else>{{ hospital }} Dashboard</h2>
               <p class="text-muted mb-0">Welcome back, {{userRole}} {{ username }}</p>
             </div>
             <div class="user-actions d-flex align-items-center gap-3">
@@ -92,7 +95,8 @@ const submitAppointment = () => {
                 <i class="bi bi-people-fill text-primary"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label">Total <b>{{ hospital }}</b> Patients</h6>                <h3 class="stat-value text-primary">{{ hospital_patient_count }}</h3>
+                <h6 class="stat-label">Total <b>{{ hospital }}</b> Patients</h6>
+                <h3 class="stat-value text-primary">{{ hospital_patient_count }}</h3>
               </div>
             </div>
           </div>
@@ -135,15 +139,27 @@ const submitAppointment = () => {
             </div>
           </div>
 
+          <div class="col-md-3 " v-if="userRole == 'Admin'">
+            <div class="stat-card bg-white border-start border-info border-4">
+              <div class="stat-icon bg-info-subtle">
+                <i class="bi bi-hospital-fill text-info"></i>
+              </div>
+              <div class="stat-details">
+                <h6 class="stat-label"> Total Hospitals</h6>
+                <h3 class="stat-value text-info">{{count_all_hospitals}}</h3>
+
+              </div>
+            </div>
+          </div>
 
           <div class="col-md-3 " v-if="userRole == 'Admin'">
-            <div class="stat-card bg-white border-start border-warning border-4">
-              <div class="stat-icon bg-warning-subtle">
-                <i class="bi bi-calendar-check text-warning"></i>
+            <div class="stat-card bg-white border-start border-primary border-4">
+              <div class="stat-icon bg-primary-subtle">
+                <i class="bi bi-calendar-check text-primary"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label"> Today's patients</h6>
-                <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
+                <h3 class="stat-value text-primary">{{all_today_patient}}</h3>
 
               </div>
             </div>
@@ -151,13 +167,13 @@ const submitAppointment = () => {
 
 
           <div class="col-md-3" v-if="userRole !=='Admin'">
-            <div class="stat-card bg-white border-start border-warning border-4">
-              <div class="stat-icon bg-warning-subtle">
-                <i class="bi bi-calendar-check text-warning"></i>
+            <div class="stat-card bg-white border-start border-success border-4">
+              <div class="stat-icon bg-success-subtle">
+                <i class="bi bi-calendar-check text-success"></i>
               </div>
               <div class="stat-details">
                 <h6 class="stat-label">Today's <b> {{ hospital }}</b> patient</h6>
-                <h3 class="stat-value text-warning">{{all_today_patient}}</h3>
+                <h3 class="stat-value text-success">{{all_today_patient}}</h3>
               </div>
             </div>
           </div>
