@@ -31,6 +31,25 @@ const handleSubmit = () => (
       <div class="patient-registration-form container">
         <div class="row justify-content-center">
           <div class="col-md-10">
+     <div v-if="record" class="mb-4 p-4 bg-white rounded shadow">
+       <h4 class="h5 font-weight-bold mb-3 text-dark">Current Record Data</h4>
+
+       <div v-if="record.nurse_notes" class="mb-3">
+         <h5 class="h6 font-weight-medium mb-2 text-primary">Nurse Notes:</h5>
+         <div class="border p-3 bg-primary bg-opacity-10 rounded" v-html="record.nurse_notes"></div>
+       </div>
+
+       <div v-if="record.doctor_notes" class="mb-3">
+         <h5 class="h6 font-weight-medium mb-2 text-success">Doctor Notes:</h5>
+         <div class="border p-3 bg-success bg-opacity-10 rounded" v-html="record.doctor_notes"></div>
+       </div>
+
+       <div v-if="record.lab_tech_notes" class="mb-3">
+         <h5 class="h6 font-weight-medium mb-2 text-purple">Laboratory Notes:</h5>
+         <div class="border p-3" style="background-color: #f3e8ff;" v-html="record.lab_tech_notes"></div>
+       </div>
+     </div>
+
             <div class="card shadow-lg border-0">
               <div class="card-body">
                 <form v-if="record" @submit.prevent="handleSubmit" class="text-center">

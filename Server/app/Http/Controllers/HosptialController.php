@@ -114,6 +114,13 @@ class HosptialController extends Controller
         ], 201);
     }
 
+    public function hospital_count()
+    {
+        $count_hospital = Hosptial::get()->count();
+
+        return response()->json($count_hospital);
+
+    }
     /**
      * Display the specified resource.
      */

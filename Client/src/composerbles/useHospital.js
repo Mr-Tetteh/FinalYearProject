@@ -41,12 +41,14 @@ export default function useHospital() {
         };
     };
 
+
     const hospital_patient_count = ref()
     const count_all_patient_on_swift = ref()
     const count_all_users_on_swift = ref()
     const hospital_users = ref()
     const registered_hospitals_data = ref([]);
     const reg_payment = ref([]);
+    const count_all_hospitals = ref('')
 
 
     const stock_drugs = async () => {
@@ -204,6 +206,19 @@ export default function useHospital() {
         }
     };
 
+    const count_hospital = async () => {
+        try{
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get('https://health.local.stay/api/count_hospitals', config);
+            count_all_hospitals.value = response.data
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    }
+
     const delete_hospital = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -247,7 +262,9 @@ export default function useHospital() {
         count_all_hospital_users,
         registered_hospital,
         registered_hospitals_data,
-        delete_hospital
+        delete_hospital,
+        count_all_hospitals,
+        count_hospital
 
     }
 }

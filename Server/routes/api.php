@@ -50,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
 
     Route::get('registered_hospital', [HosptialController::class, 'show']);
+    Route::get('count_hospitals', [HosptialController::class, 'hospital_count']);
     Route::delete('delete_hospital/{hospital}', [HosptialController::class, 'destroy']);
+
 
 });

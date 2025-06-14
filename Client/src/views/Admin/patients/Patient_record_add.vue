@@ -21,8 +21,7 @@ const {userRole} = useSession()
 
 const record = ref({
   patient_id: props.id,
-  nurse_notes: ''
-
+  nurse_notes: 'Temperature:  pulse_rate:  respiratory_rate:  blood_pressure:  rbs:   fbs:  spo2:  weight:'
 
 });
 
@@ -69,8 +68,6 @@ const handleSubmit = async () => {
                     </div>
                     <div class="section-content p-3 bg-light rounded">
                       <div class="row justify-content-center g-3">
-
-
                         <editor
                             v-model="record.nurse_notes"
                             id="nurse-editor"

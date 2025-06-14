@@ -4,6 +4,8 @@ import usePatients from "@/composerbles/usePatients.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import ActivatePatient from "@/components/activatePatient.vue";
+import useAuth from "@/composerbles/useAuth.js";
+import useSession from "@/composerbles/useSession.js";
 
 const selectedPatientId = ref(null);
 const modal = ref(false);
@@ -25,6 +27,8 @@ const searchResults = computed(() => {
     return patientId.includes(searched);
   });
 });
+
+const {userRole} = useSession()
 </script>
 
 <template>
@@ -134,13 +138,12 @@ const searchResults = computed(() => {
                   <td>
                     <div class="d-flex gap-2">
 
-                      <button v-if="item.status == false" class="btn btn-info btn-sm" @click="activate_patient(item)">
+                      <button v-if="item.status == false && userRole === 'Nurse'"  class="btn btn-info btn-sm" @click="activate_patient(item)">
                         <i class="bi bi-pencil-square"></i>
                         Activate Patient
                       </button>
 
-
-                      <RouterLink v-if="item.status == true"
+                      <RouterLink v-if="item.status == true && userRole === 'Nurse'"
                                   :to="{ name: 'patients.file_add', params: { id: item.id} }"
                                   class="btn btn-secondary btn-sm"
                       >
