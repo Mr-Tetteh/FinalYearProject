@@ -19,7 +19,9 @@ const toggleSidebar = () => {
         <div class="logo">
           <i class="bi bi-heart-pulse-fill text-primary"></i>
         </div>
-        <h5 class="hospital-name">{{ hospital }} Hospital</h5>
+        <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
+        <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
+
       </div>
     </div>
     <button @click="toggleSidebar" class="toggle-btn text-primary">
