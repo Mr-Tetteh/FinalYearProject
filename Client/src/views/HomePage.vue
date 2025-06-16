@@ -257,7 +257,7 @@ import NavBar from "@/components/NavBar.vue";
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="service-item position-relative">
               <img
-                  src="../assets/img/data-protection-cyber-security-concept-secure-data-management-protect-data_36358-2481.avif"
+                  src="../assets/img/Secure data-bro.svg"
                   class="img-thumbnail" alt="">
               <h3>Secure Data Management</h3>
               <p>Ensure patient and hospital data remain safe with robust security measures and compliance with privacy
@@ -353,17 +353,28 @@ import NavBar from "@/components/NavBar.vue";
                   <h2>Basic</h2>
                 </div>
                 <div class="price">
-                  <h4><sup>$</sup>25</h4>
+                  <h4><sup>¢</sup>50</h4>
                 </div>
                 <div class="option">
                   <ul>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>10 GB Space</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>3 Domain Names</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>20 Email Address</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+
+                      1 Month Duration</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Record Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Staff Record Management</li>
                   </ul>
+
                 </div>
-                <a href="#">Order Now</a>
+                <RouterLink to="/register_hospital">Order Now</RouterLink>
               </div>
             </div>
             <div class="col-sm-4">
@@ -373,17 +384,25 @@ import NavBar from "@/components/NavBar.vue";
                   <h2>Standard</h2>
                 </div>
                 <div class="price">
-                  <h4><sup>$</sup>50</h4>
+                  <h4><sup>¢</sup>150</h4>
                 </div>
                 <div class="option">
                   <ul>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>50 GB Space</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>5 Domain Names</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>unlimited Email Address</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      6 Month Duration</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Record Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Staff Record Management</li>
                   </ul>
                 </div>
-                <a href="#">Order Now</a>
+                <RouterLink to="/register_hospital">Order Now</RouterLink>
               </div>
             </div>
             <div class="col-sm-4">
@@ -393,17 +412,25 @@ import NavBar from "@/components/NavBar.vue";
                   <h2>Premium</h2>
                 </div>
                 <div class="price">
-                  <h4><sup>$</sup>100</h4>
+                  <h4><sup>¢</sup>250</h4>
                 </div>
                 <div class="option">
                   <ul>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>Unlimited GB Space</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>30 Domain Names</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>Unlimited Email Address</li>
-                    <li><i class="fa fa-check" aria-hidden="true"></i>Live Support</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      1 Year Duration</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Patient Record Management</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20">
+                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      Staff Record Management</li>
                   </ul>
                 </div>
-                <a href="#">Order Now</a>
+                <RouterLink to="/register_hospital">Order Now</RouterLink>
               </div>
             </div>
           </div>
@@ -435,7 +462,7 @@ import NavBar from "@/components/NavBar.vue";
               </a>
 
               <!-- Email -->
-              <a href="mailto:contact@example.com" class="contact-link">
+              <a href="mailto:danielstay73@gmail.com" class="contact-link">
                 <div class="contact-icon email-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
                     <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>

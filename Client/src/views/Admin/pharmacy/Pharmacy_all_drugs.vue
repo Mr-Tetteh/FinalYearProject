@@ -87,7 +87,7 @@ const filteredDetails = computed(() => {
                   <!-- Drug Name & Price -->
                   <div class="drug-header">
                     <h3 class="drug-name">{{ drug.name }}</h3>
-                    <div class="price">${{ drug.price }}</div>
+                    <div class="price">¢{{ drug.price }}</div>
                   </div>
 
                   <!-- Drug Info -->
@@ -128,29 +128,30 @@ const filteredDetails = computed(() => {
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="!searchResults?.length" class="text-center py-5">
-      <div class="container mx-auto" style="max-width: 28rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" viewBox="0 0 576 512">
-          <path d="M64 144c0-26.5 21.5-48 48-48s48 21.5 48 48l0 112-96 0 0-112zM0 144L0 368c0 61.9 50.1 112 112 112s112-50.1 112-112l0-178.4c1.8 19.1 8.2 38 19.8 54.8L372.3 431.7c35.5 51.7 105.3 64.3 156 28.1s63-107.5 27.5-159.2L427.3 113.3C391.8 61.5 321.9 49 271.3 85.2c-28 20-44.3 50.8-47.3 83l0-24.2c0-61.9-50.1-112-112-112S0 82.1 0 144zm296.6 64.2c-16-23.3-10-55.3 11.9-71c21.2-15.1 50.5-10.3 66 12.2l67 97.6L361.6 303l-65-94.8zM491 407.7c-.8 .6-1.6 1.1-2.4 1.6l4-2.8c-.5 .4-1 .8-1.6 1.2z"/></svg>
-        <h3 class="h5 fw-semibold text-secondary mb-2">
-          {{ searchQuery ? 'No Drug found' : 'No patients registered' }}
-        </h3>
-        <p class="text-muted small">
-          {{
-            searchQuery ? 'Try adjusting your search criteria.' : 'Get started by registering your first patient.'
-          }}
-        </p>
-        <div v-if="searchQuery" class="mt-4">
-          <button
-              @click="searchQuery = ''"
-              class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
-          >
-            Clear search
-          </button>
+      <div v-if="!filteredDetails?.length" class="text-center py-5">
+        <div class="container mx-auto" style="max-width: 28rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" viewBox="0 0 576 512">
+            <path d="M64 144c0-26.5 21.5-48 48-48s48 21.5 48 48l0 112-96 0 0-112zM0 144L0 368c0 61.9 50.1 112 112 112s112-50.1 112-112l0-178.4c1.8 19.1 8.2 38 19.8 54.8L372.3 431.7c35.5 51.7 105.3 64.3 156 28.1s63-107.5 27.5-159.2L427.3 113.3C391.8 61.5 321.9 49 271.3 85.2c-28 20-44.3 50.8-47.3 83l0-24.2c0-61.9-50.1-112-112-112S0 82.1 0 144zm296.6 64.2c-16-23.3-10-55.3 11.9-71c21.2-15.1 50.5-10.3 66 12.2l67 97.6L361.6 303l-65-94.8zM491 407.7c-.8 .6-1.6 1.1-2.4 1.6l4-2.8c-.5 .4-1 .8-1.6 1.2z"/></svg>
+          <h3 class="h5 fw-semibold text-secondary mb-2">
+            {{ searchQuery ? 'No Drug found' : 'No patients registered' }}
+          </h3>
+          <p class="text-muted small">
+            {{
+              searchQuery ? 'Try adjusting your search criteria.' : 'Get started by registering your first patient.'
+            }}
+          </p>
+          <div v-if="searchQuery" class="mt-4">
+            <button
+                @click="searchQuery = ''"
+                class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
+            >
+              Clear search
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
 
   </div>
 </template>

@@ -111,29 +111,38 @@ export default function useHospital() {
             alert(err.response.data.data.message);
         }
     }
+
+    const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const payment = await axios.get(`https://health.local.stay/api/payments/hospital/${hospitalId}`);
+                return payment.data;
+            } catch (e) {
+                await new Promise(res => setTimeout(res, delay));
+            }
+        }
+        throw new Error('Payment not found after waiting.');
+    };
+
     const register_hospital = async () => {
         try {
             const response = await axios.post('https://health.local.stay/api/hospital', input.value);
-            const hospitalData = response.data;
+            const hospitalData = response.data.hospital;
 
-            // Use the hospital ID from the response
-            const payment = await axios.get(`https://health.local.stay/api/payments/${hospitalData.id}`);
-            reg_payment.value = payment.data;
-            console.log(reg_payment.value); // Added .value here
+            // Wait for the payment job to finish and fetch payment
+            const payment = await waitForPayment(hospitalData.id);
+            reg_payment.value = payment;
 
-            $toast.success('Congrats Your hospital has been registered successfully.', {
-                position: "top-right"
-            });
-            $toast.success('We will get in touch with you soon to create your user account for you', {
-                position: "top-right"
-            })
+            window.location.href = payment.payment_url; // Redirect user to Paystack
 
-            return hospitalData;
+            $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });
+
         } catch (err) {
-            console.error('Error details:', err); // Better error logging
-            alert(err.response?.data?.message || 'Registration failed');
+            console.error('Error:', err);
+            $toast.error('Registration or payment initialization failed.', { position: "top-right" });
         }
     };
+
     const count_hospital_patient = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
