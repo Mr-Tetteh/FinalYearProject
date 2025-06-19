@@ -142,6 +142,10 @@ class UserController extends Controller
         $email = $request->input('email');
         $token = Str::random(20);
 
+        $user = \App\Models\User::where('email', $email)->first();
+        if (! $user) {
+            return response()->json(['message' => 'Sorry User with this email was not found'], 404);
+        }
         DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,

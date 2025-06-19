@@ -66,12 +66,17 @@ export default function useAuth() {
         try {
 
             const response = await axios.post('https://health.local.stay/api/rest_password', password_rest.value);
-            $toast.success(response.data.message)
-
+            $toast.success(response.data.message, {
+                position: 'top-right',
+            })
         } catch (err) {
             $toast.error(err.response.data.message, {
                 position: 'top-right',
             })
+            setTimeout(() => {
+                window.location.reload()
+
+            }, 1000)
         }
 
     }
@@ -200,13 +205,13 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            
+
             const response = await axios.patch(`https://health.local.stay/api/update_role/${id}`, userData.value, config)
 
             $toast.success('User Role Updated Successfully', {
                 position: 'top-right',
             });
-            
+
             setTimeout(() => {
                 window.location.reload()
             }, 1000)
@@ -225,7 +230,7 @@ export default function useAuth() {
             }
             const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
             if (response) {
-                  $toast.error(response.data.message, {
+                $toast.error(response.data.message, {
                     position: 'top-right',
                     pauseOnHover: true
                 })

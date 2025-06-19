@@ -7,11 +7,14 @@ const {password_rest, reset_password} = useAuth();
 const errorMessage = ref("");
 const showPassword = ref(false);
 const rememberMe = ref(false);
+const is_load = ref(false);
 
 
 const PasswordReset = async () => {
   reset_password()
+  is_load.value = true
 };
+
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
@@ -56,7 +59,7 @@ const togglePasswordVisibility = () => {
                       </div>
                     </div>
                     <div class="d-grid gap-2">
-                      <button type="submit" class="btn btn-primary text-black">
+                      <button type="submit" class="btn btn-primary text-black" :disabled="is_load">
                         Reset Password
                       </button>
                       <RouterLink to="login" class="text-primary text-3xl  offset-8"><i class="bi bi-arrow-bar-left  text-primary"></i>
