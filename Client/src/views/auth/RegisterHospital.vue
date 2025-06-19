@@ -4,8 +4,11 @@ import useHospital from "@/composerbles/useHospital.js";
 import {computed, ref} from "vue";
 const { input, register_hospital } = useHospital();
 
+const is_loading = ref(false)
+
 const hospital = () => {
   register_hospital();
+  is_loading.value = true;
 };
 
 const constituencies = [
@@ -293,6 +296,8 @@ const constituencies = [
 const filteredConstituencies = computed(() => {
   return constituencies.filter((constituency) => constituency.toLowerCase().includes(input.value.hospital_country.toLowerCase()));
 })
+
+
 </script>
 
 <template>
@@ -467,6 +472,7 @@ const filteredConstituencies = computed(() => {
           <!-- Submit Button -->
           <div class="col-12 mt-4">
             <button
+                :disabled="is_loading"
                 type="submit"
                 class="btn btn-primary btn-lg w-100 gradient-btn py-3"
             >
