@@ -17,7 +17,7 @@ const currentDateTime = ref(new Date().toLocaleString());
 
 const cartItems = ref([])
 
-const removeItem = (itemId) =>{
+const removeItem = (itemId) => {
   localStorage.removeItem(cartItems)
   cartItems.value = cartItems.value.filter(item => item.id !== itemId);
 
@@ -27,21 +27,20 @@ const removeItem = (itemId) =>{
   }
 }
 
-onMounted( ()=> {
-  const items =  localStorage.getItem("cartItems")
+onMounted(() => {
+  const items = localStorage.getItem("cartItems")
   cartItems.value = JSON.parse(items)
 })
 
 
-const {hospital} =  useSession()
-
+const {hospital} = useSession()
 
 
 const handleDone = async () => {
   try {
     const token = localStorage.getItem('AUTH_TOKEN');
     const config = {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: {Authorization: `Bearer ${token}`}
     };
 
     // Prepare the data to send to the backend
@@ -52,7 +51,7 @@ const handleDone = async () => {
 
     const response = await axios.post(
         'https://health.local.stay/api/update-quantities',
-        { items: updateData },
+        {items: updateData},
         config
     );
 
@@ -114,17 +113,19 @@ const handleDone = async () => {
           </thead>
           <tbody>
           <tr v-for="(item, index) in cartItems" :key="item.id">
-            <td class="text-center">{{index +1}}</td>
+            <td class="text-center">{{ index + 1 }}</td>
             <td class="text-center">{{ item.name }}</td>
             <td class="text-center">{{ item.price }}</td>
             <td class="text-center">{{ item.quantity }}</td>
-            <td class="text-center no-print"><button class="btn btn-secondary" @click="removeItem(item.id)">Remove</button></td>
+            <td class="text-center no-print">
+              <button class="btn btn-secondary" @click="removeItem(item.id)">Remove</button>
+            </td>
           </tr>
           <tr v-if="cartItems.length > 0" class="table-secondary">
-          <td colspan="2" class="text-end fw-bold">Total:</td>
-          <td colspan="2" class="text-center fw-bold">
-            GHC{{ cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2) }}
-          </td>
+            <td colspan="2" class="text-end fw-bold">Total:</td>
+            <td colspan="2" class="text-center fw-bold">
+              GHC{{ cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2) }}
+            </td>
             <td class="text-center no-print">
               <button
                   class="btn btn-primary"
@@ -132,7 +133,8 @@ const handleDone = async () => {
               >
                 Done
               </button>
-            </td>          </tr>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
