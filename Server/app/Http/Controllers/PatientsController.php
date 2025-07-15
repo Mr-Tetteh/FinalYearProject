@@ -63,7 +63,6 @@ class PatientsController extends Controller
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'other_name' => $request->input('other_name'),
-            'age' => $request->input('age'),
             'gender' => $request->input('gender'),
             'date_of_birth' => $request->input('date_of_birth'),
             'contact' => $request->input('contact'),

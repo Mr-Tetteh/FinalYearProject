@@ -112,17 +112,6 @@ const handleSubmit = async () => {
                               </div>
                             </div>
 
-                            <div class="col-md-6">
-                              <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
-                              <div class="form-group has-icon-left">
-                                <div class="position-relative">
-                                  <input type="number" class="form-control"
-                                         placeholder="Age" id="age" v-model="input.age" >
-                                  <div class="form-control-icon">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
 
                             <div class="col-md-6">
                               <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
