@@ -20,7 +20,6 @@ class PatientResource extends JsonResource
             'last_name' => $this->last_name,
             'other_name' => $this->other_name,
             'patient_number' => $this->patient_number,
-            'age' => $this->age,
             'status' => $this->status,
             'gender' => $this->gender,
             'hospital' => $this->hospital,

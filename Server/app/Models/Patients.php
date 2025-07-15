@@ -17,7 +17,6 @@ class Patients extends Model
         'first_name',
         'last_name',
         'other_name',
-        'age',
         'patient_number',
         'gender',
         'hospital',

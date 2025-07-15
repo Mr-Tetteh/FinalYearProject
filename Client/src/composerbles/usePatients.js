@@ -87,7 +87,6 @@ export default function usePatients() {
             "first_name",
             "last_name",
             "gender",
-            "age",
             "date_of_birth",
             "contact",
             "address",
