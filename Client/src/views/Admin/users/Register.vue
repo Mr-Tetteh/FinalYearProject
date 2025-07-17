@@ -62,6 +62,7 @@ onMounted(hospital);
                             type="text"
                             class="form-control"
                             v-model="input.first_name"
+                            @input="input.first_name = input.first_name.replace(/[^a-zA-Z\s]/g, '')"
                         />
                       </div>
 
@@ -71,6 +72,7 @@ onMounted(hospital);
                             type="text"
                             class="form-control"
                             v-model="input.last_name"
+                            @input="input.last_name = input.last_name.replace(/[^a-zA-Z\s]/g, '')"
                         />
                       </div>
                       <div class="col-md-6">
@@ -79,6 +81,7 @@ onMounted(hospital);
                             type="text"
                             class="form-control"
                             v-model="input.other_names"
+                            @input="input.other_names = input.other_names.replace(/[^a-zA-Z\s]/g, '')"
                         />
                       </div>
 
@@ -88,6 +91,7 @@ onMounted(hospital);
                             type="tel"
                             class="form-control"
                             v-model="input.contact"
+                            @input="input.contact = input.contact.replace(/[^0-9]/g, '')"
                         />
                       </div>
 
@@ -167,14 +171,6 @@ onMounted(hospital);
                         />
                       </div>
 
-                      <div class="col-md-6">
-                        <label class="form-label">City</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="input.city"
-                        />
-                      </div>
                     </div>
 
                     <div class="mt-4">

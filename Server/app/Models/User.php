@@ -98,7 +98,6 @@ class User extends Authenticatable
         'email',
         'hospital_slug',
         'staff_id',
-        'city',
         'password',
 
     ];

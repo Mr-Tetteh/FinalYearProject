@@ -63,6 +63,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control"
+                                         @input="input.first_name = input.first_name.replace(/[^a-zA-Z\s]/g, '')"
                                          placeholder="First Name" id="first-name" v-model="input.first_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -77,6 +78,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control"
+                                         @input="input.last_name = input.last_name.replace(/[^a-zA-Z\s]/g, '')"
                                          placeholder="Last Name" id="last-name" v-model="input.last_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -90,6 +92,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control"
+                                         @input="input.other_name = input.other_name.replace(/[^a-zA-Z\s]/g, '')"
                                          placeholder="Other Name" id="other-name" v-model="input.other_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -152,6 +155,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="tel" class="form-control"
+                                         @input="input.contact = input.contact.replace(/[^0-9]/g, '')"
                                          placeholder="Phone Number" id="contact" v-model="input.contact">
                                   <div class="form-control-icon">
                                     <i class="bi bi-phone"></i>
@@ -207,6 +211,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" id="medical-condition" v-model="input.medical_history"
+                                         @input="input.medical_history = input.medical_history.replace(/[^a-zA-Z\s,]/g, '')"
                                          class="form-control" placeholder="E.g., Diabetes, Hypertension">
                                   <div class="form-control-icon">
                                     <i class="bi bi-clipboard-check"></i>
@@ -220,6 +225,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" id="allergies" v-model="input.allergies"
+                                          @input="input.allergies = input.allergies.replace(/[^a-zA-Z\s,]/g, '')"
                                          class="form-control" placeholder="E.g., Peanuts, Dust, Medications">
                                   <div class="form-control-icon">
                                     <i class="bi bi-exclamation-triangle"></i>
@@ -265,6 +271,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control"
+                                          @input="input.guardian1_first_name = input.guardian1_first_name.replace(/[^a-zA-Z\s]/g, '')"
                                          placeholder="First Name" id="guardian1-first-name" v-model="input.guardian1_first_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -278,6 +285,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Last Name"
+                                         @input="input.guardian1_last_name = input.guardian1_last_name.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian1-last-name" v-model="input.guardian1_last_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -291,6 +299,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Other Names"
+                                          @input="input.guardian1_other_names = input.guardian1_other_names.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian1-other-names" v-model="input.guardian1_other_names">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -304,6 +313,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control"
+                                  @input="input.guardian1_relation = input.guardian1_relation.replace(/[^a-zA-Z\s]/g, '')"
                                          placeholder="e.g. Parent, Grandparent" id="guardian1-relation" v-model="input.guardian1_relation">
                                   <div class="form-control-icon">
                                     <i class="bi bi-people-fill"></i>
@@ -317,6 +327,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Residence Address"
+                                          @input="input.guardian1_residence = input.guardian1_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
                                          id="guardian1-residence" v-model="input.guardian1_residence">
                                   <div class="form-control-icon">
                                     <i class="bi bi-house"></i>
@@ -330,6 +341,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="tel" class="form-control"
+                                  @input="input.guardian1_contact = input.guardian1_contact.replace(/[^0-9]/g, '')"
                                          placeholder="Phone Number" id="guardian1-contact" v-model="input.guardian1_contact">
                                   <div class="form-control-icon">
                                     <i class="bi bi-telephone"></i>
@@ -359,6 +371,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="First Name"
+                                         @input="input.guardian2_first_name = input.guardian2_first_name.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian2-first-name" v-model="input.guardian2_first_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -372,6 +385,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Last Name"
+                                         @input="input.guardian2_last_name = input.guardian2_last_name.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian2-last-name" v-model="input.guardian2_last_name">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -385,6 +399,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Other Names"
+                                         @input="input.guardian2_other_names = input.guardian2_other_names.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian2-other-names" v-model="input.guardian2_other_names">
                                   <div class="form-control-icon">
                                     <i class="bi bi-person"></i>
@@ -398,6 +413,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="e.g. Parent, Grandparent"
+                                         @input="input.guardian2_relation = input.guardian2_relation.replace(/[^a-zA-Z\s]/g, '')"
                                          id="guardian2-relation" v-model="input.guardian2_relation">
                                   <div class="form-control-icon">
                                     <i class="bi bi-people-fill"></i>
@@ -411,6 +427,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="Residence Address"
+                                         @input="input.guardian2_residence = input.guardian2_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
                                          id="guardian2-residence" v-model="input.guardian2_residence">
                                   <div class="form-control-icon">
                                     <i class="bi bi-house"></i>
@@ -424,6 +441,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="tel" class="form-control" placeholder="Phone Number"
+                                         @input="input.guardian2_contact = input.guardian2_contact.replace(/[^0-9]/g, '')"
                                          id="guardian2-contact" v-model="input.guardian2_contact">
                                   <div class="form-control-icon">
                                     <i class="bi bi-telephone"></i>

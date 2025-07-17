@@ -34,7 +34,7 @@ const registerDrug = () =>{
                           type="text"
                           class="form-control"
                           v-model="data.name"
-                          required
+                          @input="data.name = data.name.replace(/[^a-zA-Z0-9\s]/g, '')"
                       />
                     </div>
 
