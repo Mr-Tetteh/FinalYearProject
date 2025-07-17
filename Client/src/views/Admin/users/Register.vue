@@ -120,12 +120,14 @@ onMounted(hospital);
                             v-model="input.role"
                         >
                           <option value="" disabled selected>Select Role</option>
+                          <option value="Receptionist">Receptionist</option>
                           <option value="Doctor">Doctor</option>
                           <option value="Nurse">Nurse</option>
                           <option value="Pharmacist">Pharmacist</option>
                           <option value="Account">Account</option>
                           <option value="Manager">Manager</option>
                           <option value="Lab Technician">Lab Technician</option>
+
 
                         </select>
                       </div>

@@ -49,6 +49,7 @@ export default function useHospital() {
     const registered_hospitals_data = ref([]);
     const reg_payment = ref([]);
     const count_all_hospitals = ref('')
+    const is_loading = ref(false)
 
 
     const stock_drugs = async () => {
@@ -126,6 +127,7 @@ export default function useHospital() {
 
     const register_hospital = async () => {
         try {
+            is_loading.value = true;
             const response = await axios.post('https://health.local.stay/api/hospital', input.value);
             const hospitalData = response.data.hospital;
 
@@ -138,6 +140,7 @@ export default function useHospital() {
             $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });
 
         } catch (err) {
+            is_loading.value = false;
             console.error('Error:', err);
             $toast.error('Registration or payment initialization failed.', { position: "top-right" });
         }
@@ -273,7 +276,8 @@ export default function useHospital() {
         registered_hospitals_data,
         delete_hospital,
         count_all_hospitals,
-        count_hospital
+        count_hospital,
+        is_loading
 
     }
 }

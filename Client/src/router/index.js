@@ -60,7 +60,7 @@ const router = createRouter({
             component: Patients,
             meta: {
                 requiresAuth: true,
-                roles: ['Nurse', 'Manager', 'Doctor']
+                roles: ['Manager', 'Receptionist']
             }
         },
         {
@@ -107,7 +107,7 @@ const router = createRouter({
             component: Hospital_patients,
             meta: {
                 requiresAuth: true,
-                roles: ['Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Account']
+                roles: ['Receptionist','Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Account']
 
             }
         },

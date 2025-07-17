@@ -2,13 +2,11 @@
 import NavBar from "@/components/NavBar.vue";
 import useHospital from "@/composerbles/useHospital.js";
 import {computed, ref} from "vue";
-const { input, register_hospital } = useHospital();
+const { input, register_hospital, is_loading } = useHospital();
 
-const is_loading = ref(false)
 
 const hospital = () => {
   register_hospital();
-  is_loading.value = true;
 };
 
 const constituencies = [
@@ -322,7 +320,7 @@ const filteredConstituencies = computed(() => {
                   class="form-control form-control-lg"
                   v-model="input.hospital_name"
                   placeholder=" "
-                  required
+                  @input="input.hospital_name = input.hospital_name.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_name" class="fw-semibold">Hospital Name</label>
               <div class="form-icon">
@@ -340,7 +338,7 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_email"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  required
+
               />
               <label for="hospital_email" class="fw-semibold">Hospital Email</label>
               <div class="form-icon">
@@ -358,7 +356,7 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_address"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  required
+                  @input="input.hospital_address = input.hospital_address.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_address" class="fw-semibold">Hospital Address</label>
               <div class="form-icon">
@@ -376,7 +374,7 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_contact"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  required
+                  @input="input.hospital_contact = input.hospital_contact.replace(/[^0-9]/g, '')"
               />
               <label for="hospital_contact" class="fw-semibold">Hospital Contact</label>
               <div class="form-icon">
@@ -394,7 +392,7 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_location"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  required
+                  @input="input.hospital_location = input.hospital_location.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_location" class="fw-semibold">Hospital Location</label>
               <div class="form-icon">
@@ -439,7 +437,7 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_city"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  required
+                  @input="input.hospital_city = input.hospital_city.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_city" class="fw-semibold">City</label>
               <div class="form-icon">
@@ -455,7 +453,6 @@ const filteredConstituencies = computed(() => {
                   id="monthly_subscription"
                   class="form-select form-select-lg"
                   v-model="input.number_of_monthly_subscription"
-                  required
               >
                 <option value="" disabled selected></option>
                 <option value="50">1 Month - GHC50</option>
