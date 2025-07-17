@@ -18,6 +18,12 @@ export default function useHospital() {
         number_of_monthly_subscription: ""
     })
 
+    const plan_input = ref({
+        hospital_name: "",
+        subscription_type: "",
+     
+    })
+
 
     const data = ref({
         name: '',
@@ -277,7 +283,8 @@ export default function useHospital() {
         delete_hospital,
         count_all_hospitals,
         count_hospital,
-        is_loading
+        is_loading,
+        plan_input
 
     }
 }

@@ -57,6 +57,9 @@ const {logout} = useAuth()
             <li class="nav-item" v-if="isLoggedIn">
               <RouterLink to="/register_hospital" class="nav-link">Register Hospital</RouterLink>
             </li>
+            <li class="nav-item">
+              <RouterLink to="/update_plan" class="nav-link">Update Plan</RouterLink>
+            </li>
           </ul>
         </nav>
 
@@ -96,6 +99,9 @@ const {logout} = useAuth()
               </li>
               <li class="nav-item" v-if="isLoggedIn">
                 <RouterLink to="/register_hospital" class="nav-link">Register Hospital</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink to="/update_plan" class="nav-link">Update Plan</RouterLink>
               </li>
             </ul>
           </nav>

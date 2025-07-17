@@ -21,6 +21,7 @@ import SetPassword from "@/views/auth/SetPassword.vue";
 import Patient_record_update from "@/views/Admin/patients/Patient_record_update.vue";
 import Register_Hospital from "@/views/Admin/hospital/Register_Hospital.vue";
 import Registered_Hospitals from "@/views/Admin/hospital/Registered_Hospitals.vue";
+import Update_plan from '@/views/subcription/update_plan.vue';
 
 
 const router = createRouter({
@@ -45,6 +46,11 @@ const router = createRouter({
             path: '/register_hospital',
             name: 'register_hospital',
             component: RegisterHospital
+        },
+        {
+            path: '/update_plan',
+            name: 'update_plan',
+            component: Update_plan
         },
         {
             path: '/dashboard',
