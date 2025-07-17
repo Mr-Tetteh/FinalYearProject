@@ -30,7 +30,6 @@ export default function useAuth() {
         role: "",
         // hospital: "",
         staff_id: "",
-        city: "",
         password: "my_name_is_jesus",
     })
     const role = ref({

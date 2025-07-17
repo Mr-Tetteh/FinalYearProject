@@ -87,7 +87,6 @@ class UserController extends Controller
             'hospital' => $request->input('hospital'),
             'staff_id' => $request->input('staff_id'),
             'contact' => $request->input('contact'),
-            'city' => $request->input('city'),
             'password' => Hash::make($request->input('password')),
         ]);
 
