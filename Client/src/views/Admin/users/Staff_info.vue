@@ -113,7 +113,8 @@ const searchResults = computed(() => {
                       'bg-pink text-white': item.role === 'Manager',
                       'bg-secondary text-white': item.role === 'Lab Technician',
                       'bg-warning text-white': item.role === 'Accountant',
-                      'bg-dark text-white': item.role === 'Admin'
+                      'bg-dark text-white': item.role === 'Admin',
+                      'bg-success text-white': item.role === 'Receptionist'
 
 
 

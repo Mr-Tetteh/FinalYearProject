@@ -52,7 +52,7 @@ const toggleSidebar = () => {
             <i class="bi bi-chevron-down menu-arrow"></i>
           </div>
           <div class="submenu">
-            <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Nurse'" >
+            <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Receptionist'" >
               <i class="bi bi-plus-circle"></i>
               <span>Register Patient</span>
             </RouterLink>
