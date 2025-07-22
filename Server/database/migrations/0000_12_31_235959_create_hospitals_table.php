@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hosptials', function (Blueprint $table) {
+        Schema::create('hospitals', function (Blueprint $table) {
             $table->id();
             $table->string('hospital_name');
+            $table->string('hospital_email');
             $table->string('hospital_address');
             $table->string('hospital_contact');
-            $table->string('hospital_email');
-            $table->string('hospital_country');
-            $table->string('hospital_city');
             $table->string('hospital_location');
-            $table->string('user_name');
-            $table->string('user_phone_number');
-            $table->string('user_email');
+            $table->string('hospital_consistency');
+            $table->string('hospital_city');
             $table->string('number_of_monthly_subscription');
-
+            $table->boolean('status')->default(false)->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hosptials');
+        Schema::dropIfExists('hospitals');
     }
 };

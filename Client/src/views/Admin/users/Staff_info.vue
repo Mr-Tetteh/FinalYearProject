@@ -47,7 +47,9 @@ const searchResults = computed(() => {
         <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h3 class="mb-2">Staff Directory</h3>
+            <h3 class="mb-2" v-if=" userRole !=='Admin'">Staff Directory</h3>
+            <h3 class="mb-2" v-else>Admin Directory</h3>
+
             <p class="text-muted">Manage and view all staff members</p>
           </div>
           <RouterLink v-if="userRole == 'Admin' || userRole == 'Manager'" class="btn btn-primary" to="register">
@@ -60,7 +62,9 @@ const searchResults = computed(() => {
         <div class="card shadow-sm">
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title mb-0">Staff List</h5>
+              <h5 class="card-title mb-0" v-if=" userRole !=='Admin'">Staff List</h5>
+              <h5 class="card-title mb-0"  v-else >Admin  List</h5>
+
               <div class="search-box">
                 <div class="input-group">
                   <span class="input-group-text bg-white border-end-0">
@@ -124,7 +128,7 @@ const searchResults = computed(() => {
                   </td>
                   <td>{{ item.email }}</td>
                   <td>{{ item.staff_id }}</td>
-                  <td>{{ item.hospital }}</td>
+                  <td>{{ item.hospital_id }}</td>
                   <td>
                     <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">

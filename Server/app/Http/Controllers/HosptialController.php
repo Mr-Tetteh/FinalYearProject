@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
 use App\Jobs\InitPaymentJB;
-use App\Models\Hosptial;
+use App\Models\Hospital;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -43,7 +43,7 @@ class HosptialController extends Controller
      */
     public function index()
     {
-        $hospitals = Hosptial::all();
+        $hospitals = Hospital::all();
 
         return HospitalResource::collection($hospitals);
     }
@@ -94,13 +94,13 @@ class HosptialController extends Controller
      */
     public function store(Request $request)
     {
-        $hospital = Hosptial::create([
+        $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
             'hospital_contact' => $request->input('hospital_contact'),
             'hospital_email' => $request->input('hospital_email'),
             'hospital_location' => $request->input('hospital_location'),
-            'hospital_country' => $request->input('hospital_country'),
+            'hospital_consistency' => $request->input('hospital_country'),
             'hospital_city' => $request->input('hospital_city'),
             'status' => $request->input('status'),
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
@@ -116,7 +116,7 @@ class HosptialController extends Controller
 
     public function hospital_count()
     {
-        $count_hospital = Hosptial::get()->count();
+        $count_hospital = Hospital::get()->count();
 
         return response()->json($count_hospital);
 
@@ -124,7 +124,7 @@ class HosptialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Hosptial $hospital)
+    public function show(Hospital $hospital)
     {
         $hospitals = $hospital->all();
 
@@ -134,7 +134,7 @@ class HosptialController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Hosptial $hosptial)
+    public function edit(Hospital $hosptial)
     {
         //
     }
@@ -142,7 +142,7 @@ class HosptialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateHosptialRequest $request, Hosptial $hosptial)
+    public function update(UpdateHosptialRequest $request, Hospital $hosptial)
     {
         //
     }
@@ -150,7 +150,7 @@ class HosptialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Hosptial $hospital)
+    public function destroy(Hospital $hospital)
     {
         if ($hospital->delete()) {
             return response()->json(['message' => 'Hospital deleted successfully']);

@@ -89,20 +89,24 @@ const openEditModal = (user) => {
                   <td>{{ item.birthday }}</td>
                   <td>{{ item.gender }}</td>
                   <td>
-                    <span class="badge rounded-pill" :class="{
-                    'bg-primary text-white': item.role === 'Doctor',
-                    'bg-teal text-white': item.role === 'Nurse',
-                    'bg-orange text-white': item.role === 'Account',
-                    'bg-purple text-white': item.role === 'Pharmacist',
-                    'bg-pink text-white': item.role === 'Manager'
-                  }">
+                  <span class="badge rounded-pill" :class="{
+                      'bg-primary text-white': item.role === 'Doctor',
+                      'bg-teal text-white': item.role === 'Nurse',
+                      'bg-orange text-white': item.role === 'Account',
+                      'bg-purple text-white': item.role === 'Pharmacist',
+                      'bg-pink text-white': item.role === 'Manager',
+                      'bg-secondary text-white': item.role === 'Lab Technician',
+                      'bg-warning text-white': item.role === 'Accountant',
+                      'bg-dark text-white': item.role === 'Admin',
+                      'bg-success text-white': item.role === 'Receptionist'
+                    }">
                       {{ item.role }}
                     </span>
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
                       <span class="badge bg-primary bg-opacity-10 text-secondary">
-                        {{ item.hospital }}
+                        {{ item.hospital_id }}
                       </span>
                   </td>
                   <td>

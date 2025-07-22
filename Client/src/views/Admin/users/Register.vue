@@ -6,7 +6,7 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
 
 const { input, register, hospital, hospitals_in_system } = useAuth();
-const {userRole} = useSession()
+const {userRole, hospital_id} = useSession()
 
 const registerUser = async () => {
   register()
@@ -139,13 +139,13 @@ onMounted(hospital);
                         <label class="form-label">Hospital</label>
                         <select
                             class="form-select"
-                            v-model="input.hospital"
+                            v-model="input.hospital_id"
                         >
                           <option value="" disabled selected>Select Hospital</option>
                           <option
                               v-for="hospital in hospitals_in_system"
                               :key="hospital.id"
-                              :value="hospital.hospital_name"
+                              :value="hospital.id"
                           >
                             {{ hospital.hospital_name }}
                           </option>
