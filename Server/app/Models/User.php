@@ -93,10 +93,9 @@ class User extends Authenticatable
         'contact',
         'birthday',
         'gender',
-        'hospital',
+        'hospital_id',
         'role',
         'email',
-        'hospital_slug',
         'staff_id',
         'password',
 
@@ -132,8 +131,8 @@ class User extends Authenticatable
             if ($user && $user->role === 'Doctor') {
                 $record->user_id = $user->id;
             }
-            if (empty($record->hospital) && Auth::check()) {
-                $record->hospital = Auth::user()->hospital;
+            if (empty($record->hospital_id) && Auth::check()) {
+                $record->hospital_id = Auth::user()->hospital_id;
             }
         });
     }
@@ -141,15 +140,16 @@ class User extends Authenticatable
     public function Sluggable(): array
     {
         return [
-            'hospital_slug' => [
-                'source' => Auth::user()->hospital,
+            'hospital_id' => [
+                'source' => Auth::user()->hospital_id,
             ],
         ];
 
     }
 
-    public function hospital()
+    public function hospital(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Hosptial::class);
+        return $this->belongsTo(Hospital::class);
+
     }
 }

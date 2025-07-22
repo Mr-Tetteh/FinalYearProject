@@ -84,7 +84,7 @@ class UserController extends Controller
             'gender' => $request->input('gender'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
-            'hospital' => $request->input('hospital'),
+            'hospital_id' => $request->input('hospital_id'),
             'staff_id' => $request->input('staff_id'),
             'contact' => $request->input('contact'),
             'password' => Hash::make($request->input('password')),
@@ -105,7 +105,7 @@ class UserController extends Controller
         logger($request->input('token'));
         logger($request->all());
 
-        if (! $passwordReset) {
+        if (!$passwordReset) {
             return response()->json([
                 'message' => 'Invalid token.',
             ], 404);
@@ -122,7 +122,7 @@ class UserController extends Controller
         $passwordReset = DB::table('password_resets')->where('token', $request->input('token'))->first();
 
         $user = \App\Models\User::where('email', $passwordReset->email)->first();
-        if (! $user) {
+        if (!$user) {
             return response()->json([
                 'message' => 'Sorry User not found',
             ], 404);
@@ -142,7 +142,7 @@ class UserController extends Controller
         $token = Str::random(20);
 
         $user = \App\Models\User::where('email', $email)->first();
-        if (! $user) {
+        if (!$user) {
             return response()->json(['message' => 'Sorry User with this email was not found'], 404);
         }
         DB::table('password_resets')->insert([
@@ -193,7 +193,7 @@ class UserController extends Controller
     {
         $loggedInUser = Auth::user();
 
-        $all_staff = \App\Models\User::where('hospital', $loggedInUser->hospital)->latest()->get();
+        $all_staff = \App\Models\User::where('hospital_id', $loggedInUser->hospital_id)->latest()->get();
 
         return UserResource::collection($all_staff);
     }
@@ -204,10 +204,16 @@ class UserController extends Controller
             $user = \App\Models\User::where('staff_id', $request->identifier)
                 ->first();
 
-            if (! $user || ! Hash::check($request->input('password'), $user->password)) {
+            if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
                     'message' => 'Sorry Wrong Staff ID or Password',
                 ], 401);
+            }
+
+            if (!$user->hospital || !$user->hospital->status) {
+                return response()->json([
+                    'message' => 'Sorry your hospital subscription has expired or is inactive'
+                ], 403);
             }
 
             return response()->json([
@@ -236,7 +242,7 @@ class UserController extends Controller
     public function count_all_hospital_users()
     {
         $user = Auth::user();
-        $user = \App\Models\User::where('hospital', $user->hospital)->count();
+        $user = \App\Models\User::where('hospital_id', $user->hospital_id)->count();
 
         return response()->json($user);
 
@@ -275,7 +281,7 @@ class UserController extends Controller
 
     public function deleted_users()
     {
-        return   User::onlyTrashed()->latest()->get();
+        return User::onlyTrashed()->latest()->get();
 
     }
 

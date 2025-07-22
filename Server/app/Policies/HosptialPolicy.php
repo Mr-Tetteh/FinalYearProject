@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Hosptial;
+use App\Models\Hospital;
 use App\Models\User;
 
 class HosptialPolicy
@@ -18,7 +18,7 @@ class HosptialPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Hosptial $hosptial): bool
+    public function view(User $user, Hospital $hosptial): bool
     {
         return false;
     }
@@ -34,7 +34,7 @@ class HosptialPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Hosptial $hosptial): bool
+    public function update(User $user, Hospital $hosptial): bool
     {
         return false;
     }
@@ -42,7 +42,7 @@ class HosptialPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Hosptial $hosptial): bool
+    public function delete(User $user, Hospital $hosptial): bool
     {
         return false;
     }
@@ -50,7 +50,7 @@ class HosptialPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Hosptial $hosptial): bool
+    public function restore(User $user, Hospital $hosptial): bool
     {
         return false;
     }
@@ -58,7 +58,7 @@ class HosptialPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Hosptial $hosptial): bool
+    public function forceDelete(User $user, Hospital $hosptial): bool
     {
         return false;
     }

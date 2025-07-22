@@ -4,7 +4,7 @@ export default function useSession(){
     const username = localStorage.getItem('USER_NAME');
     const lastname = localStorage.getItem("LAST_NAME")
     const user_id =  localStorage.getItem('USER_ID');
-    const hospital = localStorage.getItem("HOSPITAL");
+    const hospital_id = localStorage.getItem("HOSPITAL_ID");
     const userRole = localStorage.getItem("USER_TYPE")
 
 
@@ -12,7 +12,7 @@ export default function useSession(){
         isLoggedIn,
         username,
         user_id,
-        hospital,
+        hospital_id,
         lastname,
         userRole
     }

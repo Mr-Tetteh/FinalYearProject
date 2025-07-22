@@ -28,7 +28,7 @@ export default function useAuth() {
         email: "",
         gender: "",
         role: "",
-        // hospital: "",
+        hospital_id: "",
         staff_id: "",
         password: "my_name_is_jesus",
     })
@@ -48,7 +48,7 @@ export default function useAuth() {
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
-            localStorage.setItem('HOSPITAL', response.data.user.hospital);
+            localStorage.setItem('HOSPITAL_ID', response.data.user.hospital.id);
 
             $toast.success('Login Successfully', {
                 position: 'top-right',

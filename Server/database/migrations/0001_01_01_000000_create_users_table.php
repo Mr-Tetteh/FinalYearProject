@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('role');
             $table->string('contact');
             $table->string('email')->unique();
-            $table->string('hospital');
+            $table->foreignId('hospital_id')->constrained('hospitals')->onDelete('cascade');
             $table->string('staff_id');
-            $table->string('city');
             $table->string('password');
 
             $table->timestamps();
