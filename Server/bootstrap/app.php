@@ -12,12 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
     })
-//    ->withSchedule(function (Schedule $schedule): void {
-//        $schedule->command('patients:deactivate-expired')->everyMinute();
-//    })
+
+    ->withSchedule(function (Schedule $schedule): void {
+        $schedule->command('patients:deactivate-expired')->daily();
+    })
+
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
