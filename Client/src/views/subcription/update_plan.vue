@@ -17,7 +17,7 @@ onMounted(hospital)
     <div class="register-page d-flex align-items-center justify-content-center min-vh-100">
       <div class="container">
         <div class="row ">
-          <div class="col-6 col-xl-10 justify-content-center">
+          <div class="md:col-6 col-xl-10 justify-content-center">
             <div class="card main-card shadow-lg border-0">
               <!-- Card Header with Gradient -->
               <div class="card-header text-center py-4 gradient-header">
