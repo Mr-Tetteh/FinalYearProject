@@ -22,7 +22,7 @@ export default function usePatientRecord() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.get(`https://health.local.stay/api/patient_record/${id}`, config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/patient_record/${id}`, config)
             patient_record.value = response.data.data
         } catch (err) {
             alert(err.response.data.data)
@@ -35,7 +35,7 @@ export default function usePatientRecord() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`},
             };
-            let response = await axios.get(`https://health.local.stay/api/patient_record_edit/${id}`, config);
+            let response = await axios.get(`${import.meta.env.VITE_API}/patient_record_edit/${id}`, config);
             record.value = response.data.data;
         } catch (err) {
             const errorMsg =
@@ -52,7 +52,7 @@ export default function usePatientRecord() {
                 headers: {Authorization: `Bearer ${token}`},
             };
 
-            let response = await axios.patch(`https://health.local.stay/api/patient_record_update/${id}`, record.value, config);
+            let response = await axios.patch(`${import.meta.env.VITE_API}/patient_record_update/${id}`, record.value, config);
             $toast.success('Patient Record Add Successfully', {
                 position: 'top-right',
             });

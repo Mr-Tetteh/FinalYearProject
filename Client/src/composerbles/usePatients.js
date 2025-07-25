@@ -108,7 +108,7 @@ export default function usePatients() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.post('https://health.local.stay/api/add_patient', input.value, config)
+            let response = await axios.post(`${import.meta.env.VITE_API}/add_patient`, input.value, config)
             $toast.success('patient Registered Successfully', {
                 position: "top-right"
             })
@@ -126,7 +126,7 @@ export default function usePatients() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.get(`https://health.local.stay/api/edit_patient/${id}`, config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/edit_patient/${id}`, config)
             input.value = response.data.data
         } catch (err) {
             alert(err.response.data.data)
@@ -138,7 +138,7 @@ export default function usePatients() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.patch(`https://health.local.stay/api/activate_patient/${id}`, input.value, config)
+            let response = await axios.patch(`${import.meta.env.VITE_API}/activate_patient/${id}`, input.value, config)
             $toast.success('Patient Activated Successfully', {
                 position: "top-right"
             })
@@ -155,7 +155,7 @@ export default function usePatients() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            let response = await axios.get('https://health.local.stay/api/all_patient', config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/all_patient`, config)
             patient.value = response.data.data
         } catch (err) {
             alert(err.response.data.data)
@@ -167,7 +167,7 @@ export default function usePatients() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            let response = await axios.get('https://health.local.stay/api/today_patient_count', config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/today_patient_count`, config)
             all_today_patient.value = response.data
         } catch (err) {
             alert(err.response.data.data)
@@ -181,7 +181,7 @@ export default function usePatients() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            let response = await axios.get('https://health.local.stay/api/hospital_patients', config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/hospital_patients`, config)
             all_hospital_patient.value = response.data.data
         } catch (err) {
             alert(err.response.data.data)
