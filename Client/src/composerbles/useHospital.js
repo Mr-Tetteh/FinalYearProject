@@ -64,7 +64,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.post('https://health.local.stay/api/post_drug', data.value, config);
+            const response = await axios.post(`${import.meta.env.VITE_API}/post_drug`, data.value, config);
             $toast.success('Drugs has been added successfully', {
                 position: "top-right"
             })
@@ -79,7 +79,7 @@ export default function useHospital() {
             headers: {Authorization: `Bearer ${token}`}
         }
         try {
-            const response = await axios.patch(`https://health.local.stay/api/drug_edit/${drug.value.id}`, drug.value, config
+            const response = await axios.patch(`${import.meta.env.VITE_API}/drug_edit/${drug.value.id}`, drug.value, config
             )
             await router.push('/Pharmacy_all_drugs_edit')
             $toast.success('Drugs has been updated successfully', {
@@ -98,7 +98,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/get_drugs', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs`, config);
             drugs.value = response.data
         } catch (err) {
             alert(err.response.data.data.message);
@@ -112,7 +112,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`https://health.local.stay/api/get_drugs_edit/${id}`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs_edit/${id}`, config);
             drug.value = response.data.data
         } catch (err) {
             alert(err.response.data.data.message);
@@ -122,7 +122,7 @@ export default function useHospital() {
     const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
         for (let i = 0; i < retries; i++) {
             try {
-                const payment = await axios.get(`https://health.local.stay/api/payments/hospital/${hospitalId}`);
+                const payment = await axios.get(`${import.meta.env.VITE_API}/payments/hospital/${hospitalId}`);
                 return payment.data;
             } catch (e) {
                 await new Promise(res => setTimeout(res, delay));
@@ -134,7 +134,7 @@ export default function useHospital() {
     const register_hospital = async () => {
         try {
             is_loading.value = true;
-            const response = await axios.post('https://health.local.stay/api/hospital', input.value);
+            const response = await axios.post(`${import.meta.env.VITE_API}/hospital`, input.value);
             const hospitalData = response.data.hospital;
 
             // Wait for the payment job to finish and fetch payment
@@ -159,7 +159,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get('https://health.local.stay/api/count_hospital_patient', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, onfig);
             hospital_patient_count.value = response.data
             console.log('Response:', response.data);
         } catch (err) {
@@ -175,7 +175,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get('https://health.local.stay/api/count_all_patient', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_patient`, config);
             count_all_patient_on_swift.value = response.data
         } catch (err) {
             alert(err.response.data.message);
@@ -190,7 +190,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get('https://health.local.stay/api/count_all_users', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_users`, config);
             count_all_users_on_swift.value = response.data
         } catch (err) {
             alert(err.response.data.message);
@@ -204,7 +204,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get('https://health.local.stay/api/count_all_hospital_users', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users`, config);
             hospital_users.value = response.data
         } catch (err) {
             alert(err.response.data.message);
@@ -217,7 +217,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/registered_hospital', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/registered_hospital`, config);
             registered_hospitals_data.value = response.data.data
         } catch (err) {
             alert(err.response.data.message);
@@ -230,7 +230,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/count_hospitals', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospitals`, config);
             count_all_hospitals.value = response.data
         } catch (err) {
             alert(err.response.data.message);
@@ -243,7 +243,7 @@ export default function useHospital() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.delete(`https://health.local.stay/api/delete_hospital/${id}`, config);
+            const response = await axios.delete(`${import.meta.env.VITE_API}/delete_hospital/${id}`, config);
             if (response.data.message) {
                 $toast.success(response.data.message, {
                     position: 'top-right',

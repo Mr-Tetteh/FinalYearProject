@@ -37,7 +37,7 @@ const handleSubmit = async () => {
       },
     };
 
-    await axios.post('https://health.local.stay/api/patient_rec', record.value, config);
+    await axios.post(`${import.meta.env.VITE_API}/patient_rec`, record.value, config);
 
     await router.push('/hospital_patient');
   } catch (err) {

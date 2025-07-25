@@ -41,8 +41,12 @@ export default function useAuth() {
 
     const login = async () => {
         try {
-            const response = await axios.post('https://health.local.stay/api/login', user.value);
-            const token = response.data.authorisation.token
+            const response = await axios.post(
+                `${import.meta.env.VITE_API}/login`,
+                user.value
+            );
+
+            const token = response.data.authorisation.token;
             localStorage.setItem('AUTH_TOKEN', token);
             localStorage.setItem('USER_TYPE', response.data.user.role);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
@@ -50,21 +54,20 @@ export default function useAuth() {
             localStorage.setItem('USER_ID', response.data.user.id);
             localStorage.setItem('HOSPITAL_ID', response.data.user.hospital.id);
 
-            $toast.success('Login Successfully', {
-                position: 'top-right',
-            })
+            $toast.success('Login Successfully', { position: 'top-right' });
             await router.push('/dashboard');
         } catch (err) {
-            $toast.error(err.response.data.message, {
+            $toast.error(err?.response?.data?.message || 'Login failed', {
                 position: 'top-right',
-            })
+            });
         }
     };
+
 
     const reset_password = async () => {
         try {
 
-            const response = await axios.post('https://health.local.stay/api/rest_password', password_rest.value);
+            const response = await axios.post(`${import.meta.env.VITE_API}/rest_password`, password_rest.value);
             $toast.success(response.data.message, {
                 position: 'top-right',
             })
@@ -83,7 +86,7 @@ export default function useAuth() {
 
     const setPass = async (rest) => {
         try {
-            const response = await axios.post('https://health.local.stay/api/password_reset', rest);
+            const response = await axios.post(`${import.meta.env.VITE_API}/password_reset`, rest);
             alert(response.data.message)
             await router.push('/login')
 
@@ -101,7 +104,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/all_users', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/all_users`, config);
             all_users.value = response.data.data
 
         } catch (err) {
@@ -118,7 +121,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get('https://health.local.stay/api/all_staff', config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/all_staff`, config);
             all_staff.value = response.data.data
 
         } catch (err) {
@@ -135,7 +138,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.post('https://health.local.stay/api/logout', {}, config)
+            const response = await axios.post(`${import.meta.env.VITE_API}/logout`, {}, config)
             localStorage.clear()
             $toast.success('Logout Successfully', {
                 position: 'top-right',
@@ -150,7 +153,7 @@ export default function useAuth() {
 
     const hospital = async () => {
         try {
-            let response = await axios.get('https://health.local.stay/api/hospitals')
+            let response = await axios.get(`${import.meta.env.VITE_API}/hospitals`)
             hospitals_in_system.value = response.data.data;
         } catch (err) {
             $toast.error(err.response.data.message, {
@@ -165,7 +168,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.delete(`https://health.local.stay/api/delete_user/${id}`, config)
+            const response = await axios.delete(`${import.meta.env.VITE_API}/delete_user/${id}`, config)
             if (response.data.message) {
                 $toast.success(response.data.message, {
                     position: 'top-right',
@@ -190,7 +193,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`https://health.local.stay/api/get_details/${id}`, config)
+            const response = await axios.get(`${import.meta.env.VITE_API}/get_details/${id}`, config)
             userData.value = response.data.data
         } catch (err) {
             alert(err)
@@ -205,7 +208,7 @@ export default function useAuth() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.patch(`https://health.local.stay/api/update_role/${id}`, userData.value, config)
+            const response = await axios.patch(`${import.meta.env.VITE_API}/update_role/${id}`, userData.value, config)
 
             $toast.success('User Role Updated Successfully', {
                 position: 'top-right',
@@ -227,7 +230,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.post(`https://health.local.stay/api/users`, input.value, config)
+            const response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
             if (response) {
                 $toast.error(response.data.message, {
                     position: 'top-right',

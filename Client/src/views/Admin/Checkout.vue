@@ -50,7 +50,7 @@ const handleDone = async () => {
     }));
 
     const response = await axios.post(
-        'https://health.local.stay/api/update-quantities',
+        `${import.meta.env.VITE_API}/update-quantities`,
         {items: updateData},
         config
     );
