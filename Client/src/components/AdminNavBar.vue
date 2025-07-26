@@ -26,7 +26,7 @@ const hideSidebar = () => {
             <i class="bi bi-heart-pulse-fill text-primary"></i>
           </div>
           <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
-          <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
+          <h5 class="hospital-name" v-else>{{ hospital }}Hospital</h5>
         </div>
       </div>
 
