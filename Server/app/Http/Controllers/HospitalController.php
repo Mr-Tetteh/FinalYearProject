@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
  *     description="Operations related to hospitals"
  * )
  */
-class HosptialController extends Controller
+class HospitalController extends Controller
 {
     /**
      * @OA\Get(

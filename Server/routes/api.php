@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\HosptialController;
+use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\PaymentsControllers;
@@ -9,8 +9,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [UserController::class, 'login']);
-Route::post('hospital', [HosptialController::class, 'store']);
-Route::get('hospitals', [HosptialController::class, 'index']);
+Route::post('hospital', [HospitalController::class, 'store']);
+Route::get('hospitals', [HospitalController::class, 'index']);
 Route::get('payments/hospital/{hospitalId}', [PaymentsControllers::class, 'getByHospital']);
 Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
@@ -49,9 +49,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('post_drug', [Pharmacy::class, 'store']);
     Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
 
-    Route::get('registered_hospital', [HosptialController::class, 'show']);
-    Route::get('count_hospitals', [HosptialController::class, 'hospital_count']);
-    Route::delete('delete_hospital/{hospital}', [HosptialController::class, 'destroy']);
+    Route::get('registered_hospital', [HospitalController::class, 'show']);
+    Route::get('count_hospitals', [HospitalController::class, 'hospital_count']);
+    Route::delete('delete_hospital/{hospital}', [HospitalController::class, 'destroy']);
 
 
 });
