@@ -62,9 +62,8 @@ const submitAppointment = () => {
 <template>
   <AdminNavBar/>
 
-  <div id="app">
-    <div id="main" class="bg-light min-vh-100 py-4">
-      <div class="container-fluid px-4">
+    <div  class="main min-vh-100 py-4 bg-light">
+      <div id="main">
         <!-- Header Section -->
         <header class="dashboard-header mb-4">
           <div class="d-flex justify-content-between align-items-center">
@@ -89,7 +88,7 @@ const submitAppointment = () => {
 
         <!-- Stats Cards -->
         <div class="row g-4 mb-4">
-          <div class="col-md-3" v-if="userRole !== 'Admin'">
+          <div class="col-md-4" v-if="userRole !== 'Admin'">
             <div class="stat-card bg-white border-start border-primary border-4">
               <div class="stat-icon bg-primary-subtle">
                 <i class="bi bi-people-fill text-primary"></i>
@@ -100,7 +99,7 @@ const submitAppointment = () => {
               </div>
             </div>
           </div>
-          <div v-if="userRole == 'Admin'" class="col-md-3">
+          <div v-if="userRole == 'Admin'" class="col-md-4">
             <div class="stat-card bg-white border-start border-secondary border-4">
               <div class="stat-icon text-secondary">
                 <i class="bi bi-person-lines-fill text-secondary"></i>
@@ -112,7 +111,7 @@ const submitAppointment = () => {
             </div>
           </div>
 
-          <div class="col-md-3" v-if="userRole == 'Admin'" >
+          <div class="col-md-4" v-if="userRole == 'Admin'" >
             <div class="stat-card bg-white border-start border-success border-4">
               <div class="stat-icon bg-success-subtle">
                 <i class="bi bi-hospital-fill text-success"></i>
@@ -125,7 +124,7 @@ const submitAppointment = () => {
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="stat-card bg-white border-start border-warning border-4">
               <div class="stat-icon bg-warning-subtle">
                 <i class="bi bi-person-workspace text-warning"></i>
@@ -139,7 +138,7 @@ const submitAppointment = () => {
             </div>
           </div>
 
-          <div class="col-md-3 " v-if="userRole == 'Admin'">
+          <div class="col-md-4 " v-if="userRole == 'Admin'">
             <div class="stat-card bg-white border-start border-info border-4">
               <div class="stat-icon bg-info-subtle">
                 <i class="bi bi-hospital-fill text-info"></i>
@@ -152,7 +151,7 @@ const submitAppointment = () => {
             </div>
           </div>
 
-          <div class="col-md-3 " v-if="userRole == 'Admin'">
+          <div class="col-md-4 " v-if="userRole == 'Admin'">
             <div class="stat-card bg-white border-start border-primary border-4">
               <div class="stat-icon bg-primary-subtle">
                 <i class="bi bi-calendar-check text-primary"></i>
@@ -166,7 +165,7 @@ const submitAppointment = () => {
           </div>
 
 
-          <div class="col-md-3" v-if="userRole !=='Admin'">
+          <div class="col-md-4" v-if="userRole !=='Admin'">
             <div class="stat-card bg-white border-start border-success border-4">
               <div class="stat-icon bg-success-subtle">
                 <i class="bi bi-calendar-check text-success"></i>
@@ -180,7 +179,7 @@ const submitAppointment = () => {
 
 
 
-<!--          <div class="col-md-3">
+<!--          <div class="col-md-4">
             <div class="stat-card bg-white border-start border-danger border-4">
               <div class="stat-icon bg-danger-subtle">
                 <i class="bi bi-cash-stack text-danger"></i>
@@ -202,7 +201,6 @@ const submitAppointment = () => {
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
