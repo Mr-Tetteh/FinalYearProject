@@ -7,153 +7,159 @@ const {userRole} = useSession()
 const isCollapsed = ref(false);
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
-
 };
+
+const hideSidebar = () => {
+  isCollapsed.value = true;
+};
+
 </script>
 
 <template>
-  <div :class="['sidebar-wrapper', { 'collapsed': isCollapsed }]">
-    <!-- Sidebar Header -->
-    <div class="sidebar-header">
-      <div class="logo-container">
-        <div class="logo">
-          <i class="bi bi-heart-pulse-fill text-primary"></i>
-        </div>
-        <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
-        <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
-
-      </div>
-    </div>
-    <button @click="toggleSidebar" class="toggle-btn text-primary">
-      <i class="bi" :class="isCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
-    </button>
-
-    <!-- Sidebar Menu -->
-    <div class="sidebar-menu">
-      <div class="menu-category">Main</div>
-
-      <!-- Dashboard Link -->
-      <RouterLink to="/dashboard" class="menu-item" active-class="active">
-        <div class="menu-icon">
-          <i class="bi bi-grid-fill"></i>
-        </div>
-        <span class="menu-text">Dashboard</span>
-      </RouterLink>
-
-      <!-- Patients Section -->
-      <div class="menu-category">Patient Management</div>
-      <div class="menu-group">
-        <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
-          <div class="menu-header">
-            <div class="menu-icon">
-              <i class="bi bi-people-fill"></i>
-            </div>
-            <span class="menu-text">Patients</span>
-            <i class="bi bi-chevron-down menu-arrow"></i>
+  <div>
+    <!-- Sidebar -->
+    <div :class="['sidebar-wrapper', { 'collapsed': isCollapsed }]">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <div class="logo">
+            <i class="bi bi-heart-pulse-fill text-primary"></i>
           </div>
-          <div class="submenu">
-            <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Receptionist'" >
-              <i class="bi bi-plus-circle"></i>
-              <span>Register Patient</span>
-            </RouterLink>
-            <RouterLink to="/hospital_patient" class="submenu-item" v-if="userRole !=='Admin'">
-              <i class="bi bi-plus-circle"></i>
-              <span>Patients</span>
-            </RouterLink>
-            <RouterLink v-if="userRole === 'Admin'" to="/patients_info" class="submenu-item">
-              <i class="bi bi-list-ul"></i>
-              <span>All Patients</span>
-            </RouterLink>
-          </div>
+          <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
+          <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
         </div>
       </div>
 
-      <!-- Users Section -->
-      <div class="menu-category">User Management</div>
-      <div class="menu-group">
-        <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
-          <div class="menu-header">
-            <div class="menu-icon">
-              <i class="bi bi-person-fill-add"></i>
-            </div>
-            <span class="menu-text">Users</span>
-            <i class="bi bi-chevron-down menu-arrow"></i>
-          </div>
-          <div class="submenu">
-            <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item">
-              <i class="bi bi-person-plus"></i>
-              <span>Register Staff</span>
-            </RouterLink>
-            <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'">
-              <i class="bi bi-people"></i>
-              <span>All Admin Users</span>
-            </RouterLink>
-            <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'">
-              <i class="bi bi-people"></i>
-              <span>All Staff</span>
-            </RouterLink>
-            <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
-              <i class="bi bi-person-lines-fill"></i>
-              <span>All Users</span>
-            </RouterLink>
-          </div>
-        </div>
-      </div>
+      <!-- Sidebar Menu -->
+      <div class="sidebar-menu">
+        <div class="menu-category">Main</div>
 
-      <div v-if="userRole === 'Pharmacist' || userRole === 'Manager'">
-        <div class="menu-category">Hospital Management</div>
+        <!-- Dashboard Link -->
+        <RouterLink to="/dashboard" class="menu-item" active-class="active" @click="hideSidebar">
+          <div class="menu-icon">
+            <i class="bi bi-grid-fill"></i>
+          </div>
+          <span class="menu-text">Dashboard</span>
+        </RouterLink>
+
+        <!-- Patients Section -->
+        <div class="menu-category">Patient Management</div>
         <div class="menu-group">
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
             <div class="menu-header">
               <div class="menu-icon">
-                <i class="bi bi-prescription" style="color: black; font-size: 1.2em;"></i>
+                <i class="bi bi-people-fill"></i>
               </div>
-              <span class="menu-text">Pharmacy</span>
+              <span class="menu-text">Patients</span>
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink to="/pharmacy_add" class="submenu-item">
-                <i class="bi bi-plus-circle"></i> <!-- Icon for adding a drug -->
-                <span>Add Drug</span>
+              <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Receptionist'" @click="hideSidebar">
+                <i class="bi bi-plus-circle"></i>
+                <span>Register Patient</span>
               </RouterLink>
-              <RouterLink to="/Pharmacy_all_drugs" class="submenu-item">
-                <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
-                <span>All Drugs</span>
+              <RouterLink to="/hospital_patient" class="submenu-item" v-if="userRole !=='Admin'" @click="hideSidebar">
+                <i class="bi bi-plus-circle"></i>
+                <span>Patients</span>
               </RouterLink>
-              <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item">
-                <i class="bi bi-list-ul"></i> <!-- Icon for viewing all drugs -->
-                <span>Update Drugs</span>
+              <RouterLink v-if="userRole === 'Admin'" to="/patients_info" class="submenu-item" @click="hideSidebar">
+                <i class="bi bi-list-ul"></i>
+                <span>All Patients</span>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="menu-category">User Management</div>
+        <div class="menu-group">
+          <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
+            <div class="menu-header">
+              <div class="menu-icon">
+                <i class="bi bi-person-fill-add"></i>
+              </div>
+              <span class="menu-text">Users</span>
+              <i class="bi bi-chevron-down menu-arrow"></i>
+            </div>
+            <div class="submenu">
+              <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item" @click="hideSidebar">
+                <i class="bi bi-person-plus"></i>
+                <span>Register Staff</span>
+              </RouterLink>
+              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'" @click="hideSidebar">
+                <i class="bi bi-people"></i>
+                <span>All Admin Users</span>
+              </RouterLink>
+              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'" @click="hideSidebar">
+                <i class="bi bi-people"></i>
+                <span>All Staff</span>
+              </RouterLink>
+              <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item" @click="hideSidebar">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>All Users</span>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="userRole === 'Pharmacist' || userRole === 'Manager'">
+          <div class="menu-category">Hospital Management</div>
+          <div class="menu-group">
+            <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
+              <div class="menu-header">
+                <div class="menu-icon">
+                  <i class="bi bi-prescription" style="color: black; font-size: 1.2em;"></i>
+                </div>
+                <span class="menu-text">Pharmacy</span>
+                <i class="bi bi-chevron-down menu-arrow"></i>
+              </div>
+              <div class="submenu">
+                <RouterLink to="/pharmacy_add" class="submenu-item" @click="hideSidebar">
+                  <i class="bi bi-plus-circle"></i>
+                  <span>Add Drug</span>
+                </RouterLink>
+                <RouterLink to="/Pharmacy_all_drugs" class="submenu-item" @click="hideSidebar">
+                  <i class="bi bi-list-ul"></i>
+                  <span>All Drugs</span>
+                </RouterLink>
+                <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item" @click="hideSidebar">
+                  <i class="bi bi-list-ul"></i>
+                  <span>Update Drugs</span>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-category" v-if="userRole === 'Admin'" >Hospitals Management</div>
+        <div class="menu-group" v-if="userRole === 'Admin'" >
+          <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
+            <div class="menu-header">
+              <div class="menu-icon">
+                <i class="bi bi-hospital-fill"></i>
+              </div>
+              <span class="menu-text">Hospital</span>
+              <i class="bi bi-chevron-down menu-arrow"></i>
+            </div>
+            <div class="submenu">
+              <RouterLink to="/register_hospital" class="submenu-item" @click="hideSidebar">
+                <i class="bi bi-hospital"></i>
+                <span>Register Hospital</span>
+              </RouterLink>
+              <RouterLink to="/registered_hospitals" class="submenu-item" @click="hideSidebar">
+                <i class="bi bi-building-add"></i>
+                <span>Registered Hospitals</span>
               </RouterLink>
             </div>
           </div>
         </div>
       </div>
-
-
-      <div class="menu-category" v-if="userRole === 'Admin'" >Hospitals Management</div>
-      <div class="menu-group" v-if="userRole === 'Admin'" >
-        <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
-          <div class="menu-header">
-            <div class="menu-icon">
-              <i class="bi bi-hospital-fill"></i>
-            </div>
-            <span class="menu-text">Hospital</span>
-            <i class="bi bi-chevron-down menu-arrow"></i>
-          </div>
-          <div class="submenu">
-            <RouterLink to="/register_hospital" class="submenu-item">
-              <i class="bi bi-hospital"></i>
-              <span>Register Hospital</span>
-            </RouterLink>
-            <RouterLink to="/registered_hospitals" class="submenu-item" >
-              <i class="bi bi-building-add"></i>
-              <span>Registered Hospitals</span>
-            </RouterLink>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- Toggle Button - Always visible outside the sidebar -->
+    <button @click="toggleSidebar" :class="['toggle-btn', { 'sidebar-closed': isCollapsed }]">
+      <i class="bi" :class="isCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
+    </button>
   </div>
 </template>
 
@@ -172,19 +178,7 @@ const toggleSidebar = () => {
 }
 
 .sidebar-wrapper.collapsed {
-  width: 70px;
-}
-
-.sidebar-wrapper.collapsed .menu-text,
-.sidebar-wrapper.collapsed .menu-arrow,
-.sidebar-wrapper.collapsed .menu-category,
-.sidebar-wrapper.collapsed .hospital-name {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.sidebar-wrapper.collapsed .submenu {
-  display: none;
+  transform: translateX(-100%);
 }
 
 .sidebar-header {
@@ -218,19 +212,34 @@ const toggleSidebar = () => {
 }
 
 .toggle-btn {
-  background: none;
+  background: #435ebe;
   border: none;
-  color: #666;
+  color: white;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  position: fixed;
+  top: 20px;
+  left: 270px; /* Position it next to the sidebar when open */
+  z-index: 1001;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 1.1rem;
+  min-width: 45px;
+  min-height: 45px;
+}
+
+.toggle-btn.sidebar-closed {
+  left: 0; /* Move to the left edge when sidebar is collapsed */
+  border-radius: 0 8px 8px 0;
 }
 
 .toggle-btn:hover {
-  color: #333;
+  background: #364a7d;
+  transform: scale(1.05);
 }
 
 .sidebar-menu {
@@ -337,6 +346,4 @@ const toggleSidebar = () => {
 .sidebar-wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-
 </style>
