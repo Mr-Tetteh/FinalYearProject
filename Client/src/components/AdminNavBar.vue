@@ -7,12 +7,8 @@ const {userRole} = useSession()
 const isCollapsed = ref(false);
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
-};
 
-const hideSidebar = () => {
-  isCollapsed.value = true;
 };
-
 </script>
 
 <template>
@@ -26,7 +22,7 @@ const hideSidebar = () => {
             <i class="bi bi-heart-pulse-fill text-primary"></i>
           </div>
           <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
-          <h5 class="hospital-name" v-else>{{ hospital }}Hospital</h5>
+          <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
         </div>
       </div>
 
@@ -35,7 +31,7 @@ const hideSidebar = () => {
         <div class="menu-category">Main</div>
 
         <!-- Dashboard Link -->
-        <RouterLink to="/dashboard" class="menu-item" active-class="active" @click="hideSidebar">
+        <RouterLink to="/dashboard" class="menu-item" active-class="active">
           <div class="menu-icon">
             <i class="bi bi-grid-fill"></i>
           </div>
@@ -54,15 +50,15 @@ const hideSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Receptionist'" @click="hideSidebar">
+              <RouterLink to="/patients" class="submenu-item" v-if="userRole === 'Receptionist'">
                 <i class="bi bi-plus-circle"></i>
                 <span>Register Patient</span>
               </RouterLink>
-              <RouterLink to="/hospital_patient" class="submenu-item" v-if="userRole !=='Admin'" @click="hideSidebar">
+              <RouterLink to="/hospital_patient" class="submenu-item" v-if="userRole !=='Admin'">
                 <i class="bi bi-plus-circle"></i>
                 <span>Patients</span>
               </RouterLink>
-              <RouterLink v-if="userRole === 'Admin'" to="/patients_info" class="submenu-item" @click="hideSidebar">
+              <RouterLink v-if="userRole === 'Admin'" to="/patients_info" class="submenu-item">
                 <i class="bi bi-list-ul"></i>
                 <span>All Patients</span>
               </RouterLink>
@@ -82,19 +78,19 @@ const hideSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item" @click="hideSidebar">
+              <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item">
                 <i class="bi bi-person-plus"></i>
                 <span>Register Staff</span>
               </RouterLink>
-              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'" @click="hideSidebar">
+              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'">
                 <i class="bi bi-people"></i>
                 <span>All Admin Users</span>
               </RouterLink>
-              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'" @click="hideSidebar">
+              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'">
                 <i class="bi bi-people"></i>
                 <span>All Staff</span>
               </RouterLink>
-              <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item" @click="hideSidebar">
+              <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
                 <i class="bi bi-person-lines-fill"></i>
                 <span>All Users</span>
               </RouterLink>
@@ -114,15 +110,15 @@ const hideSidebar = () => {
                 <i class="bi bi-chevron-down menu-arrow"></i>
               </div>
               <div class="submenu">
-                <RouterLink to="/pharmacy_add" class="submenu-item" @click="hideSidebar">
+                <RouterLink to="/pharmacy_add" class="submenu-item">
                   <i class="bi bi-plus-circle"></i>
                   <span>Add Drug</span>
                 </RouterLink>
-                <RouterLink to="/Pharmacy_all_drugs" class="submenu-item" @click="hideSidebar">
+                <RouterLink to="/Pharmacy_all_drugs" class="submenu-item">
                   <i class="bi bi-list-ul"></i>
                   <span>All Drugs</span>
                 </RouterLink>
-                <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item" @click="hideSidebar">
+                <RouterLink to="/Pharmacy_all_drugs_edit" class="submenu-item">
                   <i class="bi bi-list-ul"></i>
                   <span>Update Drugs</span>
                 </RouterLink>
@@ -131,8 +127,8 @@ const hideSidebar = () => {
           </div>
         </div>
 
-        <div class="menu-category" v-if="userRole === 'Admin'" >Hospitals Management</div>
-        <div class="menu-group" v-if="userRole === 'Admin'" >
+        <div class="menu-category" v-if="userRole === 'Admin'">Hospitals Management</div>
+        <div class="menu-group" v-if="userRole === 'Admin'">
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
             <div class="menu-header">
               <div class="menu-icon">
@@ -142,11 +138,11 @@ const hideSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink to="/register_hospital" class="submenu-item" @click="hideSidebar">
+              <RouterLink to="/register_hospital" class="submenu-item">
                 <i class="bi bi-hospital"></i>
                 <span>Register Hospital</span>
               </RouterLink>
-              <RouterLink to="/registered_hospitals" class="submenu-item" @click="hideSidebar">
+              <RouterLink to="/registered_hospitals" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
               </RouterLink>
@@ -157,9 +153,11 @@ const hideSidebar = () => {
     </div>
 
     <!-- Toggle Button - Always visible outside the sidebar -->
-    <button @click="toggleSidebar" :class="['toggle-btn', { 'sidebar-closed': isCollapsed }]">
-      <i class="bi" :class="isCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
-    </button>
+  <button @click="toggleSidebar" :class="['toggle-btn', { 'sidebar-closed': isCollapsed }]" class="d-lg-none"
+  >
+    <i class="bi" :class="isCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
+  </button>
+
   </div>
 </template>
 
@@ -223,7 +221,7 @@ const hideSidebar = () => {
   transition: all 0.3s ease;
   position: fixed;
   top: 20px;
-  left: 270px; /* Position it next to the sidebar when open */
+  left: 270px;
   z-index: 1001;
   border-radius: 0 8px 8px 0;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
