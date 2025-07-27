@@ -6,6 +6,7 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import ActivatePatient from "@/components/activatePatient.vue";
 import useAuth from "@/composerbles/useAuth.js";
 import useSession from "@/composerbles/useSession.js";
+import patient_card from "@/views/Admin/patients/Patient_card.vue";
 
 const selectedPatientId = ref(null);
 const modal = ref(false);
@@ -55,7 +56,7 @@ const {userRole} = useSession()
         </div>
 
         <!-- Table Card -->
-        <div class="card shadow-sm">
+        <div class="card shadow-sm" v-if="all_hospital_patient.length > 0">
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">Patient List</h5>
@@ -88,7 +89,7 @@ const {userRole} = useSession()
                   <th class="py-3">Allergies</th>
                   <th class="py-3">Medical Conditions</th>
                   <th class="py-3">Additional Notes</th>
-                  <th class="py-3" v-if="userRole !=='Receptionist'">Actions</th>
+                  <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -137,6 +138,11 @@ const {userRole} = useSession()
                   </td>
                   <td>
                     <div class="d-flex gap-2">
+
+                      <RouterLink :to="{name: 'patient.card', params: {id: item.id} }"  v-if="userRole === 'Receptionist'"  class="btn btn-light-info btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                        Print Card
+                      </RouterLink>
 
                       <button v-if="item.status == false && userRole === 'Nurse'"  class="btn btn-info btn-sm" @click="activate_patient(item)">
                         <i class="bi bi-pencil-square"></i>

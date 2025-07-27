@@ -23,7 +23,7 @@ class PatientsController extends Controller
     public function hospitals_patients()
     {
         $user = Auth::user();
-        $patient = Patients::where('hospital', $user->hospital)->latest()->get();
+        $patient = Patients::where('hospital', $user->hospital_id)->latest()->get();
 
         return PatientResource::collection($patient);
 
@@ -32,7 +32,7 @@ class PatientsController extends Controller
     public function hospitals_patients_count()
     {
         $user = Auth::user();
-        $patient_count = Patients::where('hospital', $user->hospital)->count();
+        $patient_count = Patients::where('hospital_id', $user->hospital_id)->count();
 
         return response()->json($patient_count);
 

@@ -13,11 +13,6 @@ onMounted(list_patients);
   <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
-      <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none">
-          <i class="bi bi-justify fs-3"></i>
-        </a>
-      </header>
 
       <div class="page-content px-4">
         <!-- Header Section -->
@@ -26,10 +21,6 @@ onMounted(list_patients);
             <h3 class="mb-2">Patient Directory</h3>
             <p class="text-muted">Manage and view all patient records</p>
           </div>
-          <RouterLink to="patients" class="btn btn-primary">
-            <i class="bi bi-plus-circle me-2"></i>
-            Add New Patient
-          </RouterLink>
         </div>
 
         <!-- Table Card -->

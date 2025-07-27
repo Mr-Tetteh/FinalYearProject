@@ -134,12 +134,10 @@ const handleSubmit = async () => {
                           </div>
                         </div>
 
-                        <div class="button-group">
-
-                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" class="w-auto offset-11 btn "
-                                  @click="activateCallback('2')" />
-
-                        </div>
+                    <div class="button-group justify-content-center">
+                      <Button label="Next" icon="pi pi-arrow-right" iconPos="right" class="w-auto btn bg-primary text-white rounded-3 p-1"
+                              @click="activateCallback('2')" />
+                    </div>
                       </StepPanel>
 
                       <!-- Step 2: Contact Information -->
@@ -177,12 +175,12 @@ const handleSubmit = async () => {
                               </div>
                             </div>
 
-                            <div class="col-md-12">
-                              <label for="address" class="form-label">Home Address  <span class="text-danger">*</span> </label>
+                            <div class="col-md-6">
+                              <label for="address" class="form-label">GPS-Address/Residential Address  <span class="text-danger">*</span> </label>
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
-                                  <textarea id="address" v-model="input.address" class="form-control"
-                                            rows="3" placeholder="Enter home address"></textarea>
+                                  <input id="address" v-model="input.address" class="form-control"
+                                            placeholder="Enter GPS-Address/Residential Address"/>
                                   <div class="form-control-icon textarea-icon">
                                     <i class="bi bi-house"></i>
                                   </div>
@@ -193,8 +191,8 @@ const handleSubmit = async () => {
                         </div>
 
                         <div class="button-group">
-                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('1')" />
-                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2 bg-success text-white rounded-3 p-1" @click="activateCallback('1')" />
+                          <Button label="Next" icon="pi pi-arrow-right" class="bg-primary text-white rounded-3 p-1" iconPos="right" @click="activateCallback('3')" />
                         </div>
                       </StepPanel>
 
@@ -253,8 +251,8 @@ const handleSubmit = async () => {
                         </div>
 
                         <div class="button-group">
-                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('2')" />
-                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('4')" />
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2 bg-success text-white rounded-3 p-1" @click="activateCallback('2')" />
+                          <Button label="Next" icon="pi pi-arrow-right" class="bg-primary text-white rounded-3 p-1" iconPos="right" @click="activateCallback('4')" />
                         </div>
                       </StepPanel>
 
@@ -323,10 +321,10 @@ const handleSubmit = async () => {
                             </div>
 
                             <div class="col-md-6">
-                              <label for="guardian1-residence" class="form-label">Residence Address  <span class="text-danger">*</span></label>
+                              <label for="guardian1-residence" class="form-label">GPS-Address/ Residential Address  <span class="text-danger">*</span></label>
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
-                                  <input type="text" class="form-control" placeholder="Residence Address"
+                                  <input type="text" class="form-control" placeholder="GPS-Address/ Residential Address"
                                           @input="input.guardian1_residence = input.guardian1_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
                                          id="guardian1-residence" v-model="input.guardian1_residence">
                                   <div class="form-control-icon">
@@ -353,8 +351,8 @@ const handleSubmit = async () => {
                         </div>
 
                         <div class="button-group">
-                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('3')" />
-                          <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('5')" />
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2 bg-success text-white rounded-3 p-1"  @click="activateCallback('3')" />
+                          <Button label="Next" icon="pi pi-arrow-right"  class="bg-primary text-white rounded-3 p-1" iconPos="right" @click="activateCallback('5')" />
                         </div>
                       </StepPanel>
 
@@ -423,10 +421,10 @@ const handleSubmit = async () => {
                             </div>
 
                             <div class="col-md-6">
-                              <label for="guardian2-residence" class="form-label">Residence Address</label>
+                              <label for="guardian2-residence" class="form-label">GPS-Address/ Residential Address</label>
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
-                                  <input type="text" class="form-control" placeholder="Residence Address"
+                                  <input type="text" class="form-control" placeholder="GPS-Address/ Residential Address"
                                          @input="input.guardian2_residence = input.guardian2_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
                                          id="guardian2-residence" v-model="input.guardian2_residence">
                                   <div class="form-control-icon">
@@ -453,9 +451,9 @@ const handleSubmit = async () => {
                         </div>
 
                         <div class="button-group">
-                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2" @click="activateCallback('4')" />
+                          <Button label="Back" severity="secondary" icon="pi pi-arrow-left" class="me-2 bg-success text-white rounded-3 p-1" @click="activateCallback('4')" />
                           <Button type="submit" label="Register Patient" icon="pi pi-check"
-                                  :loading="loading" class="submit-btn" severity="success"/>
+                                  :loading="loading" class="submit-btn bg-primary text-white rounded-3 p-3" severity="success"/>
                         </div>
                       </StepPanel>
                     </StepPanels>
@@ -497,6 +495,9 @@ const handleSubmit = async () => {
   position: relative;
 }
 
+.button-group.justify-content-center {
+  justify-content: center;
+}
 
 .content-wrapper {
   position: relative;

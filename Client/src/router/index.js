@@ -22,6 +22,7 @@ import Patient_record_update from "@/views/Admin/patients/Patient_record_update.
 import Register_Hospital from "@/views/Admin/hospital/Register_Hospital.vue";
 import Registered_Hospitals from "@/views/Admin/hospital/Registered_Hospitals.vue";
 import Update_plan from '@/views/subcription/update_plan.vue';
+import Patient_card from "@/views/Admin/patients/Patient_card.vue";
 
 
 const router = createRouter({
@@ -91,6 +92,16 @@ const router = createRouter({
             path: '/patients/:id/record_list_all',
             name: 'patients.list_all',
             component: Patient_record_list_all,
+            props: true,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/patient_card/:id/',
+            name: 'patient.card',
+            component: Patient_card,
             props: true,
             meta: {
                 requiresAuth: true,

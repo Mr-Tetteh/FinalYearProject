@@ -17,6 +17,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "dayjs": "^1.11.13",
     "fetch": "^1.1.0",
     "pinia": "^2.2.6",
     "primevue": "^4.3.3",
