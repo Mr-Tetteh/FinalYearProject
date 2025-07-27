@@ -79,6 +79,7 @@ export default function usePatients() {
     const patient = ref('')
     const all_hospital_patient = ref('');
     const patient_record = ref('')
+    const card_details = ref('')
     const all_today_patient = ref()
     const patient_update = ref(null)
 
@@ -117,6 +118,19 @@ export default function usePatients() {
             $toast.error(err.response.data.message, {
                 position: "top-right"
             })
+        }
+    }
+
+    const patient_card = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            let response = await axios.get(`${import.meta.env.VITE_API}/patient_card/${id}`, config)
+            card_details.value = response.data.data
+        } catch (err) {
+            $toast.error(err.response.data.data)
         }
     }
 
@@ -201,6 +215,8 @@ export default function usePatients() {
         today_patient_count,
         record,
         editPatient,
-        activatePatient
+        activatePatient,
+        patient_card,
+        card_details
     }
 }

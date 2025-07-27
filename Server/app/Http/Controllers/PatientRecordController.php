@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PatientRecordResource;
 use App\Models\PatientRecord;
+use App\Models\Patients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,17 @@ class PatientRecordController extends Controller
         return response()->json($patients);
 
     }
+
+
+    public function patient_card($id)
+    {
+        $card = Patients::with('hospital')->find($id); // Use `find()` instead of `where()->get()` for a single record
+
+        return response()->json([
+            'data' => $card
+        ]);
+    }
+
 
     public function now_hospital_patient()
     {

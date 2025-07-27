@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('patient_record_edit/{patient_record}', [PatientRecordController::class, 'edit']);
     Route::patch('patient_record_update/{patient_record}', [PatientRecordController::class, 'update']);
     Route::get('today_patient_count', [PatientRecordController::class, 'now_patient']);
+    Route::get('patient_card/{patient_card}', [PatientRecordController::class, 'patient_card']);
 
     Route::get('get_drugs', [Pharmacy::class, 'index']);
     Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);

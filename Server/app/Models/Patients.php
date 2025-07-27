@@ -50,7 +50,7 @@ class Patients extends Model
                 'source' => 'patient_number',
             ],
             'patient_hospital' => [
-                'source' => Auth::user()->hospital,
+                'source' => Auth::user()->hospital_id,
             ],
         ];
     }
@@ -59,7 +59,7 @@ class Patients extends Model
     {
         static::creating(function ($patient): void {
             $patient->patient_number = $patient->generateUniquePatientNumber();
-            $patient->hospital = Auth::user()->hospital;
+            $patient->hospital = Auth::user()->hospital_id;
         });
     }
 
@@ -83,4 +83,11 @@ class Patients extends Model
 
         return $uniquePatientNumber;
     }
+
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class, 'hospital'); // Foreign key = hospital
+    }
+
+
 }

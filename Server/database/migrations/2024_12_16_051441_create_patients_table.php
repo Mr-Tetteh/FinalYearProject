@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('other_name')->nullable();
             $table->string('gender');
-            $table->string('age');
             $table->date('date_of_birth');
-            $table->string('hospital');
+            $table->integer('hospital');
             $table->string('patient_number');
             $table->string('contact');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('guardian1_first_name');
             $table->string('guardian1_last_name');
