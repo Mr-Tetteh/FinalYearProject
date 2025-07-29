@@ -31,7 +31,6 @@ const print = () => {
   location.reload() // restore interactivity
 }
 
-
 </script>
 
 <template>
