@@ -25,7 +25,7 @@ class PatientResource extends JsonResource
             'hospital' => $this->hospital,
             'date_of_birth' => $this->date_of_birth,
             'contact' => $this->contact,
-            'address' => $this->address,
+            'residential_address' => $this->residential_address,
             'email' => $this->email,
             'medical_history' => $this->medical_history,
             'allergies' => $this->allergies,
@@ -36,7 +36,7 @@ class PatientResource extends JsonResource
                 'last_name' => $this->guardian1_last_name,
                 'other_names' => $this->guardian1_other_names,
                 'relation' => $this->guardian1_relation,
-                'residence' => $this->guardian1_residence,
+                'residential_address' => $this->guardian1_residential_address,
                 'contact' => $this->guardian1_contact,
             ],
             'guardian2' => [
@@ -44,7 +44,7 @@ class PatientResource extends JsonResource
                 'last_name' => $this->guardian2_last_name,
                 'other_names' => $this->guardian2_other_names,
                 'relation' => $this->guardian2_relation,
-                'residence' => $this->guardian2_residence,
+                'residential_address' => $this->guardian2_residential_address,
                 'contact' => $this->guardian2_contact,
             ],
         ];

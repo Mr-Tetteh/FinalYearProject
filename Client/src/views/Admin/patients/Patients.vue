@@ -325,8 +325,8 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="GPS-Address/ Residential Address"
-                                          @input="input.guardian1_residence = input.guardian1_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
-                                         id="guardian1-residence" v-model="input.guardian1_residence">
+                                          @input="input.guardian1_residential_address = input.guardian1_residential_address.replace(/[^a-zA-Z0-9\s,]/g, '')"
+                                         id="guardian1-residence" v-model="input.guardian1_residential_address">
                                   <div class="form-control-icon">
                                     <i class="bi bi-house"></i>
                                   </div>
@@ -425,8 +425,8 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <input type="text" class="form-control" placeholder="GPS-Address/ Residential Address"
-                                         @input="input.guardian2_residence = input.guardian2_residence.replace(/[^a-zA-Z0-9\s,]/g, '')"
-                                         id="guardian2-residence" v-model="input.guardian2_residence">
+                                         @input="input.guardian1_residential_address = input.guardian2_residential_address.replace(/[^a-zA-Z0-9\s,]/g, '')"
+                                         id="guardian2-residence" v-model="input.guardian1_residential_address">
                                   <div class="form-control-icon">
                                     <i class="bi bi-house"></i>
                                   </div>

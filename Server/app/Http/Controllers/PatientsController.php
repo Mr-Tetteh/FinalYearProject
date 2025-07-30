@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePatientsRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patients;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PatientsController extends Controller
     public function hospitals_patients_count()
     {
         $user = Auth::user();
-        $patient_count = Patients::where('hospital_id', $user->hospital_id)->count();
+        $patient_count = Patients::where('hospital', $user->hospital_id)->count();
 
         return response()->json($patient_count);
 
@@ -57,8 +58,9 @@ class PatientsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePatientsRequest $request)
     {
+        $request->validated();
         $patient = Patients::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -66,7 +68,7 @@ class PatientsController extends Controller
             'gender' => $request->input('gender'),
             'date_of_birth' => $request->input('date_of_birth'),
             'contact' => $request->input('contact'),
-            'address' => $request->input('address'),
+            'residential_address' => $request->input('residential_address'),
             'email' => $request->input('email'),
             'medical_history' => $request->input('medical_history'),
             'allergies' => $request->input('allergies'),
@@ -75,13 +77,13 @@ class PatientsController extends Controller
             'guardian1_last_name' => $request->input('guardian1_last_name'),
             'guardian1_other_names' => $request->input('guardian1_other_names'),
             'guardian1_relation' => $request->input('guardian1_relation'),
-            'guardian1_residence' => $request->input('guardian1_residence'),
+            'guardian1_residential_address' => $request->input('guardian1_residential_address'),
             'guardian1_contact' => $request->input('guardian1_contact'),
             'guardian2_first_name' => $request->input('guardian2_first_name'),
             'guardian2_last_name' => $request->input('guardian2_last_name'),
             'guardian2_other_names' => $request->input('guardian2_other_names'),
             'guardian2_relation' => $request->input('guardian2_relation'),
-            'guardian2_residence' => $request->input('guardian2_residence'),
+            'guardian2_residential_address' => $request->input('guardian2_residential_address'),
             'guardian2_contact' => $request->input('guardian2_contact'),
         ]);
 

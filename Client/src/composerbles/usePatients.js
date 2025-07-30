@@ -26,13 +26,13 @@ export default function usePatients() {
         guardian1_last_name: "",
         guardian1_other_names: "",
         guardian1_relation: "",
-        guardian1_residence: "",
+        guardian1_residential_address: "",
         guardian1_contact: "",
         guardian2_first_name: "",
         guardian2_last_name: "",
         guardian2_other_names: "",
         guardian2_relation: "",
-        guardian2_residence: "",
+        guardian2_residential_address: "",
         guardian2_contact: "",
     });
 
@@ -84,7 +84,7 @@ export default function usePatients() {
     const patient_update = ref(null)
 
     const register_patient = async () => {
-        const requiredFields = [
+       /* const requiredFields = [
             "first_name",
             "last_name",
             "gender",
@@ -103,7 +103,7 @@ export default function usePatients() {
                 });
                 return;
             }
-        }
+        }*/
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
