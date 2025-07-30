@@ -128,9 +128,10 @@ onMounted(hospital);
                           <option value="Doctor">Doctor</option>
                           <option value="Nurse">Nurse</option>
                           <option value="Pharmacist">Pharmacist</option>
-                          <option value="Account">Account</option>
+                          <option value="Accountant">Accountant</option>
                           <option value="Manager">Manager</option>
                           <option value="Lab Technician">Lab Technician</option>
+                          <option v-if="userRole === 'Admin'" value="Admin">Admin</option>
 
 
                         </select>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Http\Requests\StaffRegistrationRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -60,35 +61,11 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function register(Request $request)
+    public function register(StaffRegistrationRequest $request)
     {
-        if (\App\Models\User::where('email', $request->email)->first()) {
-            return response()->json([
-                'message' => 'Sorry, Email already exists',
-            ], 402);
-        } elseif (\App\Models\User::where('contact', $request->contact)->first()) {
-            return response()->json([
-                'message' => 'Sorry, phone number already exists with an account.',
-            ], 402);
-        } elseif (\App\Models\User::where('staff_id', $request->staff_id)->first()) {
-            return response()->json([
-                'message' => 'Sorry, Staff_id already exist',
-            ]);
-        }
+        $data = $request->validated();
 
-        $user = \App\Models\User::create([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'other_names' => $request->input('other_names'),
-            'birthday' => $request->input('birthday'),
-            'gender' => $request->input('gender'),
-            'role' => $request->input('role'),
-            'email' => $request->input('email'),
-            'hospital_id' => $request->input('hospital_id'),
-            'staff_id' => $request->input('staff_id'),
-            'contact' => $request->input('contact'),
-            'password' => Hash::make($request->input('password')),
-        ]);
+        $user = User::create($data);
 
         return new UserResource($user);
     }
@@ -121,7 +98,7 @@ class UserController extends Controller
 
         $passwordReset = DB::table('password_resets')->where('token', $request->input('token'))->first();
 
-        $user = \App\Models\User::where('email', $passwordReset->email)->first();
+        $user = User::where('email', $passwordReset->email)->first();
         if (!$user) {
             return response()->json([
                 'message' => 'Sorry User not found',
@@ -141,7 +118,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $token = Str::random(20);
 
-        $user = \App\Models\User::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
         if (!$user) {
             return response()->json(['message' => 'Sorry User with this email was not found'], 404);
         }
@@ -184,7 +161,7 @@ class UserController extends Controller
      */
     public function all_users()
     {
-        $user = \App\Models\User::all();
+        $user = User::all();
 
         return UserResource::collection($user);
     }
@@ -193,7 +170,7 @@ class UserController extends Controller
     {
         $loggedInUser = Auth::user();
 
-        $all_staff = \App\Models\User::where('hospital_id', $loggedInUser->hospital_id)->latest()->get();
+        $all_staff = User::where('hospital_id', $loggedInUser->hospital_id)->latest()->get();
 
         return UserResource::collection($all_staff);
     }
@@ -201,7 +178,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = \App\Models\User::where('staff_id', $request->identifier)
+            $user = User::where('staff_id', $request->identifier)
                 ->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
@@ -227,13 +204,14 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'Something went wrong',
+                logger($th->getMessage()),
             ], 500);
         }
     }
 
     public function count_all_users()
     {
-        $users = \App\Models\User::count();
+        $users = User::count();
 
         return response()->json($users);
 
@@ -242,7 +220,7 @@ class UserController extends Controller
     public function count_all_hospital_users()
     {
         $user = Auth::user();
-        $user = \App\Models\User::where('hospital_id', $user->hospital_id)->count();
+        $user = User::where('hospital_id', $user->hospital_id)->count();
 
         return response()->json($user);
 
@@ -285,7 +263,7 @@ class UserController extends Controller
 
     }
 
-    public function destroy(\App\Models\User $user)
+    public function destroy(User $user)
     {
         if ($user->delete()) {
             return response()->json([

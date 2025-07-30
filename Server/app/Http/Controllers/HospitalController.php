@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreHospitalRegistration;
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
 use App\Jobs\InitPaymentJB;
@@ -92,7 +93,7 @@ class HospitalController extends Controller
      *     )
      * )
      */
-    public function store(Request $request)
+    public function store(StoreHospitalRegistration $request)
     {
         $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),

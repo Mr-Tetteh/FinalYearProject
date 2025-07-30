@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('gender');
             $table->string('role');
             $table->string('contact');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->foreignId('hospital_id')->constrained('hospitals')->onDelete('cascade');
             $table->string('staff_id');
             $table->string('password');
+            $table->softDeletes();
+
 
             $table->timestamps();
         });
