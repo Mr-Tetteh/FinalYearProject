@@ -98,9 +98,7 @@ class User extends Authenticatable
         'email',
         'staff_id',
         'password',
-
     ];
-    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -109,7 +107,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**

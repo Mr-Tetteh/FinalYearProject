@@ -38,6 +38,7 @@ export default function useAuth() {
 
     const hospitals_in_system = ref([])
     let userData = ref(null)
+    const is_loading = ref(false);
 
     const login = async () => {
         try {
@@ -54,7 +55,7 @@ export default function useAuth() {
             localStorage.setItem('USER_ID', response.data.user.id);
             localStorage.setItem('HOSPITAL_ID', response.data.user.hospital.id);
 
-            $toast.success('Login Successfully', { position: 'top-right' });
+            $toast.success('Login Successfully', {position: 'top-right'});
             await router.push('/dashboard');
         } catch (err) {
             $toast.error(err?.response?.data?.message || 'Login failed', {
@@ -104,7 +105,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/all_users`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/view_all_users`, config);
             all_users.value = response.data.data
 
         } catch (err) {
@@ -224,36 +225,26 @@ export default function useAuth() {
             });
         }
     }
+
     const register = async () => {
         try {
-            const token = localStorage.getItem('AUTH_TOKEN')
+            is_loading.value = true;
+
+            const token = localStorage.getItem('AUTH_TOKEN');
             const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-            const response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
-            if (response) {
-                $toast.error(response.data.message, {
-                    position: 'top-right',
-                    pauseOnHover: true
-                })
-            }
-            $toast.success('Staff Registered Successfully', {
-                position: 'top-right',
-                pauseOnHover: true
-            })
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            let response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
+            $toast.success("Staff Registered Successfully");
             setTimeout(() => {
-                window.location.reload()
-            }, 1000)
+                window.location.reload(); // or router.push('/somewhere')
+            }, 1000);
 
         } catch (err) {
-            $toast.error(err.response.data.message, {
-                position: 'top-right',
-            })
+            $toast.error(err?.response?.data?.message || "Something went wrong");
+            is_loading.value = false;
         }
-
-
-    }
-
+    };
 
     return {
         user,
@@ -274,7 +265,8 @@ export default function useAuth() {
         delete_user,
         update_role,
         userData,
-        view_role
+        view_role,
+        is_loading,
     }
 
 

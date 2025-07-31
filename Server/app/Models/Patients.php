@@ -38,7 +38,7 @@ class Patients extends Model
         'guardian2_last_name',
         'guardian2_other_names',
         'guardian2_relation',
-        'guardian1_residential_address',
+        'guardian2_residential_address',
         'guardian2_contact',
         'activated_at',
     ];

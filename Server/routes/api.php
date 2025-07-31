@@ -17,15 +17,15 @@ Route::post('password_reset', [UserController::class, 'resetPassword']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
-    Route::get('all_users', [UserController::class, 'user']);
+//    Route::get('all_users', [UserController::class, 'user']);
     Route::post('users', [UserController::class, 'register']);
-    Route::get('all_users', [UserController::class, 'all_users']);
+    Route::get('view_all_users', [UserController::class, 'all_users']);
     Route::get('all_staff', [UserController::class, 'all_staff']);
     Route::get('count_all_users', [UserController::class, 'count_all_users']);
     Route::get('count_all_hospital_users', [UserController::class, 'count_all_hospital_users']);
     Route::get('get_details/{user}', [UserController::class, 'show']);
     Route::patch('update_role/{user}', [UserController::class, 'update_role']);
-    Route::delete('delete_user/{user}', [UserController::class, 'destroy']);
+    Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
     Route::get('deleted_users', [UserController::class, 'deleted_users']);
     Route::post('restore_user', [UserController::class, 'restore_user']);
 

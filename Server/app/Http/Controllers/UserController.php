@@ -63,9 +63,49 @@ class UserController extends Controller
      */
     public function register(StaffRegistrationRequest $request)
     {
-        $data = $request->validated();
+        // Check if user with email or staff_id already exists
+        $existingUser = User::withTrashed()
+            ->where('email', $request->input('email'))
+            ->orWhere('staff_id', $request->input('staff_id'))
+            ->first();
 
-        $user = User::create($data);
+        if ($existingUser) {
+            if ($existingUser->trashed()) {
+                // If user is soft-deleted, restore and update
+                $existingUser->restore();
+                $existingUser->update([
+                    'first_name' => $request->input('first_name'),
+                    'last_name' => $request->input('last_name'),
+                    'other_names' => $request->input('other_names'),
+                    'contact' => $request->input('contact'),
+                    'birthday' => $request->input('birthday'),
+                    'gender' => $request->input('gender'),
+                    'role' => $request->input('role'),
+                    'hospital_id' => $request->input('hospital_id'),
+                    'password' => Hash::make($request->input('password')),
+                    'deleted_at' => null,
+                ]);
+                return new UserResource($existingUser);
+            }
+            
+            // If user exists and is not deleted, let the validation handle the error
+            $request->validate([]); // This will trigger the validation errors
+        }
+
+        // If no existing user, create a new one
+        $user = User::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'other_names' => $request->input('other_names'),
+            'contact' => $request->input('contact'),
+            'birthday' => $request->input('birthday'),
+            'gender' => $request->input('gender'),
+            'role' => $request->input('role'),
+            'hospital_id' => $request->input('hospital_id'),
+            'email' => $request->input('email'),
+            'staff_id' => $request->input('staff_id'),
+            'password' => Hash::make($request->input('password')),
+        ]);
 
         return new UserResource($user);
     }
@@ -162,7 +202,6 @@ class UserController extends Controller
     public function all_users()
     {
         $user = User::all();
-
         return UserResource::collection($user);
     }
 
@@ -226,11 +265,10 @@ class UserController extends Controller
 
     }
 
-    public function user()
-    {
-        return Auth::user();
-
-    }
+//    public function user()
+//    {
+//        return Auth::user();
+//    }
 
     public function logout()
     {
@@ -263,16 +301,16 @@ class UserController extends Controller
 
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if ($user->delete()) {
-            return response()->json([
-                'message' => 'User deleted successfully',
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'User not deleted',
-            ], 500);
-        }
+        $user = User::find($id);
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ]);
     }
+
+
 }

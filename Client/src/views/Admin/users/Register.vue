@@ -1,22 +1,21 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
-import { RouterLink } from "vue-router";
+import {onMounted, ref, computed} from "vue";
+import {RouterLink} from "vue-router";
 import useAuth from "@/composerbles/useAuth.js";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
 
-const { input, register, hospital, hospitals_in_system } = useAuth();
+const {input, register, hospital, hospitals_in_system, is_loading} = useAuth();
 const {userRole, hospital_id} = useSession()
 
 const registerUser = async () => {
-  register()
+  await register();
 };
-
 onMounted(hospital);
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="registration-page min-vh-100 d-flex justify-content-center align-items-center py-5">
     <div class="container">
       <div class="row justify-content-center">
@@ -175,11 +174,8 @@ onMounted(hospital);
                     </div>
 
                     <div class="mt-4">
-                      <button
-                          type="submit"
-                          class="btn btn-primary w-100 py-2"
-                      >
-                        <span class="  me-2"> Creat Staff Account</span>
+                      <button type="submit" class="btn btn-primary w-100 py-2" :disabled="is_loading">Creat Staff
+                        Account
                       </button>
                     </div>
                   </form>
