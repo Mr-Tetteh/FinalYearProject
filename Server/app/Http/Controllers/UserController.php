@@ -63,36 +63,7 @@ class UserController extends Controller
      */
     public function register(StaffRegistrationRequest $request)
     {
-        // Check if user with email or staff_id already exists
-        $existingUser = User::withTrashed()
-            ->where('email', $request->input('email'))
-            ->orWhere('staff_id', $request->input('staff_id'))
-            ->first();
-
-        if ($existingUser) {
-            if ($existingUser->trashed()) {
-                // If user is soft-deleted, restore and update
-                $existingUser->restore();
-                $existingUser->update([
-                    'first_name' => $request->input('first_name'),
-                    'last_name' => $request->input('last_name'),
-                    'other_names' => $request->input('other_names'),
-                    'contact' => $request->input('contact'),
-                    'birthday' => $request->input('birthday'),
-                    'gender' => $request->input('gender'),
-                    'role' => $request->input('role'),
-                    'hospital_id' => $request->input('hospital_id'),
-                    'password' => Hash::make($request->input('password')),
-                    'deleted_at' => null,
-                ]);
-                return new UserResource($existingUser);
-            }
-            
-            // If user exists and is not deleted, let the validation handle the error
-            $request->validate([]); // This will trigger the validation errors
-        }
-
-        // If no existing user, create a new one
+        $request->validated();
         $user = User::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),

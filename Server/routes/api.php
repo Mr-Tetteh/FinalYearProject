@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('registered_hospital', [HospitalController::class, 'show']);
     Route::get('count_hospitals', [HospitalController::class, 'hospital_count']);
     Route::delete('delete_hospital/{hospital}', [HospitalController::class, 'destroy']);
-
+    Route::get('edit_hospital/{hospital}', [HospitalController::class, 'edit']);
+    Route::patch('update_hospital/{hospital}', [HospitalController::class, 'update']);
 
 });

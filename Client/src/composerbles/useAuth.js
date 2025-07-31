@@ -235,13 +235,17 @@ export default function useAuth() {
                 headers: { Authorization: `Bearer ${token}` }
             };
             let response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
-            $toast.success("Staff Registered Successfully");
+            $toast.success("Staff Registered Successfully", {
+                position: 'top-right',
+            });
             setTimeout(() => {
                 window.location.reload(); // or router.push('/somewhere')
             }, 1000);
 
         } catch (err) {
-            $toast.error(err?.response?.data?.message || "Something went wrong");
+            $toast.error(err?.response?.data?.message || "Something went wrong", {
+                position: 'top-right',
+            });
             is_loading.value = false;
         }
     };
