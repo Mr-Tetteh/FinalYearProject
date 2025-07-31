@@ -6,20 +6,21 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
 import UpdateUserRole from "@/components/updateUserRole.vue";
 import useHospital from "@/composerbles/useHospital.js";
+import ActivateHospital from "@/components/ActivateHospital.vue";
 
 const searchQuery = ref('');
 const modal = ref(false);
-const selectedUserId = ref(null);
+const selectedHospitalId = ref(null);
 const { registered_hospital, registered_hospitals_data, delete_hospital } = useHospital();
 const {userRole} = useSession()
 
 onMounted(registered_hospital);
 
 
-// const openEditModal = (user) => {
-//   selectedUserId.value = user.id; // Store the user ID when opening modal
-//   modal.value = true;
-// };
+const openEditModal = (hospital) => {
+  selectedHospitalId.value = hospital.id; // Store the user ID when opening modal
+  modal.value = true;
+};
 
 
 </script>
@@ -108,13 +109,13 @@ onMounted(registered_hospital);
                       {{ item.hospital_location }}
                   </td>
                   <td><a :href="`mailto:${item.hospital_email}`">{{ item.hospital_email }}</a> </td>
-                  <td>{{ item.hospital_country }}</td>
+                  <td>{{ item.hospital_consistency }}</td>
                   <td>{{ item.hospital_city }}</td>
-                  <td>{{ item.number_of_monthly_subscription }}</td>
+                  <td>GHC {{ item.number_of_monthly_subscription }}</td>
                   <td> <span v-if="item.status == 1" class="badge bg-success"> Active</span>
                     <span v-else class="badge bg-danger"> Inactive</span></td>
                   <td>
-                    <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
+                    <div v-if="userRole == 'Admin'" class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
@@ -131,7 +132,7 @@ onMounted(registered_hospital);
             </div>
             <div v-if="modal" class="modal-overlay">
               <div class="modal-content">
-                <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
+                <ActivateHospital v-if="modal" v-model="modal" :id="selectedHospitalId"/>
 
               </div>
             </div>

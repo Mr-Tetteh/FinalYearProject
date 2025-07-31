@@ -13,7 +13,7 @@ class Pharmacy extends Model
     {
         return [
             'patient_hospital' => [
-                'source' => Auth::user()->hospital,
+                'source' => Auth::user()->hospital_id,
             ],
         ];
     }
@@ -21,7 +21,7 @@ class Pharmacy extends Model
     protected static function booted()
     {
         static::creating(function ($patient): void {
-            $patient->hospital = Auth::user()->hospital;
+            $patient->hospital = Auth::user()->hospital_id;
         });
     }
 }

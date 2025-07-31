@@ -15,13 +15,14 @@ export default function useHospital() {
         hospital_email: "",
         hospital_country: "",
         hospital_city: "",
-        number_of_monthly_subscription: ""
+        number_of_monthly_subscription: "",
+        status: "",
     })
 
     const plan_input = ref({
         hospital_name: "",
         subscription_type: "",
-     
+
     })
 
 
@@ -56,7 +57,7 @@ export default function useHospital() {
     const reg_payment = ref([]);
     const count_all_hospitals = ref('')
     const is_loading = ref(false)
-
+    const hospital_edit = ref()
 
     const stock_drugs = async () => {
         try {
@@ -119,36 +120,37 @@ export default function useHospital() {
         }
     }
 
-    const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
-        for (let i = 0; i < retries; i++) {
-            try {
-                const payment = await axios.get(`${import.meta.env.VITE_API}/payments/hospital/${hospitalId}`);
-                return payment.data;
-            } catch (e) {
-                await new Promise(res => setTimeout(res, delay));
-            }
-        }
-        throw new Error('Payment not found after waiting.');
-    };
+    // const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
+    //     for (let i = 0; i < retries; i++) {
+    //         try {
+    //             const payment = await axios.get(`${import.meta.env.VITE_API}/payments/hospital/${hospitalId}`);
+    //             return payment.data;
+    //         } catch (e) {
+    //             await new Promise(res => setTimeout(res, delay));
+    //         }
+    //     }
+    //     throw new Error('Payment not found after waiting.');
+    // };
 
     const register_hospital = async () => {
         try {
             is_loading.value = true;
             const response = await axios.post(`${import.meta.env.VITE_API}/hospital`, input.value);
-            const hospitalData = response.data.hospital;
+            // const hospitalData = response.data.hospital;
 
             // Wait for the payment job to finish and fetch payment
-            const payment = await waitForPayment(hospitalData.id);
-            reg_payment.value = payment;
+            /*       const payment = await waitForPayment(hospitalData.id);
+                   reg_payment.value = payment;
 
-            window.location.href = payment.payment_url; // Redirect user to Paystack
+                   window.location.href = payment.payment_url; // Redirect user to Paystack
 
-            $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });
+                   $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });*/
+
 
         } catch (err) {
             is_loading.value = false;
             console.error('Error:', err);
-            $toast.error('Registration or payment initialization failed.', { position: "top-right" });
+            $toast.error(err.message, {position: "top-right"});
         }
     };
 
@@ -225,7 +227,7 @@ export default function useHospital() {
     };
 
     const count_hospital = async () => {
-        try{
+        try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -236,6 +238,43 @@ export default function useHospital() {
             alert(err.response.data.message);
         }
     }
+
+    const edit_hospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get(`${import.meta.env.VITE_API}/edit_hospital/${id}`, config);
+            input.value = response.data.data
+        } catch (err) {
+            alert(err.response.data.data.message);
+        }
+    }
+
+    const update_hospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.patch(`${import.meta.env.VITE_API}/update_hospital/${id}`, input.value, config);
+            input.value = response.data.data
+            $toast.success('Hospital has been updated successfully', {
+                position: "top-right"
+            })
+            setTimeout(() => {
+                window.location.reload()
+
+            }, 1000)
+        } catch (err) {
+            alert(err.response.data.data.message);
+            $toast.error(err.response.data.data.message, {
+                position: "top-right"
+            })
+        }
+    }
+
 
     const delete_hospital = async (id) => {
         try {
@@ -284,7 +323,10 @@ export default function useHospital() {
         count_all_hospitals,
         count_hospital,
         is_loading,
-        plan_input
+        plan_input,
+        edit_hospital,
+        update_hospital
+
 
     }
 }

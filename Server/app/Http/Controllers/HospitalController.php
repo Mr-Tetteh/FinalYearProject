@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreHospitalRegistration;
 use App\Http\Requests\UpdateHosptialRequest;
 use App\Http\Resources\HospitalResource;
 use App\Jobs\InitPaymentJB;
@@ -106,12 +107,9 @@ class HospitalController extends Controller
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
 
-        InitPaymentJB::dispatch($hospital);
+//        InitPaymentJB::dispatch($hospital);
 
-        return response()->json([
-            'message' => 'Hospital created successfully',
-            'hospital' => $hospital,
-        ], 201);
+       return new HospitalResource($hospital);
     }
 
     public function hospital_count()
@@ -134,17 +132,28 @@ class HospitalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Hospital $hosptial)
+    public function edit(Hospital $hospital)
     {
-        //
+        return new HospitalResource($hospital);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateHosptialRequest $request, Hospital $hosptial)
+    public function update(Request $request, Hospital $hospital)
     {
-        //
+        $hospital->update([
+            'hospital_name' => $request->input('hospital_name'),
+            'hospital_address' => $request->input('hospital_address'),
+            'hospital_contact' => $request->input('hospital_contact'),
+            'hospital_email' => $request->input('hospital_email'),
+            'hospital_location' => $request->input('hospital_location'),
+            'hospital_country' => $request->input('hospital_country'),
+            'hospital_city' => $request->input('hospital_city'),
+            'status' => $request->input('status'),
+        ]);
+
+        return new HospitalResource($hospital);
     }
 
     /**

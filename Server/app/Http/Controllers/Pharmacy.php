@@ -13,7 +13,7 @@ class Pharmacy extends Controller
      */
     public function index()
     {
-        $drugs = \App\Models\Pharmacy::all()->where('hospital', Auth::user()->hospital)->groupBy('category');
+        $drugs = \App\Models\Pharmacy::all()->where('hospital', Auth::user()->hospital_id)->groupBy('category');
 
         $result = $drugs->map(function ($items, $category) {
             return [
