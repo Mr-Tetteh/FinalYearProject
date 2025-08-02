@@ -95,7 +95,7 @@ onMounted(hospital);
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label">Birthday</label>
+                        <label class="form-label">Date Of Birth</label>
                         <input
                             type="date"
                             class="form-control"

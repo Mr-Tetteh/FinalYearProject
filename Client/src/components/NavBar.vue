@@ -33,17 +33,17 @@ const {logout} = useAuth()
         <!-- Navigation items -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#hero" class="nav-link active">Home</a>
             </li>
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#about" class="nav-link">About</a>
             </li>
 
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#services" class="nav-link">Services</a>
             </li>
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
