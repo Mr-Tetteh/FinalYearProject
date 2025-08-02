@@ -13,7 +13,7 @@ export default function useHospital() {
         hospital_location: "",
         hospital_contact: "",
         hospital_email: "",
-        hospital_country: "",
+        hospital_consistency: "",
         hospital_city: "",
         number_of_monthly_subscription: "",
         status: "",
@@ -143,14 +143,14 @@ export default function useHospital() {
                    reg_payment.value = payment;
 
                    window.location.href = payment.payment_url; // Redirect user to Paystack
-
                    $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });*/
-
-
+            $toast.success('Your Hospital has been created successfully', {
+                position: "top-right"
+            })
         } catch (err) {
             is_loading.value = false;
             console.error('Error:', err);
-            $toast.error(err.message, {position: "top-right"});
+            $toast.error(err.response.data.message, {position: "top-right"});
         }
     };
 
@@ -209,7 +209,7 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users`, config);
             hospital_users.value = response.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     };
 
@@ -222,7 +222,7 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/registered_hospital`, config);
             registered_hospitals_data.value = response.data.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     };
 
@@ -235,7 +235,7 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/count_hospitals`, config);
             count_all_hospitals.value = response.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     }
 
@@ -248,7 +248,7 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/edit_hospital/${id}`, config);
             input.value = response.data.data
         } catch (err) {
-            alert(err.response.data.data.message);
+            $toast.error(err.response.data.data.message);
         }
     }
 
