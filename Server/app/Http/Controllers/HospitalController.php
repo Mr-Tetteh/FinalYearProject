@@ -93,15 +93,16 @@ class HospitalController extends Controller
      *     )
      * )
      */
-    public function store(Request $request)
+    public function store(StoreHospitalRegistration $request)
     {
+        $request->validated();
         $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
             'hospital_contact' => $request->input('hospital_contact'),
             'hospital_email' => $request->input('hospital_email'),
             'hospital_location' => $request->input('hospital_location'),
-            'hospital_consistency' => $request->input('hospital_country'),
+            'hospital_consistency' => $request->input('hospital_consistency'),
             'hospital_city' => $request->input('hospital_city'),
             'status' => $request->input('status'),
             'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),

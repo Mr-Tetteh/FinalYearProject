@@ -2,7 +2,8 @@
 import NavBar from "@/components/NavBar.vue";
 import useHospital from "@/composerbles/useHospital.js";
 import {computed, ref} from "vue";
-const { input, register_hospital, is_loading } = useHospital();
+
+const {input, register_hospital, is_loading} = useHospital();
 
 
 const hospital = () => {
@@ -220,7 +221,7 @@ const constituencies = [
   "SENE WEST",
   "SENE EAST",
   "TECHIMAN NORTH",
-    "BUEM",
+  "BUEM",
   "BIAKOYE",
   "AKAN",
   "KRACHI EAST",
@@ -287,19 +288,20 @@ const constituencies = [
   "BINDURI"
 
 
-
 ];
 
 
 const filteredConstituencies = computed(() => {
-  return constituencies.filter((constituency) => constituency.toLowerCase().includes(input.value.hospital_country.toLowerCase()));
+  return constituencies.filter((constituency) => constituency.toLowerCase().includes(input.value.hospital_consistency.toLowerCase()));
 })
+
+
 
 
 </script>
 
 <template>
-  <NavBar />
+  <NavBar/>
   <div class="register-page d-flex align-items-center justify-content-center min-vh-100">
     <div class="card animated-card shadow-lg" style="max-width: 800px; width: 100%;">
       <!-- Card Header with Gradient -->
@@ -407,7 +409,7 @@ const filteredConstituencies = computed(() => {
               <input
                   id="hospital_country"
                   type="text"
-                  v-model="input.hospital_country"
+                  v-model="input.hospital_consistency"
                   class="form-control form-control-lg"
                   placeholder=" "
                   @input="filterConstituencies"
@@ -416,13 +418,13 @@ const filteredConstituencies = computed(() => {
               <div class="form-icon">
                 <i class="fas fa-globe-africa"></i>
               </div>
-              <div v-if="input.hospital_country" class="dropdown-options mt-2">
+              <div v-if="input.hospital_consistency" class="dropdown-options mt-2 ">
                 <div
                     v-for="constituency in filteredConstituencies"
-                    @click="input.hospital_country = constituency"
+                    @click="input.hospital_consistency = constituency"
                     class="dropdown-item"
                 >
-                  {{constituency}}
+                  {{ constituency }}
                 </div>
               </div>
             </div>

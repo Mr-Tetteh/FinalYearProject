@@ -24,7 +24,7 @@ class StoreHospitalRegistration extends FormRequest
         return [
             'hospital_name' => 'required|string|max:255|unique:hospitals',
             'hospital_email' => 'required|email|unique:hospitals',
-            'hospital_contact' => 'required|number|unique:hospitals',
+            'hospital_contact' => 'required|unique:hospitals',
             'hospital_address' => 'required|max:255',
             'hospital_location' => 'required|max:255',
             'hospital_consistency' => 'required|max:255',
