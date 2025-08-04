@@ -23,6 +23,7 @@ import Register_Hospital from "@/views/Admin/hospital/Register_Hospital.vue";
 import Registered_Hospitals from "@/views/Admin/hospital/Registered_Hospitals.vue";
 import Update_plan from '@/views/subcription/update_plan.vue';
 import Patient_card from "@/views/Admin/patients/Patient_card.vue";
+import Select_Hospital from "@/views/Admin/config/Select_Hospital.vue";
 
 
 const router = createRouter({
@@ -230,6 +231,14 @@ const router = createRouter({
             path: '/set_password/:token',
             name: 'SetPassword',
             component: SetPassword
+        },
+        {
+            path: '/select/hospital',
+            name: 'SelectHospital',
+            component: Select_Hospital,
+            meta: {
+                requiresAuth: true
+            }
         },
 
     ],

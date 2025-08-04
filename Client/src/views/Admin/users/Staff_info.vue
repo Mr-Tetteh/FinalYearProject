@@ -16,7 +16,7 @@ const selectedUserId = ref(null); // Add this line to track the selected user ID
 onMounted(staffs);
 
 const openEditModal = (user) => {
-  selectedUserId.value = user.id; // Store the user ID when opening modal
+  selectedUserId.value = user.id;
   modal.value = true;
 };
 

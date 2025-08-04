@@ -248,10 +248,25 @@ class UserController extends Controller
 
     }
 
-//    public function user()
-//    {
-//        return Auth::user();
-//    }
+
+
+    public function getUserHospital($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $hospitals = $user->hospitals()->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $hospitals
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to fetch user hospitals',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function logout()
     {
