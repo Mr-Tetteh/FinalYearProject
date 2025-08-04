@@ -24,16 +24,15 @@ export default function useAuth() {
         last_name: "",
         other_names: '',
         contact: "",
-        birthday: "",
+        date_of_birth: "",
         email: "",
         gender: "",
-        role: "",
-        hospital_id: "",
-        staff_id: "",
-        password: "my_name_is_jesus",
+        position: "",
+        password: "",
+        confirm_password: "",
     })
-    const role = ref({
-        role: ''
+    const position = ref({
+        position: ''
     })
 
     const hospitals_in_system = ref([])
@@ -49,11 +48,10 @@ export default function useAuth() {
 
             const token = response.data.authorisation.token;
             localStorage.setItem('AUTH_TOKEN', token);
-            localStorage.setItem('USER_TYPE', response.data.user.role);
+            localStorage.setItem('USER_TYPE', response.data.user.position);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
-            localStorage.setItem('HOSPITAL_ID', response.data.user.hospital.id);
 
             $toast.success('Login Successfully', {position: 'top-right'});
             await router.push('/dashboard');
@@ -211,7 +209,7 @@ export default function useAuth() {
 
             const response = await axios.patch(`${import.meta.env.VITE_API}/update_role/${id}`, userData.value, config)
 
-            $toast.success('User Role Updated Successfully', {
+            $toast.success('User profile updated successfully', {
                 position: 'top-right',
             });
 

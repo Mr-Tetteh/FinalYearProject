@@ -1,10 +1,10 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import UpdateUserRole from "@/components/updateUserRole.vue";
 
-const { all_users, users, delete_user } = useAuth();
+const {all_users, users, delete_user} = useAuth();
 
 const searchQuery = ref('');
 const modal = ref(false);
@@ -19,7 +19,7 @@ const openEditModal = (user) => {
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -68,10 +68,12 @@ const openEditModal = (user) => {
                 <thead class="bg-light">
                 <tr>
                   <th class="py-3">Full Name</th>
+                  <th class="py-3">Unique ID</th>
                   <th class="py-3">Date of Birth</th>
                   <th class="py-3">Gender</th>
-                  <th class="py-3">Role</th>
+                  <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
+                  <th class="py-3">Status</th>
                   <th class="py-3">Hospital</th>
                   <th class="py-3">Actions</th>
                 </tr>
@@ -86,24 +88,30 @@ const openEditModal = (user) => {
                       <div class="fw-medium">{{ item.first_name }} {{ item.last_name }}</div>
                     </div>
                   </td>
-                  <td>{{ item.birthday }}</td>
+                  <td>{{ item.unique_id }}</td>
+                  <td>{{ item.date_of_birth }}</td>
                   <td>{{ item.gender }}</td>
                   <td>
                   <span class="badge rounded-pill" :class="{
-                      'bg-primary text-white': item.role === 'Doctor',
-                      'bg-teal text-white': item.role === 'Nurse',
-                      'bg-orange text-white': item.role === 'Account',
-                      'bg-purple text-white': item.role === 'Pharmacist',
-                      'bg-pink text-white': item.role === 'Manager',
-                      'bg-secondary text-white': item.role === 'Lab Technician',
-                      'bg-warning text-white': item.role === 'Accountant',
-                      'bg-dark text-white': item.role === 'Admin',
-                      'bg-success text-white': item.role === 'Receptionist'
+                      'bg-primary text-white': item.position === 'Doctor',
+                      'bg-teal text-white': item.position === 'Nurse',
+                      'bg-orange text-white': item.position === 'Account',
+                      'bg-purple text-white': item.position === 'Pharmacist',
+                      'bg-pink text-white': item.position === 'Manager',
+                      'bg-secondary text-white': item.position === 'Lab Technician',
+                      'bg-warning text-white': item.position === 'Accountant',
+                      'bg-dark text-white': item.position === 'Admin',
+                      'bg-success text-white': item.position === 'Receptionist'
                     }">
-                      {{ item.role }}
+                      {{ item.position }}
                     </span>
                   </td>
                   <td>{{ item.email }}</td>
+                  <td>
+                      <span :class="{'badge bg-success  text-white': item.status === 1, 'badge bg-danger text-white': item.status === 0}">
+                        {{ item.status === 1 ? 'Active' : 'Inactive' }}
+                      </span>
+                  </td>
                   <td>
                       <span class="badge bg-primary bg-opacity-10 text-secondary">
                         {{ item.hospital_id }}

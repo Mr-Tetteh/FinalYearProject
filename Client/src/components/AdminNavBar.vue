@@ -78,10 +78,6 @@ const toggleSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item">
-                <i class="bi bi-person-plus"></i>
-                <span>Register Staff</span>
-              </RouterLink>
               <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'">
                 <i class="bi bi-people"></i>
                 <span>All Admin Users</span>

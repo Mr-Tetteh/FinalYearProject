@@ -26,12 +26,10 @@ class StaffRegistrationRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'other_names' => 'nullable|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'staff_id' => 'required|string|max:255|unique:users,staff_id',
             'contact' => 'required|string|max:10',
             'gender' => 'required|in:Male,Female',
-            'hospital_id' => 'nullable|exists:hospitals,id',
-            'birthday' => 'required|date',
-            'role' => 'required|string|in:Doctor,Nurse,Admin,Pharmacist,Receptionist,Lab Technician,Accountant,Manager',
+            'date_of_birth' => 'required|date',
+            'position' => 'required|string|in:Doctor,Nurse,Admin,Pharmacist,Receptionist,Lab Technician,Accountant,Manager',
             'password' => 'required|string|min:6',
         ];
     }

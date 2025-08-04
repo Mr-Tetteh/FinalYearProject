@@ -1,10 +1,10 @@
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
-import axios from 'axios';
+import {onMounted, ref} from "vue";
+import axios from "axios";
 import useAuth from "@/composerbles/useAuth.js";
 import useSession from "@/composerbles/useSession.js";
-import Multiselect from 'vue-multiselect';
-import 'vue-multiselect/dist/vue-multiselect.css';
+const {update_role, userData, view_role, hospital, hospitals_in_system} = useAuth()
+const {userRole} = useSession()
 
 const props = defineProps({
   modelValue: {
@@ -18,56 +18,22 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-
-const { update_role, userData, view_role, hospital, hospitals_in_system } = useAuth();
-const { userRole } = useSession();
-const selectedHospitals = ref([]);
-
 const closeEditModal = () => {
   emit('update:modelValue', false);
 };
 
-const handleSubmit = async () => {
-  // Convert selected hospitals to array of IDs before submitting
-  const hospitalIds = selectedHospitals.value.map(h => h.id);
-  // Update the userData with selected hospital IDs
-  userData.value.hospital_ids = hospitalIds;
-  await update_role(props.id);
-};
-
-// Format hospitals for multiselect
-const hospitalOptions = computed(() => {
-  return hospitals_in_system.value?.map(hosp => ({
-    id: hosp.id,
-    name: hosp.hospital_name
-  })) || [];
-});
-
-// Update selected hospitals when user data loads
-const updateSelectedHospitals = () => {
-  if (userData.value?.hospitals) {
-    selectedHospitals.value = userData.value.hospitals.map(hosp => ({
-      id: hosp.id,
-      name: hosp.hospital_name
-    }));
-  }
-};
-
-// Watch for user data changes
-watch(() => userData.value, (newVal) => {
-  if (newVal) {
-    updateSelectedHospitals();
-  }
-}, { immediate: true });
+const handleSubmit =  async () => {
+ await update_role(props.id)
+}
 
 onMounted(() => {
-  view_role(props.id);
-  hospital();
-});
+  view_role(props.id)
+  hospital()
+})
 </script>
 
 <template>
-  <div class="modal position-static d-block" role="dialog"
+  <div class="modal modal-sheet position-static d-block bg-body-secondary" tabindex="-1" role="dialog"
        id="modalSignin" style="max-height: 90vh; overflow-y: auto;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content rounded-4 shadow">
@@ -128,20 +94,20 @@ onMounted(() => {
             </div>
 
             <div class="row">
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-4">
                 <label class="form-label fw-semibold">Status</label>
                 <div class="form-floating mb-3">
-                  <select class="form-select rounded-3" id="floatingStatus" v-model="userData.status">
+                  <select class="form-select rounded-3" id="floatingStatus" v-model="userData.status" disabled>
                     <option value="1">Activate</option>
                     <option value="0">Deactivate</option>
                   </select>
                   <label for="floatingStatus">Select Status</label>
                 </div>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-4">
                 <label class="form-label fw-semibold">Position</label>
                 <div class="form-floating mb-3">
-                  <select class="form-select rounded-3" id="floatingPosition" v-model="userData.position">
+                  <select class="form-select rounded-3" id="floatingPosition" v-model="userData.position" disabled>
                     <option value="Doctor">Doctor</option>
                     <option value="Nurse">Nurse</option>
                     <option value="Pharmacist">Pharmacist</option>
@@ -153,36 +119,16 @@ onMounted(() => {
                   <label for="floatingPosition">Select Position</label>
                 </div>
               </div>
-            </div>
-            <div class="col-6 col-md-12">
-              <label class="form-label fw-semibold">Hospitals</label>
-              <div class="mb-3">
-                <multiselect
-                    v-model="selectedHospitals"
-                    :options="hospitalOptions"
-                    :multiple="true"
-                    :close-on-select="false"
-                    :clear-on-select="false"
-                    :preserve-search="true"
-                    label="name"
-                    track-by="id"
-                    :preselect-first="false"
-                    class="multiselect-custom"
-                >
-                  <template #noResult>
-                    No hospitals found. Consider changing the search query.
-                  </template>
-                  <template #tag="{ option, remove }">
-                      <span class="multiselect__tag p-3">
-                        <span>{{ option.name }}</span>
-                        <i class="multiselect__tag-icon" @click="remove(option)"></i>
-                      </span>
-                  </template>
-                </multiselect>
-                <p class="text-muted small mt-1 mb-0">Select one or more hospitals</p>
+              <div class="col-12 col-md-4">
+                <label class="form-label fw-semibold">Hospital</label>
+                <div class="form-floating mb-3">
+                  <select class="form-select rounded-3" id="floatingHospital" v-model="userData.hospital_id">
+                    <option :value="hospital.id" v-for="hospital in hospitals_in_system" :key="hospital.id">{{ hospital.hospital_name}}</option>
+                  </select>
+                  <label for="floatingHospital">Select Hospital</label>
+                </div>
               </div>
             </div>
-
 
             <div class="d-grid gap-2">
               <button class="btn btn-lg rounded-3 btn-primary" type="submit">Update</button>
@@ -193,48 +139,8 @@ onMounted(() => {
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>
-.multiselect-custom {
-  min-height: 45px;
-}
 
-.multiselect-custom :deep(.multiselect__tags) {
-  min-height: 45px;
-  border: 1px solid #ced4da;
-  border-radius: 0.375rem;
-  padding: 0.5rem 2.25rem 0 0.75rem;
-}
-
-.multiselect-custom :deep(.multiselect__select) {
-  top: 12px;
-  right: 10px;
-}
-
-.multiselect-custom :deep(.multiselect__tag) {
-  background: #0d6efd;
-  color: white;
-  padding: 4px 8px;
-  margin: 2px;
-  border-radius: 3px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.multiselect-custom :deep(.multiselect__tag-icon) {
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-.multiselect-custom :deep(.multiselect__tag-icon:after) {
-  color: white;
-  font-size: 16px;
-}
-
-.multiselect-custom :deep(.multiselect__option--highlight) {
-  background: #0d6efd;
-  color: white;
-}
 </style>

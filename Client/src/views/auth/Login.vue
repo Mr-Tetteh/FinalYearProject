@@ -54,12 +54,11 @@ const togglePasswordVisibility = () => {
                       <i class="bi bi-person"></i>
                     </span>
                     <input
-                        type="text"
+                        type="email"
                         class="form-control border-start-0"
                         id="staff-id"
-                        placeholder="Staff ID"
+                        placeholder="Email"
                         v-model="user.identifier"
-                        required
                     />
                   </div>
                 </div>
@@ -76,7 +75,6 @@ const togglePasswordVisibility = () => {
                         id="password"
                         placeholder="Password"
                         v-model="user.password"
-                        required
                     />
                     <button
                         class="input-group-text bg-light border-start-0"
@@ -118,7 +116,9 @@ const togglePasswordVisibility = () => {
                   </button>
                 </div>
               </form>
+              <span>Don't have an account? <RouterLink to="register" class="text-decoration-none">Register</RouterLink></span>
             </div>
+
           </div>
         </div>
       </div>

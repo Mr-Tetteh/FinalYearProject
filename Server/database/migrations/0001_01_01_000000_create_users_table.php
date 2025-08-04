@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('other_names')->nullable();
-            $table->date('birthday');
+            $table->date('date_of_birth');
             $table->string('gender');
-            $table->string('role');
+            $table->string('position');
             $table->string('contact');
             $table->string('email');
-            $table->foreignId('hospital_id')->constrained('hospitals')->onDelete('cascade');
-            $table->string('staff_id');
+            $table->boolean('status')->default(false);
+            $table->string('unique_id')->unique();
             $table->string('password');
             $table->softDeletes();
 
