@@ -4,7 +4,7 @@ import useAuth from "@/composerbles/useAuth.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
-import UpdateUserRole from "@/components/updateUserRole.vue";
+import UpdateUser from "@/components/updateUser.vue";
 
 const {staffs, all_staff, delete_user} = useAuth();
 const {userRole} = useSession()
@@ -147,7 +147,7 @@ const searchResults = computed(() => {
             </div>
             <div v-if="modal" class="modal-overlay">
               <div class="modal-content">
-                <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
+                <update-user v-if="modal" v-model="modal" :id="selectedUserId"/>
 
               </div>
             </div>

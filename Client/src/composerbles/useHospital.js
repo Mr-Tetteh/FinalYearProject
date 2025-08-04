@@ -147,6 +147,9 @@ export default function useHospital() {
             $toast.success('Your Hospital has been created successfully', {
                 position: "top-right"
             })
+            setTimeout(() => {
+                window.location.reload()
+            },2000)
         } catch (err) {
             is_loading.value = false;
             console.error('Error:', err);

@@ -69,12 +69,11 @@ class UserController extends Controller
             'last_name' => $request->input('last_name'),
             'other_names' => $request->input('other_names'),
             'contact' => $request->input('contact'),
-            'birthday' => $request->input('birthday'),
+            'date_of_birth' => $request->input('date_of_birth'),
             'gender' => $request->input('gender'),
-            'role' => $request->input('role'),
-            'hospital_id' => $request->input('hospital_id'),
+            'position' => $request->input('position'),
+//            'hospital_id' => $request->input('hospital_id'),
             'email' => $request->input('email'),
-            'staff_id' => $request->input('staff_id'),
             'password' => Hash::make($request->input('password')),
         ]);
 
@@ -188,20 +187,34 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = User::where('staff_id', $request->identifier)
+            $user = User::where('email', $request->identifier)
                 ->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
-                    'message' => 'Sorry Wrong Staff ID or Password',
+                    'message' => 'Sorry Wrong Email or Password',
                 ], 401);
             }
 
-            if (!$user->hospital || !$user->hospital->status) {
+            if ($user->status === 0) {
+                return response()->json([
+                    'message' => 'Sorry your account has not been activated yet. Please contact your administrator.',
+                ], 403);
+
+            }
+
+            // Check if user has any hospitals associated
+
+            if ($user->hospitals()->count() === 0) {
+                return response()->json([
+                    'message' => 'Sorry, your account is not associated with any hospital. Please contact your administrator.',
+                ], 403);
+            }
+          /*  if ($user->hospital_id->status === 0) {
                 return response()->json([
                     'message' => 'Sorry your hospital subscription has expired or is inactive'
                 ], 403);
-            }
+            }*/
 
             return response()->json([
                 'message' => 'Login Successful',
@@ -214,7 +227,6 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'Something went wrong',
-                logger($th->getMessage()),
             ], 500);
         }
     }
@@ -260,10 +272,18 @@ class UserController extends Controller
 
     public function update_role(User $user, Request $request)
     {
-        $user->update($request->all());
+        // Update user data
+        $user->update($request->except('hospital_ids'));
+
+        // Sync hospitals if hospital_ids are provided
+        if ($request->has('hospital_ids')) {
+            $user->hospitals()->sync($request->hospital_ids);
+        }
+
+        // Load the updated user with hospitals relationship
+        $user->load('hospitals');
 
         return new UserResource($user);
-
     }
 
     public function deleted_users()

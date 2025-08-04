@@ -14,11 +14,11 @@ Route::get('hospitals', [HospitalController::class, 'index']);
 Route::get('payments/hospital/{hospitalId}', [PaymentsControllers::class, 'getByHospital']);
 Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
+Route::post('users', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
 //    Route::get('all_users', [UserController::class, 'user']);
-    Route::post('users', [UserController::class, 'register']);
     Route::get('view_all_users', [UserController::class, 'all_users']);
     Route::get('all_staff', [UserController::class, 'all_staff']);
     Route::get('count_all_users', [UserController::class, 'count_all_users']);

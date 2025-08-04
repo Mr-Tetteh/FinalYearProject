@@ -8,6 +8,12 @@ import useSession from "@/composerbles/useSession.js";
 const {input, register, hospital, hospitals_in_system, is_loading} = useAuth();
 const {userRole, hospital_id} = useSession()
 
+const showPassword = ref(false);
+
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
 const registerUser = async () => {
   await register();
 };
@@ -15,7 +21,6 @@ onMounted(hospital);
 </script>
 
 <template>
-  <AdminNavBar/>
   <div class="registration-page min-vh-100 d-flex justify-content-center align-items-center py-5">
     <div class="container">
       <div class="row justify-content-center">
@@ -99,7 +104,7 @@ onMounted(hospital);
                         <input
                             type="date"
                             class="form-control"
-                            v-model="input.birthday"
+                            v-model="input.date_of_birth"
                         />
                       </div>
 
@@ -117,10 +122,10 @@ onMounted(hospital);
 
                       <!-- Professional Information -->
                       <div class="col-md-6">
-                        <label class="form-label">Role</label>
+                        <label class="form-label">Position</label>
                         <select
                             class="form-select"
-                            v-model="input.role"
+                            v-model="input.position"
                         >
                           <option value="" disabled selected>Select Role</option>
                           <option value="Receptionist">Receptionist</option>
@@ -130,28 +135,10 @@ onMounted(hospital);
                           <option value="Accountant">Accountant</option>
                           <option value="Manager">Manager</option>
                           <option value="Lab Technician">Lab Technician</option>
-                          <option v-if="userRole === 'Admin'" value="Admin">Admin</option>
-
+                          <!--                          <option v-if="userRole === 'Admin'" value="Admin">Admin</option>-->
 
                         </select>
                       </div>
-                      <div class="col-md-6" v-if="userRole === 'Admin'">
-                        <label class="form-label">Hospital</label>
-                        <select
-                            class="form-select"
-                            v-model="input.hospital_id"
-                        >
-                          <option value="" disabled selected>Select Hospital</option>
-                          <option
-                              v-for="hospital in hospitals_in_system"
-                              :key="hospital.id"
-                              :value="hospital.id"
-                          >
-                            {{ hospital.hospital_name }}
-                          </option>
-                        </select>
-                      </div>
-
                       <!-- Contact Information -->
                       <div class="col-md-6">
                         <label class="form-label">Email</label>
@@ -163,24 +150,61 @@ onMounted(hospital);
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label">Staff ID</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="input.staff_id"
-                        />
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="bi bi-lock"></i>
+                    </span>
+                          <input
+                              :type="showPassword ? 'text' : 'password'"
+                              class="form-control border-start-0 border-end-0"
+                              id="password"
+                              placeholder="Password"
+                              v-model="input.password"
+                          />
+                          <button
+                              class="input-group-text bg-light border-start-0"
+                              type="button"
+                              @click="togglePasswordVisibility"
+                          >
+                            <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                          </button>
+                        </div>
                       </div>
 
+                      <div class="col-md-6">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="bi bi-lock"></i>
+                    </span>
+                          <input
+                              :type="showPassword ? 'text' : 'password'"
+                              class="form-control border-start-0 border-end-0"
+                              id="password"
+                              placeholder="Password"
+                              v-model="input.confirm_password"
+                          />
+                          <button
+                              class="input-group-text bg-light border-start-0"
+                              type="button"
+                              @click="togglePasswordVisibility"
+                          >
+                            <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-
                     <div class="mt-4">
                       <button type="submit" class="btn btn-primary w-100 py-2" :disabled="is_loading">Creat Staff
                         Account
                       </button>
                     </div>
                   </form>
+                  <span>Already have an account? <RouterLink to="login" class="text-decoration-none">Login</RouterLink></span>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
