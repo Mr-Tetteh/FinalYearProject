@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
     Route::get('deleted_users', [UserController::class, 'deleted_users']);
     Route::post('restore_user', [UserController::class, 'restore_user']);
+    Route::get('getUserHospital/{id}', [UserController::class, 'getUserHospital']);
 
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);

@@ -38,6 +38,7 @@ export default function useAuth() {
     const hospitals_in_system = ref([])
     let userData = ref(null)
     const is_loading = ref(false);
+    const user_hospital_get = ref('');
 
     const login = async () => {
         try {
@@ -54,7 +55,7 @@ export default function useAuth() {
             localStorage.setItem('USER_ID', response.data.user.id);
 
             $toast.success('Login Successfully', {position: 'top-right'});
-            await router.push('/dashboard');
+            await router.push('/select/hospital');
         } catch (err) {
             $toast.error(err?.response?.data?.message || 'Login failed', {
                 position: 'top-right',
@@ -248,6 +249,20 @@ export default function useAuth() {
         }
     };
 
+    const GetUserHospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get(`${import.meta.env.VITE_API}/getUserHospital/${id}`, config);
+            user_hospital_get.value = response.data.data;
+        }catch (error) {
+            console.error("Error fetching user hospital:", error);
+        }
+    }
+
     return {
         user,
         login,
@@ -269,6 +284,8 @@ export default function useAuth() {
         userData,
         view_role,
         is_loading,
+        GetUserHospital,
+        user_hospital_get
     }
 
 
