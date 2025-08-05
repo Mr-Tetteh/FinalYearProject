@@ -175,11 +175,12 @@ class UserController extends Controller
         return UserResource::collection($user);
     }
 
-    public function all_staff()
+    public function all_staff($id)
     {
-        $loggedInUser = Auth::user();
 
-        $all_staff = User::where('hospital_id', $loggedInUser->hospital_id)->latest()->get();
+        $all_staff = User::whereHas('hospitals', function ($query) use ($id){
+            $query->where('hospitals.id', $id);
+        })->get();
 
         return UserResource::collection($all_staff);
     }
@@ -239,13 +240,13 @@ class UserController extends Controller
 
     }
 
-    public function count_all_hospital_users()
+    public function count_all_hospital_users($id)
     {
-        $user = Auth::user();
-        $user = User::where('hospital_id', $user->hospital_id)->count();
+        $count = User::whereHas('hospitals', function($query) use ($id) {
+            $query->where('hospitals.id', $id);
+        })->count();
 
-        return response()->json($user);
-
+        return response()->json($count);
     }
 
 

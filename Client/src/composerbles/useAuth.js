@@ -116,12 +116,13 @@ export default function useAuth() {
     }
 
     const staffs = async () => {
+        const $id = localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/all_staff`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/all_staff/${$id}`, config);
             all_staff.value = response.data.data
 
         } catch (err) {
