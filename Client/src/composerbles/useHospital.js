@@ -203,13 +203,14 @@ export default function useHospital() {
     };
 
     const count_all_hospital_users = async () => {
+         const hospital_id =  localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users/${hospital_id}`, config);
             hospital_users.value = response.data
         } catch (err) {
             $toast.error(err.response.data.message);
