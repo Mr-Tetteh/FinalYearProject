@@ -68,7 +68,7 @@ class UserController extends Controller
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'other_names' => $request->input('other_names'),
-            'contact' => $request->input('contact'),
+            'contact' => '233' .substr($request->input('contact',) ,-9),
             'date_of_birth' => $request->input('date_of_birth'),
             'gender' => $request->input('gender'),
             'position' => $request->input('position'),
@@ -77,7 +77,10 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
+        sendWithSMSONLINEGH('233'.substr(($user->contact), -9), 'Dear '. $user->first_name.', Your account has been created successfully. You will receive a notification when your account is activated. Thank you!');
+
         return new UserResource($user);
+
     }
 
     public function resetPassword(Request $request)

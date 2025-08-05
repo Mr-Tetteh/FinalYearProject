@@ -33,7 +33,9 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/paystack.php"
+            "app/Helpers/paystack.php",
+            "app/Helpers/Network.php",
+            "app/Helpers/Messaging.php"
         ]
     },
     "autoload-dev": {
