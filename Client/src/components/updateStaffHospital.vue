@@ -3,8 +3,7 @@ import { ref, computed, watch, onMounted } from 'vue';
 import axios from 'axios';
 import useAuth from "@/composerbles/useAuth.js";
 import useSession from "@/composerbles/useSession.js";
-import Multiselect from 'vue-multiselect';
-import 'vue-multiselect/dist/vue-multiselect.css';
+
 
 const props = defineProps({
   modelValue: {

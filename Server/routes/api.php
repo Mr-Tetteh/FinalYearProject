@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);
-    Route::get('hospital_patients', [PatientsController::class, 'hospitals_patients']);
+    Route::get('hospital_patients/{id}', [PatientsController::class, 'hospitals_patients']);
     Route::get('count_hospital_patient', [PatientsController::class, 'hospitals_patients_count']);
     Route::get('count_all_patient', [PatientsController::class, 'count_all_patient']);
     Route::get('edit_patient/{patients}', [PatientsController::class, 'edit']);

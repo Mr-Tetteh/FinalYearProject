@@ -21,10 +21,17 @@ const {userRole} = useSession()
 
 const record = ref({
   patient_id: props.id,
-  nurse_notes: 'Temperature:  pulse_rate:  respiratory_rate:  blood_pressure:  rbs:   fbs:  spo2:  weight:'
-
+  nurse_notes: `
+Temperature: \n
+Pulse_rate: \n
+Respiratory_rate: \n
+Blood_pressure: \n
+Rbs: \n
+Fbs: \n
+Spo2: \n
+Weight: \n
+`
 });
-
 
 const handleSubmit = async () => {
 

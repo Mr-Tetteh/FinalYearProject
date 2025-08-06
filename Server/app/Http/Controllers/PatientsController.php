@@ -21,10 +21,11 @@ class PatientsController extends Controller
 
     }
 
-    public function hospitals_patients()
+    public function hospitals_patients($id)
     {
-        $user = Auth::user();
-        $patient = Patients::where('hospital', $user->hospital_id)->latest()->get();
+        $patient = Patients::whereHas('hospital', function ($query) use ($id){
+            $query->where('hospitals.id', $id);
+        })->latest()->get();
 
         return PatientResource::collection($patient);
 
@@ -85,6 +86,7 @@ class PatientsController extends Controller
             'guardian2_relation' => $request->input('guardian2_relation'),
             'guardian2_residential_address' => $request->input('guardian2_residential_address'),
             'guardian2_contact' => $request->input('guardian2_contact'),
+            'hospital'=> $request->input('hospital'),
         ]);
 
         return new PatientResource($patient);
