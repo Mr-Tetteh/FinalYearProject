@@ -19,16 +19,15 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const { activate_user, userData, view_role, hospital, hospitals_in_system, is_loading } = useAuth();
+const { add_staff_hospital_user, userData, view_role, hospital, hospitals_in_system, is_loading } = useAuth();
 const { userRole } = useSession();
-const selectedHospitals = ref([]);
 
 const closeEditModal = () => {
   emit('update:modelValue', false);
 };
 
 const handleSubmit = async () => {
-  await activate_user(props.id);
+  await add_staff_hospital_user(props.id);
 };
 
 
@@ -45,7 +44,7 @@ onMounted(() => {
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content rounded-4 shadow">
         <div class="modal-header p-4 p-md-5 pb-4 border-bottom-0">
-          <h1 class="fw-bold mb-0 fs-2 fs-md-1">Update User Role</h1>
+          <h1 class="fw-bold mb-0 fs-2 fs-md-1">Assign Hospital</h1>
           <button @click="closeEditModal" type="button" class="btn-close" aria-label="Close"></button>
         </div>
         <div class="modal-body p-4 p-md-5 pt-0">
@@ -104,7 +103,7 @@ onMounted(() => {
               <div class="col-12 col-md-6">
                 <label class="form-label fw-semibold">Status</label>
                 <div class="form-floating mb-3">
-                  <select class="form-select rounded-3" id="floatingStatus" v-model="userData.status">
+                  <select class="form-select rounded-3" id="floatingStatus" v-model="userData.status" disabled>
                     <option value="1">Activate</option>
                     <option value="0">Deactivate</option>
                   </select>
@@ -114,7 +113,7 @@ onMounted(() => {
               <div class="col-12 col-md-6">
                 <label class="form-label fw-semibold">Position</label>
                 <div class="form-floating mb-3">
-                  <select class="form-select rounded-3" id="floatingPosition" v-model="userData.position">
+                  <select class="form-select rounded-3" id="floatingPosition" v-model="userData.position" disabled>
                     <option value="Doctor">Doctor</option>
                     <option value="Nurse">Nurse</option>
                     <option value="Pharmacist">Pharmacist</option>
@@ -127,8 +126,17 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-
-
+            <div class="col-6 col-md-12">
+              <label class="form-label fw-semibold">Select A Hospital</label>
+              <div class="mb-3">
+          <select class="form-select rounded-3" id="floatingPosition" v-model="userData.hospital_id">
+            <option :value="null" disabled>Select an option</option>
+            <option v-for="hospital in hospitals_in_system" :value="hospital.id" :key="hospital.id">
+              {{ hospital.hospital_name }}
+            </option>
+          </select>
+              </div>
+            </div>
             <div class="d-grid gap-2">
               <button :disabled="is_loading" class="btn btn-lg rounded-3 btn-primary" type="submit">Update</button>
             </div>

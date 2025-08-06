@@ -36,7 +36,9 @@ export default function useAuth() {
     })
 
     const hospitals_in_system = ref([])
-    let userData = ref(null)
+    let userData = ref({
+        hospital_id: ''
+    })
     const is_loading = ref(false);
     const user_hospital_get = ref('');
 
@@ -202,14 +204,15 @@ export default function useAuth() {
 
     }
 
-    const update_role = async (id) => {
+    const activate_user = async (id) => {
+        is_loading.value = true;
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.patch(`${import.meta.env.VITE_API}/update_role/${id}`, userData.value, config)
+            const response = await axios.patch(`${import.meta.env.VITE_API}/activate_user/${id}`, userData.value, config)
 
             $toast.success('User profile updated successfully', {
                 position: 'top-right',
@@ -219,6 +222,38 @@ export default function useAuth() {
                 window.location.reload()
             }, 1000)
         } catch (err) {
+            is_loading.value = false;
+            const errorMessage = err.response?.data?.message || 'Failed to update user role';
+            $toast.error(errorMessage, {
+                position: 'top-right',
+            });
+        }
+    }
+
+    const add_staff_hospital_user = async (id) => {
+        is_loading.value = true;
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+         if (!userData.value || !userData.value.hospital_id) {
+             return $toast.error('Please select a hospital', {
+                 position: 'top-right',
+             });
+         }
+            const response = await axios.patch(`${import.meta.env.VITE_API}/add_staff_hospital/${id}`, userData.value, config)
+
+            $toast.success('User hospital added successfully', {
+                position: 'top-right',
+            });
+
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+        } catch (err) {
+            is_loading.value = false;
             const errorMessage = err.response?.data?.message || 'Failed to update user role';
             $toast.error(errorMessage, {
                 position: 'top-right',
@@ -281,12 +316,13 @@ export default function useAuth() {
         setPass,
         reset,
         delete_user,
-        update_role,
+        activate_user,
         userData,
         view_role,
         is_loading,
         GetUserHospital,
-        user_hospital_get
+        user_hospital_get,
+        add_staff_hospital_user
     }
 
 

@@ -24,7 +24,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('count_all_users', [UserController::class, 'count_all_users']);
     Route::get('count_all_hospital_users/{id}', [UserController::class, 'count_all_hospital_users']);
     Route::get('get_details/{user}', [UserController::class, 'show']);
-    Route::patch('update_role/{user}', [UserController::class, 'update_role']);
+    Route::patch('activate_user/{user}', [UserController::class, 'activate_user']);
+    Route::patch('add_staff_hospital/{user}', [UserController::class, 'add_staff_hospital']);
     Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
     Route::get('deleted_users', [UserController::class, 'deleted_users']);
     Route::post('restore_user', [UserController::class, 'restore_user']);

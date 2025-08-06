@@ -3,11 +3,14 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
 import {onMounted, ref} from "vue";
 import UpdateUserRole from "@/components/updateUserRole.vue";
+import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
 
 const {all_users, users, delete_user} = useAuth();
 
 const searchQuery = ref('');
 const modal = ref(false);
+const hospital_modal = ref(false);
+
 const selectedUserId = ref(null); // Add this line to track the selected user ID
 onMounted(users);
 
@@ -16,6 +19,11 @@ const openEditModal = (user) => {
   selectedUserId.value = user.id; // Store the user ID when opening modal
   modal.value = true;
 };
+
+const openHospitalModal = (user) => {
+  selectedUserId.value = user.id; // Store the user ID when opening hospital modal
+  hospital_modal.value = true;
+}
 </script>
 
 <template>
@@ -121,7 +129,11 @@ const openEditModal = (user) => {
                     <div class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
-                        Edit
+                        Activate User
+                      </button>
+                      <button class="btn btn-primary btn-sm" @click="openHospitalModal(item)">
+                        <i class="bi bi-pencil-square me-1"></i>
+                        Assign Hospital
                       </button>
                       <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash me-1"></i>
@@ -142,6 +154,14 @@ const openEditModal = (user) => {
           <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
         </div>
       </div>
+
+      <div v-if="hospital_modal" class="modal-overlay">
+        <div class="modal-content">
+          <update-staff-hospital v-if="hospital_modal" v-model="hospital_modal" :id="selectedUserId"/>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
