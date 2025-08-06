@@ -68,7 +68,7 @@ class UserController extends Controller
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'other_names' => $request->input('other_names'),
-            'contact' => '233' .substr($request->input('contact',) ,-9),
+            'contact' => '233' . substr($request->input('contact'), -9),
             'date_of_birth' => $request->input('date_of_birth'),
             'gender' => $request->input('gender'),
             'position' => $request->input('position'),
@@ -181,7 +181,7 @@ class UserController extends Controller
     public function all_staff($id)
     {
 
-        $all_staff = User::whereHas('hospitals', function ($query) use ($id){
+        $all_staff = User::whereHas('hospitals', function ($query) use ($id) {
             $query->where('hospitals.id', $id);
         })->get();
 
@@ -214,11 +214,11 @@ class UserController extends Controller
                     'message' => 'Sorry, your account is not associated with any hospital. Please contact your administrator.',
                 ], 403);
             }
-          /*  if ($user->hospital_id->status === 0) {
-                return response()->json([
-                    'message' => 'Sorry your hospital subscription has expired or is inactive'
-                ], 403);
-            }*/
+            /*  if ($user->hospital_id->status === 0) {
+                  return response()->json([
+                      'message' => 'Sorry your hospital subscription has expired or is inactive'
+                  ], 403);
+              }*/
 
             return response()->json([
                 'message' => 'Login Successful',
@@ -245,13 +245,12 @@ class UserController extends Controller
 
     public function count_all_hospital_users($id)
     {
-        $count = User::whereHas('hospitals', function($query) use ($id) {
+        $count = User::whereHas('hospitals', function ($query) use ($id) {
             $query->where('hospitals.id', $id);
         })->count();
 
         return response()->json($count);
     }
-
 
 
     public function getUserHospital($id)
@@ -289,7 +288,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update_role(User $user, Request $request)
+    public function activate_user(User $user, Request $request)
     {
         // Update user data
         $user->update($request->except('hospital_ids'));
@@ -301,6 +300,40 @@ class UserController extends Controller
 
         // Load the updated user with hospitals relationship
         $user->load('hospitals');
+
+        sendWithSMSONLINEGH('233' . substr(($request->contact), -9), 'Dear ' . $request->first_name . ', Your account has been activated. Please make sure you are assigned to a hospital to enable you access a hospital portal. Thank you!');
+
+        return new UserResource($user);
+    }
+
+
+    public function add_staff_hospital(User $user, Request $request)
+    {
+        // Validate that hospital_id is provided
+        $request->validate([
+            'hospital_id' => 'required|exists:hospitals,id'
+        ]);
+
+        // Check if this hospital assignment already exists
+        $existingAssignment = $user->hospitals()
+            ->where('hospital_id', $request->hospital_id)
+            ->exists();
+
+        if ($existingAssignment) {
+            return response()->json([
+                'message' => 'This user is already assigned to the selected hospital.'
+            ], 422);
+        }
+
+        // Attach the new hospital without detaching existing ones
+        $user->hospitals()->attach($request->hospital_id);
+        // Reload the user with hospitals relationship
+        $user->load('hospitals');
+        // Send notification
+        sendWithSMSONLINEGH(
+            '233' . substr($user->contact, -9),
+            'Dear ' . $user->first_name . ', You have been assigned to a hospital. Please login to view your assignments. Thank you!'
+        );
 
         return new UserResource($user);
     }
