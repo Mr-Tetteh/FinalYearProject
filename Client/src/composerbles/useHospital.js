@@ -163,7 +163,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, onfig);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, config);
             hospital_patient_count.value = response.data
             console.log('Response:', response.data);
         } catch (err) {

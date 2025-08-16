@@ -55,6 +55,7 @@ export default function useAuth() {
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
+            localStorage.setItem('UNIQUE_ID', response.data.user.unique_id);
 
             $toast.success('Login Successfully', {position: 'top-right'});
             await router.push('/select/hospital');

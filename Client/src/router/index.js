@@ -24,6 +24,7 @@ import Registered_Hospitals from "@/views/Admin/hospital/Registered_Hospitals.vu
 import Update_plan from '@/views/subcription/update_plan.vue';
 import Patient_card from "@/views/Admin/patients/Patient_card.vue";
 import Select_Hospital from "@/views/Admin/config/Select_Hospital.vue";
+import Request_New_Hosptial from "@/views/Admin/users/Request_New_Hosptial.vue";
 
 
 const router = createRouter({
@@ -239,6 +240,11 @@ const router = createRouter({
             meta: {
                 requiresAuth: true
             }
+        },
+        {
+            path: '/request/hospital',
+            name: 'request_hospital',
+            component: Request_New_Hosptial,
         },
 
     ],

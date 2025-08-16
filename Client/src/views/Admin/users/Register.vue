@@ -136,7 +136,6 @@ onMounted(hospital);
                           <option value="Manager">Manager</option>
                           <option value="Lab Technician">Lab Technician</option>
                           <!--                          <option v-if="userRole === 'Admin'" value="Admin">Admin</option>-->
-
                         </select>
                       </div>
                       <!-- Contact Information -->

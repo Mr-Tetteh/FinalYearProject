@@ -47,7 +47,7 @@ const {logout} = useAuth()
               <h4 class="card-title mb-0 font-monospace">Hello {{ username }}</h4>
             </div>
             <div class="card-header bg-transparent border-bottom-0 text-center pt-4">
-              <h5 class="card-title mb-0 font-monospace">Select a hospital portal</h5>
+              <h5 class="card-title mb-0 font-monospace">Select a hospital portal <br> (Your approved hospitals)</h5>
             </div>
             <!-- Card Body -->
             <div class="card-body px-4 py-5">
