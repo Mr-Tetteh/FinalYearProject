@@ -15,7 +15,6 @@ export default function useHospital() {
         hospital_email: "",
         hospital_consistency: "",
         hospital_city: "",
-        number_of_monthly_subscription: "",
         status: "",
     })
 

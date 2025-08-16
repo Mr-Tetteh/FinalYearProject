@@ -256,7 +256,7 @@ class UserController extends Controller
     public function getUserHospital($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = User::findOrFail($id)->where('status', 1);
             $hospitals = $user->hospitals()->get();
             return response()->json([
                 'status' => 'success',

@@ -448,26 +448,6 @@ const filteredConstituencies = computed(() => {
             </div>
           </div>
 
-          <!-- Monthly Payment -->
-          <div class="col-12">
-            <div class="form-floating">
-              <select
-                  id="monthly_subscription"
-                  class="form-select form-select-lg"
-                  v-model="input.number_of_monthly_subscription"
-              >
-                <option value="" disabled selected></option>
-                <option value="50">1 Month - GHC50</option>
-                <option value="150">6 Months - GHC150</option>
-                <option value="250">1 Year - GHC250</option>
-              </select>
-              <label for="monthly_subscription" class="fw-semibold">Monthly Payment Plan</label>
-              <div class="form-icon">
-                <i class="fas fa-credit-card"></i>
-              </div>
-            </div>
-          </div>
-
           <!-- Submit Button -->
           <div class="col-12 mt-4">
             <button

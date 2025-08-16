@@ -4,6 +4,7 @@ import useAuth from "@/composerbles/useAuth.js";
 import {ref} from "vue";
 import {useToast} from "vue-toast-notification";
 import 'vue-toast-notification/dist/theme-sugar.css';
+
 const {username, user_id} = useSession()
 const {GetUserHospital, user_hospital_get} = useAuth()
 const $toast = useToast();
@@ -12,8 +13,8 @@ GetUserHospital(user_id)
 const input = {
   id: '',
 }
-const enter = () => {
-  if (input.id === ''){
+const enter = async () => {
+  if (!input.id) {
     return $toast.error('Please select a hospital portal', {
       position: 'top-right'
     })
@@ -22,20 +23,28 @@ const enter = () => {
   window.location.href = '/dashboard'
 }
 
+const {logout} = useAuth()
+
 </script>
 
 <template>
   <div class="page login-page d-flex align-items-center justify-content-center min-vh-100">
     <div class="container">
       <div class="row justify-content-center">
+
         <div class="col-md-8 col-lg-6">
           <!-- Error Alert -->
-
           <!-- Login Card -->
           <div class="card border-0 shadow-lg">
             <!-- Card Header -->
             <div class="card-header bg-transparent border-bottom-0 text-center pt-4">
-              <h4 class="card-title mb-0 font-monospace">Hello {{username}}</h4>
+              <div class="user-actions d-flex align-items-center gap-3">
+                <button class="btn btn-outline-danger" @click="logout">
+                  <i class="bi bi-box-arrow-right me-2"></i>
+                  Logout
+                </button>
+              </div>
+              <h4 class="card-title mb-0 font-monospace">Hello {{ username }}</h4>
             </div>
             <div class="card-header bg-transparent border-bottom-0 text-center pt-4">
               <h5 class="card-title mb-0 font-monospace">Select a hospital portal</h5>
@@ -47,7 +56,7 @@ const enter = () => {
                 <div class="form-floating mb-4">
                   <div class="input-group">
                     <select class="form-control border-start-0 border-end-0" v-model="input.id">
-                      <option v-for="item in user_hospital_get" :value="item.id" >{{ item.hospital_name }}</option>
+                      <option v-for="item in user_hospital_get" :value="item.id">{{ item.hospital_name }}</option>
                     </select>
                   </div>
                 </div>
