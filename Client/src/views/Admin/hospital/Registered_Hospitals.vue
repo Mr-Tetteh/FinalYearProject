@@ -43,10 +43,6 @@ const openEditModal = (hospital) => {
             <h3 class="mb-2">Registered Hospitals  Directory</h3>
             <p class="text-muted">Manage and view all registered hospitals</p>
           </div>
-          <RouterLink v-if="userRole == 'Admin'" class="btn btn-primary" to="register">
-            <i class="bi bi-plus-circle me-2"></i>
-            Add New Staff
-          </RouterLink>
         </div>
 
         <!-- Table Card -->
@@ -83,7 +79,6 @@ const openEditModal = (hospital) => {
                   <th class="py-3">Hospital Email</th>
                   <th class="py-3">Hospital Consistency </th>
                   <th class="py-3">Hospital City</th>
-                  <th class="py-3">Subscription plan</th>
                   <th class="py-3">Subscription Status</th>
 
 
@@ -111,7 +106,6 @@ const openEditModal = (hospital) => {
                   <td><a :href="`mailto:${item.hospital_email}`">{{ item.hospital_email }}</a> </td>
                   <td>{{ item.hospital_consistency }}</td>
                   <td>{{ item.hospital_city }}</td>
-                  <td>GHC {{ item.number_of_monthly_subscription }}</td>
                   <td> <span v-if="item.status == 1" class="badge bg-success"> Active</span>
                     <span v-else class="badge bg-danger"> Inactive</span></td>
                   <td>

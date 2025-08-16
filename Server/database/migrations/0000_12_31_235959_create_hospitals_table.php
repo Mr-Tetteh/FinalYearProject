@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('hospital_location');
             $table->string('hospital_consistency');
             $table->string('hospital_city');
-            $table->string('number_of_monthly_subscription');
             $table->boolean('status')->default(false)->nullable();
             $table->timestamps();
         });

@@ -29,7 +29,6 @@ class StoreHospitalRegistration extends FormRequest
             'hospital_location' => 'required|max:255',
             'hospital_consistency' => 'required|max:255',
             'hospital_city' => 'required|max:255',
-            'number_of_monthly_subscription' => 'required'
 
 
 

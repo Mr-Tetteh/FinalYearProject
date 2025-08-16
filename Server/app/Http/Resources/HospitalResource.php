@@ -25,7 +25,6 @@ class HospitalResource extends JsonResource
             'hospital_consistency' => $this->hospital_consistency,
             'hospital_city' => $this->hospital_city,
             'hospital_status' => $this->hospital_status,
-            'number_of_monthly_subscription' => $this->number_of_monthly_subscription,
         ];
     }
 }

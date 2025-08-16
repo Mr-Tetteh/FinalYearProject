@@ -99,18 +99,21 @@ class HospitalController extends Controller
         $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
-            'hospital_contact' => $request->input('hospital_contact'),
+            'hospital_contact' => '233' . substr($request->input('hospital_contact'), -9),
             'hospital_email' => $request->input('hospital_email'),
             'hospital_location' => $request->input('hospital_location'),
             'hospital_consistency' => $request->input('hospital_consistency'),
             'hospital_city' => $request->input('hospital_city'),
             'status' => $request->input('status'),
-            'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
+        sendWithSMSONLINEGH(
+            '233' . substr(($request->input('hospital_contact')), -9),
+            "Dear {$request->input('hospital_name')}, your hospital registration is successful. Please wait while we approve your registration. Thanks for cooperation! Thank you for choosing us!"
+        );
 
 //        InitPaymentJB::dispatch($hospital);
 
-       return new HospitalResource($hospital);
+        return new HospitalResource($hospital);
     }
 
     public function hospital_count()
@@ -120,6 +123,7 @@ class HospitalController extends Controller
         return response()->json($count_hospital);
 
     }
+
     /**
      * Display the specified resource.
      */
@@ -154,8 +158,23 @@ class HospitalController extends Controller
             'status' => $request->input('status'),
         ]);
 
+        sendWithSMSONLINEGH(
+            '233' . substr(($request->input('hospital_contact')), -9),
+            'Dear ' . $request->input('hospital_name') . ', your hospital registration has been approved. You can proceed to make your subscription payment. Thank you for choosing us!'
+        );
         return new HospitalResource($hospital);
     }
+
+//    public function check_status($id)
+//    {
+//        $hospital = Hospital::find($id)->first();
+//
+//        if (!$hospital->approved) {
+//            return response()->json([
+//                'message' => 'Sorry, your hospital has not been approved'
+//            ], 403);
+//        }
+//    }
 
     /**
      * Remove the specified resource from storage.
