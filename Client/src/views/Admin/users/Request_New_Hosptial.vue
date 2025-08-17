@@ -1,12 +1,17 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
+import {onMounted} from "vue";
 
-const {input, requestHospital} = useHospitalRequest()
+const {input, requestHospital, request_hospital, request_hospitals_data} = useHospitalRequest()
 
 const onSubmit = async () => {
   await requestHospital()
 }
+
+onMounted(async () => {
+  await request_hospital()
+})
 </script>
 
 <template>
@@ -110,6 +115,8 @@ const onSubmit = async () => {
                     placeholder="Enter phone number"
                     v-model="input.contact"
                 >
+                <span class="text-muted font-size-sm">contact should be in this format: 233244xxxxxxxx</span>
+
               </div>
 
               <!-- Hospital Selection -->
@@ -129,10 +136,9 @@ const onSubmit = async () => {
                   Select Hospital
                 </label>
                 <select class="form-select form-select-lg" id="hospital" v-model="input.hospital">
-                  <option value="" disabled selected>Choose hospital location</option>
-                  <option value="daniel">Daniel Medical Center</option>
-                  <option value="central">Central Hospital</option>
-                  <option value="metropolitan">Metropolitan Health Center</option>
+                  <option value="" disabled selected>Select Hospital</option>
+                  <option  v-for="requests in request_hospitals_data" :value="requests.hospital_name" key="requests.id">{{requests.hospital_name}}</option>
+
                 </select>
               </div>
 

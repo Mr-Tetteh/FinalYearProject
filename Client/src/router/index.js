@@ -25,6 +25,7 @@ import Update_plan from '@/views/subcription/update_plan.vue';
 import Patient_card from "@/views/Admin/patients/Patient_card.vue";
 import Select_Hospital from "@/views/Admin/config/Select_Hospital.vue";
 import Request_New_Hosptial from "@/views/Admin/users/Request_New_Hosptial.vue";
+import HospitalRequest from "@/views/Admin/hospital/HospitalRequest.vue";
 
 
 const router = createRouter({
@@ -245,6 +246,11 @@ const router = createRouter({
             path: '/request/hospital',
             name: 'request_hospital',
             component: Request_New_Hosptial,
+        },
+        {
+            path: '/staff/request',
+            name: 'staff_request',
+            component: HospitalRequest,
         },
 
     ],

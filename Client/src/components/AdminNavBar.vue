@@ -146,6 +146,11 @@ const toggleSidebar = () => {
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
               </RouterLink>
+
+              <RouterLink to="/staff/request" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Staff Request</span>
+              </RouterLink>
             </div>
           </div>
         </div>

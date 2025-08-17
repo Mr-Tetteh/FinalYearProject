@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('contact');
             $table->string('hospital');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('reason_for_rejection')->nullable();
             $table->timestamps();
         });
     }

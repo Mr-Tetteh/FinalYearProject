@@ -21,6 +21,7 @@ class HospitalRequestResource extends JsonResource
             'contact' => $this->contact,
             'hospital' => $this->hospital,
             'status' => $this->status,
+            'reason_for_rejection' => $this->reason_for_rejection,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -229,6 +229,7 @@ export default function useHospital() {
         }
     };
 
+
     const count_hospital = async () => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -328,7 +329,8 @@ export default function useHospital() {
         is_loading,
         plan_input,
         edit_hospital,
-        update_hospital
+        update_hospital,
+
 
 
     }

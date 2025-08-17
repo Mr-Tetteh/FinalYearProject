@@ -17,6 +17,7 @@ Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
 Route::post('users', [UserController::class, 'register']);
 Route::post('create/request', [HospitalRequestController::class, 'store']);
+Route::get('request_hospitals', [HospitalController::class, 'all_request_hospitals']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
@@ -60,4 +61,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::delete('delete_hospital/{hospital}', [HospitalController::class, 'destroy']);
     Route::get('edit_hospital/{hospital}', [HospitalController::class, 'edit']);
     Route::patch('update_hospital/{hospital}', [HospitalController::class, 'update']);
+
+    Route::get('users_request_hospitals', [HospitalRequestController::class, 'index']);
+    Route::get('request_view/{hospitalRequest}', [HospitalRequestController::class, 'show']);
 });

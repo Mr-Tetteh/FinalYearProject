@@ -11,6 +11,7 @@ class HospitalRequest extends Model
         'unique_id',
         'contact',
         'hospital',
-        'status'
+        'status',
+        'reason_for_rejection'
     ];
 }
