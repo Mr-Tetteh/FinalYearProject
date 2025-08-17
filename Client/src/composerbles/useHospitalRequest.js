@@ -22,7 +22,13 @@ export default function useHospitalRequest() {
 
     const requestHospital = async () => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API}/create/request`, input.value);
+
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.post(`${import.meta.env.VITE_API}/create/request`, input.value, config);
 
             $toast.success('Hospital request sent successfully!', {
                 duration: 5000,
@@ -64,7 +70,12 @@ export default function useHospitalRequest() {
 
     const request_hospital = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API}/request_hospitals`);
+
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get(`${import.meta.env.VITE_API}/request_hospitals`, config);
             request_hospitals_data.value = response.data.data
         } catch (err) {
             $toast.error(err.response.data.message);
