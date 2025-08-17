@@ -2,6 +2,7 @@
 import NavBar from "@/components/NavBar.vue";
 import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
 import {onMounted} from "vue";
+import AdminNavBar from "@/components/AdminNavBar.vue";
 
 const {input, requestHospital, request_hospital, request_hospitals_data} = useHospitalRequest()
 
@@ -15,7 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <NavBar/>
+  <AdminNavBar/>
 
   <!-- Hero Section -->
   <div class="hero-section">
@@ -167,7 +168,7 @@ onMounted(async () => {
 /* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 80px 0 60px 0;
+  padding: 20px 0 60px 0;
   margin-bottom: -40px;
   position: relative;
   overflow: hidden;

@@ -59,9 +59,6 @@ const {logout} = useAuth()
             <li class="nav-item">
               <RouterLink to="/update_plan" class="nav-link">Update Plan</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/request/hospital" class="nav-link">Request New Hospital</RouterLink>
-            </li>
           </ul>
 
           <!-- Right side items -->

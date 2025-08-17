@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Resources\HospitalRequestResource;
 use App\Models\HospitalRequest;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HospitalRequestController extends Controller
 {
@@ -22,6 +24,13 @@ class HospitalRequestController extends Controller
 
     public function store(StoreHospitalRequest $request)
     {
+        if (auth()->user()->email !== $request->input('email')) {
+            return response()->json(['message' => 'Please enter your email'], 422);
+        }elseif (auth()->user()->unique_id !== $request->input('unique_id')) {
+            return response()->json(['message' => 'Please enter your unique id'], 422);
+        }elseif (auth()->user()->contact !== $request->input('contact')) {
+            return response()->json(['message' => 'Please enter your contact'], 422);
+        }
         $request->validated();
         $userRequest = HospitalRequest::create([
             'email' => $request->input('email'),
