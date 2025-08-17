@@ -6,6 +6,7 @@ export default function useSession(){
     const user_id =  localStorage.getItem('USER_ID');
     const hospital_id = localStorage.getItem("HOSPITAL_ID");
     const userRole = localStorage.getItem("USER_TYPE")
+    const unique_id = localStorage.getItem("UNIQUE_ID");
 
 
     return{
@@ -14,7 +15,8 @@ export default function useSession(){
         user_id,
         hospital_id,
         lastname,
-        userRole
+        userRole,
+        unique_id
     }
 
 }

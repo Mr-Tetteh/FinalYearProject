@@ -163,7 +163,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, onfig);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, config);
             hospital_patient_count.value = response.data
             console.log('Response:', response.data);
         } catch (err) {
@@ -228,6 +228,7 @@ export default function useHospital() {
             $toast.error(err.response.data.message);
         }
     };
+
 
     const count_hospital = async () => {
         try {
@@ -328,7 +329,8 @@ export default function useHospital() {
         is_loading,
         plan_input,
         edit_hospital,
-        update_hospital
+        update_hospital,
+
 
 
     }

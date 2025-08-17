@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StaffRegistrationRequest;
+use App\Jobs\InitUniqueIdSMSJB;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,11 +78,16 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        sendWithSMSONLINEGH('233'.substr(($user->contact), -9), 'Dear '. $user->first_name.', Your account has been created successfully. You will receive a notification when your account is activated. Thank you!');
+        sendWithSMSONLINEGH('233' . substr(($user->contact), -9), 'Dear ' . $user->first_name . ', Your account has been created successfully. You will receive a notification when your account is activated. Thank you!');
 
+        sendWithSMSONLINEGH(
+            '233' . substr($user->contact, -9),
+            'Hello ' . $user->first_name . ', your UniqueID is ' . $user->unique_id . '. Please save your UniqueID Thank you!'
+        );
         return new UserResource($user);
 
     }
+
 
     public function resetPassword(Request $request)
     {
@@ -256,8 +262,8 @@ class UserController extends Controller
     public function getUserHospital($id)
     {
         try {
-            $user = User::findOrFail($id)->where('status', 1);
-            $hospitals = $user->hospitals()->get();
+            $user = User::findOrFail($id);
+            $hospitals = $user->hospitals()->where('status', 1)->get();
             return response()->json([
                 'status' => 'success',
                 'data' => $hospitals

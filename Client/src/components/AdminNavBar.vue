@@ -2,7 +2,7 @@
 import useSession from "@/composerbles/useSession.js";
 import {ref} from 'vue';
 
-const {hospital} = useSession();
+const {hospital,  unique_id} = useSession();
 const {userRole} = useSession()
 const isCollapsed = ref(false);
 const toggleSidebar = () => {
@@ -24,6 +24,10 @@ const toggleSidebar = () => {
           <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
           <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
         </div>
+      </div>
+
+      <div class="ml-5">
+      <span class="fw-bold ml-5">Unique ID:</span> <span>{{unique_id}}</span>
       </div>
 
       <!-- Sidebar Menu -->
@@ -141,6 +145,11 @@ const toggleSidebar = () => {
               <RouterLink to="/registered_hospitals" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
+              </RouterLink>
+
+              <RouterLink to="/staff/request" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Staff Request</span>
               </RouterLink>
             </div>
           </div>

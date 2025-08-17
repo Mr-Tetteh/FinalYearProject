@@ -49,6 +49,13 @@ class HospitalController extends Controller
         return HospitalResource::collection($hospitals);
     }
 
+    public function all_request_hospitals()
+    {
+        $hospitals = Hospital::where('id' , '!=', 1)->get();
+
+        return HospitalResource::collection($hospitals);
+    }
+
     /**
      * @OA\Post(
      *     path="/api/hospitals",
