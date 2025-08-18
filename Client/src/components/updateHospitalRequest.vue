@@ -19,14 +19,14 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const {request_view, request_view_data} = useHospitalRequest()
+const {request_view, request_view_data, is_loading, update_request} = useHospitalRequest()
 
 const closeEditModal = () => {
   emit('update:modelValue', false);
 };
 
 const handleSubmit = async () => {
-  await activate_user(props.id);
+  await update_request(props.id);
 };
 
 onMounted(() => {
@@ -40,9 +40,10 @@ onMounted(() => {
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content rounded-4 shadow">
         <div class="modal-header p-4 p-md-5 pb-4 border-bottom-0">
-          <h1 class="fw-bold mb-0 fs-2 fs-md-1">Update User Role</h1>
+          <h1 class="fw-bold mb-0 fs-2 fs-md-1">Update Request</h1>
           <button @click="closeEditModal" type="button" class="btn-close" aria-label="Close"></button>
         </div>
+
         <div class="modal-body p-4 p-md-5 pt-0">
           <form class="" @submit.prevent="handleSubmit" v-if="request_view_data">
             <div class="row">
@@ -102,9 +103,8 @@ onMounted(() => {
 
             <div class="col-12 col-md-12" v-if="request_view_data.status === 'Rejected'">
               <div class="form-floating mb-3">
-                <teaxtarea type="text" class="form-control rounded-3" id="floatingUniqueId" disabled
-                           v-model="request_view_data.reason">
-                </teaxtarea>
+                <textarea class="form-control rounded-3" id="floatingUniqueId" v-model="request_view_data.reason_for_rejection">
+                </textarea>
                 <label for="floatingUniqueId">Reason</label>
               </div>
             </div>

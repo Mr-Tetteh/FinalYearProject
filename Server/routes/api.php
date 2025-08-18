@@ -65,4 +65,5 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('request_hospitals', [HospitalController::class, 'all_request_hospitals']);
     Route::get('users_request_hospitals', [HospitalRequestController::class, 'index']);
     Route::get('request_view/{hospitalRequest}', [HospitalRequestController::class, 'show']);
+    Route::patch('request_update/{id}', [HospitalRequestController::class, 'update']);
 });
