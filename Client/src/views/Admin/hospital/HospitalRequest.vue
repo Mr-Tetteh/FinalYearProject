@@ -1,11 +1,11 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
-import { computed, onMounted, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
 import UpdateHospitalRequest from "@/components/updateHospitalRequest.vue";
 
-const { staff_request_hospitals_data, staff_request_hospital } = useHospitalRequest()
+const {staff_request_hospitals_data, staff_request_hospital} = useHospitalRequest()
 const searchQuery = ref('')
 const selectedUserId = ref(null)
 const modal = ref(false)
@@ -18,7 +18,6 @@ const openEditModal = (staff) => {
   modal.value = true
   selectedUserId.value = staff.id
 }
-
 
 
 const searchResults = computed(() => {
@@ -88,6 +87,7 @@ const searchResults = computed(() => {
                   <th class="py-3">Email</th>
                   <th class="py-3">Contact</th>
                   <th class="py-3">Hospital</th>
+                  <th class="py-3">Status</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
@@ -99,6 +99,16 @@ const searchResults = computed(() => {
                   <td>{{ item.email }}</td>
                   <td>{{ item.contact }}</td>
                   <td>{{ item.hospital }}</td>
+                  <td>
+                    <span class="badge rounded-pill"
+                          :class="{
+                          'bg-success text-white': item.status === 'approved',
+                          'bg-primary text-white': item.status === 'rejected',
+                          'bg-warning text-white': item.status === 'pending',
+                    }">
+                      {{ item.status }}
+                    </span>
+                  </td>
                   <td>
                     <div class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
