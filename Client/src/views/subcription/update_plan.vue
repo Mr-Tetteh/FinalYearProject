@@ -2,18 +2,27 @@
 import NavBar from '@/components/NavBar.vue';
 import useHospital from '@/composerbles/useHospital';
 import useAuth from '@/composerbles/useAuth';
-import { onMounted } from 'vue';
-const { plan_input, is_loading } = useHospital();
+import {onMounted} from 'vue';
+import useSubType from "@/composerbles/useSubType.js";
 
-const {hospital, hospitals_in_system } = useAuth();
+const {is_loading} = useHospital();
 
+const {hospital, hospitals_in_system} = useAuth();
 
+const {sub_types_data, sub_types, init_payment, plan_input} = useSubType()
+
+onMounted(sub_types)
 
 onMounted(hospital)
+
+const onSubmit = () => {
+  init_payment();
+}
+
 </script>
 <template>
   <div>
-    <NavBar />
+    <NavBar/>
     <div class="register-page d-flex align-items-center justify-content-center min-vh-100">
       <div class="container">
         <div class="row ">
@@ -24,14 +33,15 @@ onMounted(hospital)
                 <h2 class="mb-0 text-white fw-bold display-6">Hospital Registration</h2>
                 <p class="text-white-50 mb-0">Join our network of healthcare providers</p>
               </div>
-      <!-- Card Body with Side-by-Side Layout -->
+              <!-- Card Body with Side-by-Side Layout -->
               <div class="card-body p-0">
                 <div class="row g-0">
                   <!-- Left Side - Image -->
                   <div class="col-lg-6 image-section">
                     <div class="image-container d-flex align-items-center justify-content-center h-100">
                       <div class="image-content text-center">
-                        <img src="../../assets/img/Credit Card Payment-amico.svg" alt="Credit Card Payment" class="img-fluid main-illustration">
+                        <img src="../../assets/img/Credit Card Payment-amico.svg" alt="Credit Card Payment"
+                             class="img-fluid main-illustration">
                         <div class="image-text mt-4">
                           <h4 class="text-primary fw-bold mb-3">Secure Payment Processing</h4>
                           <p class="text-muted">Easy and secure payment options for your hospital registration</p>
@@ -62,20 +72,21 @@ onMounted(hospital)
                         <p class="text-muted">Fill in your details to get started</p>
                       </div>
 
-                      <form class="registration-form" @submit.prevent="submitForm">
+                      <form class="registration-form" @submit.prevent="onSubmit">
                         <div class="row g-4">
                           <!-- Hospital Name -->
                           <div class="col-12">
                             <div class="form-floating position-relative">
                               <select
-                                id="hospital_address"
-                                class="form-select form-select-lg enhanced-select"
-                                v-model="plan_input.hospital_name"
-                                required
+                                  id="hospital_address"
+                                  class="form-select form-select-lg enhanced-select"
+                                  v-model="plan_input.hospital_id"
+                                  required
                               >
-                                <option value="" disabled selected></option>
-                                <option v-for="hospital in hospitals_in_system" :key="hospital.id" value="{{hospital.id}}">{{hospital.hospital_name }}</option>
-                    
+                                <option value="" disabled selected>Select a hospital</option>
+                                <option v-for="hospital in hospitals_in_system" :key="hospital.id"
+                                        :value="hospital.id">{{ hospital.hospital_name }}
+                                </option>
                               </select>
                               <label for="hospital_address" class="fw-semibold">
                                 Hospital Name
@@ -90,15 +101,17 @@ onMounted(hospital)
                           <div class="col-12">
                             <div class="form-floating position-relative">
                               <select
-                                id="monthly_subscription"
-                                class="form-select form-select-lg enhanced-select"
-                                v-model="plan_input.subscription_type"
-                                required
+                                  id="monthly_subscription"
+                                  class="form-select form-select-lg enhanced-select"
+                                  v-model="plan_input.subscription_type_id"
+                                  required
                               >
-                                <option value="" disabled selected></option>
-                                <option value="50">1 Month - GHC50</option>
-                                <option value="150">6 Months - GHC150 (Save 50%)</option>
-                                <option value="250">1 Year - GHC250 (Best Value)</option>
+                                <option value="" disabled selected>Select a plan</option>
+                                <option v-for="sub_type in sub_types_data"
+                                        :key="sub_type.id"
+                                        :value="sub_type.id">
+                                  {{ sub_type.name }} - GHC{{ sub_type.price }}
+                                </option>
                               </select>
                               <label for="monthly_subscription" class="fw-semibold">
                                 Payment Plan
@@ -120,7 +133,7 @@ onMounted(hospital)
                                 <div class="benefit-item">
                                   <i class="fas fa-check-circle text-success me-2"></i>
                                   <span>Patient Management System</span>
-                                </div>                    
+                                </div>
                                 <div class="benefit-item">
                                   <i class="fas fa-check-circle text-success me-2"></i>
                                   <span>Billing & Invoicing</span>
@@ -136,13 +149,13 @@ onMounted(hospital)
                           <!-- Submit Button -->
                           <div class="col-12 mt-4">
                             <button
-                              :disabled="is_loading"
-                              type="submit"
-                              class="btn btn-primary btn-lg w-100 gradient-btn py-3"
+                                :disabled="is_loading"
+                                type="submit"
+                                class="btn btn-primary btn-lg w-100 gradient-btn py-3"
                             >
                               <span class="button-content" v-if="!is_loading">
                                 <i class="fas fa-hospital-user me-2"></i>
-                                Register Hospital
+                                Submit
                               </span>
                               <span v-else class="button-content">
                                 <i class="fas fa-spinner fa-spin me-2"></i>
@@ -396,11 +409,11 @@ onMounted(hospital)
     border-bottom: 1px solid #dee2e6;
     min-height: 400px;
   }
-  
+
   .form-container {
     min-height: auto;
   }
-  
+
   .main-illustration {
     max-width: 250px;
   }
@@ -410,15 +423,15 @@ onMounted(hospital)
   .display-6 {
     font-size: 1.5rem;
   }
-  
+
   .image-container {
     padding: 1.5rem;
   }
-  
+
   .form-container {
     padding: 2rem 1.5rem;
   }
-  
+
   .main-illustration {
     max-width: 200px;
   }

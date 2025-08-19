@@ -180,7 +180,7 @@ class UserController extends Controller
      */
     public function all_users()
     {
-        $user = User::all();
+        $user = User::latest()->get();
         return UserResource::collection($user);
     }
 

@@ -246,11 +246,19 @@ const router = createRouter({
             path: '/request/hospital',
             name: 'request_hospital',
             component: Request_New_Hosptial,
+            meta: {
+                requiresAuth: true,
+
+            }
         },
         {
             path: '/staff/request',
             name: 'staff_request',
             component: HospitalRequest,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin']
+            }
         },
 
     ],

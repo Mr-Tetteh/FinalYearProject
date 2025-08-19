@@ -44,7 +44,7 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::all();
+        $hospitals = Hospital::where('id' , '!=', 1)->get();
 
         return HospitalResource::collection($hospitals);
     }

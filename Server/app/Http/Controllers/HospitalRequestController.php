@@ -20,13 +20,13 @@ class HospitalRequestController extends Controller
 
     public function store(StoreHospitalRequest $request)
     {
-        if (auth()->user()->email !== $request->input('email')) {
-            return response()->json(['message' => 'Please enter your email'], 422);
-        } elseif (auth()->user()->unique_id !== $request->input('unique_id')) {
-            return response()->json(['message' => 'Please enter your unique id'], 422);
-        } elseif (auth()->user()->contact !== $request->input('contact')) {
-            return response()->json(['message' => 'Please enter your contact'], 422);
-        }
+//        if (auth()->user()->email !== $request->input('email')) {
+//            return response()->json(['message' => 'Please enter your email'], 422);
+//        } elseif (auth()->user()->unique_id !== $request->input('unique_id')) {
+//            return response()->json(['message' => 'Please enter your unique id'], 422);
+//        } elseif (auth()->user()->contact !== $request->input('contact')) {
+//            return response()->json(['message' => 'Please enter your contact'], 422);
+//        }
         $request->validated();
         $userRequest = HospitalRequest::create([
             'email' => $request->input('email'),

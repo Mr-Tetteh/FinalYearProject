@@ -358,7 +358,6 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_address"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  @input="input.hospital_address = input.hospital_address.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_address" class="fw-semibold">Hospital Address</label>
               <div class="form-icon">

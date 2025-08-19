@@ -18,11 +18,6 @@ export default function useHospital() {
         status: "",
     })
 
-    const plan_input = ref({
-        hospital_name: "",
-        subscription_type: "",
-
-    })
 
 
     const data = ref({
@@ -327,7 +322,6 @@ export default function useHospital() {
         count_all_hospitals,
         count_hospital,
         is_loading,
-        plan_input,
         edit_hospital,
         update_hospital,
 

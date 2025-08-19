@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('subscription_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hospital_id');
-            $table->string('subscription_type_id');
-            $table->string('status');
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->string('reference');
+            $table->string('name');
+            $table->string('price');
+            $table->string('duration');
+            $table->string('valid_days');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('subscription_types');
     }
 };
