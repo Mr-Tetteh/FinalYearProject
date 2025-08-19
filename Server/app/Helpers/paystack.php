@@ -1,7 +1,6 @@
 <?php
 function paystackInit($email, $amount): array{
 
-
     $curl = curl_init();
 
     curl_setopt_array($curl, [

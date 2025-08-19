@@ -8,12 +8,22 @@ class Payment extends Model
 {
     protected $fillable = [
         'hospital_id',
-        'amount',
+        'subscription_type_id',
         'status',
-        'payment_method',
-        'payment_type',
-        'payment_url',
+        'start_date',
+        'end_date',
         'reference',
-        'response',
     ];
+
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class);
+
+    }
+
+    public function subscriptionType()
+    {
+        return $this->belongsTo(SubscriptionType::class);
+    }
+
 }

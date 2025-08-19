@@ -24,7 +24,7 @@ const openHospitalModal = (user) => {
   hospital_modal.value = true;
 }
 
-const searchResults = computed(()=>{
+const searchResults = computed(() => {
   if (!searchQuery.value || !all_users.value) return all_users.value;
 
   const searched = searchQuery.value.toLowerCase();
@@ -125,7 +125,8 @@ const searchResults = computed(()=>{
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
-                      <span :class="{'badge bg-success  text-white': item.status === 1, 'badge bg-danger text-white': item.status === 0}">
+                      <span
+                          :class="{'badge bg-success  text-white': item.status === 1, 'badge bg-danger text-white': item.status === 0}">
                         {{ item.status === 1 ? 'Active' : 'Inactive' }}
                       </span>
                   </td>
@@ -140,7 +141,7 @@ const searchResults = computed(()=>{
                         <i class="bi bi-pencil-square me-1"></i>
                         Activate User
                       </button>
-                      <button class="btn btn-primary btn-sm" @click="openHospitalModal(item)">
+                      <button v-if="item.status === 1" class="btn btn-primary btn-sm" @click="openHospitalModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
                         Assign Hospital
                       </button>

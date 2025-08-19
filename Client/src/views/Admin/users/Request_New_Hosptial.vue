@@ -24,7 +24,8 @@ onMounted(async () => {
       <div class="row justify-content-center">
         <div class="col-md-8 text-center">
           <h1 class="display-4 fw-bold text-white mb-3">Hospital Request</h1>
-          <p class="lead text-white-50">Request to join a hospital of your choice</p>
+          <p class="lead text-white-50">Want to work in a new hospital?</p>
+          <p class="lead text-white-50">Request to work in a hospital of your choice</p>
         </div>
       </div>
     </div>

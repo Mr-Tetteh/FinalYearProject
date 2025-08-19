@@ -15,11 +15,16 @@ class PaymentsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-          'id' => $this->id,
+            'id' => $this->id,
             'amount' => $this->amount,
             'payment_method' => $this->payment_method,
             'payment_url' => $this->payment_url,
             'hospital_id' => $this->hospital_id,
+            'subtype_id'=> $this->subtype_id,
+            'status' => $this->status,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'reference' => $this->reference,
         ];
     }
 }

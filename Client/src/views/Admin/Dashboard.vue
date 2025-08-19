@@ -130,7 +130,7 @@ const submitAppointment = () => {
                 <i class="bi bi-person-workspace text-warning"></i>
               </div>
               <div class="stat-details">
-                <h6 class="stat-label" v-if="userRole === 'Admin'">Admins Users</h6>
+                <h6 class="stat-label" v-if="userRole === 'Admin'">Admin Users</h6>
                 <h6 class="stat-label" v-else> <b>{{hospital}} </b> Users/Staff</h6>
                 <h3 class="stat-value text-warning">{{hospital_users}}</h3>
 

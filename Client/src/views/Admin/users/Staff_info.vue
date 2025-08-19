@@ -92,7 +92,6 @@ const searchResults = computed(() => {
                   <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
                   <th class="py-3">Unique ID</th>
-                  <th class="py-3" v-if="userRole == 'Admin' || userRole == 'Manager'">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -124,18 +123,6 @@ const searchResults = computed(() => {
                   </td>
                   <td>{{ item.email }}</td>
                   <td>{{ item.unique_id }}</td>
-                  <td>
-                    <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
-                        <i class="bi bi-pencil-square me-1"></i>
-                        Edit
-                      </button>
-                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash me-1"></i>
-                        Delete Staff
-                      </button>
-                    </div>
-                  </td>
                 </tr>
                 </tbody>
               </table>

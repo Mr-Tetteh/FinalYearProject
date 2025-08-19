@@ -79,7 +79,7 @@ const openEditModal = (hospital) => {
                   <th class="py-3">Hospital Email</th>
                   <th class="py-3">Hospital Consistency </th>
                   <th class="py-3">Hospital City</th>
-                  <th class="py-3">Subscription Status</th>
+                  <th class="py-3">Status</th>
 
 
                   <th class="py-3" v-if="userRole == 'Admin'">Actions</th>
@@ -116,7 +116,7 @@ const openEditModal = (hospital) => {
                       </button>
                       <button @click="delete_hospital(item.id)" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash me-1"></i>
-                        Delete Staff
+                        Delete Hospital
                       </button>
                     </div>
                   </td>

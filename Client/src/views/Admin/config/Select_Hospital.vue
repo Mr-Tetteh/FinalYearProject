@@ -56,6 +56,7 @@ const {logout} = useAuth()
                 <div class="form-floating mb-4">
                   <div class="input-group">
                     <select class="form-control border-start-0 border-end-0" v-model="input.id">
+                      <option disabled selected>Select an option</option>
                       <option v-for="item in user_hospital_get" :value="item.id">{{ item.hospital_name }}</option>
                     </select>
                   </div>

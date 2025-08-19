@@ -18,6 +18,8 @@ const registerUser = async () => {
   await register();
 };
 onMounted(hospital);
+
+const today = new Date().toISOString().split('T')[0];
 </script>
 
 <template>
@@ -69,7 +71,6 @@ onMounted(hospital);
                             @input="input.first_name = input.first_name.replace(/[^a-zA-Z\s]/g, '')"
                         />
                       </div>
-
                       <div class="col-md-6">
                         <label class="form-label">Last Name</label>
                         <input
@@ -105,6 +106,7 @@ onMounted(hospital);
                             type="date"
                             class="form-control"
                             v-model="input.date_of_birth"
+                            :max="today"
                         />
                       </div>
 

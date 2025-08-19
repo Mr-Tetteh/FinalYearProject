@@ -13,4 +13,9 @@ class Hospital extends Model
 
     protected $table = 'hospitals';
 
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
+
 }

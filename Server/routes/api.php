@@ -16,7 +16,8 @@ Route::get('payments/hospital/{hospitalId}', [PaymentsControllers::class, 'getBy
 Route::post('rest_password', [UserController::class, 'forgotPassword']);
 Route::post('password_reset', [UserController::class, 'resetPassword']);
 Route::post('users', [UserController::class, 'register']);
-
+Route::get('subscription_types', [\App\Http\Controllers\Subcriptiontype::class, 'index']);
+Route::post('paystack/initialize', [PaymentsControllers::class, 'initialize']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
@@ -66,4 +67,6 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('users_request_hospitals', [HospitalRequestController::class, 'index']);
     Route::get('request_view/{hospitalRequest}', [HospitalRequestController::class, 'show']);
     Route::patch('request_update/{id}', [HospitalRequestController::class, 'update']);
+
+
 });
