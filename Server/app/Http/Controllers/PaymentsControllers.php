@@ -20,7 +20,7 @@ class PaymentsControllers extends Controller
     {
         $payment = Payment::where('hospital_id', $hospitalId)
             ->where('status', 1)
-            ->whereDate('end_date', '>=', Carbon::now()) // ✅ only valid if not expired
+            ->whereDate('end_date', '>=', Carbon::now())
             ->first();
 
         return response()->json(['paid' => (bool)$payment]);
