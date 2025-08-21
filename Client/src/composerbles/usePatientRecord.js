@@ -3,6 +3,7 @@ import axios from "axios";
 import router from "@/router/index.js";
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import positions from "vue-toast-notification/src/js/positions.js";
 
 const $toast = useToast();
 
@@ -29,6 +30,8 @@ export default function usePatientRecord() {
         prescription_notes: '',
         pharmacist_additional_notes: '',
     });
+
+
 
     const patient_record = ref('')
     const list_patients_record = async (id) => {
@@ -63,6 +66,39 @@ export default function usePatientRecord() {
         }
     }
 
+    const lab = ref({
+        lab_name: '',
+        lab_report: null
+    })
+    const handleFileUpload = (event) => {
+        lab.value.lab_report = event.target.files[0]
+    }
+    const uploadLabReport = async (id, patient) => {
+        try {
+            const formData = new FormData()
+            formData.append('lab_name', lab.value.lab_name)
+            formData.append('lab_report', lab.value.lab_report)
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+            await axios.post(`${import.meta.env.VITE_API}/lab/post/${id}/${patient}`, formData, config);
+            $toast.success('lab report uploaded successfully', {
+                position: "top-right"
+            })
+            setTimeout( ()=> {
+                window.location.reload()
+            }, 2000)
+
+        } catch (error) {
+            $toast.error(error.response.data.message)
+        }
+    }
+
+
     const edit = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN');
@@ -85,7 +121,6 @@ export default function usePatientRecord() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`},
             };
-
             let response = await axios.patch(`${import.meta.env.VITE_API}/patient_record_update/${id}`, input.value, config);
             $toast.success('Patient Record Updated Successfully', {
                 position: 'top-right',
@@ -105,7 +140,12 @@ export default function usePatientRecord() {
         input,
         patient_record,
         list_patients_record,
-        upload_record
+        upload_record,
+        uploadLabReport,
+        lab,
+        handleFileUpload
+
+
 
     }
 }

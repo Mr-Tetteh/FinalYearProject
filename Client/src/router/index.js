@@ -26,6 +26,7 @@ import Patient_card from "@/views/Admin/patients/Patient_card.vue";
 import Select_Hospital from "@/views/Admin/config/Select_Hospital.vue";
 import Request_New_Hosptial from "@/views/Admin/users/Request_New_Hosptial.vue";
 import HospitalRequest from "@/views/Admin/hospital/HospitalRequest.vue";
+import Lab_reports from "@/views/Admin/patients/Lab_reports.vue";
 
 
 const router = createRouter({
@@ -213,6 +214,16 @@ const router = createRouter({
                 roles: ['Admin',]
             }
         },
+        {
+            path: '/patients/lab/:id/:patient',
+            name: 'lab.report',
+            component: Lab_reports,
+            props: true,
+            meta: {
+                requiresAuth: true,
+                // roles: ['Lab Technician']
+            }
+        },
 
         {
             path: '/registered_hospitals',
@@ -260,6 +271,7 @@ const router = createRouter({
                 roles: ['Admin']
             }
         },
+
 
     ],
 })

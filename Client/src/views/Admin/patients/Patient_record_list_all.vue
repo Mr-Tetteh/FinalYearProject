@@ -1,9 +1,10 @@
 <script setup>
 import usePatients from "@/composerbles/usePatients.js";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import UpdatePatientRecord from "@/components/updateUserRole.vue";
 import usePatientRecord from "@/composerbles/usePatientRecord.js";
+import useSession from "@/composerbles/useSession.js";
 
 const props = defineProps({
   id: {
@@ -12,7 +13,8 @@ const props = defineProps({
   },
 });
 
-const { patient_record, list_patients_record } = usePatientRecord();
+const {patient_record, list_patients_record} = usePatientRecord();
+const {userRole} = useSession()
 
 onMounted(() => list_patients_record(props.id));
 
@@ -20,7 +22,7 @@ const modal = ref(false);
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <!-- Mobile Navbar Toggle -->
@@ -39,10 +41,6 @@ const modal = ref(false);
             </h2>
             <p class="text-muted">Detailed medical history and examination reports</p>
           </div>
-          <RouterLink class="btn btn-primary btn-lg shadow-sm" to="add-record">
-            <i class="bi bi-plus-circle me-2"></i>
-            Add Record
-          </RouterLink>
         </div>
 
         <!-- Records Section -->
@@ -102,127 +100,127 @@ const modal = ref(false);
                   </p>
                 </div>
 
-                <hr />
+                <hr/>
 
                 <!-- Doctor's Assessment -->
                 <div class="bg-light py-4">
-                <div class="container">
-                  <!-- Enhanced Medical Record Component -->
-                  <div v-if="record.history" class="medical-record-card fade-in mb-4">
-                    <div class="status-badge">
-                      <i class="bi bi-check-circle me-1"></i>
-                      Completed
-                    </div>
-
-                    <div class="section-header">
-                      <h5 class="section-title">
-                        <div class="header-icon">
-                          <i class="bi bi-file-medical"></i>
-                        </div>
-                        Doctor's Assessment
-                      </h5>
-                    </div>
-
-                    <div class="medical-content">
-                      <div class="medical-field">
-                        <div class="field-label">
-                          <i class="bi bi-clock-history field-icon"></i>
-                          Patient History
-                        </div>
-                        <p class="field-content">{{ record.history }}</p>
+                  <div class="container">
+                    <!-- Enhanced Medical Record Component -->
+                    <div v-if="record.history" class="medical-record-card fade-in mb-4">
+                      <div class="status-badge">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Completed
                       </div>
 
-                      <div class="medical-field">
-                        <div class="field-label">
-                          <i class="bi bi-search field-icon"></i>
-                          Physical Examination
-                        </div>
-                        <p class="field-content">{{ record.examination_findings }}</p>
+                      <div class="section-header">
+                        <h5 class="section-title">
+                          <div class="header-icon">
+                            <i class="bi bi-file-medical"></i>
+                          </div>
+                          Doctor's Assessment
+                        </h5>
                       </div>
 
-                      <div class="medical-field">
-                        <div class="field-label">
-                          <i class="bi bi-clipboard-check field-icon"></i>
-                          Clinical Diagnosis
+                      <div class="medical-content">
+                        <div class="medical-field">
+                          <div class="field-label">
+                            <i class="bi bi-clock-history field-icon"></i>
+                            Patient History
+                          </div>
+                          <p class="field-content">{{ record.history }}</p>
                         </div>
-                        <p class="field-content">{{ record.diagnosis }}</p>
-                      </div>
 
-                      <div class="medical-field">
-                        <div class="field-label">
-                          <i class="bi bi-graph-up field-icon"></i>
-                          Investigations Ordered
+                        <div class="medical-field">
+                          <div class="field-label">
+                            <i class="bi bi-search field-icon"></i>
+                            Physical Examination
+                          </div>
+                          <p class="field-content">{{ record.examination_findings }}</p>
                         </div>
-                        <p class="field-content">{{ record.investigations }}</p>
-                      </div>
 
-                      <div class="medical-field">
-                        <div class="field-label">
-                          <i class="bi bi-heart-pulse field-icon"></i>
-                          Treatment Plan
+                        <div class="medical-field">
+                          <div class="field-label">
+                            <i class="bi bi-clipboard-check field-icon"></i>
+                            Clinical Diagnosis
+                          </div>
+                          <p class="field-content">{{ record.diagnosis }}</p>
                         </div>
-                        <p class="field-content">{{ record.treatment }}</p>
-                      </div>
 
-                      <div v-if="record.doctor_additional_notes" class="medical-field additional-notes">
-                        <div class="field-label">
-                          <i class="bi bi-chat-square-text field-icon"></i>
-                          Additional Clinical Notes
+                        <div class="medical-field">
+                          <div class="field-label">
+                            <i class="bi bi-graph-up field-icon"></i>
+                            Investigations Ordered
+                          </div>
+                          <p class="field-content">{{ record.investigations }}</p>
                         </div>
-                        <p class="field-content">{{ record.doctor_additional_notes }}</p>
+
+                        <div class="medical-field">
+                          <div class="field-label">
+                            <i class="bi bi-heart-pulse field-icon"></i>
+                            Treatment Plan
+                          </div>
+                          <p class="field-content">{{ record.treatment }}</p>
+                        </div>
+
+                        <div v-if="record.doctor_additional_notes" class="medical-field additional-notes">
+                          <div class="field-label">
+                            <i class="bi bi-chat-square-text field-icon"></i>
+                            Additional Clinical Notes
+                          </div>
+                          <p class="field-content">{{ record.doctor_additional_notes }}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                </div>
 
-                  <!-- Pharmacist Notes -->
+                <!-- Pharmacist Notes -->
                 <div class="bg-light py-4">
-                <div class="container">
-                  <!-- Enhanced Pharmacist Notes Component -->
-                  <div v-if="record.medication_notes" class="pharmacist-record-card fade-in mb-4">
-                    <div class="status-badge">
-                      <i class="bi bi-check2-circle me-1"></i>
-                      Reviewed
-                    </div>
-
-                    <div class="section-header">
-                      <h5 class="section-title">
-                        <div class="header-icon pill-animation">
-                          <i class="bi bi-capsule-pill"></i>
-                        </div>
-                        Pharmacist Notes & Medication Review
-                      </h5>
-                    </div>
-
-                    <div class="pharmacist-content">
-                      <div class="medication-field medication-notes">
-                        <div class="field-label">
-                          <i class="bi bi-capsule field-icon"></i>
-                          Medication Information
-                        </div>
-                        <p class="field-content">{{ record.medication_notes }}</p>
+                  <div class="container">
+                    <!-- Enhanced Pharmacist Notes Component -->
+                    <div v-if="record.medication_notes" class="pharmacist-record-card fade-in mb-4">
+                      <div class="status-badge">
+                        <i class="bi bi-check2-circle me-1"></i>
+                        Reviewed
                       </div>
 
-                      <div class="medication-field prescription-notes">
-                        <div class="field-label">
-                          <span class="rx-symbol">℞</span>
-                          Prescription Details
-                        </div>
-                        <p class="field-content">{{ record.prescription_notes }}</p>
+                      <div class="section-header">
+                        <h5 class="section-title">
+                          <div class="header-icon pill-animation">
+                            <i class="bi bi-capsule-pill"></i>
+                          </div>
+                          Pharmacist Notes & Medication Review
+                        </h5>
                       </div>
 
-                      <div v-if="record.pharmacist_additional_notes" class="medication-field additional-notes">
-                        <div class="field-label">
-                          <i class="bi bi-clipboard2-check field-icon"></i>
-                          Pharmacist Additional Notes
+                      <div class="pharmacist-content">
+                        <div class="medication-field medication-notes">
+                          <div class="field-label">
+                            <i class="bi bi-capsule field-icon"></i>
+                            Medication Information
+                          </div>
+                          <p class="field-content">{{ record.medication_notes }}</p>
                         </div>
-                        <p class="field-content">{{ record.pharmacist_additional_notes }}</p>
-                      </div>
 
+                        <div class="medication-field prescription-notes">
+                          <div class="field-label">
+                            <span class="rx-symbol">℞</span>
+                            Prescription Details
+                          </div>
+                          <p class="field-content">{{ record.prescription_notes }}</p>
+                        </div>
+
+                        <div v-if="record.pharmacist_additional_notes" class="medication-field additional-notes">
+                          <div class="field-label">
+                            <i class="bi bi-clipboard2-check field-icon"></i>
+                            Pharmacist Additional Notes
+                          </div>
+                          <p class="field-content">{{ record.pharmacist_additional_notes }}</p>
+                        </div>
+
+                      </div>
                     </div>
                   </div>
-                </div>
                 </div>
 
 
@@ -233,6 +231,13 @@ const modal = ref(false);
                   >
                     <button class="btn btn-outline-primary">
                       <i class="bi bi-pencil-square me-2"></i> Update Record
+                    </button>
+                  </router-link>
+                  <router-link
+                      :to="{ name: 'lab.report', params: { id: record.id, patient: record.patient_id } }"
+                  >
+                    <button class="btn btn-outline-primary">
+                      <i class="bi bi-pencil-square me-2"></i> Add Lab Report
                     </button>
                   </router-link>
                 </div>
@@ -269,6 +274,7 @@ const modal = ref(false);
 .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -279,6 +285,7 @@ const modal = ref(false);
   border: 1px solid var(--bs-gray-200);
   transition: transform 0.2s ease, background 0.2s ease;
 }
+
 .vital-card:hover {
   transform: scale(1.03);
   background: var(--bs-white);
@@ -288,9 +295,16 @@ const modal = ref(false);
   opacity: 0.9;
   animation: fadeIn 0.6s ease-in-out;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .medical-record-card {
@@ -680,9 +694,15 @@ const modal = ref(false);
 }
 
 @keyframes pillBounce {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-2px) rotate(1deg); }
-  75% { transform: translateY(-1px) rotate(-1deg); }
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-1px) rotate(-1deg);
+  }
 }
 
 .rx-symbol {

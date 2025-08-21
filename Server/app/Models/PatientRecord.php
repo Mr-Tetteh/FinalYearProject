@@ -62,4 +62,8 @@ class PatientRecord extends Model
     {
         return $this->hasMany(PatientRecord::class);
     }
+    public function labs()
+    {
+        return $this->hasMany(Lab::class);
+    }
 }

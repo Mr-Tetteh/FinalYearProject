@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalRequestController;
+use App\Http\Controllers\LabsController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\PaymentsControllers;
@@ -48,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::patch('patient_record_update/{patient_record}', [PatientRecordController::class, 'update']);
     Route::get('today_patient_count', [PatientRecordController::class, 'now_patient']);
     Route::get('patient_card/{patient_card}', [PatientRecordController::class, 'patient_card']);
+
+    Route::post('lab/post/{id}/{patient}', [LabsController::class, 'create']);
 
     Route::get('get_drugs', [Pharmacy::class, 'index']);
     Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);
