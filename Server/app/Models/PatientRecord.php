@@ -12,7 +12,25 @@ class PatientRecord extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient_id', 'user_id', 'nurse_notes', 'doctor_notes', 'pharmacists_notes', 'lab_tech_notes'];
+        'patient_id', 'user_id',
+        'temperature',
+        'pulse_rate',
+        'respiratory_rate',
+        'blood_pressure',
+        'weight',
+        'spo2',
+        'fbs',
+        'rbs',
+        'nurse_additional_notes',
+        'history',
+        'examination_findings',
+        'diagnosis',
+        'investigations',
+        'treatment',
+        'doctor_additional_notes',
+        'medication_notes',
+        'prescription_notes',
+        'pharmacist_additional_notes',];
 
     protected $casts = [
         'created_at' => 'datetime',
