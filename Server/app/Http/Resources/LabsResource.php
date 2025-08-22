@@ -19,6 +19,8 @@ class LabsResource extends JsonResource
             'patient_record_id' => $this->patient_record_id,
             'lab_name' => $this->lab_name,
             'lab_report' => $this->lab_report
+                ? asset('storage/' . $this->lab_report)
+                : null,
         ];
     }
 }

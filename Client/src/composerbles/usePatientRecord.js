@@ -99,6 +99,23 @@ export default function usePatientRecord() {
     }
 
 
+    const list_lab_report = async (patient_id, record) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            let response = await axios.get(
+                `${import.meta.env.VITE_API}/lab/reports/${patient_id}/${record.id}`,
+                config
+            );
+            // attach labs to record
+            record.labs = response.data.data;
+        } catch (err) {
+            console.error(err.response?.data || err);
+        }
+    };
+
     const edit = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN');
@@ -143,7 +160,9 @@ export default function usePatientRecord() {
         upload_record,
         uploadLabReport,
         lab,
-        handleFileUpload
+        handleFileUpload,
+        list_lab_report,
+
 
 
 

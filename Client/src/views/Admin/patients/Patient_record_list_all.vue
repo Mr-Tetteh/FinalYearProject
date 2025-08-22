@@ -6,6 +6,8 @@ import UpdatePatientRecord from "@/components/updateUserRole.vue";
 import usePatientRecord from "@/composerbles/usePatientRecord.js";
 import useSession from "@/composerbles/useSession.js";
 
+const API_URL = import.meta.env.VITE_API;
+
 const props = defineProps({
   id: {
     type: String,
@@ -13,10 +15,19 @@ const props = defineProps({
   },
 });
 
-const {patient_record, list_patients_record} = usePatientRecord();
+const {patient_record, list_patients_record, lab, list_lab_report} = usePatientRecord();
 const {userRole} = useSession()
 
-onMounted(() => list_patients_record(props.id));
+onMounted(async () => {
+  await list_patients_record(props.id);
+
+  if (patient_record.value && patient_record.value.length > 0) {
+    for (let rec of patient_record.value) {
+      await list_lab_report(props.id, rec);
+    }
+  }
+});
+
 
 const modal = ref(false);
 </script>
@@ -223,6 +234,49 @@ const modal = ref(false);
                   </div>
                 </div>
 
+
+                <div class="bg-light py-4">
+                  <div class="container">
+                    <!-- Enhanced Pharmacist Notes Component -->
+                    <div class="pharmacist-record-card fade-in mb-4">
+                      <div class="status-badge">
+                        <i class="bi bi-check2-circle me-1"></i>
+                        Laboratory
+                      </div>
+
+                      <div class="section-header">
+                        <h5 class="section-title">
+                          <div class="header-icon pill-animation">
+                            <i class="bi bi-capsule-pill"></i>
+                          </div>
+                          Lab Reports
+                        </h5>
+                      </div>
+
+                      <div class="pharmacist-content" v-for="report in record.labs" :key="report.id">
+                        <div class="medication-field medication-notes">
+                          <div class="field-label">
+                            <i class="bi bi-flask field-icon"></i>
+                            Lab Name
+                          </div>
+                          <p class="field-content">{{ report.lab_name }}</p>
+                        </div>
+
+                        <div class="medication-field prescription-notes">
+                          <div class="field-label">
+                            <span class="rx-symbol">℞</span>
+                            Laboratory Report
+                          </div>
+
+                          <iframe :src="report.lab_report" width="100%" height="500px"></iframe>
+
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
 
                 <!-- Action Button -->
                 <div class="d-flex justify-content-end">
