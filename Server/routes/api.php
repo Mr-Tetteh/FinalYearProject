@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalRequestController;
+use App\Http\Controllers\LabsController;
 use App\Http\Controllers\PatientRecordController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\PaymentsControllers;
@@ -42,12 +43,16 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('edit_patient/{patients}', [PatientsController::class, 'edit']);
     Route::patch('activate_patient/{patients}', [PatientsController::class, 'update']);
 
-    Route::post('patient_rec', [PatientRecordController::class, 'store']);
-    Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'create']);
+    Route::post('patient_rec/{id}', [PatientRecordController::class, 'store']);
+    Route::get('patient_record/{patient_record}', [PatientRecordController::class, 'display_record']);
     Route::get('patient_record_edit/{patient_record}', [PatientRecordController::class, 'edit']);
     Route::patch('patient_record_update/{patient_record}', [PatientRecordController::class, 'update']);
     Route::get('today_patient_count', [PatientRecordController::class, 'now_patient']);
     Route::get('patient_card/{patient_card}', [PatientRecordController::class, 'patient_card']);
+
+    Route::post('lab/post/{id}/{patient}', [LabsController::class, 'create']);
+    Route::get('lab/reports/{patient}/{record_id}', [LabsController::class, 'get_labs']);
+    Route::get('/lab/reports/file/{filename}', [LabsController::class, 'showLabReport']);
 
     Route::get('get_drugs', [Pharmacy::class, 'index']);
     Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);

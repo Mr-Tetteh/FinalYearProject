@@ -22,7 +22,7 @@ class PatientRecordController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function display_record($id)
     {
         $patients = PatientRecord::where('patient_id', $id)->latest()->get();
 
@@ -57,13 +57,29 @@ class PatientRecordController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
         // Create basic patient record
         $record = PatientRecord::create([
-            'patient_id' => $request->patient_id,
-            'nurse_notes' => $request->nurse_notes,
-            //            'hospital' => $request->hospital
+            'patient_id' => $id,
+            'temperature' => $request->temperature,
+            'pulse_rate' => $request->pulse_rate,
+            'respiratory_rate' => $request->respiratory_rate,
+            'blood_pressure' => $request->blood_pressure,
+            'weight' => $request->weight,
+            'spo2' => $request->spo2,
+            'fbs' => $request->fbs,
+            'rbs' => $request->rbs,
+            'nurse_additional_notes' => $request->nurse_additional_notes,
+            'history' => $request->history,
+            'examination_findings' => $request->examination_findings,
+            'diagnosis' => $request->diagnosis,
+            'investigations' => $request->investigations,
+            'treatment' => $request->treatment,
+            'doctor_additional_notes' => $request->doctor_additional_notes,
+            'medication_notes' => $request->medication_notes,
+            'prescription_notes' => $request->prescription_notes,
+            'pharmacist_additional_notes' => $request->pharmacist_additional_notes
         ]);
 
         return new PatientRecordResource($record);
