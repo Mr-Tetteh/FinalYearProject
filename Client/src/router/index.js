@@ -128,7 +128,7 @@ const router = createRouter({
             component: Hospital_patients,
             meta: {
                 requiresAuth: true,
-                roles: ['Receptionist','Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Account']
+                roles: ['Receptionist', 'Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Account']
 
             }
         },
@@ -179,7 +179,7 @@ const router = createRouter({
             component: Pharmacy_drugs_edit,
             meta: {
                 requiresAuth: true,
-                roles: [ 'Manager', 'Pharmacist']
+                roles: ['Manager', 'Pharmacist']
             }
         },
 
@@ -201,7 +201,7 @@ const router = createRouter({
             component: Checkout,
             meta: {
                 requiresAuth: true,
-                roles: [ 'Manager', 'Pharmacist']
+                roles: ['Manager', 'Pharmacist']
             }
         },
 
@@ -257,10 +257,6 @@ const router = createRouter({
             path: '/request/hospital',
             name: 'request_hospital',
             component: Request_New_Hosptial,
-            meta: {
-                requiresAuth: true,
-
-            }
         },
         {
             path: '/staff/request',
