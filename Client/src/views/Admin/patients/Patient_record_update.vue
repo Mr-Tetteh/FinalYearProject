@@ -202,111 +202,108 @@ const handleSubmit = () => (
                         <div v-if="userRole == 'Doctor'" class="doctor-section">
                           <div
                               class="section-header bg-success text-white p-2 rounded d-flex align-items-center mb-3 justify-content-center">
-                            <i class="bi bi-person-workspace me-2"></i>
+                            <i class="bi bi-person-workspace me-2 fs-5"></i>
                             <h5 class="mb-0">Doctor's Section</h5>
                           </div>
+
                           <div class="section-content p-3 bg-light rounded">
                             <div class="row justify-content-center g-3">
+
+                              <!-- History -->
                               <div class="col-md-6">
-                                <label class="form-label text-center w-100">History of presenting complaints </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="History of presenting complaints"
-                                        v-model="input.history"
-                                        :disabled="userRole !== 'Doctor'"
-                                    >
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-clipboard2-pulse"></i>
-                                    </div>
-                                  </div>
+                                <label class="form-label text-center w-100">History of presenting complaints</label>
+                                <div class="input-group">
+                                  <span class="input-group-text bg-white">
+                                    <i class="bi bi-clipboard2-pulse"></i>
+                                  </span>
+                                  <textarea class="form-control text-center"
+                                            placeholder="History of presenting complaints"
+                                            v-model="input.history"
+                                            :disabled="userRole !== 'Doctor'" name="" id=""
+                                            cols="2"></textarea>
                                 </div>
                               </div>
 
+                              <!-- Examination findings -->
                               <div class="col-md-6">
-                                <label class="form-label text-center w-100">Examination findings
-                                </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <input class="form-select text-center" v-model="input.examination_findings"
-                                           placeholder="Examination findings"
-                                           :disabled="userRole !== 'Doctor'"
-                                    >
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-clipboard2-pulse"></i>
-                                    </div>
-                                  </div>
+                                <label class="form-label text-center w-100">Examination findings</label>
+                                <div class="input-group">
+                            <span class="input-group-text bg-white">
+                              <i class="bi bi-clipboard2-pulse"></i>
+                            </span>
+
+                                  <textarea class="form-control text-center"
+                                            placeholder="Examination findings"
+                                            v-model="input.examination_findings"
+                                            :disabled="userRole !== 'Doctor'"
+                                            cols="2"></textarea>
+
                                 </div>
                               </div>
 
-
+                              <!-- Diagnosis -->
                               <div class="col-md-6">
                                 <label class="form-label text-center w-100">Diagnosis</label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Diagnosis"
-                                        v-model="input.diagnosis"
-                                        :disabled="userRole !== 'Doctor'"
-                                    >
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-journal-medical"></i>
-                                    </div>
-                                  </div>
+                                <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-journal-medical"></i>
+          </span>
+                                  <textarea class="form-control text-center"
+                                            placeholder="Diagnosis"
+                                            v-model="input.diagnosis"
+                                            :disabled="userRole !== 'Doctor'"
+                                            cols="2"></textarea>
                                 </div>
                               </div>
 
+                              <!-- Investigations / Labs -->
                               <div class="col-md-6">
-                                <label class="form-label text-center w-100">Investigations/ Labs
-                                </label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Labs"
-                                        v-model="input.investigations"
-                                        :disabled="userRole !== 'Doctor'"
-                                    >
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-capsule"></i>
-                                    </div>
-                                  </div>
+                                <label class="form-label text-center w-100">Investigations / Labs</label>
+                                <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-flask"></i>
+          </span>
+
+                                  <textarea class="form-control text-center"
+                                            placeholder="Labs"
+                                            v-model="input.investigations"
+                                            :disabled="userRole !== 'Doctor'"
+                                            cols="2"></textarea>
                                 </div>
                               </div>
 
+                              <!-- Treatment -->
                               <div class="col-md-12">
                                 <label class="form-label text-center w-100">Treatment</label>
-                                <div class="form-group has-icon-left">
-                                  <div class="position-relative">
-                                    <input
-                                        type="text"
-                                        class="form-control text-center"
-                                        placeholder="Treatment"
-                                        v-model="input.treatment"
-                                        :disabled="userRole !== 'Doctor'"
-                                    >
-                                    <div class="form-control-icon">
-                                      <i class="bi bi-capsule"></i>
-                                    </div>
-                                  </div>
+                                <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-capsule"></i>
+          </span>
+                                  <textarea class="form-control text-center"
+                                            placeholder="Treatment"
+                                            v-model="input.treatment"
+                                            :disabled="userRole !== 'Doctor'"
+                                            cols="2"></textarea>
                                 </div>
                               </div>
 
+                              <!-- Additional Notes -->
                               <div class="col-md-12">
                                 <label class="form-label text-center w-100">Additional Notes</label>
-                                <textarea
-                                    class="form-control text-center"
-                                    rows="3"
-                                    placeholder="Enter any additional notes"
-                                    v-model="input.doctor_additional_notes"
-                                    :disabled="userRole !== 'Doctor'"
-                                ></textarea>
+                                <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-sticky"></i>
+          </span>
+                                  <textarea
+                                      class="form-control text-center"
+                                      rows="3"
+                                      placeholder="Enter any additional notes"
+                                      v-model="input.doctor_additional_notes"
+                                      :disabled="userRole !== 'Doctor'"
+                                  ></textarea>
+                                </div>
                               </div>
+
                             </div>
                           </div>
                         </div>
@@ -401,6 +398,7 @@ const handleSubmit = () => (
                                     </div>
                                   </div>
                                 </div>
+
                               </div>
                             </div>
                           </div>

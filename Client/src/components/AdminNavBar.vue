@@ -90,10 +90,7 @@ const toggleSidebar = () => {
                 <i class="bi bi-people"></i>
                 <span>All Staff</span>
               </RouterLink>
-              <RouterLink to="/request/hospital"  class="submenu-item" >
-                <i class="bi bi-question-circle"></i>
-                <span>Request Hospital</span>
-              </RouterLink>
+
               <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
                 <i class="bi bi-person-lines-fill"></i>
                 <span>All Users</span>

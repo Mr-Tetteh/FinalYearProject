@@ -235,15 +235,13 @@ const modal = ref(false);
                 </div>
 
 
-                <div class="bg-light py-4">
+                <div class="bg-light py-4" v-if="record.lab_name">
                   <div class="container">
-                    <!-- Enhanced Pharmacist Notes Component -->
                     <div class="pharmacist-record-card fade-in mb-4">
                       <div class="status-badge">
                         <i class="bi bi-check2-circle me-1"></i>
                         Laboratory
                       </div>
-
                       <div class="section-header">
                         <h5 class="section-title">
                           <div class="header-icon pill-animation">
@@ -252,8 +250,7 @@ const modal = ref(false);
                           Lab Reports
                         </h5>
                       </div>
-
-                      <div class="pharmacist-content" v-for="report in record.labs" :key="report.id">
+                      <div  class="pharmacist-content" v-for="report in record.labs" :key="report.id">
                         <div class="medication-field medication-notes">
                           <div class="field-label">
                             <i class="bi bi-flask field-icon"></i>
@@ -261,7 +258,6 @@ const modal = ref(false);
                           </div>
                           <p class="field-content">{{ report.lab_name }}</p>
                         </div>
-
                         <div class="medication-field prescription-notes">
                           <div class="field-label">
                             <span class="rx-symbol">℞</span>
@@ -281,6 +277,7 @@ const modal = ref(false);
                 <!-- Action Button -->
                 <div class="d-flex justify-content-end">
                   <router-link
+                      v-if="userRole !== 'Lab Technician'"
                       :to="{ name: 'patient.record_update', params: { id: record.id } }"
                   >
                     <button class="btn btn-outline-primary">
@@ -288,6 +285,7 @@ const modal = ref(false);
                     </button>
                   </router-link>
                   <router-link
+                      v-if="userRole === 'Lab Technician'"
                       :to="{ name: 'lab.report', params: { id: record.id, patient: record.patient_id } }"
                   >
                     <button class="btn btn-outline-primary">
