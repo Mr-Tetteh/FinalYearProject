@@ -307,7 +307,8 @@ class UserController extends Controller
         // Load the updated user with hospitals relationship
         $user->load('hospitals');
 
-        sendWithSMSONLINEGH('233' . substr(($request->contact), -9), 'Dear ' . $request->first_name . ', Your account has been activated. Please make sure you are assigned to a hospital to enable you access a hospital portal. Thank you!');
+        $url = 'http://localhost:5173/request/hospital';
+        sendWithSMSONLINEGH('233' . substr(($request->contact), -9), 'Dear ' . $request->first_name . ', Your account has been activated. Please make sure you are assigned to a hospital to enable you access a hospital portal. You can also request to work in a hospital '. $url .' Thank you!');
 
         return new UserResource($user);
     }

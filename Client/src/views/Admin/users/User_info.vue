@@ -91,7 +91,7 @@ const searchResults = computed(() => {
                   <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
                   <th class="py-3">Status</th>
-                  <th class="py-3">Hospital</th>
+                  <th class="py-3">Contact</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
@@ -131,15 +131,13 @@ const searchResults = computed(() => {
                       </span>
                   </td>
                   <td>
-                      <span class="badge bg-primary bg-opacity-10 text-secondary">
-                        {{ item.hospital_id }}
-                      </span>
+                    <a :href="`tel:${item.contact }`">{{item.contact }}</a>
                   </td>
                   <td>
                     <div class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
-                        Activate User
+                        <span v-if="item.status === 1"> Deactivate User </span> <span v-else> Activate User </span>
                       </button>
                       <button v-if="item.status === 1" class="btn btn-primary btn-sm" @click="openHospitalModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>

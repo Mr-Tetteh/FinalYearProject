@@ -21,6 +21,7 @@ class Pharmacy extends JsonResource
             'use' => $this->use,
             'quantity' => $this->quantity,
             'category' => $this->category,
+            'hospital' => $this->hospital,
             'additional_notes' => $this->additional_notes,
         ];
     }

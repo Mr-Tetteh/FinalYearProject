@@ -110,7 +110,7 @@ export default function usePatientRecord() {
                 config
             );
             // attach labs to record
-            record.labs = response.data.data;
+            lab.value = response.data.data;
         } catch (err) {
             console.error(err.response?.data || err);
         }

@@ -75,6 +75,7 @@ class Pharmacy extends Controller
             'price' => $request->input('price'),
             'quantity' => $request->input('quantity'),
             'category' => $request->input('category'),
+            'hospital' => $request->input('hospital'),
             'use' => $request->input('use'),
             'additional_notes' => $request->input('additional_notes'),
         ]);

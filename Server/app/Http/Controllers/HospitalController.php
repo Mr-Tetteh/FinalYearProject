@@ -102,7 +102,6 @@ class HospitalController extends Controller
      */
     public function store(StoreHospitalRegistration $request)
     {
-        $update_url = "https://codeprince.me/update_plan";
         $request->validated();
         $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),
@@ -155,6 +154,8 @@ class HospitalController extends Controller
      */
     public function update(Request $request, Hospital $hospital)
     {
+        $update_url = "https://codeprince.me/update_plan";
+
         $hospital->update([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
@@ -168,7 +169,7 @@ class HospitalController extends Controller
 
         sendWithSMSONLINEGH(
             '233' . substr(($request->input('hospital_contact')), -9),
-            'Dear ' . $request->input('hospital_name') . ', your hospital registration has been approved. You can proceed to make your subscription payment. Thank you for choosing us!'
+            'Dear ' . $request->input('hospital_name') . ', your hospital registration has been approved. You can proceed to make your subscription payment Thank you for choosing us!' . $update_url . '.'
         );
         return new HospitalResource($hospital);
     }

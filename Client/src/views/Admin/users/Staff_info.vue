@@ -63,7 +63,7 @@ const searchResults = computed(() => {
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0" v-if=" userRole !=='Admin'">Staff List</h5>
-              <h5 class="card-title mb-0"  v-else >Admin  List</h5>
+              <h5 class="card-title mb-0" v-else>Admin List</h5>
 
               <div class="search-box">
                 <div class="input-group">
@@ -91,6 +91,7 @@ const searchResults = computed(() => {
                   <th class="py-3">Gender</th>
                   <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
+                  <th class="py-3">Contact</th>
                   <th class="py-3">Unique ID</th>
                 </tr>
                 </thead>
@@ -122,6 +123,10 @@ const searchResults = computed(() => {
                     </span>
                   </td>
                   <td>{{ item.email }}</td>
+                  <td>
+                    <a :href="`tel:${item.contact }`">{{item.contact }}</a>
+
+                  </td>
                   <td>{{ item.unique_id }}</td>
                 </tr>
                 </tbody>
