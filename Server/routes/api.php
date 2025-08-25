@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('lab/reports/{patient}/{record_id}', [LabsController::class, 'get_labs']);
     Route::get('/lab/reports/file/{filename}', [LabsController::class, 'showLabReport']);
 
-    Route::get('get_drugs', [Pharmacy::class, 'index']);
+    Route::get('/get_drugs/{hospitalId}', [Pharmacy::class, 'index']);
     Route::get('get_drugs_edit/{drug}', [Pharmacy::class, 'show']);
     Route::patch('drug_edit/{pharmacy}', [Pharmacy::class, 'update']);
     Route::post('post_drug', [Pharmacy::class, 'store']);

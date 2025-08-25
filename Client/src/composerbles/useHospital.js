@@ -82,11 +82,13 @@ export default function useHospital() {
 
     const get_stock_drugs = async () => {
         try {
+            const hospitalId = localStorage.getItem('HOSPITAL_ID')
+
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs/${hospitalId}`, config);
             drugs.value = response.data
         } catch (err) {
             alert(err.response.data.data.message);

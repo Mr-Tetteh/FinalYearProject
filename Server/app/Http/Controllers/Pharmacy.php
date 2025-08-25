@@ -11,19 +11,20 @@ class Pharmacy extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($hospitalId)
     {
-        $drugs = \App\Models\Pharmacy::all()->where('hospital', Auth::user()->hospital_id)->groupBy('category');
+        $drugs = \App\Models\Pharmacy::where('hospital', $hospitalId)->get();
 
-        $result = $drugs->map(function ($items, $category) {
+        $grouped = $drugs->groupBy('category')->map(function ($items, $category) {
             return [
                 'category' => $category,
                 'drugs' => \App\Http\Resources\Pharmacy::collection($items),
             ];
         })->values();
 
-        return response()->json($result);
+        return response()->json($grouped);
     }
+
 
     public function updateQuantities(Request $request)
     {
