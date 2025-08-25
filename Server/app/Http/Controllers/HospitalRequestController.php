@@ -20,21 +20,16 @@ class HospitalRequestController extends Controller
 
     public function store(StoreHospitalRequest $request)
     {
-//        if (auth()->user()->email !== $request->input('email')) {
-//            return response()->json(['message' => 'Please enter your email'], 422);
-//        } elseif (auth()->user()->unique_id !== $request->input('unique_id')) {
-//            return response()->json(['message' => 'Please enter your unique id'], 422);
-//        } elseif (auth()->user()->contact !== $request->input('contact')) {
-//            return response()->json(['message' => 'Please enter your contact'], 422);
-//        }
+        $data = $request->validated();
+        $user = \App\Models\User::where('unique_id', $data['unique_id'])->firstOrFail();
         $request->validated();
         $userRequest = HospitalRequest::create([
-            'email' => $request->input('email'),
+            'email' => $user->email,
             'unique_id' => $request->input('unique_id'),
-            'contact' => '+233' . substr($request->input('contact'), -9),
+            'contact' => '+233' . substr($user->contact, -9),
             'hospital' => $request->input('hospital'),
         ]);
-        sendWithSMSONLINEGH('233' . substr($request->input('contact'), -9), 'Your request to work at ' . $request->input('hospital') . ' has been received and currently pending. We will review your request and get back to you soon. Thank you!.');
+        sendWithSMSONLINEGH('233' . substr($user->contact, -9), 'Your request to work at ' . $request->input('hospital') . ' has been received and currently pending. We will review your request and get back to you soon. Thank you!.');
         return new HospitalRequestResource($userRequest);
     }
 
@@ -52,17 +47,22 @@ class HospitalRequestController extends Controller
         ]);
 
         if ($request->input('status') === 'Approved') {
-           return sendWithSMSONLINEGH(
+            return sendWithSMSONLINEGH(
                 '233' . substr($request->input('contact'), -9),
-                'Your request to work at ' . $request->input('hospital') . ' has been '.$request->input('status').'.Thank you!.'
+                'Your request to work at ' . $request->input('hospital') . ' has been ' . $request->input('status') . '.Thank you!.'
             );
         } else {
             sendWithSMSONLINEGH(
                 '233' . substr($request->input('contact'), -9),
-                'Sorry your request to work at ' . $request->input('hospital') . ' has been ' . $request->input('status'). '. Reason: ' . $request->input('reason_for_rejection') . '. Thank you!.'
+                'Sorry your request to work at ' . $request->input('hospital') . ' has been ' . $request->input('status') . '. Reason: ' . $request->input('reason_for_rejection') . '. Thank you!.'
             );
         }
 
         return new HospitalRequestResource($hospital_request);
+    }
+
+    public function delete($id)
+    {
+        HospitalRequest::findOrFail($id)->delete();
     }
 }

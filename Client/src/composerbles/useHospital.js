@@ -19,28 +19,19 @@ export default function useHospital() {
     })
 
 
-
     const data = ref({
         name: '',
         price: '',
         category: '',
         quantity: '',
         use: '',
+        hospital: localStorage.getItem('HOSPITAL_ID'),
         additional_notes: ''
     })
 
     const drugs = ref()
     const drug = ref()
-    const resetForm = () => {
-        data.value = {
-            name: '',
-            price: '',
-            category: '',
-            quantity: '',
-            use: '',
-            additional_note: ''
-        };
-    };
+
 
 
     const hospital_patient_count = ref()
@@ -63,7 +54,9 @@ export default function useHospital() {
             $toast.success('Drugs has been added successfully', {
                 position: "top-right"
             })
-            resetForm()
+            setTimeout = () => {
+                window.location.reload()
+            }
         } catch (err) {
             alert(err.response.data.data.message);
         }
@@ -138,12 +131,12 @@ export default function useHospital() {
 
                    window.location.href = payment.payment_url; // Redirect user to Paystack
                    $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });*/
-            $toast.success('Your Hospital has been created successfully', {
+            $toast.success('Your Hospital has been Registered successfully', {
                 position: "top-right"
             })
             setTimeout(() => {
                 window.location.reload()
-            },2000)
+            }, 2000)
         } catch (err) {
             is_loading.value = false;
             console.error('Error:', err);
@@ -197,7 +190,7 @@ export default function useHospital() {
     };
 
     const count_all_hospital_users = async () => {
-         const hospital_id =  localStorage.getItem('HOSPITAL_ID')
+        const hospital_id = localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
@@ -253,6 +246,7 @@ export default function useHospital() {
 
     const update_hospital = async (id) => {
         try {
+            is_loading.value = true
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -267,6 +261,7 @@ export default function useHospital() {
 
             }, 1000)
         } catch (err) {
+            is_loading.value = false
             alert(err.response.data.data.message);
             $toast.error(err.response.data.data.message, {
                 position: "top-right"
@@ -324,7 +319,6 @@ export default function useHospital() {
         is_loading,
         edit_hospital,
         update_hospital,
-
 
 
     }

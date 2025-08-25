@@ -2,7 +2,7 @@
 import useHospital from "@/composerbles/useHospital.js";
 import {onMounted} from "vue";
 
-const {input, edit_hospital, update_hospital} = useHospital()
+const {input, edit_hospital, update_hospital, is_loading} = useHospital()
 
 const props = defineProps({
   modelValue: {
@@ -73,7 +73,7 @@ const handleSubmit = async () => {
               </select>
             </div>
 
-            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Activate</button>
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary gradient-btn" :disabled="is_loading"  :class="[{ 'cursor-not-allowed opacity-75': is_loading }, 'no-course']" type="submit">Activate</button>
             <hr class="my-4">
           </form>
         </div>

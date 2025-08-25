@@ -4,7 +4,7 @@ import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
 import {onMounted} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 
-const {input, requestHospital, request_hospital, request_hospitals_data} = useHospitalRequest()
+const {input, requestHospital, request_hospital, request_hospitals_data,is_loading} = useHospitalRequest()
 
 const onSubmit = async () => {
   await requestHospital()
@@ -16,8 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AdminNavBar/>
-
+  <NavBar/>
   <!-- Hero Section -->
   <div class="hero-section">
     <div class="container">
@@ -56,6 +55,7 @@ onMounted(async () => {
 
             <form class="p-4" @submit.prevent="onSubmit">
               <!-- Email -->
+<!--
               <div class="mb-4">
                 <label for="email" class="form-label fw-semibold">
                   <svg class="me-2 text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -75,6 +75,7 @@ onMounted(async () => {
                     v-model="input.email"
                 >
               </div>
+-->
 
               <!-- Unique ID -->
               <div class="mb-4">
@@ -100,7 +101,7 @@ onMounted(async () => {
               <!-- Name Fields Row -->
 
               <!-- Position and Contact Row -->
-              <div class="mb-4">
+<!--              <div class="mb-4">
                 <label for="contact" class="form-label fw-semibold">
                   <svg class="me-2 text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none"
                        xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +120,7 @@ onMounted(async () => {
                 >
                 <span class="text-muted font-size-sm">contact should be in this format: 233244xxxxxxxx</span>
 
-              </div>
+              </div>-->
 
               <!-- Hospital Selection -->
               <div class="mb-4">
@@ -139,7 +140,9 @@ onMounted(async () => {
                 </label>
                 <select class="form-select form-select-lg" id="hospital" v-model="input.hospital">
                   <option value="" disabled selected>Select Hospital</option>
-                  <option  v-for="requests in request_hospitals_data" :value="requests.hospital_name" key="requests.id">{{requests.hospital_name}}</option>
+                  <option v-for="requests in request_hospitals_data" :value="requests.hospital_name" key="requests.id">
+                    {{ requests.hospital_name }}
+                  </option>
 
                 </select>
               </div>

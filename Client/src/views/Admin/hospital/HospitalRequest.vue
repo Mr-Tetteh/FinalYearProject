@@ -5,7 +5,7 @@ import {computed, onMounted, ref} from "vue";
 import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
 import UpdateHospitalRequest from "@/components/updateHospitalRequest.vue";
 
-const {staff_request_hospitals_data, staff_request_hospital} = useHospitalRequest()
+const {staff_request_hospitals_data, staff_request_hospital, delete_request} = useHospitalRequest()
 const searchQuery = ref('')
 const selectedUserId = ref(null)
 const modal = ref(false)
@@ -115,7 +115,7 @@ const searchResults = computed(() => {
                         <i class="bi bi-pencil-square me-1"></i>
                         Edit
                       </button>
-                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
+                      <button @click="delete_request(item.id)" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash me-1"></i>
                         Delete Staff
                       </button>

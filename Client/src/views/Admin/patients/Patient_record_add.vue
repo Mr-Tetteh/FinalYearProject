@@ -87,7 +87,7 @@ const handleSubmit = async () => {
                                   <div class="vital-icon bg-danger-soft">
                                     <i class="bi bi-thermometer-half text-danger"></i>
                                   </div>
-                                  <label class="vital-label">Temperature}</label>
+                                  <label class="vital-label">Temperature</label>
                                   <div class="input-wrapper">
                                     <input
                                         type="text"

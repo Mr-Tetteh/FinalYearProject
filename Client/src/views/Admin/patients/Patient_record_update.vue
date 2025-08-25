@@ -80,7 +80,7 @@ const handleSubmit = () => (
                                 <div class="vital-icon bg-danger-soft">
                                   <i class="bi bi-thermometer-half text-danger"></i>
                                 </div>
-                                <label class="vital-label">Temperature}</label>
+                                <label class="vital-label">Temperature</label>
                                 <div class="input-wrapper">
                                   <input
                                       type="text"
@@ -188,6 +188,44 @@ const handleSubmit = () => (
                                       placeholder="98%"
                                       @input="input.spo2 = input.spo2.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"
                                       v-model="input.spo2"
+                                      :disabled="userRole !== 'Nurse'"
+                                  >
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4">
+                              <div class="vital-card h-100">
+                                <div class="vital-icon bg-cyan-soft">
+                                  <i class="bi bi-droplet-fill text-cyan"></i>
+                                </div>
+                                <label class="vital-label">RBS</label>
+                                <div class="input-wrapper">
+                                  <input
+                                      type="text"
+                                      class="form-control vital-input"
+                                      placeholder="140mg/dL"
+                                      @input="input.rbs = input.rbs.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"
+                                      v-model="input.rbs"
+                                      :disabled="userRole !== 'Nurse'"
+                                  >
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4">
+                              <div class="vital-card h-100">
+                                <div class="vital-icon bg-cyan-soft">
+                                  <i class="bi bi-droplet-fill text-cyan"></i>
+                                </div>
+                                <label class="vital-label">FBS</label>
+                                <div class="input-wrapper">
+                                  <input
+                                      type="text"
+                                      class="form-control vital-input"
+                                      placeholder="100mg/dL"
+                                      @input="input.fbs = input.fbs.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"
+                                      v-model="input.fbs"
                                       :disabled="userRole !== 'Nurse'"
                                   >
                                 </div>

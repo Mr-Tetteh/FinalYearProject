@@ -235,13 +235,9 @@ const modal = ref(false);
                 </div>
 
 
-                <div class="bg-light py-4" v-if="record.lab_name">
+                <div class="bg-light py-4" v-if="lab">
                   <div class="container">
                     <div class="pharmacist-record-card fade-in mb-4">
-                      <div class="status-badge">
-                        <i class="bi bi-check2-circle me-1"></i>
-                        Laboratory
-                      </div>
                       <div class="section-header">
                         <h5 class="section-title">
                           <div class="header-icon pill-animation">
@@ -250,7 +246,7 @@ const modal = ref(false);
                           Lab Reports
                         </h5>
                       </div>
-                      <div  class="pharmacist-content" v-for="report in record.labs" :key="report.id">
+                      <div  class="pharmacist-content" v-for="report in lab" :key="report.id">
                         <div class="medication-field medication-notes">
                           <div class="field-label">
                             <i class="bi bi-flask field-icon"></i>
@@ -263,10 +259,7 @@ const modal = ref(false);
                             <span class="rx-symbol">℞</span>
                             Laboratory Report
                           </div>
-
                           <iframe :src="report.lab_report" width="100%" height="500px"></iframe>
-
-
                         </div>
                       </div>
 

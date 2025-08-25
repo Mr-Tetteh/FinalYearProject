@@ -22,21 +22,14 @@ const input = ref({
 })
 export default function useHospitalRequest() {
     const input = ref({
-        email: "",
         unique_id: "",
-        contact: "",
         hospital: "",
     })
 
     const requestHospital = async () => {
         try {
 
-            const token = localStorage.getItem('AUTH_TOKEN')
-            const config = {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-
-            const response = await axios.post(`${import.meta.env.VITE_API}/create/request`, input.value, config);
+            const response = await axios.post(`${import.meta.env.VITE_API}/create/request`, input.value);
 
             $toast.success('Hospital request sent successfully!', {
                 duration: 5000,
@@ -102,7 +95,7 @@ export default function useHospitalRequest() {
 
     const request_hospital = async () => {
         try {
-
+            is_loading.value = true
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -110,9 +103,30 @@ export default function useHospitalRequest() {
             const response = await axios.get(`${import.meta.env.VITE_API}/request_hospitals`, config);
             request_hospitals_data.value = response.data.data
         } catch (err) {
+            is_loading.value = false
             $toast.error(err.response.data.message);
         }
     }
+
+    const  delete_request = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.delete(`${import.meta.env.VITE_API}/delete/${id}`, config)
+            $toast.success('Request deleted sucessfully', {
+                position: "top-right"
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+
+        }catch (error){
+            $toast.error('Sorry an error Occurred')
+        }
+    }
+
 
     return {
         input,
@@ -124,7 +138,8 @@ export default function useHospitalRequest() {
         request_view_data,
         request_view,
         update_request,
-        is_loading
+        is_loading,
+        delete_request
 
     }
 }

@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class Pharmacy extends Model
 {
-    protected $fillable = ['name', 'price', 'category', 'quantity', 'use', 'additional_notes'];
+    protected $fillable = ['name', 'price', 'category', 'quantity', 'use', 'hospital', 'additional_notes'];
 
-    public function sluggable(): array
+/*    public function sluggable(): array
     {
         return [
             'patient_hospital' => [
@@ -23,5 +23,5 @@ class Pharmacy extends Model
         static::creating(function ($patient): void {
             $patient->hospital = Auth::user()->hospital_id;
         });
-    }
+    }*/
 }

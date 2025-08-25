@@ -19,6 +19,8 @@ Route::post('password_reset', [UserController::class, 'resetPassword']);
 Route::post('users', [UserController::class, 'register']);
 Route::get('subscription_types', [\App\Http\Controllers\Subcriptiontype::class, 'index']);
 Route::post('paystack/initialize', [PaymentsControllers::class, 'initialize']);
+Route::post('create/request', [HospitalRequestController::class, 'store']);
+Route::get('request_hospitals', [HospitalController::class, 'all_request_hospitals']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
@@ -67,11 +69,10 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('edit_hospital/{hospital}', [HospitalController::class, 'edit']);
     Route::patch('update_hospital/{hospital}', [HospitalController::class, 'update']);
 
-    Route::post('create/request', [HospitalRequestController::class, 'store']);
-    Route::get('request_hospitals', [HospitalController::class, 'all_request_hospitals']);
     Route::get('users_request_hospitals', [HospitalRequestController::class, 'index']);
     Route::get('request_view/{hospitalRequest}', [HospitalRequestController::class, 'show']);
     Route::patch('request_update/{id}', [HospitalRequestController::class, 'update']);
+    Route::delete('delete/{id}',[HospitalRequestController::class, 'delete']);
 
 
 });
