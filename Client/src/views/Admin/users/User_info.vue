@@ -1,13 +1,15 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useAuth from "@/composerbles/useAuth.js";
-import { onMounted, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import UpdateUserRole from "@/components/updateUserRole.vue";
+import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
 
-const { all_users, users, delete_user } = useAuth();
+const {all_users, users, delete_user} = useAuth();
 
 const searchQuery = ref('');
 const modal = ref(false);
+const hospital_modal = ref(false);
 const selectedUserId = ref(null); // Add this line to track the selected user ID
 onMounted(users);
 
@@ -16,10 +18,25 @@ const openEditModal = (user) => {
   selectedUserId.value = user.id; // Store the user ID when opening modal
   modal.value = true;
 };
+
+const openHospitalModal = (user) => {
+  selectedUserId.value = user.id; // Store the user ID when opening hospital modal
+  hospital_modal.value = true;
+}
+
+const searchResults = computed(() => {
+  if (!searchQuery.value || !all_users.value) return all_users.value;
+
+  const searched = searchQuery.value.toLowerCase();
+  return all_users.value.filter(user => {
+    const userId = (user.unique_id || '').toLowerCase();
+    return userId.includes(searched);
+  });
+})
 </script>
 
 <template>
-  <AdminNavBar />
+  <AdminNavBar/>
   <div class="main min-vh-100 bg-light">
     <div id="main">
       <header class="mb-3">
@@ -68,16 +85,18 @@ const openEditModal = (user) => {
                 <thead class="bg-light">
                 <tr>
                   <th class="py-3">Full Name</th>
+                  <th class="py-3">Unique ID</th>
                   <th class="py-3">Date of Birth</th>
                   <th class="py-3">Gender</th>
-                  <th class="py-3">Role</th>
+                  <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
-                  <th class="py-3">Hospital</th>
+                  <th class="py-3">Status</th>
+                  <th class="py-3">Contact</th>
                   <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in all_users" :key="item.email">
+                <tr v-for="item in searchResults" :key="item.email">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="avatar-initial me-3 rounded-circle bg-primary bg-opacity-10 text-primary">
@@ -86,34 +105,43 @@ const openEditModal = (user) => {
                       <div class="fw-medium">{{ item.first_name }} {{ item.last_name }}</div>
                     </div>
                   </td>
-                  <td>{{ item.birthday }}</td>
+                  <td>{{ item.unique_id }}</td>
+                  <td>{{ item.date_of_birth }}</td>
                   <td>{{ item.gender }}</td>
                   <td>
                   <span class="badge rounded-pill" :class="{
-                      'bg-primary text-white': item.role === 'Doctor',
-                      'bg-teal text-white': item.role === 'Nurse',
-                      'bg-orange text-white': item.role === 'Account',
-                      'bg-purple text-white': item.role === 'Pharmacist',
-                      'bg-pink text-white': item.role === 'Manager',
-                      'bg-secondary text-white': item.role === 'Lab Technician',
-                      'bg-warning text-white': item.role === 'Accountant',
-                      'bg-dark text-white': item.role === 'Admin',
-                      'bg-success text-white': item.role === 'Receptionist'
+                      'bg-primary text-white': item.position === 'Doctor',
+                      'bg-teal text-white': item.position === 'Nurse',
+                      'bg-orange text-white': item.position === 'Account',
+                      'bg-purple text-white': item.position === 'Pharmacist',
+                      'bg-pink text-white': item.position === 'Manager',
+                      'bg-secondary text-white': item.position === 'Lab Technician',
+                      'bg-warning text-white': item.position === 'Accountant',
+                      'bg-dark text-white': item.position === 'Admin',
+                      'bg-success text-white': item.position === 'Receptionist'
                     }">
-                      {{ item.role }}
+                      {{ item.position }}
                     </span>
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
-                      <span class="badge bg-primary bg-opacity-10 text-secondary">
-                        {{ item.hospital_id }}
+                      <span
+                          :class="{'badge bg-success  text-white': item.status === 1, 'badge bg-danger text-white': item.status === 0}">
+                        {{ item.status === 1 ? 'Active' : 'Inactive' }}
                       </span>
+                  </td>
+                  <td>
+                    <a :href="`tel:${item.contact }`">{{item.contact }}</a>
                   </td>
                   <td>
                     <div class="d-flex gap-2">
                       <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
                         <i class="bi bi-pencil-square me-1"></i>
-                        Edit
+                        <span v-if="item.status === 1"> Deactivate User </span> <span v-else> Activate User </span>
+                      </button>
+                      <button v-if="item.status === 1" class="btn btn-primary btn-sm" @click="openHospitalModal(item)">
+                        <i class="bi bi-pencil-square me-1"></i>
+                        Assign Hospital
                       </button>
                       <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash me-1"></i>
@@ -134,6 +162,39 @@ const openEditModal = (user) => {
           <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
         </div>
       </div>
+
+      <div v-if="hospital_modal" class="modal-overlay">
+        <div class="modal-content">
+          <update-staff-hospital v-if="hospital_modal" v-model="hospital_modal" :id="selectedUserId"/>
+        </div>
+      </div>
+
+      <div v-if="!searchResults?.length" class="text-center py-5">
+        <div class="container mx-auto" style="max-width: 28rem;">
+          <svg class="mb-4" style="width: 4rem; height: 4rem; color: #94a3b8;" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24" width="64">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <h3 class="h5 fw-semibold text-secondary mb-2">
+            {{ searchQuery ? 'No Staff found' : 'No staff registered' }}
+          </h3>
+          <p class="text-muted small">
+            {{
+              searchQuery ? 'Try adjusting your search criteria.' : 'Get started by registering your first patient.'
+            }}
+          </p>
+          <div v-if="searchQuery" class="mt-4">
+            <button
+                @click="searchQuery = ''"
+                class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2"
+            >
+              Clear search
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

@@ -13,15 +13,9 @@ export default function useHospital() {
         hospital_location: "",
         hospital_contact: "",
         hospital_email: "",
-        hospital_country: "",
+        hospital_consistency: "",
         hospital_city: "",
-        number_of_monthly_subscription: ""
-    })
-
-    const plan_input = ref({
-        hospital_name: "",
-        subscription_type: "",
-     
+        status: "",
     })
 
 
@@ -31,21 +25,13 @@ export default function useHospital() {
         category: '',
         quantity: '',
         use: '',
+        hospital: localStorage.getItem('HOSPITAL_ID'),
         additional_notes: ''
     })
 
     const drugs = ref()
     const drug = ref()
-    const resetForm = () => {
-        data.value = {
-            name: '',
-            price: '',
-            category: '',
-            quantity: '',
-            use: '',
-            additional_note: ''
-        };
-    };
+
 
 
     const hospital_patient_count = ref()
@@ -56,7 +42,7 @@ export default function useHospital() {
     const reg_payment = ref([]);
     const count_all_hospitals = ref('')
     const is_loading = ref(false)
-
+    const hospital_edit = ref()
 
     const stock_drugs = async () => {
         try {
@@ -68,7 +54,9 @@ export default function useHospital() {
             $toast.success('Drugs has been added successfully', {
                 position: "top-right"
             })
-            resetForm()
+            setTimeout = () => {
+                window.location.reload()
+            }
         } catch (err) {
             alert(err.response.data.data.message);
         }
@@ -94,11 +82,13 @@ export default function useHospital() {
 
     const get_stock_drugs = async () => {
         try {
+            const hospitalId = localStorage.getItem('HOSPITAL_ID')
+
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/get_drugs/${hospitalId}`, config);
             drugs.value = response.data
         } catch (err) {
             alert(err.response.data.data.message);
@@ -119,36 +109,40 @@ export default function useHospital() {
         }
     }
 
-    const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
-        for (let i = 0; i < retries; i++) {
-            try {
-                const payment = await axios.get(`${import.meta.env.VITE_API}/payments/hospital/${hospitalId}`);
-                return payment.data;
-            } catch (e) {
-                await new Promise(res => setTimeout(res, delay));
-            }
-        }
-        throw new Error('Payment not found after waiting.');
-    };
+    // const waitForPayment = async (hospitalId, retries = 10, delay = 1000) => {
+    //     for (let i = 0; i < retries; i++) {
+    //         try {
+    //             const payment = await axios.get(`${import.meta.env.VITE_API}/payments/hospital/${hospitalId}`);
+    //             return payment.data;
+    //         } catch (e) {
+    //             await new Promise(res => setTimeout(res, delay));
+    //         }
+    //     }
+    //     throw new Error('Payment not found after waiting.');
+    // };
 
     const register_hospital = async () => {
         try {
             is_loading.value = true;
             const response = await axios.post(`${import.meta.env.VITE_API}/hospital`, input.value);
-            const hospitalData = response.data.hospital;
+            // const hospitalData = response.data.hospital;
 
             // Wait for the payment job to finish and fetch payment
-            const payment = await waitForPayment(hospitalData.id);
-            reg_payment.value = payment;
+            /*       const payment = await waitForPayment(hospitalData.id);
+                   reg_payment.value = payment;
 
-            window.location.href = payment.payment_url; // Redirect user to Paystack
-
-            $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });
-
+                   window.location.href = payment.payment_url; // Redirect user to Paystack
+                   $toast.success('Hospital registered! Redirecting to payment...', { position: "top-right" });*/
+            $toast.success('Your Hospital has been Registered successfully', {
+                position: "top-right"
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
         } catch (err) {
             is_loading.value = false;
             console.error('Error:', err);
-            $toast.error('Registration or payment initialization failed.', { position: "top-right" });
+            $toast.error(err.response.data.message, {position: "top-right"});
         }
     };
 
@@ -159,7 +153,7 @@ export default function useHospital() {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, onfig);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_hospital_patient`, config);
             hospital_patient_count.value = response.data
             console.log('Response:', response.data);
         } catch (err) {
@@ -198,16 +192,17 @@ export default function useHospital() {
     };
 
     const count_all_hospital_users = async () => {
+        const hospital_id = localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/count_all_hospital_users/${hospital_id}`, config);
             hospital_users.value = response.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     };
 
@@ -220,12 +215,13 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/registered_hospital`, config);
             registered_hospitals_data.value = response.data.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     };
 
+
     const count_hospital = async () => {
-        try{
+        try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -233,9 +229,48 @@ export default function useHospital() {
             const response = await axios.get(`${import.meta.env.VITE_API}/count_hospitals`, config);
             count_all_hospitals.value = response.data
         } catch (err) {
-            alert(err.response.data.message);
+            $toast.error(err.response.data.message);
         }
     }
+
+    const edit_hospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.get(`${import.meta.env.VITE_API}/edit_hospital/${id}`, config);
+            input.value = response.data.data
+        } catch (err) {
+            $toast.error(err.response.data.data.message);
+        }
+    }
+
+    const update_hospital = async (id) => {
+        try {
+            is_loading.value = true
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const response = await axios.patch(`${import.meta.env.VITE_API}/update_hospital/${id}`, input.value, config);
+            input.value = response.data.data
+            $toast.success('Hospital has been updated successfully', {
+                position: "top-right"
+            })
+            setTimeout(() => {
+                window.location.reload()
+
+            }, 1000)
+        } catch (err) {
+            is_loading.value = false
+            alert(err.response.data.data.message);
+            $toast.error(err.response.data.data.message, {
+                position: "top-right"
+            })
+        }
+    }
+
 
     const delete_hospital = async (id) => {
         try {
@@ -284,7 +319,9 @@ export default function useHospital() {
         count_all_hospitals,
         count_hospital,
         is_loading,
-        plan_input
+        edit_hospital,
+        update_hospital,
+
 
     }
 }

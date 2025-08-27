@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hospital_id');
-            $table->string('amount')->nullable();
-            $table->string('status')->default('pending');
-            $table->string('payment_method')->default('paystack');
-            $table->string('payment_type')->nullable();
-            $table->string('payment_url')->nullable();
-            $table->string('reference')->nullable();
-            $table->json('response')->nullable();
+            $table->string('subscription_type_id');
+            $table->string('status');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->string('reference');
             $table->timestamps();
         });
     }

@@ -2,7 +2,8 @@
 import useSession from "@/composerbles/useSession.js";
 import useAuth from "@/composerbles/useAuth.js";
 
-import { useRoute } from 'vue-router';
+import {useRoute} from 'vue-router';
+
 const route = useRoute();
 
 const {isLoggedIn} = useSession();
@@ -19,7 +20,7 @@ const {logout} = useAuth()
         <!-- Brand/Logo -->
         <a class="navbar-brand d-flex align-items-center" href="#">
           <RouterLink to="/" class="logo d-flex align-items-center me-auto text-decoration-none">
-          <h1 class="sitename text-primary m-0">Swift Care</h1>
+            <h1 class="sitename text-primary m-0">Swift Care</h1>
           </RouterLink>
         </a>
 
@@ -33,25 +34,24 @@ const {logout} = useAuth()
         <!-- Navigation items -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#hero" class="nav-link active">Home</a>
             </li>
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#about" class="nav-link">About</a>
             </li>
 
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#services" class="nav-link">Services</a>
             </li>
-            <li class="nav-item" v-if="route.name !== 'register_hospital'">
+            <li class="nav-item" v-if="route.name !== 'update_plan' && route.name !== 'register_hospital'">
               <a href="#contact" class="nav-link">Contact</a>
             </li>
-            <li class="nav-item" v-if="!isLoggedIn">
-              <RouterLink to="dashboard" class="nav-link">Dashboard</RouterLink>
+            <li class="nav-item">
+              <RouterLink to="/request/hospital" class="nav-link">Request Hospital</RouterLink>
             </li>
-
-            <li class="nav-item" v-if="isLoggedIn">
-              <RouterLink to="/login" class="nav-link">Login</RouterLink>
+            <li class="nav-item" v-if="!isLoggedIn">
+              <RouterLink to="/dashboard" class="nav-link">Dashboard</RouterLink>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <RouterLink to="/register_hospital" class="nav-link">Register Hospital</RouterLink>
@@ -59,15 +59,25 @@ const {logout} = useAuth()
             <li class="nav-item">
               <RouterLink to="/update_plan" class="nav-link">Update Plan</RouterLink>
             </li>
+
+
           </ul>
 
           <!-- Right side items -->
+
+
           <div class="profile-section" v-if="!isLoggedIn">
             <div class="dropdown">
               <button class="profile-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="profile-text">Profile</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end profile-menu">
+                <li class="dropdown-item-wrapper">
+                  <RouterLink to="/dashboard" class="logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Dashboard</span>
+                  </RouterLink>
+                </li>
                 <li class="dropdown-item-wrapper">
                   <button class="logout-btn" @click="logout">
                     <i class="bi bi-box-arrow-right"></i>
@@ -77,7 +87,19 @@ const {logout} = useAuth()
               </ul>
             </div>
           </div>
-      </div>
+        </div>
+
+        <div class="profile-section" v-if="isLoggedIn">
+          <ul class="">
+            <li class="">
+              <RouterLink to="/login" class="btn btn-primary">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Login</span>
+              </RouterLink>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </nav>
   </header>
@@ -170,7 +192,7 @@ const {logout} = useAuth()
   margin-top: 0.5rem;
   background: white;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .dropdown-item-wrapper {

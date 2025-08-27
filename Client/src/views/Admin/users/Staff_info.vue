@@ -4,7 +4,7 @@ import useAuth from "@/composerbles/useAuth.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composerbles/useSession.js";
-import UpdateUserRole from "@/components/updateUserRole.vue";
+import UpdateUser from "@/components/updateUser.vue";
 
 const {staffs, all_staff, delete_user} = useAuth();
 const {userRole} = useSession()
@@ -16,7 +16,7 @@ const selectedUserId = ref(null); // Add this line to track the selected user ID
 onMounted(staffs);
 
 const openEditModal = (user) => {
-  selectedUserId.value = user.id; // Store the user ID when opening modal
+  selectedUserId.value = user.id;
   modal.value = true;
 };
 
@@ -63,7 +63,7 @@ const searchResults = computed(() => {
           <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0" v-if=" userRole !=='Admin'">Staff List</h5>
-              <h5 class="card-title mb-0"  v-else >Admin  List</h5>
+              <h5 class="card-title mb-0" v-else>Admin List</h5>
 
               <div class="search-box">
                 <div class="input-group">
@@ -89,11 +89,10 @@ const searchResults = computed(() => {
                   <th class="py-3">Full Name</th>
                   <th class="py-3">Date of Birth</th>
                   <th class="py-3">Gender</th>
-                  <th class="py-3">Role</th>
+                  <th class="py-3">Position</th>
                   <th class="py-3">Email</th>
-                  <th class="py-3">Staff ID</th>
-                  <th class="py-3">Hospital</th>
-                  <th class="py-3" v-if="userRole == 'Admin' || userRole == 'Manager'">Actions</th>
+                  <th class="py-3">Contact</th>
+                  <th class="py-3">Unique ID</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,48 +105,36 @@ const searchResults = computed(() => {
                       <div class="fw-medium">{{ item.first_name }} {{ item.last_name }}</div>
                     </div>
                   </td>
-                  <td>{{ item.birthday }}</td>
+                  <td>{{ item.date_of_birth }}</td>
                   <td>{{ item.gender }}</td>
                   <td>
                     <span class="badge rounded-pill" :class="{
-                      'bg-primary text-white': item.role === 'Doctor',
-                      'bg-teal text-white': item.role === 'Nurse',
-                      'bg-orange text-white': item.role === 'Account',
-                      'bg-purple text-white': item.role === 'Pharmacist',
-                      'bg-pink text-white': item.role === 'Manager',
-                      'bg-secondary text-white': item.role === 'Lab Technician',
-                      'bg-warning text-white': item.role === 'Accountant',
-                      'bg-dark text-white': item.role === 'Admin',
-                      'bg-success text-white': item.role === 'Receptionist'
-
-
-
+                      'bg-primary text-white': item.position === 'Doctor',
+                      'bg-teal text-white': item.position === 'Nurse',
+                      'bg-orange text-white': item.position === 'Account',
+                      'bg-purple text-white': item.position === 'Pharmacist',
+                      'bg-pink text-white': item.position === 'Manager',
+                      'bg-secondary text-white': item.position === 'Lab Technician',
+                      'bg-warning text-white': item.position === 'Accountant',
+                      'bg-dark text-white': item.position === 'Admin',
+                      'bg-success text-white': item.position === 'Receptionist'
                     }">
-                      {{ item.role }}
+                      {{ item.position }}
                     </span>
                   </td>
                   <td>{{ item.email }}</td>
-                  <td>{{ item.staff_id }}</td>
-                  <td>{{ item.hospital_id }}</td>
                   <td>
-                    <div v-if="userRole == 'Admin' || userRole == 'Manager'" class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
-                        <i class="bi bi-pencil-square me-1"></i>
-                        Edit
-                      </button>
-                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash me-1"></i>
-                        Delete Staff
-                      </button>
-                    </div>
+                    <a :href="`tel:${item.contact }`">{{item.contact }}</a>
+
                   </td>
+                  <td>{{ item.unique_id }}</td>
                 </tr>
                 </tbody>
               </table>
             </div>
             <div v-if="modal" class="modal-overlay">
               <div class="modal-content">
-                <update-user-role v-if="modal" v-model="modal" :id="selectedUserId"/>
+                <update-user v-if="modal" v-model="modal" :id="selectedUserId"/>
 
               </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -91,16 +92,15 @@ class User extends Authenticatable
         'last_name',
         'other_names',
         'contact',
-        'birthday',
+        'date_of_birth',
         'gender',
-        'hospital_id',
-        'role',
+//        'hospital_id',
+        'position',
+        'status',
         'email',
-        'staff_id',
+        'unique_id',
         'password',
-
     ];
-    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -109,7 +109,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -125,32 +124,56 @@ class User extends Authenticatable
         ];
     }
 
-    protected static function booted()
-    {
-        static::creating(function ($record): void {
-            $user = auth()->user();
-            if ($user && $user->role === 'Doctor') {
-                $record->user_id = $user->id;
-            }
-            if (empty($record->hospital_id) && Auth::check()) {
-                $record->hospital_id = Auth::user()->hospital_id;
-            }
-        });
-    }
-
     public function Sluggable(): array
     {
         return [
-            'hospital_id' => [
-                'source' => Auth::user()->hospital_id,
+            'unique_id' => [
+                'source' => 'unique_id',
             ],
         ];
 
     }
 
-    public function hospital(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected static function booted()
     {
-        return $this->belongsTo(Hospital::class);
+        static::creating(function ($record): void {
+        /*    $user = auth()->user();
+            if ($user && $user->role === 'Doctor') {
+                $record->user_id = $user->id;
+            }
+            if (empty($record->hospital_id) && Auth::check()) {
+                $record->hospital_id = Auth::user()->hospital_id;
+            }*/
+        });
+        static::creating(function ($user): void{
+            $user->unique_id = $user->generateUnique_id();
+        });
+    }
 
+
+    public function generateUnique_id()
+    {
+        $length = 7;
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $unique_id = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $unique_id .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+
+        // Check if the generated patient number already exists in the database
+        while (User::where('unique_id', $unique_id)->exists()) {
+            $unique_id = '';
+            for ($i = 0; $i < $length; $i++) {
+                $unique_id .= $characters[random_int(0, strlen($characters) - 1)];
+            }
+        }
+        return $unique_id;
+    }
+
+
+    public function hospitals()
+    {
+        return $this->belongsToMany(Hospital::class)->withTimestamps();
     }
 }

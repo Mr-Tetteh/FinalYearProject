@@ -38,7 +38,7 @@ class Patients extends Model
         'guardian2_last_name',
         'guardian2_other_names',
         'guardian2_relation',
-        'guardian1_residential_address',
+        'guardian2_residential_address',
         'guardian2_contact',
         'activated_at',
     ];
@@ -49,9 +49,9 @@ class Patients extends Model
             'patient_number' => [
                 'source' => 'patient_number',
             ],
-            'patient_hospital' => [
-                'source' => Auth::user()->hospital_id,
-            ],
+//            'patient_hospital' => [
+//                'source' => Auth::user()->hospital_id,
+//            ],
         ];
     }
 
@@ -59,7 +59,7 @@ class Patients extends Model
     {
         static::creating(function ($patient): void {
             $patient->patient_number = $patient->generateUniquePatientNumber();
-            $patient->hospital = Auth::user()->hospital_id;
+//            $patient->hospital = Auth::user()->hospital_id;
         });
     }
 

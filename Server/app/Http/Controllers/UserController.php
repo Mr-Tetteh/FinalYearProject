@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StaffRegistrationRequest;
+use App\Jobs\InitUniqueIdSMSJB;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -63,12 +64,30 @@ class UserController extends Controller
      */
     public function register(StaffRegistrationRequest $request)
     {
-        $data = $request->validated();
+        $request->validated();
+        $user = User::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'other_names' => $request->input('other_names'),
+            'contact' => '233' . substr($request->input('contact'), -9),
+            'date_of_birth' => $request->input('date_of_birth'),
+            'gender' => $request->input('gender'),
+            'position' => $request->input('position'),
+//            'hospital_id' => $request->input('hospital_id'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
 
-        $user = User::create($data);
+        sendWithSMSONLINEGH('233' . substr(($user->contact), -9), 'Dear ' . $user->first_name . ', Your account has been created successfully. You will receive a notification when your account is activated. Thank you!');
 
+        sendWithSMSONLINEGH(
+            '233' . substr($user->contact, -9),
+            'Hello ' . $user->first_name . ', your UniqueID is ' . $user->unique_id . '. Please save your UniqueID Thank you!'
+        );
         return new UserResource($user);
+
     }
+
 
     public function resetPassword(Request $request)
     {
@@ -161,16 +180,16 @@ class UserController extends Controller
      */
     public function all_users()
     {
-        $user = User::all();
-
+        $user = User::latest()->get();
         return UserResource::collection($user);
     }
 
-    public function all_staff()
+    public function all_staff($id)
     {
-        $loggedInUser = Auth::user();
 
-        $all_staff = User::where('hospital_id', $loggedInUser->hospital_id)->latest()->get();
+        $all_staff = User::whereHas('hospitals', function ($query) use ($id) {
+            $query->where('hospitals.id', $id);
+        })->get();
 
         return UserResource::collection($all_staff);
     }
@@ -178,20 +197,34 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = User::where('staff_id', $request->identifier)
+            $user = User::where('email', $request->identifier)
                 ->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
-                    'message' => 'Sorry Wrong Staff ID or Password',
+                    'message' => 'Sorry Wrong Email or Password',
                 ], 401);
             }
 
-            if (!$user->hospital || !$user->hospital->status) {
+            if ($user->status === 0) {
                 return response()->json([
-                    'message' => 'Sorry your hospital subscription has expired or is inactive'
+                    'message' => 'Sorry your account has not been activated yet. Please contact your administrator.',
+                ], 403);
+
+            }
+
+            // Check if user has any hospitals associated
+
+            if ($user->hospitals()->count() === 0) {
+                return response()->json([
+                    'message' => 'Sorry, your account is not associated with any hospital. Please contact your administrator.',
                 ], 403);
             }
+            /*  if ($user->hospital_id->status === 0) {
+                  return response()->json([
+                      'message' => 'Sorry your hospital subscription has expired or is inactive'
+                  ], 403);
+              }*/
 
             return response()->json([
                 'message' => 'Login Successful',
@@ -204,7 +237,6 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'Something went wrong',
-                logger($th->getMessage()),
             ], 500);
         }
     }
@@ -217,19 +249,32 @@ class UserController extends Controller
 
     }
 
-    public function count_all_hospital_users()
+    public function count_all_hospital_users($id)
     {
-        $user = Auth::user();
-        $user = User::where('hospital_id', $user->hospital_id)->count();
+        $count = User::whereHas('hospitals', function ($query) use ($id) {
+            $query->where('hospitals.id', $id);
+        })->count();
 
-        return response()->json($user);
-
+        return response()->json($count);
     }
 
-    public function user()
-    {
-        return Auth::user();
 
+    public function getUserHospital($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $hospitals = $user->hospitals()->where('status', 1)->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $hospitals
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to fetch user hospitals',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function logout()
@@ -249,12 +294,55 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update_role(User $user, Request $request)
+    public function activate_user(User $user, Request $request)
     {
-        $user->update($request->all());
+        // Update user data
+        $user->update($request->except('hospital_ids'));
+
+        // Sync hospitals if hospital_ids are provided
+        if ($request->has('hospital_ids')) {
+            $user->hospitals()->sync($request->hospital_ids);
+        }
+
+        // Load the updated user with hospitals relationship
+        $user->load('hospitals');
+
+        $url = 'http://localhost:5173/request/hospital';
+        sendWithSMSONLINEGH('233' . substr(($request->contact), -9), 'Dear ' . $request->first_name . ', Your account has been activated. Please make sure you are assigned to a hospital to enable you access a hospital portal. You can also request to work in a hospital '. $url .' Thank you!');
 
         return new UserResource($user);
+    }
 
+
+    public function add_staff_hospital(User $user, Request $request)
+    {
+        // Validate that hospital_id is provided
+        $request->validate([
+            'hospital_id' => 'required|exists:hospitals,id'
+        ]);
+
+        // Check if this hospital assignment already exists
+        $existingAssignment = $user->hospitals()
+            ->where('hospital_id', $request->hospital_id)
+            ->exists();
+
+        if ($existingAssignment) {
+            return response()->json([
+                'message' => 'This user is already assigned to the selected hospital.'
+            ], 422);
+        }
+
+        // Attach the new hospital without detaching existing ones
+        $user->hospitals()->attach($request->hospital_id);
+        // Reload the user with hospitals relationship
+        $user->load('hospitals');
+        // Send notification
+        sendWithSMSONLINEGH(
+            '233' . substr($user->contact, -9),
+            'Dear ' . $user->first_name . ', You have been assigned to a hospital. Please login to view your assignments. Thank you!'
+        );
+
+        return new UserResource($user);
     }
 
     public function deleted_users()
@@ -263,16 +351,16 @@ class UserController extends Controller
 
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if ($user->delete()) {
-            return response()->json([
-                'message' => 'User deleted successfully',
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'User not deleted',
-            ], 500);
-        }
+        $user = User::find($id);
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ]);
     }
+
+
 }

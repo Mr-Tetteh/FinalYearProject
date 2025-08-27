@@ -14,7 +14,7 @@ export default function usePatients() {
         patient_number: "",
         age: "",
         gender: "",
-        hospital: "",
+        hospital: localStorage.getItem('HOSPITAL_ID'),
         date_of_birth: "",
         contact: "",
         email: "",
@@ -189,13 +189,14 @@ export default function usePatients() {
     }
 
     const hospital_patient = async () => {
+        const id = localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            let response = await axios.get(`${import.meta.env.VITE_API}/hospital_patients`, config)
+            let response = await axios.get(`${import.meta.env.VITE_API}/hospital_patients/${id}`, config)
             all_hospital_patient.value = response.data.data
         } catch (err) {
             alert(err.response.data.data)

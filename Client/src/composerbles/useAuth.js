@@ -24,20 +24,23 @@ export default function useAuth() {
         last_name: "",
         other_names: '',
         contact: "",
-        birthday: "",
+        date_of_birth: "",
         email: "",
         gender: "",
-        role: "",
-        hospital_id: "",
-        staff_id: "",
-        password: "my_name_is_jesus",
+        position: "",
+        password: "",
+        confirm_password: "",
     })
-    const role = ref({
-        role: ''
+    const position = ref({
+        position: ''
     })
 
     const hospitals_in_system = ref([])
-    let userData = ref(null)
+    let userData = ref({
+        hospital_id: ''
+    })
+    const is_loading = ref(false);
+    const user_hospital_get = ref('');
 
     const login = async () => {
         try {
@@ -48,14 +51,14 @@ export default function useAuth() {
 
             const token = response.data.authorisation.token;
             localStorage.setItem('AUTH_TOKEN', token);
-            localStorage.setItem('USER_TYPE', response.data.user.role);
+            localStorage.setItem('USER_TYPE', response.data.user.position);
             localStorage.setItem('USER_NAME', response.data.user.first_name);
             localStorage.setItem('LAST_NAME', response.data.user.last_name);
             localStorage.setItem('USER_ID', response.data.user.id);
-            localStorage.setItem('HOSPITAL_ID', response.data.user.hospital.id);
+            localStorage.setItem('UNIQUE_ID', response.data.user.unique_id);
 
-            $toast.success('Login Successfully', { position: 'top-right' });
-            await router.push('/dashboard');
+            $toast.success('Login Successfully', {position: 'top-right'});
+            await router.push('/select/hospital');
         } catch (err) {
             $toast.error(err?.response?.data?.message || 'Login failed', {
                 position: 'top-right',
@@ -104,7 +107,7 @@ export default function useAuth() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/all_users`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/view_all_users`, config);
             all_users.value = response.data.data
 
         } catch (err) {
@@ -116,12 +119,13 @@ export default function useAuth() {
     }
 
     const staffs = async () => {
+        const $id = localStorage.getItem('HOSPITAL_ID')
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/all_staff`, config);
+            const response = await axios.get(`${import.meta.env.VITE_API}/all_staff/${$id}`, config);
             all_staff.value = response.data.data
 
         } catch (err) {
@@ -201,16 +205,17 @@ export default function useAuth() {
 
     }
 
-    const update_role = async (id) => {
+    const activate_user = async (id) => {
+        is_loading.value = true;
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
 
-            const response = await axios.patch(`${import.meta.env.VITE_API}/update_role/${id}`, userData.value, config)
+            const response = await axios.patch(`${import.meta.env.VITE_API}/activate_user/${id}`, userData.value, config)
 
-            $toast.success('User Role Updated Successfully', {
+            $toast.success('User profile updated successfully', {
                 position: 'top-right',
             });
 
@@ -218,42 +223,82 @@ export default function useAuth() {
                 window.location.reload()
             }, 1000)
         } catch (err) {
+            is_loading.value = false;
             const errorMessage = err.response?.data?.message || 'Failed to update user role';
             $toast.error(errorMessage, {
                 position: 'top-right',
             });
         }
     }
-    const register = async () => {
+
+    const add_staff_hospital_user = async (id) => {
+        is_loading.value = true;
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
-            if (response) {
-                $toast.error(response.data.message, {
-                    position: 'top-right',
-                    pauseOnHover: true
-                })
-            }
-            $toast.success('Staff Registered Successfully', {
+
+         if (!userData.value || !userData.value.hospital_id) {
+             return $toast.error('Please select a hospital', {
+                 position: 'top-right',
+             });
+         }
+            const response = await axios.patch(`${import.meta.env.VITE_API}/add_staff_hospital/${id}`, userData.value, config)
+
+            $toast.success('User hospital added successfully', {
                 position: 'top-right',
-                pauseOnHover: true
-            })
+            });
+
             setTimeout(() => {
                 window.location.reload()
             }, 1000)
-
         } catch (err) {
-            $toast.error(err.response.data.message, {
+            is_loading.value = false;
+            const errorMessage = err.response?.data?.message || 'Failed to update user role';
+            $toast.error(errorMessage, {
                 position: 'top-right',
-            })
+            });
         }
-
-
     }
 
+    const register = async () => {
+        try {
+            is_loading.value = true;
+
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            let response = await axios.post(`${import.meta.env.VITE_API}/users`, input.value, config)
+            $toast.success("Staff Registered Successfully", {
+                position: 'top-right',
+            });
+            setTimeout(() => {
+                window.location.reload(); // or router.push('/somewhere')
+            }, 1000);
+
+        } catch (err) {
+            $toast.error(err?.response?.data?.message || "Something went wrong", {
+                position: 'top-right',
+            });
+            is_loading.value = false;
+        }
+    };
+
+    const GetUserHospital = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+
+            const response = await axios.get(`${import.meta.env.VITE_API}/getUserHospital/${id}`, config);
+            user_hospital_get.value = response.data.data;
+        }catch (error) {
+            console.error("Error fetching user hospital:", error);
+        }
+    }
 
     return {
         user,
@@ -272,9 +317,13 @@ export default function useAuth() {
         setPass,
         reset,
         delete_user,
-        update_role,
+        activate_user,
         userData,
-        view_role
+        view_role,
+        is_loading,
+        GetUserHospital,
+        user_hospital_get,
+        add_staff_hospital_user
     }
 
 

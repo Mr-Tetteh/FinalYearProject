@@ -39,6 +39,8 @@ return new class extends Migration
             $table->string('medical_history')->nullable();
             $table->string('additional_notes')->nullable();
             $table->boolean('status')->default(false);
+            $table->string('activated_at')->nullable();
+
             $table->timestamps();
         });
     }

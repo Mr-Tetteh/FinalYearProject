@@ -159,6 +159,7 @@
       <path value="$PROJECT_DIR$/Server/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/Server/vendor/rector/rector" />
       <path value="$PROJECT_DIR$/Server/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/Server/vendor/unicodeveloper/laravel-paystack" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

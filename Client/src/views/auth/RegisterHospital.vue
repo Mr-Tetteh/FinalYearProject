@@ -2,7 +2,8 @@
 import NavBar from "@/components/NavBar.vue";
 import useHospital from "@/composerbles/useHospital.js";
 import {computed, ref} from "vue";
-const { input, register_hospital, is_loading } = useHospital();
+
+const {input, register_hospital, is_loading} = useHospital();
 
 
 const hospital = () => {
@@ -220,7 +221,7 @@ const constituencies = [
   "SENE WEST",
   "SENE EAST",
   "TECHIMAN NORTH",
-    "BUEM",
+  "BUEM",
   "BIAKOYE",
   "AKAN",
   "KRACHI EAST",
@@ -287,19 +288,20 @@ const constituencies = [
   "BINDURI"
 
 
-
 ];
 
 
 const filteredConstituencies = computed(() => {
-  return constituencies.filter((constituency) => constituency.toLowerCase().includes(input.value.hospital_country.toLowerCase()));
+  return constituencies.filter((constituency) => constituency.toLowerCase().includes(input.value.hospital_consistency.toLowerCase()));
 })
+
+
 
 
 </script>
 
 <template>
-  <NavBar />
+  <NavBar/>
   <div class="register-page d-flex align-items-center justify-content-center min-vh-100">
     <div class="card animated-card shadow-lg" style="max-width: 800px; width: 100%;">
       <!-- Card Header with Gradient -->
@@ -356,7 +358,6 @@ const filteredConstituencies = computed(() => {
                   v-model="input.hospital_address"
                   class="form-control form-control-lg"
                   placeholder=" "
-                  @input="input.hospital_address = input.hospital_address.replace(/[^a-zA-Z\s]/g, '')"
               />
               <label for="hospital_address" class="fw-semibold">Hospital Address</label>
               <div class="form-icon">
@@ -407,7 +408,7 @@ const filteredConstituencies = computed(() => {
               <input
                   id="hospital_country"
                   type="text"
-                  v-model="input.hospital_country"
+                  v-model="input.hospital_consistency"
                   class="form-control form-control-lg"
                   placeholder=" "
                   @input="filterConstituencies"
@@ -416,13 +417,13 @@ const filteredConstituencies = computed(() => {
               <div class="form-icon">
                 <i class="fas fa-globe-africa"></i>
               </div>
-              <div v-if="input.hospital_country" class="dropdown-options mt-2">
+              <div v-if="input.hospital_consistency" class="dropdown-options mt-2 ">
                 <div
                     v-for="constituency in filteredConstituencies"
-                    @click="input.hospital_country = constituency"
+                    @click="input.hospital_consistency = constituency"
                     class="dropdown-item"
                 >
-                  {{constituency}}
+                  {{ constituency }}
                 </div>
               </div>
             </div>
@@ -442,26 +443,6 @@ const filteredConstituencies = computed(() => {
               <label for="hospital_city" class="fw-semibold">City</label>
               <div class="form-icon">
                 <i class="fas fa-city"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Monthly Payment -->
-          <div class="col-12">
-            <div class="form-floating">
-              <select
-                  id="monthly_subscription"
-                  class="form-select form-select-lg"
-                  v-model="input.number_of_monthly_subscription"
-              >
-                <option value="" disabled selected></option>
-                <option value="50">1 Month - GHC50</option>
-                <option value="150">6 Months - GHC150</option>
-                <option value="250">1 Year - GHC250</option>
-              </select>
-              <label for="monthly_subscription" class="fw-semibold">Monthly Payment Plan</label>
-              <div class="form-icon">
-                <i class="fas fa-credit-card"></i>
               </div>
             </div>
           </div>

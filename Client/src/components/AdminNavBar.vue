@@ -2,7 +2,7 @@
 import useSession from "@/composerbles/useSession.js";
 import {ref} from 'vue';
 
-const {hospital} = useSession();
+const {hospital,  unique_id} = useSession();
 const {userRole} = useSession()
 const isCollapsed = ref(false);
 const toggleSidebar = () => {
@@ -24,6 +24,10 @@ const toggleSidebar = () => {
           <h5 class="hospital-name" v-if="userRole === 'Admin'">Admin</h5>
           <h5 class="hospital-name" v-else>{{ hospital }} Hospital</h5>
         </div>
+      </div>
+
+      <div class="ml-5">
+      <span class="fw-bold ml-5">Unique ID:</span> <span>{{unique_id}}</span>
       </div>
 
       <!-- Sidebar Menu -->
@@ -78,10 +82,6 @@ const toggleSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink v-if="userRole === 'Admin' || userRole === 'Manager'" to="/register" class="submenu-item">
-                <i class="bi bi-person-plus"></i>
-                <span>Register Staff</span>
-              </RouterLink>
               <RouterLink to="/staff_info" class="submenu-item" v-if="userRole === 'Admin'">
                 <i class="bi bi-people"></i>
                 <span>All Admin Users</span>
@@ -90,6 +90,7 @@ const toggleSidebar = () => {
                 <i class="bi bi-people"></i>
                 <span>All Staff</span>
               </RouterLink>
+
               <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
                 <i class="bi bi-person-lines-fill"></i>
                 <span>All Users</span>
@@ -145,6 +146,11 @@ const toggleSidebar = () => {
               <RouterLink to="/registered_hospitals" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
+              </RouterLink>
+
+              <RouterLink to="/staff/request" class="submenu-item" v-if="userRole === 'Admin'">
+                <i class="bi bi-patch-question-fill"></i>
+                <span>Staff Requests</span>
               </RouterLink>
             </div>
           </div>

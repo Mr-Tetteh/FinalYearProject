@@ -44,7 +44,14 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::all();
+        $hospitals = Hospital::where('id' , '!=', 1)->get();
+
+        return HospitalResource::collection($hospitals);
+    }
+
+    public function all_request_hospitals()
+    {
+        $hospitals = Hospital::where('id' , '!=', 1)->get();
 
         return HospitalResource::collection($hospitals);
     }
@@ -95,24 +102,25 @@ class HospitalController extends Controller
      */
     public function store(StoreHospitalRegistration $request)
     {
+        $request->validated();
         $hospital = Hospital::create([
             'hospital_name' => $request->input('hospital_name'),
             'hospital_address' => $request->input('hospital_address'),
-            'hospital_contact' => $request->input('hospital_contact'),
+            'hospital_contact' => '233' . substr($request->input('hospital_contact'), -9),
             'hospital_email' => $request->input('hospital_email'),
             'hospital_location' => $request->input('hospital_location'),
-            'hospital_consistency' => $request->input('hospital_country'),
+            'hospital_consistency' => $request->input('hospital_consistency'),
             'hospital_city' => $request->input('hospital_city'),
             'status' => $request->input('status'),
-            'number_of_monthly_subscription' => $request->input('number_of_monthly_subscription'),
         ]);
+        sendWithSMSONLINEGH(
+            '233' . substr(($request->input('hospital_contact')), -9),
+            "Dear {$request->input('hospital_name')}, your hospital registration is successful. Please wait while we approve your registration. You can make subscription  after your hospital is approved 'Thanks for cooperation! Thank you for choosing us!"
+        );
 
-        InitPaymentJB::dispatch($hospital);
+//        InitPaymentJB::dispatch($hospital);
 
-        return response()->json([
-            'message' => 'Hospital created successfully',
-            'hospital' => $hospital,
-        ], 201);
+        return new HospitalResource($hospital);
     }
 
     public function hospital_count()
@@ -122,6 +130,7 @@ class HospitalController extends Controller
         return response()->json($count_hospital);
 
     }
+
     /**
      * Display the specified resource.
      */
@@ -135,18 +144,46 @@ class HospitalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Hospital $hosptial)
+    public function edit(Hospital $hospital)
     {
-        //
+        return new HospitalResource($hospital);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateHosptialRequest $request, Hospital $hosptial)
+    public function update(Request $request, Hospital $hospital)
     {
-        //
+        $update_url = "https://codeprince.me/update_plan";
+
+        $hospital->update([
+            'hospital_name' => $request->input('hospital_name'),
+            'hospital_address' => $request->input('hospital_address'),
+            'hospital_contact' => $request->input('hospital_contact'),
+            'hospital_email' => $request->input('hospital_email'),
+            'hospital_location' => $request->input('hospital_location'),
+            'hospital_country' => $request->input('hospital_country'),
+            'hospital_city' => $request->input('hospital_city'),
+            'status' => $request->input('status'),
+        ]);
+
+        sendWithSMSONLINEGH(
+            '233' . substr(($request->input('hospital_contact')), -9),
+            'Dear ' . $request->input('hospital_name') . ', your hospital registration has been approved. You can proceed to make your subscription payment Thank you for choosing us!' . $update_url . '.'
+        );
+        return new HospitalResource($hospital);
     }
+
+//    public function check_status($id)
+//    {
+//        $hospital = Hospital::find($id)->first();
+//
+//        if (!$hospital->approved) {
+//            return response()->json([
+//                'message' => 'Sorry, your hospital has not been approved'
+//            ], 403);
+//        }
+//    }
 
     /**
      * Remove the specified resource from storage.

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->timestamp('activated_at')->nullable();
+        Schema::create('labs', function (Blueprint $table) {
+            $table->id();
+            $table->string('patient_id');
+            $table->string('patient_record_id');
+            $table->string('lab_name');
+            $table->longText('lab_report');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->dropColumn('activated_at');
-        });
+        Schema::dropIfExists('labs');
     }
 };
