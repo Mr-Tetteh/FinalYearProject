@@ -2,57 +2,50 @@
 
 ```mermaid
 flowchart LR
+  %% Three-tier architecture: Presentation → Application → Data
+
   Browser["End User Browser"]
 
-  subgraph Client["Client: Vue 3 SPA (Vite)"]
-    UI["Views, Components, Router, Stores"]
+  subgraph Presentation["Presentation Tier"]
+    Client["Vue 3 SPA (Vite): Views · Components · Router · Stores"]
   end
 
-  subgraph Server["Server: Laravel API"]
+  subgraph Application["Application Tier (Laravel)"]
     API["HTTP API (routes/api.php)"]
-    MW["CORS Middleware"]
-    CTRLS["Controllers: Users, Patients, Hospitals, Pharmacy, Payments, Records"]
-    AUTH["Auth & Tokens (Sanctum)"]
-    POL["Policies (PatientsPolicy, HosptialPolicy)"]
-    RES["API Resources/Transformers"]
-    JOBS["Jobs & Queue (InitPaymentJB, DB queue)"]
-    CON["Console/Scheduler (DeactivateExpiredPatients)"]
+    MW["Middleware (CORS, Auth)"]
+    CTRLS["Controllers (Users, Patients, Hospitals, Pharmacy, Payments, Records)"]
+    AUTH["Sanctum Tokens"]
+    POL["Policies"]
+    RES["API Resources"]
+    JOBS["Jobs / Queue"]
+    CON["Console / Scheduler"]
     SWAG["API Docs (l5-swagger)"]
   end
 
-  subgraph Data["Data Layer"]
-    DB["Relational DB (migrations, seeders, personal_access_tokens)"]
-    STOR["Storage: logs, cache, sessions, views"]
+  subgraph Data["Data Tier"]
+    DB["Relational DB (migrations, seeders, tokens)"]
+    STOR["App Storage (logs, cache, sessions, views)"]
   end
 
-  subgraph External["External Services"]
-    PAY["Paystack Payments"]
-    MAIL["Mail Provider (per mail.php)"]
+  subgraph External["External Integrations"]
+    PAY["Paystack"]
+    MAIL["Mail Provider"]
   end
 
-  Browser --> Client
+  %% Flows across tiers
+  Browser --> Presentation
   Client -->|"HTTP/JSON"| API
-
-  API --> MW
-  MW --> CTRLS
-
+  API --> MW --> CTRLS
   CTRLS -->|"authorize"| POL
   CTRLS -->|"issue/validate"| AUTH
   CTRLS --> RES
   CTRLS --> DB
-  CTRLS --> PAY
-
-  AUTH --> DB
-
-  JOBS --> PAY
+  Application --> STOR
   JOBS --> DB
-
   CON --> DB
 
-  Server --> STOR
-
-  API -. reference .-> SWAG
-
-  PAY -. callbacks/webhooks (future) .- Client
+  %% External interactions
+  CTRLS --> PAY
   PAY -. receipts/notifications .- MAIL
+  API -. reference .-> SWAG
 ```
