@@ -76,10 +76,17 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::patch('request_update/{id}', [HospitalRequestController::class, 'update']);
     Route::delete('delete/{id}', [HospitalRequestController::class, 'delete']);
 
-    Route::get('fetchLab', [\App\Http\Controllers\LabManagement::class, 'fetchLabManagement']);
-    Route::get('edit/{id}',[\App\Http\Controllers\LabManagement::class, 'show']);
+    Route::get('fetchLab/{id}', [\App\Http\Controllers\LabManagement::class, 'fetchLabManagement']);
+    Route::get('edit/{id}', [\App\Http\Controllers\LabManagement::class, 'show']);
     Route::post('lab/create', [\App\Http\Controllers\LabManagement::class, 'create']);
     Route::delete('lab/{id}', [\App\Http\Controllers\LabManagement::class, 'delete']);
     Route::put('update/{id}', [\App\Http\Controllers\LabManagement::class, 'update']);
+
+    Route::get('fetchService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'index']);
+    Route::get('editService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'show']);
+    Route::post('service/create/', [\App\Http\Controllers\ServiceManagement::class, 'create']);
+    Route::put('updateService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'update']);
+    Route::delete('deleteService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'delete']);
+
 
 });

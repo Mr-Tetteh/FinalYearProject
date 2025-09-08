@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LabManagement extends Model
+class ServiceManagement extends Model
 {
     protected $fillable = ['hospital_id', 'name', 'price'];
+
 }

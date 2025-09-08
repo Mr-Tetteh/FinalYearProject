@@ -152,6 +152,9 @@ onMounted(() => {
                 </tr>
                 </tbody>
               </table>
+                <div v-if="!labs.length" class="text-center text-muted py-4">
+                <span class="fs-5"> No lab records found.</span>
+              </div>
             </div>
           </div>
         </div>

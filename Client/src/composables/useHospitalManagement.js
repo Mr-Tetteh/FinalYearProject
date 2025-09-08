@@ -6,9 +6,15 @@ const toast = useToast();
 
 export default function useHospitalManagement() {
     const lab = ref({
+        hospital_id: localStorage.getItem("HOSPITAL_ID"),
         name: "",
         price: ""
     });
+    const service = ref({
+        hospital_id: localStorage.getItem("HOSPITAL_ID"),
+        name: "",
+        price: ""
+    })
     const labs = ref([]);   // 👈 array for table
     const isEdit = ref(false);
 
@@ -24,31 +30,27 @@ export default function useHospitalManagement() {
                 lab.value,
                 config
             );
-
             toast.success("Lab created successfully", {position: "top-right"});
             setTimeout(() => {
                 window.location.reload()
             }, 1000)
-
-            // reset form
-            /*            lab.value = { name: "", price: "" };
-
-                        labs.value.push(data.lab);*/
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Something went wrong");
         }
     };
 
-    const fetchLab = async () => {
+    const fetchLab = async (hospital_id) => {
         try {
             const token = localStorage.getItem("AUTH_TOKEN");
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             };
 
+            const hospital_id = localStorage.getItem("HOSPITAL_ID");
+
             const {data} = await axios.get(
-                `${import.meta.env.VITE_API}/fetchLab`,
+                `${import.meta.env.VITE_API}/fetchLab/${hospital_id}`,
                 config
             );
             labs.value = data.data;
@@ -113,7 +115,108 @@ export default function useHospitalManagement() {
         }
     };
 
+
+    const makeService = async () => {
+        try {
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            };
+
+            const {data} = await axios.post(
+                `${import.meta.env.VITE_API}/service/create`,
+                service.value,
+                config
+            );
+            toast.success("Service created successfully", {position: "top-right"});
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Something went wrong");
+        }
+    }
+    const fetchService = async (hospital_id) => {
+        try {
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            };
+
+            const hospital_id = localStorage.getItem("HOSPITAL_ID");
+
+            const {data} = await axios.get(
+                `${import.meta.env.VITE_API}/fetchService/${hospital_id}`,
+                config
+            );
+            service.value = data.data;
+        } catch (err) {
+            toast.error("Failed to fetch labs");
+        }
+    };
+
+
+    const editService = async (id) => {
+        isEdit.value = true
+        try {
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            };
+            const {data} = await axios.get(
+                `${import.meta.env.VITE_API}/editService/${id}`,
+                config
+            );
+            service.value = data.data;
+        } catch (err) {
+            toast.error("Failed to fetch labs");
+        }
+    }
+
+    const updateService = async (id) => {
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: {Authorization: `Bearer ${token}`},
+            };
+            let response = await axios.put(
+                `${import.meta.env.VITE_API}/updateService/${id}`, service.value,
+                config
+            );
+            toast.success("Service updated successfully", {
+                position: 'top-right'
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+        } catch (err) {
+            toast.error("Failed to fetch labs");
+        }
+    }
+    const deleteService = async (id) => {
+        try {
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            };
+            await axios.delete(`${import.meta.env.VITE_API}/deleteService/${id}`, config);
+            toast.success("Lab deleted successfully", {
+                position: 'top-right'
+            });
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+        } catch (err) {
+            toast.error("Failed to delete lab");
+        }
+    };
+
+
     return {
+        updateService,
+        deleteService,
+        fetchService,
         makeLab,
         lab,
         labs,
@@ -121,6 +224,10 @@ export default function useHospitalManagement() {
         fetchLab,
         deleteLabManagement,
         editLab,
-        updateLabRec
+        updateLabRec,
+        makeService,
+        service,
+        editService
+
     };
 }
