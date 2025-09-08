@@ -1,5 +1,5 @@
 <script setup>
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import {ref, computed, reactive} from "vue";
 import {useRoute} from "vue-router";
 

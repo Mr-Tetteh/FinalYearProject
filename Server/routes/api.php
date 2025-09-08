@@ -72,7 +72,12 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('users_request_hospitals', [HospitalRequestController::class, 'index']);
     Route::get('request_view/{hospitalRequest}', [HospitalRequestController::class, 'show']);
     Route::patch('request_update/{id}', [HospitalRequestController::class, 'update']);
-    Route::delete('delete/{id}',[HospitalRequestController::class, 'delete']);
+    Route::delete('delete/{id}', [HospitalRequestController::class, 'delete']);
 
+    Route::get('fetchLab', [\App\Http\Controllers\LabManagement::class, 'fetchLabManagement']);
+    Route::get('edit/{id}',[\App\Http\Controllers\LabManagement::class, 'show']);
+    Route::post('lab/create', [\App\Http\Controllers\LabManagement::class, 'create']);
+    Route::delete('lab/{id}', [\App\Http\Controllers\LabManagement::class, 'delete']);
+    Route::put('update/{id}', [\App\Http\Controllers\LabManagement::class, 'update']);
 
 });

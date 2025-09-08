@@ -1,5 +1,5 @@
 <script setup>
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import { ref, computed } from "vue";
 
 const { user, login } = useAuth();

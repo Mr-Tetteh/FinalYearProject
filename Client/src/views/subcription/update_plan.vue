@@ -1,9 +1,9 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue';
-import useHospital from '@/composerbles/useHospital';
-import useAuth from '@/composerbles/useAuth';
+import useHospital from '@/composables/useHospital';
+import useAuth from '@/composables/useAuth';
 import {onMounted} from 'vue';
-import useSubType from "@/composerbles/useSubType.js";
+import useSubType from "@/composables/useSubType.js";
 
 const {is_loading} = useHospital();
 

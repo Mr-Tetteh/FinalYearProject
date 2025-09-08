@@ -1,11 +1,11 @@
 <script setup>
 
-import usePatients from "@/composerbles/usePatients.js";
+import usePatients from "@/composables/usePatients.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import ActivatePatient from "@/components/activatePatient.vue";
-import useAuth from "@/composerbles/useAuth.js";
-import useSession from "@/composerbles/useSession.js";
+import useAuth from "@/composables/useAuth.js";
+import useSession from "@/composables/useSession.js";
 import patient_card from "@/views/Admin/patients/Patient_card.vue";
 
 const selectedPatientId = ref(null);

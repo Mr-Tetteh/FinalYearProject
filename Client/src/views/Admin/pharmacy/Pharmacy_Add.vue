@@ -2,7 +2,7 @@
 
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import {RouterLink} from "vue-router";
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 
 const { data, stock_drugs} = useHospital()
 

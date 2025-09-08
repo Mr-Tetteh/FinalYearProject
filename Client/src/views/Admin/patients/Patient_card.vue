@@ -1,11 +1,11 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import {useRoute} from "vue-router";
-import usePatients from "@/composerbles/usePatients.js";
+import usePatients from "@/composables/usePatients.js";
 import {onMounted} from "vue";
 import dayjs from "dayjs";
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 dayjs.extend(advancedFormat)
 
 

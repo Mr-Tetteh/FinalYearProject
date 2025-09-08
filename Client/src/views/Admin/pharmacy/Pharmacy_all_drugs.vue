@@ -1,6 +1,6 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import {computed, onMounted, ref} from "vue";
 
 const {get_stock_drugs, drugs} = useHospital();

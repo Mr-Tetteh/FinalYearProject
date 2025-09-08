@@ -2,9 +2,9 @@
 
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import useAuth from "@/composerbles/useAuth.js";
-import useSession from "@/composerbles/useSession.js";
-import usePatients from "@/composerbles/usePatients.js";
+import useAuth from "@/composables/useAuth.js";
+import useSession from "@/composables/useSession.js";
+import usePatients from "@/composables/usePatients.js";
 
 const {editPatient, input, activatePatient} = usePatients()
 const {userRole} = useSession()

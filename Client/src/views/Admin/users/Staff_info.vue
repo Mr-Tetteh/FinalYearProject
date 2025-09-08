@@ -1,9 +1,9 @@
 <script setup>
 
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 import UpdateUser from "@/components/updateUser.vue";
 
 const {staffs, all_staff, delete_user} = useAuth();

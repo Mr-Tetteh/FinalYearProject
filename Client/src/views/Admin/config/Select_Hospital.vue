@@ -1,6 +1,6 @@
 <script setup>
-import useSession from "@/composerbles/useSession.js";
-import useAuth from "@/composerbles/useAuth.js";
+import useSession from "@/composables/useSession.js";
+import useAuth from "@/composables/useAuth.js";
 import {ref} from "vue";
 import {useToast} from "vue-toast-notification";
 import 'vue-toast-notification/dist/theme-sugar.css';

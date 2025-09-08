@@ -82,9 +82,8 @@ import NavBar from "@/components/NavBar.vue";
         <div class="row gy-4 gx-5">
 
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
-            <img src="../assets/img/Doctors-amico.svg" class="img-fluid" alt="">
+            <img src="../assets/img/Doctors-amico.svg" class="img-fluid" alt="" loading="lazy">
           </div>
-
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
 
             <h3>About Us</h3>

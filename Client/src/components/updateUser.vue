@@ -1,8 +1,8 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import useAuth from "@/composerbles/useAuth.js";
-import useSession from "@/composerbles/useSession.js";
+import useAuth from "@/composables/useAuth.js";
+import useSession from "@/composables/useSession.js";
 const {update_role, userData, view_role, hospital, hospitals_in_system} = useAuth()
 const {userRole} = useSession()
 

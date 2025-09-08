@@ -1,6 +1,6 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatients from "@/composerbles/usePatients.js";
+import usePatients from "@/composables/usePatients.js";
 import {onMounted, ref} from "vue";
 
 const {list_patients, patient} = usePatients();

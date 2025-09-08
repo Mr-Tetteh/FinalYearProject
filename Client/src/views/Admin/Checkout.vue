@@ -1,7 +1,7 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import {onMounted, ref} from "vue";
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 import axios from "axios";
 import router from "@/router/index.js";
 import {useToast} from 'vue-toast-notification';

@@ -1,6 +1,6 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import {computed, onMounted, ref} from "vue";
 import UpdateUserRole from "@/components/updateUserRole.vue";
 import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
