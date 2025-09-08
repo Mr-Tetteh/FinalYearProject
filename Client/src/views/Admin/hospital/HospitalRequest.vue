@@ -1,6 +1,6 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
+import useHospitalRequest from "@/composables/useHospitalRequest.js";
 import {computed, onMounted, ref} from "vue";
 import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
 import UpdateHospitalRequest from "@/components/updateHospitalRequest.vue";

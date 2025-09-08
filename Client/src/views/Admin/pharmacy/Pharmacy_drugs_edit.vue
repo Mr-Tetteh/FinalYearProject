@@ -1,6 +1,6 @@
 <script setup>
 
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 

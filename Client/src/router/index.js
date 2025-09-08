@@ -27,6 +27,7 @@ import Select_Hospital from "@/views/Admin/config/Select_Hospital.vue";
 import Request_New_Hosptial from "@/views/Admin/users/Request_New_Hosptial.vue";
 import HospitalRequest from "@/views/Admin/hospital/HospitalRequest.vue";
 import Lab_reports from "@/views/Admin/patients/Lab_reports.vue";
+import Lab_fees from "@/views/Admin/hospital/Lab_fees.vue";
 
 
 const router = createRouter({
@@ -265,6 +266,15 @@ const router = createRouter({
             meta: {
                 requiresAuth: true,
                 roles: ['Admin']
+            }
+        },
+        {
+            path: '/hospital/lab/management',
+            name: 'lab_management',
+            component: Lab_fees,
+            meta: {
+                requiresAuth: true,
+                roles: ['Admin', 'Accountant']
             }
         },
 

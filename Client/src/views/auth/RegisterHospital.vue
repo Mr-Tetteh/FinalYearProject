@@ -1,6 +1,6 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import {computed, ref} from "vue";
 
 const {input, register_hospital, is_loading} = useHospital();

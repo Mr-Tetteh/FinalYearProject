@@ -1,8 +1,19 @@
 {
   "compilerOptions": {
+    "target": "esnext",                // modern JS features
+    "module": "esnext",                // so Vite can tree-shake
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],          // gives you Promise, fetch, etc.
+    "strict": true,                    // (optional, good practice)
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

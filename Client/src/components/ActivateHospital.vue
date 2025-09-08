@@ -1,5 +1,5 @@
 <script setup>
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import {onMounted} from "vue";
 
 const {input, edit_hospital, update_hospital, is_loading} = useHospital()

@@ -1,10 +1,10 @@
 <script setup>
-import usePatients from "@/composerbles/usePatients.js";
+import usePatients from "@/composables/usePatients.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import UpdatePatientRecord from "@/components/updateUserRole.vue";
-import usePatientRecord from "@/composerbles/usePatientRecord.js";
-import useSession from "@/composerbles/useSession.js";
+import usePatientRecord from "@/composables/usePatientRecord.js";
+import useSession from "@/composables/useSession.js";
 
 const API_URL = import.meta.env.VITE_API;
 

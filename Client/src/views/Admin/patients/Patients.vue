@@ -1,8 +1,8 @@
 <script setup>
 import {onMounted, ref, reactive} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatients from "@/composerbles/usePatients.js";
-import useSession from "@/composerbles/useSession.js";
+import usePatients from "@/composables/usePatients.js";
+import useSession from "@/composables/useSession.js";
 
 
 import Stepper from 'primevue/stepper';

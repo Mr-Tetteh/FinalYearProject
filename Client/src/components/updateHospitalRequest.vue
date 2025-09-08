@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import axios from 'axios';
-import useAuth from "@/composerbles/useAuth.js";
-import useSession from "@/composerbles/useSession.js";
-import useHospitalRequest from "@/composerbles/useHospitalRequest.js";
+import useAuth from "@/composables/useAuth.js";
+import useSession from "@/composables/useSession.js";
+import useHospitalRequest from "@/composables/useHospitalRequest.js";
 
 
 const props = defineProps({

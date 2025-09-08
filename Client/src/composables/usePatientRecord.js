@@ -138,7 +138,7 @@ export default function usePatientRecord() {
             const config = {
                 headers: {Authorization: `Bearer ${token}`},
             };
-            let response = await axios.patch(`${import.meta.env.VITE_API}/patient_record_update/${id}`, input.value, config);
+            let response = await axios.put(`${import.meta.env.VITE_API}/patient_record_update/${id}`, input.value, config);
             $toast.success('Patient Record Updated Successfully', {
                 position: 'top-right',
             });

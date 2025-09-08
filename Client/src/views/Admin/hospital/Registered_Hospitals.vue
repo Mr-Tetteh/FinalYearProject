@@ -1,11 +1,11 @@
 <script setup>
 
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import {onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 import UpdateUserRole from "@/components/updateUserRole.vue";
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import ActivateHospital from "@/components/ActivateHospital.vue";
 
 const searchQuery = ref('');

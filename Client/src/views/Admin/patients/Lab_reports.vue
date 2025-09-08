@@ -1,6 +1,6 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import usePatientRecord from "@/composerbles/usePatientRecord.js";
+import usePatientRecord from "@/composables/usePatientRecord.js";
 import axios from "axios";
 import {ref} from "vue";
 import {useToast} from 'vue-toast-notification';

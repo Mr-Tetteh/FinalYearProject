@@ -1,10 +1,10 @@
 <script setup>
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useSession from "@/composerbles/useSession.js";
-import usePatients from "@/composerbles/usePatients.js";
+import useSession from "@/composables/useSession.js";
+import usePatients from "@/composables/usePatients.js";
 import {onMounted} from "vue";
 import Editor from "@tinymce/tinymce-vue";
-import usePatientRecord from "@/composerbles/usePatientRecord.js";
+import usePatientRecord from "@/composables/usePatientRecord.js";
 
 const {userRole} = useSession();
 const {input, edit, update_record} = usePatientRecord()

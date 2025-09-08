@@ -9,8 +9,8 @@ import Editor from '@tinymce/tinymce-vue'
 const $toast = useToast();
 
 import {reactive, ref} from 'vue';
-import useSession from "@/composerbles/useSession.js";
-import usePatientRecord from "@/composerbles/usePatientRecord.js";
+import useSession from "@/composables/useSession.js";
+import usePatientRecord from "@/composables/usePatientRecord.js";
 
 const props = defineProps({
   id: {

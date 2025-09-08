@@ -1,9 +1,9 @@
 <script setup>
 import {onMounted, ref, computed} from "vue";
 import {RouterLink} from "vue-router";
-import useAuth from "@/composerbles/useAuth.js";
+import useAuth from "@/composables/useAuth.js";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 
 const {input, register, hospital, hospitals_in_system, is_loading} = useAuth();
 const {userRole, hospital_id} = useSession()

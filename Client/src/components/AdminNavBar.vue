@@ -1,5 +1,5 @@
 <script setup>
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 import {ref} from 'vue';
 
 const {hospital,  unique_id} = useSession();
@@ -128,8 +128,8 @@ const toggleSidebar = () => {
           </div>
         </div>
 
-        <div class="menu-category" v-if="userRole === 'Admin'">Hospitals Management</div>
-        <div class="menu-group" v-if="userRole === 'Admin'">
+        <div class="menu-category" v-if="userRole === 'Admin' || userRole === 'Manager' || userRole === 'Accountant'">Hospitals Management</div>
+        <div class="menu-group" >
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
             <div class="menu-header">
               <div class="menu-icon">
@@ -139,13 +139,18 @@ const toggleSidebar = () => {
               <i class="bi bi-chevron-down menu-arrow"></i>
             </div>
             <div class="submenu">
-              <RouterLink to="/register_hospital" class="submenu-item">
+              <RouterLink to="/register_hospital" class="submenu-item" v-if="userRole === 'Admin'">
                 <i class="bi bi-hospital"></i>
                 <span>Register Hospital</span>
               </RouterLink>
-              <RouterLink to="/registered_hospitals" class="submenu-item">
+              <RouterLink to="/registered_hospitals" class="submenu-item" v-if="userRole === 'Admin'">
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
+              </RouterLink>
+
+              <RouterLink to="/hospital/lab/management" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Lab Management</span>
               </RouterLink>
 
               <RouterLink to="/staff/request" class="submenu-item" v-if="userRole === 'Admin'">

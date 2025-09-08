@@ -1,10 +1,10 @@
 <script setup>
-import useSession from "@/composerbles/useSession.js";
+import useSession from "@/composables/useSession.js";
 import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useAuth from "@/composerbles/useAuth.js";
-import usePatients from "@/composerbles/usePatients.js";
-import useHospital from "@/composerbles/useHospital.js";
+import useAuth from "@/composables/useAuth.js";
+import usePatients from "@/composables/usePatients.js";
+import useHospital from "@/composables/useHospital.js";
 
 const {username, lastname, hospital} = useSession();
 const {hospital_patient, all_hospital_patient, list_patients, patient,  all_today_patient, today_patient_count} = usePatients()

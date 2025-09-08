@@ -1,7 +1,7 @@
 <script setup>
 
 import AdminNavBar from "@/components/AdminNavBar.vue";
-import useHospital from "@/composerbles/useHospital.js";
+import useHospital from "@/composables/useHospital.js";
 import {onMounted} from "vue";
 
 const props = defineProps({
