@@ -149,6 +149,17 @@
       <path value="$PROJECT_DIR$/Server/vendor/darkaonline/l5-swagger" />
       <path value="$PROJECT_DIR$/Server/vendor/zircote/swagger-php" />
       <path value="$PROJECT_DIR$/Server/vendor/unicodeveloper/laravel-paystack" />
+      <path value="$PROJECT_DIR$/Server/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/Server/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/Server/vendor/seld/signal-handler" />
+      <path value="$PROJECT_DIR$/Server/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/Server/vendor/marc-mabe/php-enum" />
+      <path value="$PROJECT_DIR$/Server/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/Server/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/Server/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/Server/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/Server/vendor/rector/rector" />
+      <path value="$PROJECT_DIR$/Server/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
