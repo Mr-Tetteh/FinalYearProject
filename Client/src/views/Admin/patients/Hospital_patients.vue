@@ -86,10 +86,10 @@ const {userRole} = useSession()
                   <th class="py-3">Status</th>
                   <th class="py-3">Gender</th>
                   <th class="py-3">Date of Birth</th>
-                  <th class="py-3">Allergies</th>
-                  <th class="py-3">Medical Conditions</th>
-                  <th class="py-3">Additional Notes</th>
-                  <th class="py-3">Actions</th>
+                  <th class="py-3" v-if="userRole === 'Doctor'">Allergies</th>
+                  <th class="py-3" v-if="userRole === 'Doctor'">Medical Conditions</th>
+                  <th class="py-3" v-if="userRole === 'Doctor'">Additional Notes</th>
+                  <th class="py-3" v-if="userRole !== 'Manager' && userRole !== 'Accountant'">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -118,19 +118,19 @@ const {userRole} = useSession()
                   </td>
                   <td>{{ item.gender }}</td>
                   <td>{{ item.date_of_birth }}</td>
-                  <td>
-                      <span v-if="item.allergies" class="badge bg-danger bg-opacity-10 text-danger">
+                  <td v-if="userRole === 'Doctor'">
+                      <span v-if="item.allergies"  class="badge bg-danger bg-opacity-10 text-danger">
                         {{ item.allergies }}
                       </span>
                     <span v-else class="text-muted">None</span>
                   </td>
-                  <td>
+                  <td v-if="userRole === 'Doctor'">
                       <span v-if="item.medical_history" class="badge bg-primary bg-opacity-10 text-black ">
                         {{ item.medical_history }}
                       </span>
                     <span v-else class="text-muted">None</span>
                   </td>
-                  <td>
+                  <td v-if="userRole === 'Doctor'">
                       <span v-if="item.additional_notes" class="text-truncate d-inline-block" style="max-width: 150px;">
                         {{ item.additional_notes }}
                       </span>
@@ -158,7 +158,7 @@ const {userRole} = useSession()
                         New Medical Record
                       </RouterLink>
 
-                      <RouterLink v-if="userRole !== 'Receptionist'" :to="{name: 'patients.list_all', params: {id: item.id}}"
+       <RouterLink v-if="userRole !== 'Receptionist' && userRole !== 'Manager' && userRole !== 'Accountant'" :to="{name: 'patients.list_all', params: {id: item.id}}"
                                   class="btn btn-primary btn-sm">
                         Past Medical History
                       </RouterLink>

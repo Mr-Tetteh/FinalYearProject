@@ -48,7 +48,7 @@ const {logout} = useAuth()
               <a href="#contact" class="nav-link">Contact</a>
             </li>
             <li class="nav-item">
-              <RouterLink to="/request/hospital" class="nav-link">Request Hospital</RouterLink>
+              <RouterLink to="/request/hospital" class="nav-link">Apply Hospital</RouterLink>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <RouterLink to="/dashboard" class="nav-link">Dashboard</RouterLink>

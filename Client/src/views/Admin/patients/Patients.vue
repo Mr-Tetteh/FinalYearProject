@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, reactive} from "vue";
+import {onMounted, ref, reactive, computed} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import usePatients from "@/composables/usePatients.js";
 import useSession from "@/composables/useSession.js";
@@ -12,13 +12,36 @@ import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Button from 'primevue/button';
+import {useToast} from "vue-toast-notification";
+import 'vue-toast-notification/dist/theme-sugar.css';
 
+const $toast = useToast();
 const {input, register_patient} = usePatients();
 const currentStep = ref("1");
 
 
 const handleSubmit = async () => {
   await register_patient()
+}
+
+const firstNext = async () => {
+  if (input.first_name == null) {
+    return $toast.error('first firstname is required', {
+      position: 'top-right'
+    })
+  } else if (input.last_name == null) {
+    return $toast.error('first lastname is required', {
+      position: 'top-right'
+    })
+  } else if (input.date_of_birth == null) {
+    return $toast.error('first date of birth is required', {
+      position: 'top-right'
+    })
+  } else if (input.gender == null) {
+    return $toast.error('first gender is required', {
+      position: 'top-right'
+    })
+  }
 }
 </script>
 
@@ -39,14 +62,6 @@ const handleSubmit = async () => {
             <div class="card-body">
               <div class="stepper-container">
                 <Stepper v-model:value="currentStep">
-                  <!--                  <StepList>
-                                      <Step value="1"> Patient Details</Step>
-                                      <Step value="2"> Contact Info</Step>
-                                      <Step value="3"> Medical History</Step>
-                                      <Step value="4"> Primary Guardian</Step>
-                                      <Step value="5"> Secondary Guardian</Step>
-                                    </StepList>-->
-
                   <form @submit.prevent="handleSubmit">
                     <StepPanels>
                       <!-- Step 1: Patient Details -->
@@ -138,7 +153,7 @@ const handleSubmit = async () => {
                         <div class="button-group justify-content-center">
                           <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
                                   class="w-auto btn bg-primary text-white rounded-3 p-1"
-                                  @click="activateCallback('2')"/>
+                                  @click="firstNext() && activateCallback('2')"/>
                         </div>
                       </StepPanel>
 
@@ -320,7 +335,7 @@ const handleSubmit = async () => {
                               <div class="form-group has-icon-left">
                                 <div class="position-relative">
                                   <select class="form-control" v-model="input.guardian1_relation">
-                                    <option  selected disabled>Select an option </option>
+                                    <option selected disabled>Select an option</option>
                                     <option value="Parent">Parent</option>
                                     <option value="Grandparent">Grandparent</option>
                                     <option value="Sibling">Sibling</option>

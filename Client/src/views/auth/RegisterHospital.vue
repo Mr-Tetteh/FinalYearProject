@@ -296,8 +296,6 @@ const filteredConstituencies = computed(() => {
 })
 
 
-
-
 </script>
 
 <template>
@@ -384,6 +382,109 @@ const filteredConstituencies = computed(() => {
             </div>
           </div>
 
+          <div class="col-md-6">
+            <div class="form-floating">
+              <select
+                  id="hospital_city"
+                  v-model="input.hospital_city"
+                  class="form-select form-select-lg"
+              >
+                <option>Accra</option>
+                <option>Kumasi</option>
+                <option>Tamale</option>
+                <option>Sekondi-Takoradi</option>
+                <option>Sunyani</option>
+                <option>Ho</option>
+                <option>Cape Coast</option>
+                <option>Bolgatanga</option>
+                <option>Wa</option>
+                <option>Koforidua</option>
+                <option>Tema</option>
+                <option>Obuasi</option>
+                <option>Teshie</option>
+                <option>Madina</option>
+                <option>Nkawkaw</option>
+                <option>Winneba</option>
+                <option>Suhum</option>
+                <option>Techiman</option>
+                <option>Berekum</option>
+                <option>Kasoa</option>
+              </select>
+              <label for="hospital_city" class="fw-semibold">City</label>
+              <div class="form-icon">
+                <i class="fas fa-city"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-floating">
+              <select
+                  class="form-select form-select-lg"
+
+                  v-model="input.hospital_consistency" name="constituency" id="constituency">
+                <option value="JOMORO">JOMORO</option>
+                <option value="ELLEMBELE">ELLEMBELE</option>
+                <option value="EVALUE AJOMORO GWIRA">EVALUE AJOMORO GWIRA</option>
+                <option value="AHANTA WEST">AHANTA WEST</option>
+                <option value="TAKORADI">TAKORADI</option>
+                <option value="SEKONDI">SEKONDI</option>
+                <option value="ESSIKADU-KETAN">ESSIKADU-KETAN</option>
+                <option value="EFFIA">EFFIA</option>
+                <option value="KWESIMINTIM">KWESIMINTIM</option>
+                <option value="SHAMA">SHAMA</option>
+                <option value="WASSA EAST">WASSA EAST</option>
+                <option value="MPOHOR">MPOHOR</option>
+                <option value="TARKWA NSUAEM">TARKWA NSUAEM</option>
+                <option value="PRESTEA HUNI-VALLEY">PRESTEA HUNI-VALLEY</option>
+                <option value="WASSA AMENFI EAST">WASSA AMENFI EAST</option>
+                <option value="AMENFI CENTRAL">AMENFI CENTRAL</option>
+                <option value="AMENFI WEST">AMENFI WEST</option>
+                <option value="KOMENDA EDINA EGUAFO ABREM">KOMENDA EDINA EGUAFO ABREM</option>
+                <option value="CAPE COAST SOUTH">CAPE COAST SOUTH</option>
+                <option value="CAPE COAST NORTH">CAPE COAST NORTH</option>
+                <option value="ABURA/ASEBU/KWAAMANKESE">ABURA/ASEBU/KWAAMANKESE</option>
+                <option value="MFANTSEMAN">MFANTSEMAN</option>
+                <option value="EKUMFI">EKUMFI</option>
+                <option value="AJUMAKO ENYAN ESIAM">AJUMAKO ENYAN ESIAM</option>
+                <option value="GOMOA WEST">GOMOA WEST</option>
+                <option value="GOMOA CENTRAL">GOMOA CENTRAL</option>
+                <option value="GOMOA EAST">GOMOA EAST</option>
+                <option value="EFFUTU">EFFUTU</option>
+                <option value="AWUTU SENYA WEST">AWUTU SENYA WEST</option>
+                <option value="AWUTU SENYA EAST">AWUTU SENYA EAST</option>
+                <option value="AGONA WEST">AGONA WEST</option>
+                <option value="AGONA EAST">AGONA EAST</option>
+                <option value="ASIKUMA/ODOBEN/BRAKWA">ASIKUMA/ODOBEN/BRAKWA</option>
+                <option value="ASSIN CENTRAL">ASSIN CENTRAL</option>
+                <option value="ASSIN NORTH">ASSIN NORTH</option>
+                <option value="ASSIN SOUTH">ASSIN SOUTH</option>
+                <option value="TWIFO ATTI MORKWA">TWIFO ATTI MORKWA</option>
+                <option value="HEMANG LOWER DENKYIRA">HEMANG LOWER DENKYIRA</option>
+                <option value="UPPER DENKYIRA EAST">UPPER DENKYIRA EAST</option>
+                <option value="UPPER DENKYIRA WEST">UPPER DENKYIRA WEST</option>
+                <option value="BORTIANOR-NGLESHIE AMANFRO">BORTIANOR-NGLESHIE AMANFRO</option>
+                <option value="DOMEABRA/OBOM">DOMEABRA/OBOM</option>
+                <option value="WEIJA / GBAWE">WEIJA / GBAWE</option>
+                <option value="ANYAA/SOWUTUOM">ANYAA/SOWUTUOM</option>
+                <option value="TROBU">TROBU</option>
+                <option value="AMASAMAN">AMASAMAN</option>
+                <option value="DOME/KWABENYA">DOME/KWABENYA</option>
+                <option value="MADINA">MADINA</option>
+                <option value="AYAWASO EAST">AYAWASO EAST</option>
+                <option value="AYAWASO NORTH">AYAWASO NORTH</option>
+                <option value="AYAWASO CENTRAL">AYAWASO CENTRAL</option>
+                <option value="AYAWASO WEST WUOGON">AYAWASO WEST WUOGON</option>
+                <option value="OKAIKWEI SOUTH">OKAIKWEI SOUTH</option>
+                <option value="ABLEKUMA SOUTH">ABLEKUMA SOUTH</option>
+                <option value="ODODODIDDIOO">ODODODIDDIOO</option>
+                <option value="OKAIKWEI CENTRAL">OKAIKWEI CENTRAL</option>
+              </select>
+              <label for="hospital_country" class="fw-semibold">Select Constituency</label>
+            </div>
+          </div>
+
+
           <!-- Hospital Location -->
           <div class="col-md-6">
             <div class="form-floating">
@@ -402,50 +503,6 @@ const filteredConstituencies = computed(() => {
             </div>
           </div>
 
-          <!-- Select Constituency -->
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input
-                  id="hospital_country"
-                  type="text"
-                  v-model="input.hospital_consistency"
-                  class="form-control form-control-lg"
-                  placeholder=" "
-                  @input="filterConstituencies"
-              />
-              <label for="hospital_country" class="fw-semibold">Select Constituency</label>
-              <div class="form-icon">
-                <i class="fas fa-globe-africa"></i>
-              </div>
-              <div v-if="input.hospital_consistency" class="dropdown-options mt-2 ">
-                <div
-                    v-for="constituency in filteredConstituencies"
-                    @click="input.hospital_consistency = constituency"
-                    class="dropdown-item"
-                >
-                  {{ constituency }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Hospital City -->
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input
-                  id="hospital_city"
-                  type="text"
-                  v-model="input.hospital_city"
-                  class="form-control form-control-lg"
-                  placeholder=" "
-                  @input="input.hospital_city = input.hospital_city.replace(/[^a-zA-Z\s]/g, '')"
-              />
-              <label for="hospital_city" class="fw-semibold">City</label>
-              <div class="form-icon">
-                <i class="fas fa-city"></i>
-              </div>
-            </div>
-          </div>
 
           <!-- Submit Button -->
           <div class="col-12 mt-4">

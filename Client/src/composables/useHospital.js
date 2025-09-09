@@ -137,7 +137,7 @@ export default function useHospital() {
                 position: "top-right"
             })
             setTimeout(() => {
-                window.location.reload()
+                window.location.href='/update_plan'
             }, 2000)
         } catch (err) {
             is_loading.value = false;

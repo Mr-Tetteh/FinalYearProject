@@ -197,12 +197,12 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = User::where('email', $request->identifier)
+            $user = User::where('unique_id', $request->identifier)
                 ->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
-                    'message' => 'Sorry Wrong Email or Password',
+                    'message' => 'Sorry Wrong Unique ID or Password',
                 ], 401);
             }
 

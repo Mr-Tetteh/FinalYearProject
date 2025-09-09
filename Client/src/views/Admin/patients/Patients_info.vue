@@ -53,11 +53,6 @@ onMounted(list_patients);
                   <th class="py-3">Patient ID</th>
                   <th class="py-3">Gender</th>
                   <th class="py-3">Date of Birth</th>
-                  <th class="py-3">Allergies</th>
-                  <th class="py-3">Medical Conditions</th>
-                  <th class="py-3">Additional Notes</th>
-                  <th class="py-3">Hospital</th>
-                  <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,43 +72,8 @@ onMounted(list_patients);
                   </td>
                   <td>{{ item.gender }}</td>
                   <td>{{ item.date_of_birth }}</td>
-                  <td>
-                      <span v-if="item.allergies" class="badge bg-danger bg-opacity-10 text-danger">
-                        {{ item.allergies }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
-                  </td>
-
-                  <td>
-                      <span v-if="item.medical_history" class="badge bg-primary bg-opacity-10 text-black ">
-                        {{ item.medical_history }}
-                      </span>
-                    <span v-else class="text-muted">None</span>
-                  </td>
-                  <td>
-                      <span v-if="item.additional_notes" class="text-truncate d-inline-block" style="max-width: 150px;">
-                        {{ item.additional_notes }}
-                      </span>
-                    <span v-else class="text-muted">No notes</span>
-                  </td>
-
-                  <td>
-                        <span class="badge bg-light-info bg-opacity-10 text-primary">
-
-                        {{ item.hospital }}
-                      </span>
-
-                  </td>
-
-                  <td>
-                    <div class="d-flex gap-2">
 
 
-                      <RouterLink :to="{name: 'patients.list_all', params: {id: item.id}}" class="btn btn-primary btn-sm">
-                        Past Medical History
-                      </RouterLink>
-                    </div>
-                  </td>
                 </tr>
                 </tbody>
               </table>

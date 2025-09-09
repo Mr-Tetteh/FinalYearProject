@@ -22,9 +22,9 @@ onMounted(async () => {
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-          <h1 class="display-4 fw-bold text-white mb-3">Hospital Request</h1>
+         <h1 class="display-4 fw-bold text-white mb-3">Apply for Hospital Placement</h1>
           <p class="lead text-white-50">Want to work in a new hospital?</p>
-          <p class="lead text-white-50">Request to work in a hospital of your choice</p>
+          <p class="lead text-white-50">Apply to work in a hospital of your choice</p>
         </div>
       </div>
     </div>
@@ -54,29 +54,6 @@ onMounted(async () => {
             </div>
 
             <form class="p-4" @submit.prevent="onSubmit">
-              <!-- Email -->
-<!--
-              <div class="mb-4">
-                <label for="email" class="form-label fw-semibold">
-                  <svg class="me-2 text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path d="m4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2h-16c-1.1 0-2-.9-2-2v-12c0-1.1.9-2 2-2z"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round"/>
-                  </svg>
-                  Email Address
-                </label>
-                <input
-                    type="email"
-                    class="form-control form-control-lg"
-                    id="email"
-                    placeholder="Enter your email address"
-                    v-model="input.email"
-                >
-              </div>
--->
-
               <!-- Unique ID -->
               <div class="mb-4">
                 <label for="uniqueId" class="form-label fw-semibold">
@@ -97,30 +74,6 @@ onMounted(async () => {
                     v-model="input.unique_id"
                 >
               </div>
-
-              <!-- Name Fields Row -->
-
-              <!-- Position and Contact Row -->
-<!--              <div class="mb-4">
-                <label for="contact" class="form-label fw-semibold">
-                  <svg class="me-2 text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Contact Number
-                </label>
-                <input
-                    type="tel"
-                    class="form-control form-control-lg"
-                    id="contact"
-                    placeholder="Enter phone number"
-                    v-model="input.contact"
-                >
-                <span class="text-muted font-size-sm">contact should be in this format: 233244xxxxxxxx</span>
-
-              </div>-->
 
               <!-- Hospital Selection -->
               <div class="mb-4">

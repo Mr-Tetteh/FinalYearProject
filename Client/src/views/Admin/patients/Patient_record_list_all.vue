@@ -74,7 +74,7 @@ const modal = ref(false);
 
               <div class="card-body">
                 <!-- Vital Signs -->
-                <div class="mb-4">
+                <div v-if="userRole === 'Doctor' || userRole === 'Nurse'" class="mb-4">
                   <div class="section-header mb-3">
                     <i class="bi bi-activity text-danger me-2"></i>
                     <h5 class="fw-semibold mb-0">Vital Signs</h5>
@@ -114,7 +114,7 @@ const modal = ref(false);
                 <hr/>
 
                 <!-- Doctor's Assessment -->
-                <div class="bg-light py-4">
+                <div  class="bg-light py-4">
                   <div class="container">
                     <!-- Enhanced Medical Record Component -->
                     <div v-if="record.history" class="medical-record-card fade-in mb-4">
@@ -133,7 +133,7 @@ const modal = ref(false);
                       </div>
 
                       <div class="medical-content">
-                        <div class="medical-field">
+                        <div v-if="userRole === 'Doctor'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-clock-history field-icon"></i>
                             Patient History
@@ -141,7 +141,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.history }}</p>
                         </div>
 
-                        <div class="medical-field">
+                        <div v-if="userRole === 'Doctor'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-search field-icon"></i>
                             Physical Examination
@@ -149,7 +149,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.examination_findings }}</p>
                         </div>
 
-                        <div class="medical-field">
+                        <div  v-if="userRole === 'Doctor'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-clipboard-check field-icon"></i>
                             Clinical Diagnosis
@@ -157,7 +157,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.diagnosis }}</p>
                         </div>
 
-                        <div class="medical-field">
+                        <div v-if="userRole === 'Doctor' || userRole === 'Lab Technician'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-graph-up field-icon"></i>
                             Investigations Ordered
@@ -165,7 +165,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.investigations }}</p>
                         </div>
 
-                        <div class="medical-field">
+                        <div v-if="userRole === 'Doctor' || userRole === 'Pharmacist'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-heart-pulse field-icon"></i>
                             Treatment Plan
@@ -173,7 +173,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.treatment }}</p>
                         </div>
 
-                        <div v-if="record.doctor_additional_notes" class="medical-field additional-notes">
+                        <div  v-if="record.doctor_additional_notes && userRole === 'Doctor'" class="medical-field additional-notes">
                           <div class="field-label">
                             <i class="bi bi-chat-square-text field-icon"></i>
                             Additional Clinical Notes
@@ -186,7 +186,7 @@ const modal = ref(false);
                 </div>
 
                 <!-- Pharmacist Notes -->
-                <div class="bg-light py-4">
+                <div v-if="userRole === 'Doctor'|| userRole === 'Pharmacist'" class="bg-light py-4">
                   <div class="container">
                     <!-- Enhanced Pharmacist Notes Component -->
                     <div v-if="record.medication_notes" class="pharmacist-record-card fade-in mb-4">
@@ -234,9 +234,8 @@ const modal = ref(false);
                   </div>
                 </div>
 
-
-                <div class="bg-light py-4" v-if="lab">
-                  <div class="container">
+                <div  class="bg-light py-4" v-if="userRole === 'Doctor' || userRole === 'Lab Technician'">
+                  <div  class="container">
                     <div class="pharmacist-record-card fade-in mb-4">
                       <div class="section-header">
                         <h5 class="section-title">

@@ -54,10 +54,10 @@ const togglePasswordVisibility = () => {
                       <i class="bi bi-person"></i>
                     </span>
                     <input
-                        type="email"
+                        type="text"
                         class="form-control border-start-0"
                         id="staff-id"
-                        placeholder="Email"
+                        placeholder="Enter your Unique ID"
                         v-model="user.identifier"
                     />
                   </div>
