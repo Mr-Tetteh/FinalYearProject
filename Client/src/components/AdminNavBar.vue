@@ -128,7 +128,7 @@ const toggleSidebar = () => {
           </div>
         </div>
 
-        <div class="menu-category" v-if="userRole === 'Admin' || userRole === 'Manager' || userRole === 'Accountant'">Hospitals Management</div>
+        <div class="menu-category" v-if="userRole === 'Admin' || userRole === 'Manager'">Hospitals Management</div>
         <div class="menu-group" >
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
             <div class="menu-header">
