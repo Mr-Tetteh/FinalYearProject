@@ -18,7 +18,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const { add_staff_hospital_user, userData, view_role, hospital, hospitals_in_system, is_loading } = useAuth();
+const { add_staff_hospital_user, userData, view_role, hospitalUnderReview, hospitals_in_system, is_loading } = useAuth();
 const { userRole } = useSession();
 
 const closeEditModal = () => {
@@ -33,7 +33,7 @@ const handleSubmit = async () => {
 
 onMounted(() => {
   view_role(props.id);
-  hospital();
+  hospitalUnderReview();
 });
 </script>
 

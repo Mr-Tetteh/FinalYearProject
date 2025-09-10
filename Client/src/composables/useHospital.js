@@ -33,7 +33,6 @@ export default function useHospital() {
     const drug = ref()
 
 
-
     const hospital_patient_count = ref()
     const count_all_patient_on_swift = ref()
     const count_all_users_on_swift = ref()
@@ -137,7 +136,7 @@ export default function useHospital() {
                 position: "top-right"
             })
             setTimeout(() => {
-                window.location.href='/update_plan'
+                window.location.href = '/update_plan'
             }, 2000)
         } catch (err) {
             is_loading.value = false;
@@ -205,6 +204,27 @@ export default function useHospital() {
             $toast.error(err.response.data.message);
         }
     };
+
+    const removeStaff = async (id) => {
+        const hospital_id = localStorage.getItem('HOSPITAL_ID');
+        try {
+            const token = localStorage.getItem('AUTH_TOKEN');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            await axios.delete(
+                `${import.meta.env.VITE_API}/removeStaff/${hospital_id}/${id}`,
+                config
+            );
+            $toast.success('Staff removed successfully', {
+                position: 'top-right'
+            });
+        } catch (err) {
+            console.error(err); // 👈 helpful for debugging in browser console
+            $toast.error(err.response?.data?.message || 'Failed to remove staff');
+        }
+    };
+
 
     const registered_hospital = async () => {
         try {
@@ -321,6 +341,7 @@ export default function useHospital() {
         is_loading,
         edit_hospital,
         update_hospital,
+        removeStaff
 
 
     }

@@ -86,7 +86,6 @@ const searchResults = computed(() => {
                   <th class="py-3">Unique ID</th>
                   <th class="py-3">Email</th>
                   <th class="py-3">Contact</th>
-                  <th class="py-3">Hospital</th>
                   <th class="py-3">Status</th>
                   <th class="py-3">Actions</th>
                 </tr>
@@ -98,7 +97,6 @@ const searchResults = computed(() => {
                   </td>
                   <td>{{ item.email }}</td>
                   <td>{{ item.contact }}</td>
-                  <td>{{ item.hospital }}</td>
                   <td>
                     <span class="badge rounded-pill"
                           :class="{

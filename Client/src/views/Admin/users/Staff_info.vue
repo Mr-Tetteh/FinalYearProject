@@ -5,12 +5,16 @@ import {computed, onMounted, ref} from "vue";
 import AdminNavBar from "@/components/AdminNavBar.vue";
 import useSession from "@/composables/useSession.js";
 import UpdateUser from "@/components/updateUser.vue";
+import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
+import useHospital from "@/composables/useHospital.js";
 
 const {staffs, all_staff, delete_user} = useAuth();
 const {userRole} = useSession()
 const searchQuery = ref('');
 const modal = ref(false);
 const selectedUserId = ref(null); // Add this line to track the selected user ID
+const hospital_modal = ref(false);
+const {removeStaff} = useHospital()
 
 
 onMounted(staffs);
@@ -19,6 +23,11 @@ const openEditModal = (user) => {
   selectedUserId.value = user.id;
   modal.value = true;
 };
+
+const openHospitalModal = (user) => {
+  selectedUserId.value = user.id; // Store the user ID when opening hospital modal
+  hospital_modal.value = true;
+}
 
 
 const searchResults = computed(() => {
@@ -30,6 +39,8 @@ const searchResults = computed(() => {
     return full_name.includes(searched);
   });
 });
+
+
 </script>
 
 <template>
@@ -93,6 +104,7 @@ const searchResults = computed(() => {
                   <th class="py-3">Email</th>
                   <th class="py-3">Contact</th>
                   <th class="py-3">Unique ID</th>
+                  <th class="py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -124,18 +136,31 @@ const searchResults = computed(() => {
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
-                    <a :href="`tel:${item.contact }`">{{item.contact }}</a>
+                    <a :href="`tel:${item.contact }`">{{ item.contact }}</a>
 
                   </td>
                   <td>{{ item.unique_id }}</td>
+                  <td>
+                    <div class="d-flex gap-2">
+
+                      <button v-if="item.status === 1" class="btn btn-danger btn-sm" @click="removeStaff(item.id)">
+                        <i class="bi bi-trash me-1"></i>
+                        Remove From Hospital
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 </tbody>
               </table>
             </div>
+            <div v-if="hospital_modal" class="modal-overlay">
+              <div class="modal-content">
+                <update-staff-hospital v-if="hospital_modal" v-model="hospital_modal" :id="selectedUserId"/>
+              </div>
+            </div>
             <div v-if="modal" class="modal-overlay">
               <div class="modal-content">
                 <update-user v-if="modal" v-model="modal" :id="selectedUserId"/>
-
               </div>
             </div>
 

@@ -21,6 +21,7 @@ Route::get('subscription_types', [\App\Http\Controllers\Subcriptiontype::class, 
 Route::post('paystack/initialize', [PaymentsControllers::class, 'initialize']);
 Route::post('create/request', [HospitalRequestController::class, 'store']);
 Route::get('request_hospitals', [HospitalController::class, 'all_request_hospitals']);
+Route::get('hospitals_under/{id}', [HospitalController::class, 'review']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('logout', [UserController::class, 'logout']);
@@ -36,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('deleted_users', [UserController::class, 'deleted_users']);
     Route::post('restore_user', [UserController::class, 'restore_user']);
     Route::get('getUserHospital/{id}', [UserController::class, 'getUserHospital']);
+    Route::delete('removeStaff/{hospital_id}/{id}', [UserController::class, 'removeStaff']);
 
     Route::post('add_patient', [PatientsController::class, 'store']);
     Route::get('all_patient', [PatientsController::class, 'index']);
