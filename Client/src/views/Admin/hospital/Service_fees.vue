@@ -1,169 +1,186 @@
+Content is user-generated and unverified.
 <script setup lang="ts">
+import AdminNavBar from "@/components/AdminNavBar.vue";
+import useHospitalManagement from "@/composables/useHospitalManagement"
+import {onMounted} from "vue";
 
-import {SidebarProvider, SidebarTrigger} from "~/components/ui/sidebar";
-import AppSidebar from "~/components/AppSidebar.vue";
-import {useAsyncData} from "#app";
-import {useHospitalManagement} from "~/composables/useHospitalManagement";
+const {
+  fetchService,
+  makeService,
+  deleteService,
+  updateService,
+  editService,
+  service,
+  services,
+  isEdit
+} = useHospitalManagement()
 
-const {service, EditService, postService, fetchServices, deleteService, updateService, isEdit} = useHospitalManagement()
-
-const {data: services} = useAsyncData('services', async () => {
-  const res = await fetchServices()
-  return res
-})
 const handleSubmit = () => {
-  postService()
+  makeService()
 }
-
 const update = (id: number) => {
   updateService(id)
 }
+
+onMounted(() => {
+  fetchService()
+})
 </script>
 
 <template>
-  <SidebarProvider>
-    <AppSidebar/>
-    <main class="w-full">
-      <SidebarTrigger/>
-      <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <div id="main">
-          <header class="mb-6 p-4">
-            <a href="#" class="block xl:hidden">
-              <i class="text-2xl bi bi-justify"></i>
-            </a>
-          </header>
+  <AdminNavBar/>
 
-          <!-- Side by side container -->
-          <div class="grid lg:grid-cols-2 gap-8 px-4 w-full">
+  <div class="min-vh-100" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);">
+    <div id="main">
+      <header class="mb-4 p-3">
+        <a href="#" class="d-block d-xl-none">
+          <i class="fs-3 bi bi-justify"></i>
+        </a>
+      </header>
 
-            <!-- Form Section -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-              <h1 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                  <i class="bi bi-plus-circle text-blue-600"></i>
-                </span>
-                Service Management
-              </h1>
-              <form @submit.prevent="isEdit? update(service.id) : handleSubmit()" class="space-y-4">
-                <div class="mb-4">
-                  <label for="serviceName" class="block text-gray-700 text-sm font-bold mb-2">Name of Service:</label>
-                  <input type="text" id="serviceName" name="serviceName"
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors shadow-sm"
-                         v-model="service.name"
-                         placeholder="Enter service name">
-                </div>
-                <div class="mb-6">
-                  <label for="fee" class="block text-gray-700 text-sm font-bold mb-2">Service Amount:</label>
-                  <input type="number" id="fee" name="fee"
-                         step="0.01"
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors shadow-sm"
-                         v-model="service.price"
-                         placeholder="Enter fee amount">
-                </div>
-                <div class="mb-6">
-                  <label for="fee" class="block text-gray-700 text-sm font-bold mb-2">NHIS Cover:</label>
-                  <select type="number" id="fee" name="fee"
-                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors shadow-sm"
-                          v-model="service.NHIS">
-                    <option :value="true">Yes</option>
-                    <option :value="false">No</option>
-                  </select>
-                </div>
-                <div class="flex items-center justify-between">
-                  <button type="submit"
-                          class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                    {{ isEdit ? 'Update Service' : 'Save Service' }}
-                  </button>
-                </div>
-              </form>
-            </div>
+      <!-- Side by side container -->
+      <div class="row g-4 px-3 w-100 mx-0">
 
-            <!-- Table Section -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-              <h1 class="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-between">
-                <span class="flex items-center">
-                  <span class="bg-green-100 p-2 rounded-lg mr-3">
-                    <i class="bi bi-table text-green-600"></i>
-                  </span>
-                  Service List
-                </span>
-                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                  {{ services.length }} service
-                </span>
-              </h1>
-
-              <div class="overflow-x-auto rounded-lg border border-gray-200">
-                <table class="w-full">
-                  <thead class="bg-gray-50">
-                  <tr>
-                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Name Of
-                      Service
-                    </th>
-                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Service
-                      Amount
-                    </th>
-                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Service
-                      Amount
-                    </th>
-                    <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                      NHIS Cover
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
-                  <tr v-for="service in services" :key="service.id" class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div
-                            class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm mr-3">
-                          {{ service.name.charAt(0).toUpperCase() }}
-                        </div>
-                        <span class="font-medium text-gray-900">{{ service.name }}</span>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="text-gray-900 font-semibold">GHC {{ service.price }}</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="text-gray-900 font-semibold bg-green-100 px-2 py-1 rounded-full"
-                            v-if="service.NHIS === true"> Yes</span>
-                      <span class="text-gray-900 font-semibold bg-red-100 px-2 py-1 rounded-full" v-else> No</span>
-
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">
-                      <div class="flex justify-center space-x-2">
-                        <Button
-                            @click="EditService(service.id)"
-                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors">
-                          Edit
-                        </Button>
-                        <Button
-                            @click="deleteService(service.id)"
-                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors">
-                          Delete
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+        <!-- Form Section -->
+        <div class="col-lg-6">
+          <div class="bg-white rounded-3 shadow-lg p-4">
+            <h1 class="h3 fw-bold mb-4 d-flex align-items-center" style="color: #374151;">
+              <span class="p-2 rounded-3 me-3" style="background-color: #dbeafe;">
+                <i class="bi bi-plus-circle" style="color: #2563eb;"></i>
+              </span>
+              Service Management
+            </h1>
+            <form @submit.prevent="isEdit? update(service.id) : handleSubmit()">
+              <div class="mb-3">
+                <label for="serviceName" class="form-label fw-bold" style="color: #374151;">Name of Service:</label>
+                <input type="text"
+                       id="serviceName"
+                       name="serviceName"
+                       class="form-control form-control-lg border-secondary"
+                       style="box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"
+                       v-model="service.name"
+                       placeholder="Enter service name">
               </div>
-
-              <!-- Empty state (you can show this when no data) -->
-              <!-- <div class="text-center py-12">
-                <i class="bi bi-inbox text-4xl text-gray-400 mb-4"></i>
-                <p class="text-gray-500 text-lg">No services yet</p>
-                <p class="text-gray-400 text-sm">Add your first service using the form</p>
-              </div> -->
-            </div>
-
+              <div class="mb-3">
+                <label for="serviceAmount" class="form-label fw-bold" style="color: #374151;">Service Amount:</label>
+                <input type="number"
+                       id="serviceAmount"
+                       name="serviceAmount"
+                       step="0.01"
+                       class="form-control form-control-lg border-secondary"
+                       style="box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"
+                       v-model="service.price"
+                       placeholder="Enter fee amount">
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <button type="submit"
+                        class="btn btn-lg w-100 text-white fw-bold shadow-lg"
+                        style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); transform: scale(1); transition: all 0.3s ease;"
+                        onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'">
+                  {{ isEdit ? 'Update Service' : 'Save Service' }}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
+
+        <!-- Table Section -->
+        <div class="col-lg-6">
+          <div class="bg-white rounded-3 shadow-lg p-4">
+            <h1 class="h3 fw-bold mb-4 d-flex align-items-center justify-content-between" style="color: #374151;">
+              <span class="d-flex align-items-center">
+                <span class="p-2 rounded-3 me-3" style="background-color: #dcfce7;">
+                  <i class="bi bi-table" style="color: #16a34a;"></i>
+                </span>
+                Service List
+              </span>
+              <!-- <span class="badge rounded-pill" style="background-color: #dbeafe; color: #1d4ed8;">
+                {{ services.length }} service
+              </span> -->
+            </h1>
+
+            <div class="table-responsive rounded-3 border border-secondary-subtle">
+              <table class="table table-hover mb-0">
+                <thead style="background-color: #f9fafb;">
+                <tr>
+                  <th class="px-3 py-3 fw-semibold text-uppercase"
+                      style="color: #374151; font-size: 0.875rem; letter-spacing: 0.05em;">
+                    Service Name
+                  </th>
+                  <th class="px-3 py-3 fw-semibold text-uppercase"
+                      style="color: #374151; font-size: 0.875rem; letter-spacing: 0.05em;">
+                    Service Amount
+                  </th>
+                  <th class="px-3 py-3 text-center fw-semibold text-uppercase"
+                      style="color: #374151; font-size: 0.875rem; letter-spacing: 0.05em;">
+                    Actions
+                  </th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr v-for="oneService in services" :key="oneService.id" style="transition: background-color 0.3s ease;">
+
+                  <td class="px-3 py-3">
+                    <div class="d-flex align-items-center">
+                      <div
+                          class="rounded-circle d-flex align-items-center justify-content-center text-white fw-semibold me-3"
+                          style="width: 32px; height: 32px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); font-size: 0.875rem;">
+                        {{ oneService?.name?.charAt(0)?.toUpperCase() }}
+                      </div>
+                      <span class="fw-medium" style="color: #111827;">{{ oneService?.name }}</span>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3">
+                    <span class="fw-semibold" style="color: #111827;">GHC {{ oneService?.price }}</span>
+                  </td>
+                  <td class="px-3 py-3 text-center">
+                    <div class="d-flex justify-content-center gap-2">
+                      <Button @click="editService(oneService?.id)"
+                              class="btn btn-primary btn-sm">
+                        Edit
+                      </Button>
+                      <Button @click="deleteService(oneService?.id)"
+                              class="btn btn-danger btn-sm">
+                        Delete
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty state (you can show this when no data) -->
+            <!-- <div class="text-center py-5">
+              <i class="bi bi-inbox display-1 text-muted mb-3"></i>
+              <p class="text-muted fs-5">No services yet</p>
+              <p class="text-muted">Add your first service using the form</p>
+            </div> -->
+          </div>
+        </div>
+
       </div>
-    </main>
-  </SidebarProvider>
+    </div>
+  </div>
+
 </template>
 
 <style scoped>
+/* Custom styles for form controls focus */
+.form-control:focus,
+.form-select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25) !important;
+}
 
+/* Hover effect for table rows */
+.table-hover tbody tr:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Custom gradient button hover */
+.btn:hover {
+  filter: brightness(110%);
+}
 </style>

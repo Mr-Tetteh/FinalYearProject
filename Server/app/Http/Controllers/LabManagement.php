@@ -12,15 +12,16 @@ class LabManagement extends Controller
     public function create(Request $request)
     {
         $labManagement = \App\Models\LabManagement::create([
+            'hospital_id' => $request->input('hospital_id'),
             'name' => $request->input('name'),
             'price' => $request->input('price'),
         ]);
         return new LabManagementResource($labManagement);
     }
 
-    public function fetchLabManagement()
+    public function fetchLabManagement($id)
     {
-        $lab = \App\Models\LabManagement::all();
+        $lab = \App\Models\LabManagement::where('hospital_id', $id)->get();
         return LabManagementResource::collection($lab);
     }
 

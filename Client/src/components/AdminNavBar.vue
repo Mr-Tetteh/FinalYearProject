@@ -153,6 +153,10 @@ const toggleSidebar = () => {
                 <i class="bi bi-building-add"></i>
                 <span>Lab Management</span>
               </RouterLink>
+              <RouterLink v-if="userRole === 'Manager'" to="/hospital/service/management" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Service Management</span>
+              </RouterLink>
 
               <RouterLink to="/staff/request" class="submenu-item" v-if="userRole === 'Manager'">
                 <i class="bi bi-patch-question-fill"></i>
