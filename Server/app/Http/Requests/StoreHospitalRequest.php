@@ -23,7 +23,7 @@ class StoreHospitalRequest extends FormRequest
     {
         return [
             'unique_id' => 'required|string|max:7|exists:users,unique_id',
-            'hospital' => 'required|string|max:255',
+            'hospital' => 'required|numeric|max:255',
         ];
     }
 

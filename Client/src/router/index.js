@@ -265,7 +265,7 @@ const router = createRouter({
             component: HospitalRequest,
             meta: {
                 requiresAuth: true,
-                roles: ['Admin']
+                roles: ['Admin', 'Manager']
             }
         },
         {
@@ -274,7 +274,7 @@ const router = createRouter({
             component: Lab_fees,
             meta: {
                 requiresAuth: true,
-                roles: ['Admin', 'Accountant']
+                roles: ['Manager', 'Accountant']
             }
         },
 
