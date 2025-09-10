@@ -285,7 +285,7 @@ const router = createRouter({
             component: Service_fees,
             meta: {
                 requiresAuth: true,
-                roles: ['Admin', 'Manager']
+                roles: ['Manager']
             }
         },
 

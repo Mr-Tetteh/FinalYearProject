@@ -84,7 +84,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     Route::get('fetchService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'index']);
     Route::get('editService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'show']);
-    Route::post('service/create/', [\App\Http\Controllers\ServiceManagement::class, 'create']);
+    Route::post('service/create', [\App\Http\Controllers\ServiceManagement::class, 'create']);
     Route::put('updateService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'update']);
     Route::delete('deleteService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'delete']);
 

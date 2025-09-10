@@ -4,7 +4,16 @@ import AdminNavBar from "@/components/AdminNavBar.vue";
 import useHospitalManagement from "@/composables/useHospitalManagement"
 import {onMounted} from "vue";
 
-const {fetchService, makeService, deleteService, updateService,editService,  service, isEdit} = useHospitalManagement()
+const {
+  fetchService,
+  makeService,
+  deleteService,
+  updateService,
+  editService,
+  service,
+  services,
+  isEdit
+} = useHospitalManagement()
 
 const handleSubmit = () => {
   makeService()
@@ -110,7 +119,8 @@ onMounted(() => {
                 </tr>
                 </thead>
                 <tbody style="background-color: white;">
-                <tr v-for="oneService in service" :key="oneService.id" style="transition: background-color 0.3s ease;">
+                <tr v-for="oneService in services" :key="oneService.id" style="transition: background-color 0.3s ease;">
+
                   <td class="px-3 py-3">
                     <div class="d-flex align-items-center">
                       <div

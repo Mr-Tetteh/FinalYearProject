@@ -15,6 +15,9 @@ export default function useHospitalManagement() {
         name: "",
         price: ""
     })
+
+    const services = ref([])
+
     const labs = ref([]);   // 👈 array for table
     const isEdit = ref(false);
 
@@ -120,41 +123,51 @@ export default function useHospitalManagement() {
         try {
             const token = localStorage.getItem("AUTH_TOKEN");
             const config = {
-                headers: {Authorization: `Bearer ${token}`}
+                headers: { Authorization: `Bearer ${token}` }
             };
 
-            const {data} = await axios.post(
-                `${import.meta.env.VITE_API}/service/create`,
-                service.value,
+            const { data } = await axios.post(
+                `${import.meta.env.VITE_API}/service/create`, // ✅ remove /${id}
+                service.value,   // ✅ send service, not services
                 config
             );
-            toast.success("Service created successfully", {position: "top-right"});
-            setTimeout(() => {
-                window.location.reload()
-            }, 1000)
+
+            toast.success("Service created successfully", { position: "top-right" });
+
+            // update UI without reload
+            services.value.push(data.data);
+
+            // reset form
+            service.value = {
+                hospital_id: localStorage.getItem("HOSPITAL_ID"),
+                name: "",
+                price: ""
+            };
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Something went wrong");
         }
     }
-    const fetchService = async (hospital_id) => {
+
+    const fetchService = async () => {
         try {
             const token = localStorage.getItem("AUTH_TOKEN");
             const config = {
-                headers: {Authorization: `Bearer ${token}`}
+                headers: { Authorization: `Bearer ${token}` }
             };
 
             const hospital_id = localStorage.getItem("HOSPITAL_ID");
 
-            const {data} = await axios.get(
+            const { data } = await axios.get(
                 `${import.meta.env.VITE_API}/fetchService/${hospital_id}`,
                 config
             );
-            service.value = data.data;
+
+            services.value = data.data;  // ✅ now array
         } catch (err) {
-            toast.error("Failed to fetch labs");
+            toast.error("Failed to fetch services");
         }
-    };
+    }
 
 
     const editService = async (id) => {
@@ -227,7 +240,8 @@ export default function useHospitalManagement() {
         updateLabRec,
         makeService,
         service,
-        editService
+        editService,
+        services
 
     };
 }
