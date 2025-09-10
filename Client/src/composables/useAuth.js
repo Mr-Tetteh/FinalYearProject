@@ -166,6 +166,18 @@ export default function useAuth() {
         }
     }
 
+    const hospitalUnderReview = async () => {
+        try {
+            const id = localStorage.getItem("HOSPITAL_ID")
+            let response = await axios.get(`${import.meta.env.VITE_API}/hospitals_under/${id}`)
+            hospitals_in_system.value = response.data.data;
+        } catch (err) {
+            $toast.error(err.response.data.message, {
+                position: 'top-right',
+            })
+        }
+    }
+
     const delete_user = async (id) => {
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
@@ -323,7 +335,8 @@ export default function useAuth() {
         is_loading,
         GetUserHospital,
         user_hospital_get,
-        add_staff_hospital_user
+        add_staff_hospital_user,
+        hospitalUnderReview
     }
 
 

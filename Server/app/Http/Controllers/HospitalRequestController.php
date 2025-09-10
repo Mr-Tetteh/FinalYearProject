@@ -47,6 +47,7 @@ HospitalRequestController extends Controller
     public function update($id, Request $request)
     {
         $hospital_request = HospitalRequest::findOrFail($id);
+        $hospital = Hospital::findOrFail($hospital_request->hospital);
         $hospital_request->update([
             'status' => $request->input('status'),
             'reason_for_rejection' => $request->input('reason_for_rejection')
@@ -55,7 +56,7 @@ HospitalRequestController extends Controller
         if ($request->input('status') === 'Approved') {
             return sendWithSMSONLINEGH(
                 '233' . substr($request->input('contact'), -9),
-                'Your request to work at ' . $request->input('hospital') . ' has been ' . $request->input('status') . '.Thank you!.'
+                'Your request to work at ' . $hospital->hospital_name . ' has been ' . $request->input('status') . '.Thank you!.'
             );
         } else {
             sendWithSMSONLINEGH(

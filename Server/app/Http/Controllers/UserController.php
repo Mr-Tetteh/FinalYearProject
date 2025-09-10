@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StaffRegistrationRequest;
 use App\Jobs\InitUniqueIdSMSJB;
+use App\Models\Hospital;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -361,6 +362,25 @@ class UserController extends Controller
             'message' => 'User deleted successfully',
         ]);
     }
+
+    public function removeStaff($hospital_id, $id)
+    {
+        // Find the user
+        $user = User::findOrFail($id);
+
+        // Detach the hospital from this user
+        $user->hospitals()->detach($hospital_id);
+
+        // Reload user with updated hospitals
+        $user->load('hospitals');
+
+        return response()->json([
+            'message' => 'Staff removed successfully',
+            'user' => new UserResource($user)
+        ]);
+    }
+
+
 
 
 }

@@ -8,6 +8,7 @@ use App\Http\Resources\HospitalResource;
 use App\Jobs\InitPaymentJB;
 use App\Models\Hospital;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
@@ -45,6 +46,13 @@ class HospitalController extends Controller
     public function index()
     {
         $hospitals = Hospital::where('id' , '!=', 1)->get();
+
+        return HospitalResource::collection($hospitals);
+    }
+
+    public function review($id)
+    {
+        $hospitals = Hospital::where('id', $id)->get();
 
         return HospitalResource::collection($hospitals);
     }
@@ -197,4 +205,5 @@ class HospitalController extends Controller
         }
 
     }
+
 }

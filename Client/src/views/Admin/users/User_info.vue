@@ -4,8 +4,10 @@ import useAuth from "@/composables/useAuth.js";
 import {computed, onMounted, ref} from "vue";
 import UpdateUserRole from "@/components/updateUserRole.vue";
 import UpdateStaffHospital from "@/components/updateStaffHospital.vue";
+import useSession from "@/composables/useSession.js";
 
-const {all_users, users, delete_user} = useAuth();
+const {all_users, users, delete_user,} = useAuth();
+const {userRole} = useSession()
 
 const searchQuery = ref('');
 const modal = ref(false);
@@ -135,7 +137,7 @@ const searchResults = computed(() => {
                   </td>
                   <td>
                     <div class="d-flex gap-2">
-                      <button class="btn btn-warning btn-sm" @click="openEditModal(item)">
+                      <button class="btn btn-warning btn-sm" @click="openEditModal(item)" v-if="userRole ==='Admin'">
                         <i class="bi bi-pencil-square me-1"></i>
                         <span v-if="item.status === 1"> Deactivate User </span> <span v-else> Activate User </span>
                       </button>
@@ -143,7 +145,7 @@ const searchResults = computed(() => {
                         <i class="bi bi-pencil-square me-1"></i>
                         Assign Hospital
                       </button>
-                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm">
+                      <button @click="delete_user(item.id)" class="btn btn-danger btn-sm"  v-if="userRole === 'Admin'">
                         <i class="bi bi-trash me-1"></i>
                         Delete Staff
                       </button>

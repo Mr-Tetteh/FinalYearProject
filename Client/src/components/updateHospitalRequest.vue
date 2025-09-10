@@ -80,15 +80,15 @@ onMounted(() => {
             </div>
 
             <div class="row">
-              <div class="col-12 col-md-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control rounded-3" id="floatingContact" disabled
-                         v-model="request_view_data.hospital">
-                  <label for="floatingContact">Hospital</label>
-                </div>
-              </div>
+                            <div class="col-12 col-md-6" v-if="false">
+                              <div class="form-floating mb-3">
+                                <input type="text" class="form-control rounded-3" id="floatingContact" disabled
+                                       v-model="request_view_data.hospital">
+                                <label for="floatingContact">Hospital</label>
+                              </div>
+                            </div>
 
-              <div class="col-12 col-md-6" v-if="request_view_data.status">
+              <div class="col-12 col-md-12" v-if="request_view_data.status">
                 <div class="form-floating mb-3">
 
                   <select class="form-control rounded-3" id="" v-model="request_view_data.status">
@@ -111,7 +111,7 @@ onMounted(() => {
 
 
             <div class="d-grid gap-2">
-              <button :disabled="is_loading" class="btn btn-lg rounded-3 btn-primary" type="submit">Update</button>
+              <button class="btn btn-lg rounded-3 btn-primary" type="submit">Update</button>
             </div>
             <hr class="my-4">
           </form>

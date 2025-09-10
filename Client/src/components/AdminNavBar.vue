@@ -86,21 +86,22 @@ const toggleSidebar = () => {
                 <i class="bi bi-people"></i>
                 <span>All Admin Users</span>
               </RouterLink>
-              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin'">
+              <RouterLink to="/staff_info" class="submenu-item" v-if="userRole !== 'Admin' ">
                 <i class="bi bi-people"></i>
-                <span>All Staff</span>
+                <span>Staff Directory</span>
               </RouterLink>
 
-              <RouterLink v-if="userRole === 'Admin' " to="/user_info" class="submenu-item">
+              <RouterLink  to="/user_info" class="submenu-item">
                 <i class="bi bi-person-lines-fill"></i>
-                <span>All Users</span>
+                <span v-if="userRole ==='Admin'">All Users</span>
+                <span v-if="userRole ==='Manager'">Recruit Staff</span>
               </RouterLink>
             </div>
           </div>
         </div>
 
-        <div v-if="userRole === 'Pharmacist' || userRole === 'Manager'">
-          <div class="menu-category">Hospital Management</div>
+        <div v-if="userRole === 'Pharmacist'">
+          <div class="menu-category">Pharmacy Management</div>
           <div class="menu-group">
             <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
               <div class="menu-header">
