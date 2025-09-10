@@ -148,6 +148,7 @@
       <path value="$PROJECT_DIR$/Server/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/Server/vendor/darkaonline/l5-swagger" />
       <path value="$PROJECT_DIR$/Server/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/Server/vendor/unicodeveloper/laravel-paystack" />
       <path value="$PROJECT_DIR$/Server/vendor/seld/phar-utils" />
       <path value="$PROJECT_DIR$/Server/vendor/seld/jsonlint" />
       <path value="$PROJECT_DIR$/Server/vendor/seld/signal-handler" />
@@ -159,15 +160,9 @@
       <path value="$PROJECT_DIR$/Server/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/Server/vendor/rector/rector" />
       <path value="$PROJECT_DIR$/Server/vendor/predis/predis" />
-      <path value="$PROJECT_DIR$/Server/vendor/unicodeveloper/laravel-paystack" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
-  <component name="PhpStan">
-    <PhpStan_settings>
-      <PhpStanConfiguration tool_path="$PROJECT_DIR$/Server/vendor/bin/phpstan" />
-    </PhpStan_settings>
-  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>

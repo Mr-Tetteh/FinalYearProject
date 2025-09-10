@@ -44,14 +44,17 @@ export default function useHospitalRequest() {
     }
 
     const staff_request_hospital = async () => {
+        is_loading.value = true
         try {
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
-            const response = await axios.get(`${import.meta.env.VITE_API}/users_request_hospitals`, config);
+            const id = localStorage.getItem('HOSPITAL_ID')
+            const response = await axios.get(`${import.meta.env.VITE_API}/users_request_hospitals/${id}`, config);
             staff_request_hospitals_data.value = response.data.data
         } catch (err) {
+            is_loading.value = false
             $toast.error(err.response.data.message);
         }
     }
@@ -95,11 +98,11 @@ export default function useHospitalRequest() {
 
     const request_hospital = async () => {
         try {
-            is_loading.value = true
             const token = localStorage.getItem('AUTH_TOKEN')
             const config = {
                 headers: {Authorization: `Bearer ${token}`}
             }
+            is_loading.value = true
             const response = await axios.get(`${import.meta.env.VITE_API}/request_hospitals`, config);
             request_hospitals_data.value = response.data.data
         } catch (err) {

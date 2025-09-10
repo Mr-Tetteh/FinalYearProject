@@ -93,7 +93,7 @@ onMounted(async () => {
                 </label>
                 <select class="form-select form-select-lg" id="hospital" v-model="input.hospital">
                   <option value="" disabled selected>Select Hospital</option>
-                  <option v-for="requests in request_hospitals_data" :value="requests.hospital_name" key="requests.id">
+                  <option v-for="requests in request_hospitals_data" :value="requests.id" key="requests.id">
                     {{ requests.hospital_name }}
                   </option>
 
@@ -102,7 +102,7 @@ onMounted(async () => {
 
               <!-- Submit Button -->
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg submit-btn">
+                <button type="submit" class="btn btn-primary btn-lg submit-btn" :disabled="!is_loading">
                   <svg class="me-2" width="20" height="20" viewBox="0 0 24 24" fill="none"
                        xmlns="http://www.w3.org/2000/svg">
                     <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"

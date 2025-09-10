@@ -1,0 +1,11 @@
+POST https://api.paystack.co/transaction/initialize
+Authorization: Bearer sk_test_63a75817cabb7611662bec82c4c8ac1e49975523
+Content-Type: application/json
+
+{
+  "email": "danielstay73@gmail.com",
+  "amount": "500000"
+}
+
+###
+

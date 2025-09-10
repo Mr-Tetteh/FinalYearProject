@@ -5,31 +5,37 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreHospitalRequest;
 use App\Http\Resources\HospitalRequestResource;
 use App\Http\Resources\HospitalResource;
+use App\Models\Hospital;
 use App\Models\HospitalRequest;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HospitalRequestController extends Controller
+class
+HospitalRequestController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        return HospitalRequestResource::collection(HospitalRequest::all());
+
+        return HospitalRequestResource::collection(HospitalRequest::where('hospital', $id)->get());
     }
 
 
-    public function store(StoreHospitalRequest $request)
+ public function store(StoreHospitalRequest $request)
     {
+        $hospital = Hospital::findOrFail($request->input('hospital'));
         $data = $request->validated();
         $user = \App\Models\User::where('unique_id', $data['unique_id'])->firstOrFail();
-        $request->validated();
         $userRequest = HospitalRequest::create([
             'email' => $user->email,
             'unique_id' => $request->input('unique_id'),
             'contact' => '+233' . substr($user->contact, -9),
             'hospital' => $request->input('hospital'),
         ]);
-        sendWithSMSONLINEGH('233' . substr($user->contact, -9), 'Your request to work at ' . $request->input('hospital') . ' has been received and currently pending. We will review your request and get back to you soon. Thank you!.');
+        sendWithSMSONLINEGH(
+            '233' . substr($user->contact, -9),
+            'Your request to work at ' . $hospital->hospital_name . ' has been received and currently pending. We will review your request and get back to you soon. Thank you!.'
+        );
         return new HospitalRequestResource($userRequest);
     }
 
