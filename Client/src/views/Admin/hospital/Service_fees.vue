@@ -29,7 +29,6 @@ onMounted(() => {
 
 <template>
   <AdminNavBar/>
-
   <div class="min-vh-100" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);">
     <div id="main">
       <header class="mb-4 p-3">

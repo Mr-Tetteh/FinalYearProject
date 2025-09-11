@@ -63,6 +63,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::patch('drug_edit/{pharmacy}', [Pharmacy::class, 'update']);
     Route::post('post_drug', [Pharmacy::class, 'store']);
     Route::post('/update-quantities', [Pharmacy::class, 'updateQuantities']);
+    Route::get('/fetch_drugs/{id}', [Pharmacy::class, 'fetchDrugs']);
+
+
 
     Route::get('registered_hospital', [HospitalController::class, 'show']);
     Route::get('count_hospitals', [HospitalController::class, 'hospital_count']);
@@ -83,10 +86,15 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::put('update/{id}', [\App\Http\Controllers\LabManagement::class, 'update']);
 
     Route::get('fetchService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'index']);
+    Route::get('fetchConsultation/{id}', [\App\Http\Controllers\ServiceManagement::class, 'consultation']);
     Route::get('editService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'show']);
     Route::post('service/create', [\App\Http\Controllers\ServiceManagement::class, 'create']);
     Route::put('updateService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'update']);
     Route::delete('deleteService/{id}', [\App\Http\Controllers\ServiceManagement::class, 'delete']);
 
+
+    Route::post('make/payment/{id}', [\App\Http\Controllers\HospitalPayments::class, 'store']);
+    Route::get('fetch/HospitalPayments/{id}', [\App\Http\Controllers\HospitalPayments::class, 'fetchHospitalPayments']);
+    Route::get('fetch/lastPayment/{id}', [\App\Http\Controllers\HospitalPayments::class, 'fetchLastHospitalPayments']);
 
 });

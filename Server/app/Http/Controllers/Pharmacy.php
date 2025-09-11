@@ -25,6 +25,13 @@ class Pharmacy extends Controller
         return response()->json($grouped);
     }
 
+    public function fetchDrugs($id)
+    {
+        $drugs = \App\Models\Pharmacy::where('hospital', $id)->get();
+        return response()->json($drugs);
+
+    }
+
 
     public function updateQuantities(Request $request)
     {
@@ -96,7 +103,9 @@ class Pharmacy extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit() {}
+    public function edit()
+    {
+    }
 
     /**
      * Update the specified resource in storage.
