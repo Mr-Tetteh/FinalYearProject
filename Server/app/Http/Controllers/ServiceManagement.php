@@ -14,6 +14,13 @@ class ServiceManagement extends Controller
         return  \App\Http\Resources\ServiceManagement::collection($serviceManagement);
     }
 
+    public function consultation($id)
+    {
+        $serviceManagement = \App\Models\ServiceManagement::where('hospital_id', $id)->where('name', 'Consultation')->get();
+        return  \App\Http\Resources\ServiceManagement::collection($serviceManagement);
+    }
+
+
     public function create(Request $request)
     {
         $serviceManagement = \App\Models\ServiceManagement::create([

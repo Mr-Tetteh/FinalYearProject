@@ -29,6 +29,9 @@ import HospitalRequest from "@/views/Admin/hospital/HospitalRequest.vue";
 import Lab_reports from "@/views/Admin/patients/Lab_reports.vue";
 import Lab_fees from "@/views/Admin/hospital/Lab_fees.vue";
 import Service_fees from "@/views/Admin/hospital/Service_fees.vue";
+import MakePayments from "@/views/Admin/hospital/MakePayments.vue";
+import Receipt from "@/views/Admin/hospital/Receipt.vue";
+import CashFlow from "@/views/Admin/hospital/CashFlow.vue";
 
 
 const router = createRouter({
@@ -288,8 +291,34 @@ const router = createRouter({
                 roles: ['Manager']
             }
         },
+        {
+            path: '/hospital/make/payment',
+            name: 'make_payment',
+            component: MakePayments,
+            meta: {
+                requiresAuth: true,
+                roles: ['Manager']
+            }
+        },
 
 
+        {
+            path: '/admin/hospital/receipt',
+            name: 'receipt',
+            component: Receipt,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/admin/hospital/cash/flow',
+            name: 'cashFlow',
+            component: CashFlow,
+            meta: {
+                requiresAuth: true,
+            }
+        },
     ],
 })
 

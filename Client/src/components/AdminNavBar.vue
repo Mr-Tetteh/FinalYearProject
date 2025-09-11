@@ -158,6 +158,19 @@ const toggleSidebar = () => {
                 <span>Service Management</span>
               </RouterLink>
 
+
+              <RouterLink v-if="userRole === 'Manager'" to="/hospital/make/payment" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Make Payment</span>
+              </RouterLink>
+
+              <RouterLink v-if="userRole === 'Manager'" to="/admin/hospital/cash/flow" class="submenu-item">
+                <i class="bi bi-building-add"></i>
+                <span>Cash Flow</span>
+              </RouterLink>
+
+
+
               <RouterLink to="/staff/request" class="submenu-item" v-if="userRole === 'Manager'">
                 <i class="bi bi-patch-question-fill"></i>
                 <span>Hospital Application Requests</span>
