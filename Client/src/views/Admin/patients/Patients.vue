@@ -23,7 +23,7 @@ const currentStep = ref("1");
 const handleSubmit = async () => {
   await register_patient()
 }
-
+/*
 const firstNext = async () => {
   if (input.first_name == null) {
     return $toast.error('first firstname is required', {
@@ -42,13 +42,12 @@ const firstNext = async () => {
       position: 'top-right'
     })
   }
-}
+}*/
 </script>
 
 <template>
   <div class="hospital-dashboard main">
     <div class="d-flex">
-      <!-- Sidebar -->
       <AdminNavBar/>
 
       <div class="content-wrapper">
@@ -153,7 +152,7 @@ const firstNext = async () => {
                         <div class="button-group justify-content-center">
                           <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
                                   class="w-auto btn bg-primary text-white rounded-3 p-1"
-                                  @click="firstNext() && activateCallback('2')"/>
+                                  @click="activateCallback('2')"/>
                         </div>
                       </StepPanel>
 
