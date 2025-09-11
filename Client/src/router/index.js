@@ -133,7 +133,7 @@ const router = createRouter({
             component: Hospital_patients,
             meta: {
                 requiresAuth: true,
-                roles: ['Receptionist', 'Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Account']
+                roles: ['Receptionist', 'Nurse', 'Manager', 'Doctor', 'Pharmacist', 'Lab Technician', 'Accountant']
 
             }
         },
@@ -297,7 +297,7 @@ const router = createRouter({
             component: MakePayments,
             meta: {
                 requiresAuth: true,
-                roles: ['Manager']
+                roles: ['Manager', 'Accountant']
             }
         },
 

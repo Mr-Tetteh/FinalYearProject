@@ -157,7 +157,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.diagnosis }}</p>
                         </div>
 
-                        <div v-if="userRole === 'Doctor' || userRole === 'Lab Technician'" class="medical-field">
+                        <div v-if="userRole === 'Doctor' || userRole === 'Lab Technician' || userRole === 'Accountant'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-graph-up field-icon"></i>
                             Investigations Ordered
@@ -165,7 +165,7 @@ const modal = ref(false);
                           <p class="field-content">{{ record.investigations }}</p>
                         </div>
 
-                        <div v-if="userRole === 'Doctor' || userRole === 'Pharmacist'" class="medical-field">
+                        <div v-if="userRole === 'Doctor' || userRole === 'Pharmacist' || userRole === 'Accountant'" class="medical-field">
                           <div class="field-label">
                             <i class="bi bi-heart-pulse field-icon"></i>
                             Treatment Plan
