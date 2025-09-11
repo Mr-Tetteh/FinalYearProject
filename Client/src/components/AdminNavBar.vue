@@ -92,9 +92,14 @@ const toggleSidebar = () => {
               </RouterLink>
 
               <RouterLink  to="/user_info" class="submenu-item">
-                <i class="bi bi-person-lines-fill"></i>
-                <span v-if="userRole ==='Admin'">All Users</span>
-                <span v-if="userRole ==='Manager'">Recruit Staff</span>
+                <div v-if="userRole ==='Admin'">
+                  <i class="bi bi-person-lines-fill"></i>
+                  <span >All Users</span>
+                </div>
+               <div v-if="userRole ==='Manager'">
+                 <i class="bi bi-person-lines-fill"></i>
+                 <span >Recruit Staff</span>
+               </div>
               </RouterLink>
             </div>
           </div>
@@ -129,10 +134,10 @@ const toggleSidebar = () => {
           </div>
         </div>
 
-        <div class="menu-category" v-if="userRole === 'Admin' || userRole === 'Manager'">Hospitals Management</div>
+        <div class="menu-category" v-if="userRole === 'Admin' || userRole === 'Manager' || userRole === 'Accountant'">Hospitals Management</div>
         <div class="menu-group" >
           <div class="menu-item" @click="$event.currentTarget.classList.toggle('open')">
-            <div class="menu-header">
+            <div class="menu-header" v-if="userRole === 'Admin' || userRole === 'Manager' || userRole === 'Accountant'">
               <div class="menu-icon">
                 <i class="bi bi-hospital-fill"></i>
               </div>
@@ -148,7 +153,6 @@ const toggleSidebar = () => {
                 <i class="bi bi-building-add"></i>
                 <span>Registered Hospitals</span>
               </RouterLink>
-
               <RouterLink v-if="userRole === 'Manager'" to="/hospital/lab/management" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Lab Management</span>
@@ -159,12 +163,12 @@ const toggleSidebar = () => {
               </RouterLink>
 
 
-              <RouterLink v-if="userRole === 'Manager'" to="/hospital/make/payment" class="submenu-item">
+              <RouterLink v-if="userRole === 'Accountant'" to="/hospital/make/payment" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Make Payment</span>
               </RouterLink>
 
-              <RouterLink v-if="userRole === 'Manager'" to="/admin/hospital/cash/flow" class="submenu-item">
+              <RouterLink v-if="userRole === 'Manager' || userRole === 'Admin' || userRole === 'Accountant'" to="/admin/hospital/cash/flow" class="submenu-item">
                 <i class="bi bi-building-add"></i>
                 <span>Cash Flow</span>
               </RouterLink>

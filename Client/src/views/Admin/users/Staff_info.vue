@@ -104,7 +104,7 @@ const searchResults = computed(() => {
                   <th class="py-3">Email</th>
                   <th class="py-3">Contact</th>
                   <th class="py-3">Unique ID</th>
-                  <th class="py-3">Actions</th>
+                  <th class="py-3" v-if="userRole ==='Manager'">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -140,7 +140,7 @@ const searchResults = computed(() => {
 
                   </td>
                   <td>{{ item.unique_id }}</td>
-                  <td>
+                  <td v-if="userRole ==='Manager'">
                     <div class="d-flex gap-2">
 
                       <button v-if="item.status === 1" class="btn btn-danger btn-sm" @click="removeStaff(item.id)">

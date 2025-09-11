@@ -89,7 +89,7 @@ const {userRole} = useSession()
                   <th class="py-3" v-if="userRole === 'Doctor'">Allergies</th>
                   <th class="py-3" v-if="userRole === 'Doctor'">Medical Conditions</th>
                   <th class="py-3" v-if="userRole === 'Doctor'">Additional Notes</th>
-                  <th class="py-3" v-if="userRole !== 'Manager' && userRole !== 'Accountant'">Actions</th>
+                  <th class="py-3" v-if="userRole !== 'Manager'">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -158,7 +158,7 @@ const {userRole} = useSession()
                         New Medical Record
                       </RouterLink>
 
-       <RouterLink v-if="userRole !== 'Receptionist' && userRole !== 'Manager' && userRole !== 'Accountant'" :to="{name: 'patients.list_all', params: {id: item.id}}"
+       <RouterLink v-if="userRole !== 'Receptionist' && userRole !== 'Manager'" :to="{name: 'patients.list_all', params: {id: item.id}}"
                                   class="btn btn-primary btn-sm">
                         Past Medical History
                       </RouterLink>
