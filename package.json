@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "install": "cd Client && npm install",
     "build": "cd Client && npm run build",
     "frontend": "cd Client && npm run preview",
     "backend": "cd Server && php artisan serve",
